@@ -1,0 +1,4919 @@
+:root {
+  color-scheme: dark;
+  --bg: #03060a;
+  --panel: rgba(255, 255, 255, 0.06);
+  --panel-strong: rgba(255, 255, 255, 0.105);
+  --text: #f7f7fb;
+  --muted: #aeb5c4;
+  --accent: #eaff2c;
+  --accent-2: #18e6ff;
+  --accent-3: #ff3366;
+  --border: rgba(234, 255, 44, 0.18);
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 7% 0%, rgba(234, 255, 44, 0.16), transparent 30rem),
+    radial-gradient(circle at 96% 4%, rgba(24, 230, 255, 0.2), transparent 34rem),
+    radial-gradient(circle at 58% 12%, rgba(255, 51, 102, 0.12), transparent 34rem),
+    linear-gradient(180deg, #071014 0%, #03050a 52%, #02040a 100%);
+}
+
+body[data-theme="marvel"] {
+  --accent: #ff2147;
+  --accent-2: #f9f4e8;
+  --accent-3: #ffd43b;
+  --border: rgba(255, 33, 71, 0.28);
+  background:
+    radial-gradient(circle at 12% 0%, rgba(255, 33, 71, 0.22), transparent 30rem),
+    radial-gradient(circle at 96% 5%, rgba(255, 212, 59, 0.16), transparent 28rem),
+    linear-gradient(180deg, #12070b 0%, #050308 64%);
+}
+
+body[data-theme="vf"] {
+  --accent: #ff9f1c;
+  --accent-2: #ffffff;
+  --accent-3: #e5383b;
+  --border: rgba(255, 159, 28, 0.28);
+  background:
+    radial-gradient(circle at 10% 0%, rgba(255, 159, 28, 0.18), transparent 32rem),
+    radial-gradient(circle at 92% 8%, rgba(229, 56, 59, 0.18), transparent 28rem),
+    linear-gradient(180deg, #11100c 0%, #040504 62%);
+}
+
+body[data-theme="avatar"] {
+  --accent: #49c6ff;
+  --accent-2: #7dfcc6;
+  --accent-3: #ffb703;
+  --border: rgba(73, 198, 255, 0.28);
+  background:
+    radial-gradient(circle at 10% 0%, rgba(73, 198, 255, 0.2), transparent 30rem),
+    radial-gradient(circle at 96% 8%, rgba(125, 252, 198, 0.16), transparent 30rem),
+    linear-gradient(180deg, #06131a 0%, #03080c 62%);
+}
+
+.shell {
+  display: grid;
+  grid-template-columns: 285px 1fr;
+  min-height: 100vh;
+}
+
+.game-sidebar {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+  padding: 16px;
+  background: rgba(2, 6, 23, 0.74);
+  border-right: 1px solid var(--border);
+  backdrop-filter: blur(18px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.brand-mark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  color: #06111f;
+  border-radius: 15px 15px 22px 15px;
+  background: linear-gradient(135deg, var(--accent-2), var(--accent));
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.22), 0 14px 28px rgba(0,0,0,0.35);
+  overflow: hidden;
+}
+
+.brand-mark::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 2px solid rgba(6,17,31,0.42);
+  border-radius: 11px 11px 17px 11px;
+}
+
+.brand-mark-main { position: relative; z-index: 1; font-size: 1rem; font-weight: 1000; letter-spacing: -0.08em; }
+.brand-mark-dot { position: absolute; right: 8px; bottom: 8px; width: 8px; height: 8px; border-radius: 999px; background: var(--accent-3); }
+.brand strong, .brand small { display: block; }
+.brand strong { font-size: 1.1rem; letter-spacing: -0.04em; }
+.brand small { color: var(--muted); font-weight: 800; }
+
+.game-nav { display: grid; gap: 12px; }
+
+.game-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 88px;
+  padding: 12px;
+  color: var(--text);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid transparent;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.game-button:hover,
+.game-button.is-active {
+  transform: translateX(3px);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: color-mix(in srgb, var(--button-accent, var(--accent)) 70%, transparent);
+}
+.game-button.is-active {
+  box-shadow: inset 3px 0 0 var(--button-accent-2, var(--accent-2));
+  border-color: color-mix(in srgb, var(--button-accent-2, var(--accent-2)) 70%, transparent);
+}
+.game-button.is-empty { color: rgba(247, 247, 251, 0.72); }
+.game-count { display: none; }
+.game-name { display: flex; align-items: center; justify-content: center; width: 100%; min-width: 0; }
+.game-name .game-logo,
+.game-name .text-logo {
+  display: block;
+  width: 100%;
+  max-width: 220px;
+  max-height: 72px;
+  margin-inline: auto;
+  object-fit: contain;
+  object-position: center center;
+  filter: drop-shadow(0 7px 14px rgba(0,0,0,0.5));
+}
+
+.app {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 28px clamp(16px, 2vw, 32px) 54px;
+}
+
+.hero { display: grid; gap: 10px; margin-bottom: 24px; }
+.game-logo-wrap { display: flex; align-items: center; min-height: 90px; }
+.game-logo {
+  width: min(330px, 42vw);
+  max-height: 112px;
+  object-fit: contain;
+  object-position: left center;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.45));
+}
+.game-logo.compact,
+.game-logo-wrap.compact .game-logo { width: 220px; max-height: 82px; }
+
+.text-logo {
+  display: inline-flex;
+  align-items: center;
+  min-height: 76px;
+  padding: 0 18px;
+  color: var(--accent-2);
+  font-weight: 1000;
+  font-size: clamp(1.5rem, 2.2vw, 2.7rem);
+  letter-spacing: -0.08em;
+  text-transform: uppercase;
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03));
+  box-shadow: var(--shadow);
+}
+.text-logo.compact { min-height: 42px; font-size: 1.25rem; }
+
+.eyebrow { margin: 0; color: var(--accent-2); font-size: 0.66rem; font-weight: 1000; letter-spacing: 0.16em; text-transform: uppercase; }
+h1 { max-width: 720px; margin: 0; font-size: clamp(1.55rem, 2.1vw, 2.75rem); line-height: 1.02; letter-spacing: -0.06em; }
+.intro { max-width: 760px; margin: 0; color: var(--muted); font-size: 0.94rem; line-height: 1.55; }
+
+.game-workspace {
+  display: grid;
+  grid-template-columns: minmax(280px, 320px) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+.info-column { position: sticky; top: 24px; display: grid; gap: 16px; min-width: 0; }
+.cast-panel { min-width: 0; }
+
+.selection-builder {
+  display: grid;
+  gap: 16px;
+  padding: 16px;
+  background: linear-gradient(135deg, rgba(24, 230, 255, 0.08), rgba(234, 255, 44, 0.04)), rgba(255, 255, 255, 0.035);
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  box-shadow: var(--shadow);
+}
+.selection-builder h2 { margin: 0 0 8px; font-size: clamp(1.05rem, 1.2vw, 1.35rem); letter-spacing: -0.05em; }
+.selection-help { margin: 0; color: var(--muted); line-height: 1.5; }
+.query-panel { display: grid; gap: 12px; min-width: 0; }
+.selection-title { margin: 0; color: var(--text); font-weight: 1000; }
+.query-mode-card {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 12px;
+  background: rgba(2, 6, 23, 0.62);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+}
+.query-mode-card > span { color: var(--accent); font-size: 0.76rem; font-weight: 1000; letter-spacing: 0.1em; text-transform: uppercase; }
+.generated-query {
+  display: block;
+  min-height: 44px;
+  max-height: 110px;
+  overflow: auto;
+  padding: 12px;
+  color: var(--accent-2);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+}
+.query-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.query-link,
+.copy-button { display: inline-flex; justify-content: center; align-items: center; min-height: 42px; padding: 0 13px; font-size: 0.84rem; font-weight: 1000; border-radius: 13px; }
+.query-link { width: 52px; min-width: 52px; color: #fff; background: #000; border: 1px solid rgba(255,255,255,0.28); box-shadow: 0 10px 22px rgba(0,0,0,0.35); }
+.query-link:hover { border-color: var(--accent-2); }
+.query-link.is-disabled { pointer-events: none; opacity: 0.45; }
+.copy-button { color: var(--text); cursor: pointer; background: rgba(255, 255, 255, 0.075); border: 1px solid rgba(255,255,255,0.16); }
+.copy-button:disabled { cursor: not-allowed; opacity: 0.45; }
+.x-icon { display: block; width: 22px; height: 22px; fill: currentColor; }
+.query-link .x-icon { width: 24px; height: 24px; fill: #fff; }
+
+.resource-panel { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; }
+.resource-link {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  align-items: center;
+  min-height: 72px;
+  padding: 13px 14px;
+  color: inherit;
+  text-decoration: none;
+  background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.035));
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+.resource-link:hover { transform: translateY(-2px); background: rgba(255,255,255,0.1); border-color: rgba(24,230,255,0.5); }
+.resource-icon { grid-row: 1 / 3; width: 30px; height: 30px; display: grid; place-items: center; }
+.resource-icon-2xko {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: rgba(234,255,44,0.11);
+  border: 1px solid rgba(234,255,44,0.28);
+  border-radius: 9px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12), 0 8px 16px rgba(0,0,0,0.28);
+}
+.resource-icon-2xko img { width: 24px; height: 24px; object-fit: contain; display: block; }
+.resource-icon-x { color: #fff; background: #000; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; }
+.resource-icon-x .x-icon { width: 16px; height: 16px; fill: #fff; }
+.resource-link span:not(.resource-icon) { color: var(--muted); font-size: 0.72rem; font-weight: 950; text-transform: uppercase; }
+.resource-link strong { color: var(--accent-2); font-size: 0.93rem; line-height: 1.2; }
+.resource-link-main strong { color: var(--accent); }
+
+.champion-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(218px, 1fr));
+  gap: 16px;
+  perspective: 1200px;
+  width: 100%;
+}
+.champion-card {
+  position: relative;
+  min-height: 455px;
+  transform-style: preserve-3d;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--panel-strong), rgba(255, 255, 255, 0.035)), linear-gradient(135deg, rgba(24, 230, 255, 0.07), rgba(234, 255, 44, 0.045));
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 26px;
+  box-shadow: var(--shadow);
+  transition: transform 170ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+.champion-card:hover { border-color: rgba(24, 230, 255, 0.4); box-shadow: 0 24px 58px rgba(0,0,0,0.46); }
+.champion-card.is-selected { border-color: rgba(234, 255, 44, 0.9); box-shadow: 0 0 0 2px rgba(234, 255, 44, 0.25), 0 0 44px rgba(24, 230, 255, 0.18), var(--shadow); }
+.champion-card-button {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  width: 100%;
+  min-height: 382px;
+  padding: 0;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  font: inherit;
+}
+.champion-art-wrap {
+  position: relative;
+  display: grid;
+  place-items: end center;
+  min-height: 338px;
+  padding: 0 2px;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 58%, rgba(234, 255, 44, 0.15), transparent 38%), radial-gradient(circle, rgba(24, 230, 255, 0.12), transparent 70%);
+}
+.champion-art {
+  width: 100%;
+  height: 340px;
+  object-fit: contain;
+  object-position: center top;
+  filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.55));
+  transform: perspective(850px) rotateX(var(--art-tilt-x, 0deg)) rotateY(var(--art-tilt-y, 0deg)) translate(var(--art-x, 0px), var(--art-y, 0px)) scale(var(--art-scale, 1.16));
+  transform-origin: center 18%;
+  transition: transform 180ms ease, filter 180ms ease;
+}
+.champion-card:hover .champion-art,
+.champion-card-button:focus-visible .champion-art { transform: perspective(850px) rotateX(var(--art-tilt-x, 0deg)) rotateY(var(--art-tilt-y, 0deg)) translate(var(--art-x, 0px), calc(var(--art-y, 0px) - 3px)) scale(calc(var(--art-scale, 1.16) + 0.025)); filter: drop-shadow(0 26px 28px rgba(0, 0, 0, 0.65)); }
+.champion-card[data-size="tiny"] .champion-art { height: 310px; }
+.champion-card[data-size="medium"] .champion-art { height: 340px; }
+.champion-card[data-size="big"] .champion-art { height: 365px; }
+.champion-fallback { display: none; place-items: center; width: 92px; height: 92px; font-size: 2.2rem; font-weight: 900; border-radius: 999px; color: #06111f; background: linear-gradient(135deg, var(--accent-2), var(--accent)); }
+.champion-fallback.is-visible { display: grid; }
+.champion-content { padding: 10px 12px 7px; background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.18)); }
+.champion-title-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.champion-name { margin: 0; font-size: 1.22rem; letter-spacing: -0.045em; }
+.health-badge,
+.detail-health { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; min-width: 62px; min-height: 26px; padding: 0 8px; color: #06111f; font-size: 0.68rem; font-weight: 1000; border-radius: 999px; background: linear-gradient(135deg, var(--accent-2), var(--accent)); box-shadow: 0 8px 18px rgba(0,0,0,0.28); }
+.health-badge.is-loading { opacity: 0.72; }
+.detail-health { width: fit-content; min-height: 42px; font-size: 1rem; }
+.champion-links { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; justify-content: center; padding: 0 10px 12px; }
+.champion-tag { display: none; }
+.champion-detail-link,
+.champion-wiki-link,
+.champion-official-link { color: var(--accent); font-size: 0.62rem; font-weight: 950; text-decoration: none; text-transform: uppercase; padding: 5px 7px; border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; background: rgba(255,255,255,0.055); }
+.champion-detail-link:hover,
+.champion-wiki-link:hover,
+.champion-official-link:hover { text-decoration: underline; }
+
+.empty-state {
+  grid-column: 1 / -1;
+  display: grid;
+  place-items: center;
+  min-height: 56vh;
+  padding: clamp(28px, 5vw, 64px);
+  text-align: center;
+  background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.025));
+  border: 1px solid var(--border);
+  border-radius: 32px;
+  box-shadow: var(--shadow);
+}
+.empty-state h2 { margin: 22px 0 8px; font-size: clamp(1.7rem, 2.6vw, 3.4rem); letter-spacing: -0.06em; }
+.empty-state p { max-width: 640px; margin: 0 auto; color: var(--muted); line-height: 1.6; }
+.empty-logo { display: grid; place-items: center; margin-bottom: 10px; }
+.empty-logo .game-logo { object-position: center; width: min(420px, 72vw); max-height: 170px; }
+
+.back-link { display: inline-flex; width: fit-content; margin-bottom: 24px; color: var(--accent-2); font-weight: 900; text-decoration: none; }
+.back-link:hover { text-decoration: underline; }
+.detail-page { display: grid; }
+.detail-hero {
+  display: grid;
+  grid-template-columns: minmax(540px, 1.18fr) minmax(360px, 0.82fr);
+  gap: clamp(36px, 5vw, 86px);
+  align-items: center;
+  min-height: min(820px, calc(100vh - 92px));
+  padding: clamp(30px, 3.2vw, 58px);
+  overflow: visible;
+  background: linear-gradient(135deg, rgba(24, 230, 255, 0.09), rgba(234, 255, 44, 0.045)), rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 36px;
+  box-shadow: var(--shadow);
+}
+.detail-art-wrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: clamp(680px, 76vh, 980px);
+  overflow: visible;
+  background:
+    radial-gradient(circle at 50% 58%, rgba(234, 255, 44, 0.18), transparent 36%),
+    radial-gradient(circle at 50% 48%, rgba(24, 230, 255, 0.14), transparent 68%);
+  border-radius: 28px;
+}
+.detail-art {
+  width: min(100%, 980px);
+  height: clamp(680px, 78vh, 980px);
+  object-fit: contain;
+  object-position: center center;
+  filter: drop-shadow(0 44px 44px rgba(0, 0, 0, 0.72));
+}
+.detail-fallback { width: 190px; height: 190px; font-size: 3.4rem; }
+.detail-content { display: grid; gap: 18px; position: relative; z-index: 2; }
+.link-panel { display: grid; gap: 14px; margin-top: 10px; }
+.big-link { display: grid; gap: 6px; padding: 18px; color: inherit; text-decoration: none; background: rgba(0, 0, 0, 0.24); border: 1px solid rgba(255,255,255,0.14); border-radius: 20px; transition: transform 160ms ease, border-color 160ms ease, background 160ms ease; }
+.big-link:hover { transform: translateY(-2px); background: rgba(255, 255, 255, 0.08); border-color: rgba(24, 230, 255, 0.45); }
+.big-link span { color: var(--muted); font-weight: 850; }
+.big-link strong { color: var(--accent-2); font-size: 1.12rem; overflow-wrap: anywhere; }
+.x-detail-link { grid-template-columns: auto 1fr; align-items: center; }
+.x-detail-link span { display: grid; place-items: center; width: 42px; height: 42px; color: #fff; background: #000; border: 1px solid rgba(255,255,255,0.24); border-radius: 14px; }
+.x-detail-link span .x-icon { width: 24px; height: 24px; fill: #fff; }
+
+.champion-card-button:focus-visible,
+.copy-button:focus-visible,
+.big-link:focus-visible,
+.back-link:focus-visible,
+.game-button:focus-visible,
+.resource-link:focus-visible,
+.champion-detail-link:focus-visible,
+.champion-wiki-link:focus-visible,
+.champion-official-link:focus-visible { outline: 3px solid rgba(24, 230, 255, 0.72); outline-offset: 4px; }
+
+@media (max-width: 1450px) {
+  .game-workspace { grid-template-columns: 1fr; }
+  .info-column { position: static; }
+}
+@media (max-width: 1180px) {
+  .shell { grid-template-columns: 1fr; }
+  .game-sidebar { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--border); }
+  .game-nav { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+}
+@media (max-width: 900px) {
+  .app { padding: 32px 16px; }
+  .detail-hero { grid-template-columns: 1fr; min-height: auto; padding: 18px; overflow: hidden; }
+  .detail-art-wrap { min-height: clamp(420px, 64vh, 640px); overflow: visible; }
+  .detail-art { width: min(100%, 680px); height: clamp(420px, 64vh, 640px); }
+}
+@media (max-width: 640px) {
+  .game-nav { grid-template-columns: 1fr; }
+  .champion-grid { grid-template-columns: repeat(auto-fit, minmax(205px, 1fr)); gap: 14px; }
+  .champion-card { min-height: 430px; border-radius: 20px; }
+  .champion-card-button { min-height: 350px; }
+  .champion-art-wrap { min-height: 270px; }
+  .champion-art { height: 275px; }
+  .champion-name { font-size: 1.25rem; }
+  h1 { font-size: clamp(1.9rem, 10vw, 3rem); }
+  .resource-panel { grid-template-columns: 1fr; }
+}
+
+.selection-title[hidden] { display: none !important; }
+
+.generated-query:empty::before { content: ''; }
+
+/* --- TechLab polish: full-card artwork + centered labels --- */
+.game-button:hover,
+.game-button.is-active {
+  background: color-mix(in srgb, var(--button-accent, var(--accent)) 13%, rgba(255,255,255,0.045));
+  border-color: color-mix(in srgb, var(--button-accent, var(--accent)) 72%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--button-accent, var(--accent)) 18%, transparent), 0 12px 26px rgba(0,0,0,0.24);
+}
+.game-button.is-active {
+  box-shadow: inset 3px 0 0 var(--button-accent, var(--accent)), 0 0 0 1px color-mix(in srgb, var(--button-accent, var(--accent)) 25%, transparent), 0 12px 26px rgba(0,0,0,0.24);
+}
+
+.champion-grid {
+  grid-template-columns: repeat(auto-fill, minmax(210px, 235px));
+  justify-content: start;
+  align-items: start;
+  gap: 16px;
+}
+
+.champion-card {
+  min-height: 405px;
+  height: 405px;
+  border-radius: 22px;
+  isolation: isolate;
+}
+
+.champion-card::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 46%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(2,7,13,0.78) 52%, rgba(2,7,13,0.96));
+}
+
+.champion-card-button {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.champion-art-wrap {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 58%, rgba(234, 255, 44, 0.18), transparent 29%),
+    radial-gradient(circle at 50% 46%, rgba(24, 230, 255, 0.16), transparent 62%);
+}
+
+.champion-art {
+  width: 100%;
+  height: 100% !important;
+  object-fit: contain;
+  object-position: center top;
+  filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.6));
+  transform:
+    perspective(620px)
+    rotateX(var(--art-tilt-x, 0deg))
+    rotateY(var(--art-tilt-y, 0deg))
+    translate(var(--art-x, 0px), var(--art-y, 0px))
+    scale(var(--art-scale, 1.34));
+  transform-origin: center 24%;
+  transition: transform 120ms ease-out, filter 140ms ease-out;
+}
+
+.champion-card:hover .champion-art,
+.champion-card-button:focus-visible .champion-art {
+  transform:
+    perspective(620px)
+    rotateX(var(--art-tilt-x, 0deg))
+    rotateY(var(--art-tilt-y, 0deg))
+    translate(var(--art-x, 0px), var(--art-y, 0px))
+    scale(calc(var(--art-scale, 1.34) + 0.035));
+  filter: drop-shadow(0 28px 32px rgba(0, 0, 0, 0.68));
+}
+
+.champion-overlay {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 3;
+  display: grid;
+  gap: 8px;
+  padding: 0 12px 13px;
+  pointer-events: auto;
+}
+
+.champion-content,
+.champion-title-row { display: contents; }
+
+.champion-name-link {
+  justify-self: center;
+  color: var(--text);
+  text-decoration: none;
+  max-width: 100%;
+  padding: 2px 8px;
+  border-radius: 999px;
+  transition: color 140ms ease, background 140ms ease, text-shadow 140ms ease, transform 140ms ease;
+}
+
+.champion-name-link:hover,
+.champion-name-link:focus-visible {
+  color: var(--accent-2);
+  background: rgba(234,255,44,0.08);
+  text-shadow: 0 0 16px rgba(234,255,44,0.34);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.champion-name {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 1.14rem;
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.champion-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 27px;
+  padding: 0;
+}
+
+.champion-wiki-link,
+.champion-official-link {
+  color: var(--accent);
+  font-size: 0.6rem;
+  font-weight: 1000;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 5px 7px;
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.07);
+}
+
+.champion-wiki-link:hover,
+.champion-official-link:hover {
+  color: #06111f;
+  background: linear-gradient(135deg, var(--accent-2), var(--accent));
+  text-decoration: none;
+}
+
+.health-badge {
+  margin-left: auto;
+  min-width: 58px;
+  min-height: 24px;
+  padding: 0 7px;
+  font-size: 0.63rem;
+}
+
+.champion-detail-link { display: none !important; }
+
+@media (max-width: 1300px) {
+  .champion-grid { grid-template-columns: repeat(auto-fill, minmax(195px, 225px)); }
+  .champion-card { height: 390px; min-height: 390px; }
+}
+
+@media (max-width: 920px) {
+  .champion-grid { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+  .champion-card { height: 350px; min-height: 350px; }
+}
+
+/* --- TechLab pass: cleaner resource icons + stronger avatar staging --- */
+.resource-icon-2xko,
+.resource-icon-youtube,
+.resource-icon-reddit {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), 0 8px 16px rgba(0,0,0,0.28);
+}
+
+.resource-icon-2xko {
+  background: rgba(234,255,44,0.10);
+  border-color: rgba(234,255,44,0.32);
+}
+
+.resource-icon-2xko img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
+}
+
+.resource-icon-youtube {
+  color: #fff;
+  background: #ff0033;
+}
+
+.resource-icon-reddit {
+  color: #fff;
+  background: #ff4500;
+}
+
+.youtube-icon,
+.reddit-icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.champion-card {
+  min-height: 408px;
+  height: 408px;
+}
+
+.champion-card::after {
+  height: 43%;
+  background: linear-gradient(180deg, transparent 0%, rgba(2,7,13,0.64) 45%, rgba(2,7,13,0.96) 100%);
+}
+
+.champion-art {
+  object-position: center center;
+  transform:
+    perspective(500px)
+    rotateX(var(--art-tilt-x, 0deg))
+    rotateY(var(--art-tilt-y, 0deg))
+    translate(var(--art-x, 0px), var(--art-y, 0px))
+    scale(var(--art-scale, 1.38));
+  transform-origin: center 32%;
+  transition: transform 95ms ease-out, filter 120ms ease-out;
+  will-change: transform;
+}
+
+.champion-card:hover .champion-art,
+.champion-card-button:focus-visible .champion-art {
+  transform:
+    perspective(500px)
+    rotateX(var(--art-tilt-x, 0deg))
+    rotateY(var(--art-tilt-y, 0deg))
+    translate(var(--art-x, 0px), var(--art-y, 0px))
+    scale(calc(var(--art-scale, 1.38) + 0.055));
+  filter: drop-shadow(0 30px 34px rgba(0, 0, 0, 0.72));
+}
+
+.champion-overlay {
+  padding: 0 12px 12px;
+  gap: 7px;
+}
+
+.champion-name-link {
+  max-width: calc(100% - 18px);
+  background: rgba(0,0,0,0.12);
+  backdrop-filter: blur(1px);
+}
+
+.champion-name-link:hover,
+.champion-name-link:focus-visible {
+  background: rgba(234,255,44,0.12);
+}
+
+.champion-links {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  justify-content: stretch;
+  width: 100%;
+  gap: 6px;
+}
+
+.health-badge {
+  justify-self: end;
+  margin-left: 0;
+}
+
+.champion-wiki-link,
+.champion-official-link {
+  justify-self: start;
+}
+
+@media (max-width: 1300px) {
+  .champion-card { height: 392px; min-height: 392px; }
+}
+
+@media (max-width: 920px) {
+  .champion-card { height: 360px; min-height: 360px; }
+}
+
+/* --- TechLab pass: borderless character stands + cleaner link colors --- */
+.app {
+  padding-top: 22px;
+}
+
+.game-workspace {
+  grid-template-columns: minmax(280px, 320px) minmax(0, 1fr);
+  gap: 22px;
+}
+
+.info-column {
+  gap: 14px;
+}
+
+.resource-panel {
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.resource-link {
+  grid-template-columns: 42px 1fr;
+  min-height: 66px;
+  padding: 12px 14px;
+}
+
+.resource-icon,
+.resource-icon-2xko,
+.resource-icon-x,
+.resource-icon-youtube,
+.resource-icon-reddit {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  grid-row: 1 / 3;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), 0 9px 16px rgba(0,0,0,0.28);
+}
+
+.resource-icon-2xko {
+  background: rgba(234,255,44,0.11);
+  border: 1px solid rgba(234,255,44,0.35);
+}
+
+.resource-icon-2xko img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.resource-icon-x {
+  color: #fff;
+  background: #050505;
+  border: 1px solid rgba(255,255,255,0.24);
+}
+
+.resource-icon-x .x-icon,
+.resource-icon-youtube .youtube-icon,
+.resource-icon-reddit .reddit-icon {
+  width: 21px;
+  height: 21px;
+  fill: currentColor;
+}
+
+.resource-icon-youtube {
+  color: #fff;
+  background: #ff0033;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+
+.resource-icon-reddit {
+  color: #fff;
+  background: #ff4500;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+
+.resource-link-official strong { color: var(--accent); }
+.resource-link-youtube strong { color: #ff4a64; }
+.resource-link-reddit strong { color: #ff8a3d; }
+.resource-link-x strong { color: var(--accent-2); }
+
+.champion-grid {
+  grid-template-columns: repeat(auto-fill, minmax(205px, 228px));
+  align-items: start;
+  gap: 22px 16px;
+  perspective: 1400px;
+}
+
+.champion-card,
+.champion-card:hover,
+.champion-card.is-selected {
+  min-height: 392px;
+  height: 392px;
+  overflow: visible;
+  isolation: isolate;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0;
+  box-shadow: none !important;
+  transform-style: preserve-3d;
+}
+
+.champion-card::after {
+  display: none !important;
+}
+
+.champion-card-button {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: visible;
+}
+
+.champion-art-wrap {
+  position: absolute;
+  inset: -18px -4px 58px;
+  display: grid;
+  place-items: end center;
+  min-height: 0;
+  height: auto;
+  padding: 0;
+  overflow: visible;
+  background: none !important;
+}
+
+.champion-art-wrap::after {
+  content: '';
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: 4px;
+  height: 42px;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(234,255,44,0.20), rgba(24,230,255,0.08) 42%, transparent 72%);
+  filter: blur(3px);
+}
+
+.champion-art {
+  width: 122%;
+  height: 106% !important;
+  object-fit: contain;
+  object-position: center bottom;
+  transform-origin: center bottom;
+  filter: drop-shadow(0 20px 24px rgba(0, 0, 0, 0.64));
+  transform:
+    perspective(430px)
+    rotateX(var(--art-tilt-x, 0deg))
+    rotateY(var(--art-tilt-y, 0deg))
+    translate(var(--art-x, 0px), var(--art-y, 0px))
+    scale(var(--art-scale, 1.28));
+  transition: transform 80ms ease-out, filter 110ms ease-out;
+  will-change: transform;
+}
+
+.champion-card:hover .champion-art,
+.champion-card-button:focus-visible .champion-art {
+  transform:
+    perspective(430px)
+    rotateX(var(--art-tilt-x, 0deg))
+    rotateY(var(--art-tilt-y, 0deg))
+    translate(var(--art-x, 0px), var(--art-y, 0px))
+    scale(calc(var(--art-scale, 1.28) + 0.075));
+  filter: drop-shadow(0 32px 34px rgba(0, 0, 0, 0.76));
+}
+
+.champion-card[data-size="tiny"] .champion-art { width: 112%; height: 100% !important; }
+.champion-card[data-size="medium"] .champion-art { width: 120%; }
+.champion-card[data-size="big"] .champion-art { width: 132%; height: 112% !important; }
+
+.champion-overlay {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 0;
+  z-index: 5;
+  display: grid;
+  gap: 7px;
+  padding: 9px 10px 10px;
+  pointer-events: auto;
+  border: 1px solid rgba(234,255,44,0.16);
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(7,18,22,0.70), rgba(3,8,12,0.94)),
+    radial-gradient(circle at 50% -20%, rgba(234,255,44,0.16), transparent 55%);
+  box-shadow: 0 18px 34px rgba(0,0,0,0.44), inset 0 1px 0 rgba(255,255,255,0.06);
+  backdrop-filter: blur(8px);
+}
+
+.champion-overlay::after {
+  content: '';
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: -7px;
+  height: 3px;
+  border-radius: 999px;
+  opacity: 0;
+  background: linear-gradient(90deg, var(--accent-2), var(--accent));
+  box-shadow: 0 0 18px rgba(234,255,44,0.55);
+  transition: opacity 150ms ease, transform 150ms ease;
+  transform: scaleX(0.55);
+}
+
+.champion-card.is-selected .champion-overlay::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.champion-name-link {
+  justify-self: center;
+  max-width: 100%;
+  padding: 1px 8px;
+  color: var(--text);
+  background: transparent;
+  text-decoration: none;
+  border-radius: 999px;
+}
+
+.champion-name-link:hover,
+.champion-name-link:focus-visible {
+  color: var(--accent-2);
+  background: rgba(234,255,44,0.08);
+  text-shadow: 0 0 14px rgba(234,255,44,0.34);
+  outline: none;
+}
+
+.champion-name {
+  margin: 0;
+  text-align: center;
+  font-size: 1.08rem;
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.champion-links {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  justify-content: stretch;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 24px;
+  padding: 0;
+}
+
+.champion-wiki-link,
+.champion-official-link {
+  justify-self: start;
+  color: var(--accent);
+  font-size: 0.59rem;
+  font-weight: 1000;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 5px 7px;
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.075);
+}
+
+.champion-wiki-link:hover,
+.champion-official-link:hover {
+  color: #06111f;
+  background: linear-gradient(135deg, var(--accent-2), var(--accent));
+  text-decoration: none;
+}
+
+.health-badge {
+  justify-self: end;
+  margin-left: 0;
+  min-width: 58px;
+  min-height: 23px;
+  padding: 0 7px;
+  font-size: 0.62rem;
+}
+
+.empty-state {
+  min-height: 44vh;
+  margin-top: 10px;
+}
+
+.empty-state h2 {
+  margin-top: 0;
+}
+
+@media (max-width: 1300px) {
+  .champion-grid { grid-template-columns: repeat(auto-fill, minmax(195px, 222px)); }
+  .champion-card { height: 374px; min-height: 374px; }
+}
+
+@media (max-width: 920px) {
+  .game-workspace { grid-template-columns: 1fr; }
+  .champion-grid { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+  .champion-card { height: 338px; min-height: 338px; }
+  .champion-art-wrap { inset: -8px -2px 54px; }
+}
+
+/* --- TechLab hotfix: bounded character stands (no overlap / no offscreen mess) --- */
+.game-workspace {
+  align-items: start;
+}
+
+.champion-grid {
+  grid-template-columns: repeat(auto-fill, minmax(196px, 218px));
+  gap: 20px 18px;
+  align-items: start;
+  overflow: visible;
+}
+
+.champion-card,
+.champion-card:hover,
+.champion-card.is-selected {
+  position: relative;
+  height: 386px;
+  min-height: 386px;
+  overflow: hidden;
+  isolation: isolate;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0;
+  box-shadow: none !important;
+}
+
+.champion-card-button {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.champion-art-wrap {
+  position: absolute;
+  inset: 0 0 54px;
+  height: auto;
+  min-height: 0;
+  display: grid;
+  place-items: end center;
+  padding: 0;
+  overflow: hidden;
+  background: none !important;
+}
+
+.champion-art-wrap::after {
+  left: 18%;
+  right: 18%;
+  bottom: 1px;
+  height: 34px;
+  opacity: 0.82;
+}
+
+.champion-art {
+  width: 118%;
+  height: 100% !important;
+  max-width: none;
+  object-fit: contain;
+  object-position: center bottom;
+  transform-origin: center 62%;
+  filter: drop-shadow(0 18px 24px rgba(0,0,0,0.64));
+  transform:
+    perspective(620px)
+    rotateX(var(--art-tilt-x, 0deg))
+    rotateY(var(--art-tilt-y, 0deg))
+    translate(var(--art-x, 0px), var(--art-y, 0px))
+    scale(var(--art-scale, 1.12));
+  transition: transform 95ms ease-out, filter 120ms ease-out;
+  will-change: transform;
+}
+
+.champion-card:hover .champion-art,
+.champion-card-button:focus-visible .champion-art {
+  transform:
+    perspective(620px)
+    rotateX(var(--art-tilt-x, 0deg))
+    rotateY(var(--art-tilt-y, 0deg))
+    translate(var(--art-x, 0px), var(--art-y, 0px))
+    scale(calc(var(--art-scale, 1.12) + 0.018));
+  filter: drop-shadow(0 23px 28px rgba(0,0,0,0.72));
+}
+
+.champion-card[data-size="tiny"] .champion-art {
+  width: 108%;
+  height: 94% !important;
+}
+
+.champion-card[data-size="medium"] .champion-art {
+  width: 116%;
+}
+
+.champion-card[data-size="big"] .champion-art {
+  width: 126%;
+  height: 104% !important;
+}
+
+.champion-overlay {
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  z-index: 6;
+  padding: 8px 10px 9px;
+  pointer-events: auto;
+  background:
+    linear-gradient(180deg, rgba(7,18,22,0.74), rgba(3,8,12,0.95)),
+    radial-gradient(circle at 50% -28%, rgba(234,255,44,0.14), transparent 58%);
+}
+
+.champion-name {
+  font-size: 1.03rem;
+}
+
+.champion-links {
+  grid-template-columns: auto auto 1fr;
+  gap: 6px;
+}
+
+.champion-wiki-link,
+.champion-official-link {
+  padding: 5px 7px;
+}
+
+.health-badge {
+  min-width: 57px;
+}
+
+@media (max-width: 1300px) {
+  .champion-grid { grid-template-columns: repeat(auto-fill, minmax(188px, 210px)); }
+  .champion-card { height: 368px; min-height: 368px; }
+}
+
+@media (max-width: 920px) {
+  .champion-grid { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+  .champion-card { height: 332px; min-height: 332px; }
+  .champion-art-wrap { inset: 0 0 52px; }
+}
+
+
+/* --- TechLab hotfix: full visible avatars with protected text stands --- */
+.shell,
+.app,
+.game-workspace,
+.cast-panel,
+.champion-grid {
+  overflow: visible;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.game-sidebar {
+  z-index: 60;
+}
+
+.info-column {
+  z-index: 40;
+}
+
+.champion-grid {
+  grid-template-columns: repeat(auto-fill, minmax(196px, 218px));
+  gap: 28px 16px;
+  padding-top: 22px;
+  padding-bottom: 72px;
+  isolation: auto;
+}
+
+.champion-card,
+.champion-card:hover,
+.champion-card.is-selected {
+  height: 390px;
+  min-height: 390px;
+  overflow: visible !important;
+  isolation: auto !important;
+  contain: none;
+}
+
+.champion-card-button {
+  overflow: visible !important;
+}
+
+.champion-art-wrap {
+  inset: -34px -24px 52px;
+  overflow: visible !important;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.champion-art-wrap::after {
+  z-index: -1;
+  bottom: 4px;
+  opacity: 0.76;
+}
+
+.champion-art {
+  width: 128%;
+  height: 100% !important;
+  max-width: none;
+  object-fit: contain;
+  object-position: center bottom;
+  transform-origin: center 60%;
+  transform:
+    perspective(620px)
+    rotateX(var(--art-tilt-x, 0deg))
+    rotateY(var(--art-tilt-y, 0deg))
+    translate(var(--art-x, 0px), var(--art-y, 0px))
+    scale(var(--art-scale, 1.12));
+}
+
+.champion-card:hover .champion-art,
+.champion-card-button:focus-visible .champion-art {
+  transform:
+    perspective(620px)
+    rotateX(var(--art-tilt-x, 0deg))
+    rotateY(var(--art-tilt-y, 0deg))
+    translate(var(--art-x, 0px), var(--art-y, 0px))
+    scale(calc(var(--art-scale, 1.12) + 0.018));
+}
+
+.champion-card:hover .champion-art-wrap,
+.champion-card:focus-within .champion-art-wrap {
+  z-index: 6;
+}
+
+.champion-card[data-size="tiny"] .champion-art {
+  width: 114%;
+  height: 92% !important;
+}
+
+.champion-card[data-size="medium"] .champion-art {
+  width: 126%;
+}
+
+.champion-card[data-size="big"] .champion-art {
+  width: 138%;
+  height: 108% !important;
+}
+
+.champion-overlay {
+  z-index: 30;
+  bottom: 6px;
+  pointer-events: auto;
+}
+
+.champion-name-link,
+.champion-links,
+.health-badge,
+.champion-wiki-link,
+.champion-official-link {
+  position: relative;
+  z-index: 31;
+}
+
+@media (max-width: 1300px) {
+  .champion-grid { grid-template-columns: repeat(auto-fill, minmax(188px, 210px)); gap: 24px 14px; }
+  .champion-card { height: 374px; min-height: 374px; }
+  .champion-art-wrap { inset: -26px -18px 52px; }
+}
+
+@media (max-width: 920px) {
+  .champion-grid { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+  .champion-card { height: 340px; min-height: 340px; }
+  .champion-art-wrap { inset: -18px -12px 50px; }
+}
+
+
+/* --- TechLab refinement: airy stands + selected info panel --- */
+.game-workspace {
+  grid-template-columns: minmax(290px, 320px) minmax(0, 1fr);
+  gap: 44px;
+}
+
+.cast-panel {
+  padding-left: 12px;
+}
+
+.champion-grid {
+  grid-template-columns: repeat(auto-fill, minmax(210px, 236px));
+  gap: 40px 34px;
+  padding-top: 34px;
+  padding-left: 8px;
+}
+
+.champion-card,
+.champion-card:hover,
+.champion-card.is-selected {
+  height: 402px;
+  min-height: 402px;
+}
+
+.champion-card-button {
+  inset: 0;
+  overflow: visible !important;
+}
+
+.champion-art-wrap {
+  inset: -24px -18px 54px;
+  overflow: visible !important;
+}
+
+.champion-art {
+  width: 122%;
+  height: 100% !important;
+  transform-origin: center 70%;
+}
+
+.champion-card[data-size="tiny"] .champion-art {
+  width: 108%;
+  height: 92% !important;
+}
+
+.champion-card[data-size="medium"] .champion-art {
+  width: 120%;
+  height: 100% !important;
+}
+
+.champion-card[data-size="big"] .champion-art {
+  width: 128%;
+  height: 104% !important;
+}
+
+.champion-card:hover .champion-art,
+.champion-card-button:focus-visible .champion-art {
+  transform:
+    perspective(620px)
+    rotateX(var(--art-tilt-x, 0deg))
+    rotateY(var(--art-tilt-y, 0deg))
+    translate(var(--art-x, 0px), var(--art-y, 0px))
+    scale(calc(var(--art-scale, 1.12) + 0.012));
+}
+
+.champion-overlay {
+  left: 9px;
+  right: 9px;
+  bottom: 10px;
+  border-color: rgba(234,255,44,0.18);
+  transition: border-color 150ms ease, box-shadow 150ms ease, background 150ms ease, transform 150ms ease;
+}
+
+.champion-overlay::after {
+  display: none !important;
+}
+
+.champion-card.is-selected .champion-overlay {
+  border-color: rgba(234,255,44,0.92);
+  background:
+    linear-gradient(180deg, rgba(24,230,255,0.18), rgba(3,8,12,0.95)),
+    radial-gradient(circle at 50% -26%, rgba(234,255,44,0.26), transparent 58%);
+  box-shadow:
+    0 0 0 2px rgba(234,255,44,0.26),
+    0 0 28px rgba(24,230,255,0.18),
+    0 18px 34px rgba(0,0,0,0.46),
+    inset 0 1px 0 rgba(255,255,255,0.12);
+}
+
+.champion-card.is-selected .champion-name-link {
+  color: var(--accent-2);
+  text-shadow: 0 0 15px rgba(234,255,44,0.44);
+}
+
+@media (max-width: 1450px) {
+  .game-workspace { grid-template-columns: 1fr; gap: 24px; }
+  .cast-panel { padding-left: 0; }
+}
+
+@media (max-width: 1300px) {
+  .champion-grid { grid-template-columns: repeat(auto-fill, minmax(198px, 224px)); gap: 34px 24px; }
+  .champion-card { height: 382px; min-height: 382px; }
+  .champion-art-wrap { inset: -20px -14px 52px; }
+}
+
+@media (max-width: 920px) {
+  .champion-grid { grid-template-columns: repeat(auto-fill, minmax(172px, 1fr)); gap: 28px 18px; }
+  .champion-card { height: 344px; min-height: 344px; }
+  .champion-art-wrap { inset: -14px -8px 50px; }
+}
+
+
+/* --- TechLab pass: selected aura + extra links + Illaoi balance --- */
+.resource-icon-tournament,
+.resource-icon-glossary {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  grid-row: 1 / 3;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), 0 9px 16px rgba(0,0,0,0.28);
+}
+
+.resource-icon-tournament {
+  color: #07111b;
+  background: linear-gradient(135deg, #ffd84d, #eaff2c);
+  border: 1px solid rgba(234,255,44,0.42);
+}
+
+.resource-icon-glossary {
+  color: #07111b;
+  background: linear-gradient(135deg, #18e6ff, #7dfcc6);
+  border: 1px solid rgba(24,230,255,0.38);
+}
+
+.resource-icon-tournament .tournament-icon,
+.resource-icon-glossary .glossary-icon {
+  width: 21px;
+  height: 21px;
+  fill: currentColor;
+}
+
+.resource-link-tournament strong { color: #ffe35e; }
+.resource-link-glossary strong { color: #79f7ff; }
+
+.champion-card::before {
+  content: '';
+  position: absolute;
+  left: 7%;
+  right: 7%;
+  top: 17%;
+  bottom: 92px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.82);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 46%, rgba(234,255,44,0.42), rgba(24,230,255,0.24) 34%, rgba(24,230,255,0.08) 58%, transparent 74%);
+  filter: blur(14px);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.champion-card.is-selected::before {
+  opacity: 1;
+  transform: scale(1.04);
+}
+
+.champion-card.is-selected .champion-art-wrap::after {
+  opacity: 1;
+  background: radial-gradient(ellipse at center, rgba(234,255,44,0.36), rgba(24,230,255,0.18) 44%, transparent 74%);
+  filter: blur(4px);
+}
+
+.champion-card.is-selected .champion-art {
+  filter:
+    drop-shadow(0 0 14px rgba(234,255,44,0.24))
+    drop-shadow(0 22px 28px rgba(0,0,0,0.74));
+}
+
+.champion-card[data-character-slug="illaoi"] .champion-art {
+  width: 116%;
+  height: 96% !important;
+}
+
+.champion-card[data-character-slug="illaoi"]::before {
+  top: 20%;
+  bottom: 104px;
+}
+
+/* --- TechLab update: Marvel Tōkon + cleaner full-body staging --- */
+.champion-card[data-character-slug="illaoi"] .champion-art {
+  width: 132% !important;
+  height: 108% !important;
+  object-position: center bottom !important;
+}
+
+.champion-card[data-character-slug="illaoi"] .champion-art-wrap {
+  inset: -14px -22px 54px;
+}
+
+.champion-card[data-character-slug="illaoi"]::before {
+  top: 18%;
+  bottom: 96px;
+}
+
+.champion-art {
+  object-fit: var(--art-fit, contain);
+  object-position: var(--art-object-position, center bottom);
+}
+
+.has-team-sections {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 34px;
+  padding-top: 8px;
+}
+
+.team-section {
+  display: grid;
+  gap: 14px;
+}
+
+.team-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 970px;
+  padding: 9px 12px;
+  border: 1px solid color-mix(in srgb, var(--accent) 36%, transparent);
+  border-radius: 14px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 14%, transparent), rgba(255,255,255,0.035));
+  box-shadow: 0 12px 28px rgba(0,0,0,0.28);
+}
+
+.team-heading span {
+  color: var(--accent-2);
+  font-size: 0.86rem;
+  font-weight: 1000;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.team-heading small {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(188px, 225px));
+  gap: 28px 24px;
+  align-items: start;
+}
+
+body[data-theme="marvel"] .selection-builder {
+  background: linear-gradient(135deg, rgba(255, 33, 71, 0.14), rgba(255, 212, 59, 0.055)), rgba(255,255,255,0.035);
+}
+
+body[data-theme="marvel"] .resource-link-official strong,
+body[data-theme="marvel"] .resource-link-marvel strong {
+  color: #ff4b61;
+}
+
+body[data-theme="marvel"] .resource-link-playstation strong {
+  color: #70a7ff;
+}
+
+.resource-icon-marvel,
+.resource-icon-playstation {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  grid-row: 1 / 3;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 0.76rem;
+  font-weight: 1000;
+  letter-spacing: -0.04em;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), 0 9px 16px rgba(0,0,0,0.28);
+}
+
+.resource-icon-marvel {
+  background: #ed1d24;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.resource-icon-playstation {
+  background: #006fcd;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.champion-card[data-game="marvel-tokon"] {
+  height: 320px;
+  min-height: 320px;
+  border-radius: 20px;
+  overflow: hidden !important;
+  background: rgba(255,255,255,0.035) !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  box-shadow: 0 18px 38px rgba(0,0,0,0.34) !important;
+}
+
+.champion-card[data-game="marvel-tokon"]::before {
+  z-index: 2;
+  top: 9%;
+  bottom: 72px;
+  background: radial-gradient(circle at 50% 46%, rgba(255,33,71,0.42), rgba(255,212,59,0.20) 42%, transparent 72%);
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-card-button,
+.champion-card[data-game="marvel-tokon"] .champion-art-wrap {
+  inset: 0 0 58px;
+  overflow: hidden !important;
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-art-wrap::after {
+  display: none;
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-art {
+  width: 100% !important;
+  height: 100% !important;
+  filter: saturate(1.08) contrast(1.05) drop-shadow(0 18px 22px rgba(0,0,0,0.56));
+  transform:
+    perspective(620px)
+    rotateX(var(--art-tilt-x, 0deg))
+    rotateY(var(--art-tilt-y, 0deg))
+    translate(var(--art-x, 0px), var(--art-y, 0px))
+    scale(var(--art-scale, 1.16));
+}
+
+.champion-card[data-game="marvel-tokon"]:hover .champion-art,
+.champion-card[data-game="marvel-tokon"] .champion-card-button:focus-visible .champion-art {
+  transform:
+    perspective(620px)
+    rotateX(var(--art-tilt-x, 0deg))
+    rotateY(var(--art-tilt-y, 0deg))
+    translate(var(--art-x, 0px), var(--art-y, 0px))
+    scale(calc(var(--art-scale, 1.16) + 0.018));
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-overlay {
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  background:
+    linear-gradient(180deg, rgba(22,6,10,0.74), rgba(8,3,7,0.96)),
+    radial-gradient(circle at 50% -26%, rgba(255,33,71,0.22), transparent 58%);
+  border-color: rgba(255,33,71,0.22);
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-name {
+  font-size: 0.98rem;
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-links {
+  grid-template-columns: auto auto;
+  justify-content: center;
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-wiki-link,
+.champion-card[data-game="marvel-tokon"] .champion-official-link {
+  color: #ffd43b;
+}
+
+.champion-card[data-game="marvel-tokon"].is-selected .champion-overlay {
+  border-color: rgba(255, 212, 59, 0.94);
+  background:
+    linear-gradient(180deg, rgba(255,33,71,0.22), rgba(8,3,7,0.96)),
+    radial-gradient(circle at 50% -26%, rgba(255,212,59,0.30), transparent 58%);
+  box-shadow: 0 0 0 2px rgba(255,212,59,0.22), 0 0 30px rgba(255,33,71,0.24), 0 18px 34px rgba(0,0,0,0.46);
+}
+
+@media (max-width: 1500px) {
+  .team-grid { grid-template-columns: repeat(auto-fit, minmax(185px, 225px)); }
+}
+
+@media (max-width: 920px) {
+  .team-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 22px 16px; }
+  .champion-card[data-game="marvel-tokon"] { height: 286px; min-height: 286px; }
+}
+
+
+/* --- TechLab fix: Dustloop Marvel + Illaoi framing + clean wiki hovers --- */
+.champion-wiki-link:hover,
+.champion-official-link:hover {
+  color: #07111f;
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-color: color-mix(in srgb, var(--accent) 70%, transparent);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+body[data-theme="marvel"] .champion-wiki-link:hover,
+body[data-theme="marvel"] .champion-official-link:hover {
+  color: #160408;
+  background: linear-gradient(135deg, #ffd43b, #ff4b61);
+  border-color: rgba(255, 212, 59, 0.72);
+  box-shadow: 0 0 16px rgba(255, 33, 71, 0.26);
+}
+
+/* Illaoi: son PNG/sa pose a une silhouette très verticale ; on force un cadrage plus compact. */
+.champion-card[data-character-slug="illaoi"] .champion-art-wrap {
+  inset: -18px -16px 72px !important;
+}
+
+.champion-card[data-character-slug="illaoi"] .champion-art {
+  width: 118% !important;
+  height: 100% !important;
+  object-position: center bottom !important;
+}
+
+.champion-card[data-character-slug="illaoi"]::before {
+  top: 22% !important;
+  bottom: 108px !important;
+}
+
+/* Marvel Tōkon utilise maintenant les portraits Dustloop, donc pas besoin de faux recadrage vidéo. */
+.champion-card[data-game="marvel-tokon"] {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-card-button,
+.champion-card[data-game="marvel-tokon"] .champion-art-wrap {
+  inset: -18px -12px 58px !important;
+  overflow: visible !important;
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-art {
+  width: 118% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center bottom !important;
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-overlay {
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-links {
+  grid-template-columns: auto;
+}
+
+/* --- TechLab pass: Marvel cleanup, team badges under squads, standardized link colors --- */
+.resource-link-x strong,
+body[data-theme] .resource-link-x strong {
+  color: #18e6ff;
+}
+
+.resource-link-youtube strong,
+body[data-theme] .resource-link-youtube strong {
+  color: #ff2c3f;
+}
+
+.resource-link-reddit strong,
+body[data-theme] .resource-link-reddit strong {
+  color: #ff7a1a;
+}
+
+.resource-link-tournament strong,
+body[data-theme] .resource-link-tournament strong {
+  color: #ffe35e;
+}
+
+.resource-link-glossary strong,
+body[data-theme] .resource-link-glossary strong {
+  color: #79f7ff;
+}
+
+.champion-wiki-link:hover,
+.champion-official-link:hover,
+body[data-theme="marvel"] .champion-wiki-link:hover,
+body[data-theme="marvel"] .champion-official-link:hover {
+  color: var(--accent-2);
+  text-decoration: none;
+  background:
+    linear-gradient(180deg, rgba(234, 255, 44, 0.16), rgba(8, 13, 10, 0.84)),
+    rgba(255, 255, 255, 0.03);
+  border-color: color-mix(in srgb, var(--accent-2) 58%, transparent);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--accent-2) 20%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+body[data-theme="marvel"] .resource-panel {
+  margin-top: 16px;
+}
+
+.has-team-sections {
+  gap: 54px;
+  padding-top: 6px;
+}
+
+.team-section {
+  gap: 12px;
+}
+
+.team-grid {
+  grid-template-columns: repeat(4, minmax(190px, 226px));
+  gap: 24px 26px;
+}
+
+.team-heading {
+  order: 2;
+  width: max-content;
+  max-width: 100%;
+  justify-self: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 8px 18px 9px;
+  margin-top: -4px;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 20%, transparent), color-mix(in srgb, var(--accent-2) 10%, transparent)),
+    rgba(10, 4, 9, 0.72);
+  border-color: color-mix(in srgb, var(--accent) 44%, transparent);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.team-heading span {
+  font-size: 0.82rem;
+  letter-spacing: 0.13em;
+  color: #fff0f4;
+}
+
+.team-logo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  image-rendering: auto;
+  filter: drop-shadow(0 0 10px rgba(255, 212, 59, 0.22));
+}
+
+.champion-card[data-game="marvel-tokon"] {
+  height: 330px;
+  min-height: 330px;
+  overflow: visible !important;
+  isolation: auto;
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-card-button,
+.champion-card[data-game="marvel-tokon"] .champion-art-wrap {
+  inset: -22px -16px 56px !important;
+  overflow: visible !important;
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-art-wrap::after {
+  display: block !important;
+  opacity: 0.54;
+  z-index: -1;
+  bottom: 2px;
+  background: radial-gradient(ellipse at center, rgba(255, 33, 71, 0.24), rgba(255, 212, 59, 0.10) 42%, transparent 72%);
+  filter: blur(5px);
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-art {
+  width: 124% !important;
+  height: 102% !important;
+  transform-origin: center 67%;
+  filter:
+    saturate(1.1)
+    contrast(1.06)
+    drop-shadow(0 18px 18px rgba(0, 0, 0, 0.58));
+}
+
+.champion-card[data-game="marvel-tokon"]:hover .champion-art,
+.champion-card[data-game="marvel-tokon"] .champion-card-button:focus-visible .champion-art {
+  filter:
+    saturate(1.14)
+    contrast(1.08)
+    drop-shadow(0 0 12px rgba(255, 212, 59, 0.20))
+    drop-shadow(0 0 24px rgba(255, 33, 71, 0.24))
+    drop-shadow(0 24px 24px rgba(0, 0, 0, 0.62));
+}
+
+.champion-card[data-game="marvel-tokon"].is-selected::before {
+  opacity: 1;
+  background: radial-gradient(circle at 50% 48%, rgba(255, 212, 59, 0.32), rgba(255, 33, 71, 0.22) 40%, transparent 74%);
+}
+
+.champion-card[data-game="marvel-tokon"].is-selected .champion-art {
+  filter:
+    saturate(1.16)
+    contrast(1.08)
+    drop-shadow(0 0 14px rgba(255, 212, 59, 0.28))
+    drop-shadow(0 0 30px rgba(255, 33, 71, 0.25))
+    drop-shadow(0 24px 28px rgba(0, 0, 0, 0.68));
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-overlay {
+  background:
+    linear-gradient(180deg, rgba(22, 6, 10, 0.78), rgba(8, 3, 7, 0.96)),
+    radial-gradient(circle at 50% -26%, rgba(255, 33, 71, 0.22), transparent 58%);
+  border-color: rgba(255, 212, 59, 0.20);
+}
+
+.champion-card[data-game="marvel-tokon"].is-selected .champion-overlay {
+  border-color: rgba(255, 212, 59, 0.92);
+  background:
+    linear-gradient(180deg, rgba(255, 33, 71, 0.22), rgba(8, 3, 7, 0.96)),
+    radial-gradient(circle at 50% -26%, rgba(255, 212, 59, 0.30), transparent 58%);
+}
+
+.champion-card[data-character-slug="ms-marvel"] .champion-art {
+  width: 122% !important;
+}
+
+@media (max-width: 1500px) {
+  .team-grid { grid-template-columns: repeat(auto-fit, minmax(188px, 224px)); }
+}
+
+/* --- TechLab refinement: shared character system + Marvel team badges --- */
+.brand {
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.brand-mark {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  background: none;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.18), 0 18px 34px rgba(0,0,0,0.42);
+}
+
+.brand-mark::before,
+.brand-mark-main,
+.brand-mark-dot { display: none !important; }
+
+.brand-stick-logo {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 0 14px color-mix(in srgb, var(--accent-2) 22%, transparent));
+}
+
+.brand strong { font-size: 1.22rem; }
+.brand small { font-size: 0.76rem; }
+
+/* Cohérence globale : mêmes socles, mêmes halos, seules les couleurs changent. */
+.champion-card {
+  --team-accent: var(--accent);
+  --team-accent-2: var(--accent-2);
+  overflow: visible !important;
+  isolation: isolate !important;
+}
+
+.champion-card::before {
+  z-index: 0 !important;
+  top: 18% !important;
+  bottom: 86px !important;
+  left: 4% !important;
+  right: 4% !important;
+  opacity: 0;
+  transform: scale(0.82);
+  background:
+    radial-gradient(circle at 50% 50%,
+      color-mix(in srgb, var(--team-accent-2) 36%, transparent),
+      color-mix(in srgb, var(--team-accent) 24%, transparent) 38%,
+      color-mix(in srgb, var(--team-accent) 8%, transparent) 58%,
+      transparent 75%);
+  filter: blur(15px);
+  pointer-events: none;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.champion-card.is-selected::before {
+  opacity: 1 !important;
+  transform: scale(1.02) !important;
+}
+
+.champion-art-wrap {
+  z-index: 2 !important;
+}
+
+.champion-art-wrap::after {
+  background:
+    radial-gradient(ellipse at center,
+      color-mix(in srgb, var(--team-accent-2) 24%, transparent),
+      color-mix(in srgb, var(--team-accent) 12%, transparent) 42%,
+      transparent 74%) !important;
+}
+
+.champion-art {
+  position: relative;
+  z-index: 2 !important;
+}
+
+.champion-overlay {
+  z-index: 7 !important;
+  border-color: color-mix(in srgb, var(--team-accent-2) 18%, transparent) !important;
+  background:
+    linear-gradient(180deg, rgba(7, 18, 22, 0.72), rgba(3, 8, 12, 0.95)),
+    radial-gradient(circle at 50% -28%, color-mix(in srgb, var(--team-accent-2) 15%, transparent), transparent 58%) !important;
+}
+
+.champion-card.is-selected .champion-overlay {
+  border-color: color-mix(in srgb, var(--team-accent-2) 92%, transparent) !important;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--team-accent) 19%, rgba(7,18,22,0.76)), rgba(3,8,12,0.96)),
+    radial-gradient(circle at 50% -26%, color-mix(in srgb, var(--team-accent-2) 30%, transparent), transparent 58%) !important;
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--team-accent-2) 24%, transparent),
+    0 0 28px color-mix(in srgb, var(--team-accent) 18%, transparent),
+    0 18px 34px rgba(0,0,0,0.46),
+    inset 0 1px 0 rgba(255,255,255,0.12) !important;
+}
+
+.champion-card.is-selected .champion-art {
+  filter:
+    drop-shadow(0 0 15px color-mix(in srgb, var(--team-accent-2) 26%, transparent))
+    drop-shadow(0 22px 28px rgba(0,0,0,0.72)) !important;
+}
+
+/* Marvel : même staging que 2XKO, mais par équipes et sans PV/officiel. */
+.has-team-sections {
+  display: grid !important;
+  grid-template-columns: 1fr;
+  gap: 46px;
+  padding-top: 16px;
+}
+
+.team-section {
+  display: grid;
+  gap: 0;
+}
+
+.team-heading { display: none !important; }
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(208px, 236px));
+  gap: 34px 32px;
+  align-items: start;
+}
+
+.champion-card[data-game="marvel-tokon"],
+.champion-card[data-game="marvel-tokon"]:hover,
+.champion-card[data-game="marvel-tokon"].is-selected {
+  height: 386px !important;
+  min-height: 386px !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  isolation: isolate !important;
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-card-button,
+.champion-card[data-game="marvel-tokon"] .champion-art-wrap {
+  inset: 0 -12px 84px !important;
+  overflow: visible !important;
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-art-wrap::after {
+  display: block !important;
+  z-index: -1 !important;
+  bottom: 3px;
+  opacity: 0.68;
+  background:
+    radial-gradient(ellipse at center,
+      color-mix(in srgb, var(--team-accent-2) 24%, transparent),
+      color-mix(in srgb, var(--team-accent) 12%, transparent) 42%,
+      transparent 74%) !important;
+  filter: blur(5px);
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-art {
+  width: 118% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center bottom !important;
+  transform-origin: center 62% !important;
+  filter:
+    saturate(1.08)
+    contrast(1.06)
+    drop-shadow(0 19px 22px rgba(0,0,0,0.60)) !important;
+  transform:
+    perspective(620px)
+    rotateX(var(--art-tilt-x, 0deg))
+    rotateY(var(--art-tilt-y, 0deg))
+    translate(var(--art-x, 0px), var(--art-y, 0px))
+    scale(var(--art-scale, 1.12)) !important;
+}
+
+.champion-card[data-game="marvel-tokon"]:hover .champion-art,
+.champion-card[data-game="marvel-tokon"] .champion-card-button:focus-visible .champion-art {
+  transform:
+    perspective(620px)
+    rotateX(var(--art-tilt-x, 0deg))
+    rotateY(var(--art-tilt-y, 0deg))
+    translate(var(--art-x, 0px), var(--art-y, 0px))
+    scale(calc(var(--art-scale, 1.12) + 0.018)) !important;
+}
+
+.champion-card[data-game="marvel-tokon"]::before {
+  z-index: 0 !important;
+  top: 16% !important;
+  bottom: 104px !important;
+  background:
+    radial-gradient(circle at 50% 48%,
+      color-mix(in srgb, var(--team-accent-2) 36%, transparent),
+      color-mix(in srgb, var(--team-accent) 22%, transparent) 40%,
+      transparent 74%) !important;
+}
+
+.champion-card[data-game="marvel-tokon"].is-selected::before {
+  opacity: 1 !important;
+  transform: scale(1.02) !important;
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-overlay {
+  left: 8px !important;
+  right: 8px !important;
+  bottom: 8px !important;
+  gap: 7px;
+  padding: 8px 10px 9px;
+  border-color: color-mix(in srgb, var(--team-accent-2) 22%, transparent) !important;
+  background:
+    linear-gradient(180deg, rgba(22,6,10,0.76), rgba(8,3,7,0.96)),
+    radial-gradient(circle at 50% -26%, color-mix(in srgb, var(--team-accent) 20%, transparent), transparent 58%) !important;
+}
+
+.champion-card[data-game="marvel-tokon"].is-selected .champion-overlay {
+  border-color: color-mix(in srgb, var(--team-accent-2) 92%, transparent) !important;
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--team-accent-2) 22%, transparent),
+    0 0 30px color-mix(in srgb, var(--team-accent) 24%, transparent),
+    0 18px 34px rgba(0,0,0,0.46) !important;
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-links {
+  grid-template-columns: auto;
+  justify-content: center;
+}
+
+.team-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  min-height: 24px;
+  padding: 4px 8px;
+  color: color-mix(in srgb, var(--team-accent-2) 78%, white);
+  font-size: 0.58rem;
+  font-weight: 1000;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid color-mix(in srgb, var(--team-accent) 34%, transparent);
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--team-accent) 16%, transparent), color-mix(in srgb, var(--team-accent-2) 8%, transparent)),
+    rgba(255,255,255,0.055);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.07);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.team-badge-logo {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px color-mix(in srgb, var(--team-accent-2) 30%, transparent));
+}
+
+body[data-theme="marvel"] .selection-builder {
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 14%, transparent), rgba(255, 212, 59, 0.055)),
+    rgba(255,255,255,0.035) !important;
+}
+
+@media (max-width: 1500px) {
+  .team-grid { grid-template-columns: repeat(auto-fit, minmax(196px, 228px)); }
+  .champion-card[data-game="marvel-tokon"] { height: 372px !important; min-height: 372px !important; }
+}
+
+@media (max-width: 920px) {
+  .team-grid { grid-template-columns: repeat(auto-fit, minmax(172px, 1fr)); gap: 28px 18px; }
+  .champion-card[data-game="marvel-tokon"] { height: 344px !important; min-height: 344px !important; }
+  .champion-card[data-game="marvel-tokon"] .champion-card-button,
+  .champion-card[data-game="marvel-tokon"] .champion-art-wrap { inset: 0 -8px 82px !important; }
+}
+
+/* --- Patch: Marvel team color consistency + silhouette-style selection glow --- */
+.champion-card[data-game="marvel-tokon"] {
+  --team-glow-soft: color-mix(in srgb, var(--team-accent-2) 38%, transparent);
+  --team-glow-core: color-mix(in srgb, var(--team-accent) 32%, transparent);
+}
+
+/* L'aura Marvel suit maintenant la silhouette du PNG via drop-shadow,
+   au lieu d'un rond lumineux générique devant/derrière le perso. */
+.champion-card[data-game="marvel-tokon"]::before,
+.champion-card[data-game="marvel-tokon"].is-selected::before {
+  opacity: 0 !important;
+  display: none !important;
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-art-wrap::after {
+  opacity: 0.30 !important;
+  background:
+    radial-gradient(ellipse at center,
+      color-mix(in srgb, var(--team-accent-2) 18%, transparent),
+      color-mix(in srgb, var(--team-accent) 8%, transparent) 42%,
+      transparent 74%) !important;
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-art {
+  filter:
+    saturate(1.08)
+    contrast(1.06)
+    drop-shadow(0 20px 22px rgba(0, 0, 0, 0.62)) !important;
+}
+
+.champion-card[data-game="marvel-tokon"]:hover .champion-art,
+.champion-card[data-game="marvel-tokon"] .champion-card-button:focus-visible .champion-art {
+  filter:
+    saturate(1.14)
+    contrast(1.08)
+    drop-shadow(0 0 10px color-mix(in srgb, var(--team-accent-2) 22%, transparent))
+    drop-shadow(0 20px 24px rgba(0, 0, 0, 0.66)) !important;
+}
+
+.champion-card[data-game="marvel-tokon"].is-selected .champion-art {
+  filter:
+    saturate(1.20)
+    contrast(1.10)
+    drop-shadow(0 0 7px color-mix(in srgb, var(--team-accent-2) 86%, transparent))
+    drop-shadow(0 0 18px color-mix(in srgb, var(--team-accent-2) 62%, transparent))
+    drop-shadow(0 0 34px color-mix(in srgb, var(--team-accent) 44%, transparent))
+    drop-shadow(0 24px 30px rgba(0, 0, 0, 0.72)) !important;
+}
+
+.champion-card[data-game="marvel-tokon"].is-selected .champion-art-wrap::after {
+  opacity: 0.46 !important;
+  background:
+    radial-gradient(ellipse at center,
+      color-mix(in srgb, var(--team-accent-2) 24%, transparent),
+      color-mix(in srgb, var(--team-accent) 12%, transparent) 44%,
+      transparent 76%) !important;
+}
+
+.champion-card[data-game="marvel-tokon"] .champion-overlay,
+.champion-card[data-game="marvel-tokon"] .team-badge {
+  border-color: color-mix(in srgb, var(--team-accent-2) 26%, transparent) !important;
+}
+
+.champion-card[data-game="marvel-tokon"].is-selected .champion-overlay,
+.champion-card[data-game="marvel-tokon"].is-selected .team-badge {
+  border-color: color-mix(in srgb, var(--team-accent-2) 92%, transparent) !important;
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--team-accent-2) 22%, transparent),
+    0 0 28px color-mix(in srgb, var(--team-accent) 22%, transparent),
+    0 18px 34px rgba(0, 0, 0, 0.46) !important;
+}
+
+.champion-card[data-game="marvel-tokon"] .team-badge {
+  color: color-mix(in srgb, var(--team-accent-2) 82%, white) !important;
+  background:
+    linear-gradient(90deg,
+      color-mix(in srgb, var(--team-accent) 16%, transparent),
+      color-mix(in srgb, var(--team-accent-2) 9%, transparent)),
+    rgba(255, 255, 255, 0.055) !important;
+}
+
+/* Midnight Sons n'a pas encore de logo fiable : texte seul, sans espace vide. */
+.champion-card[data-team="midnight-sons"] .team-badge-logo {
+  display: none !important;
+}
+
+/* Raccourcis explicites par équipe, pour éviter tout ancien override rouge/jaune. */
+.champion-card[data-team="fighting-avengers"] {
+  --team-accent: #1b78ff !important;
+  --team-accent-2: #5bdcff !important;
+}
+
+.champion-card[data-team="knights-of-doom"] {
+  --team-accent: #2bb84a !important;
+  --team-accent-2: #b7ff4a !important;
+}
+
+.champion-card[data-team="unbreakable-x-men"] {
+  --team-accent: #ff9f1c !important;
+  --team-accent-2: #ffd43b !important;
+}
+
+.champion-card[data-team="amazing-guardians"] {
+  --team-accent: #ff2147 !important;
+  --team-accent-2: #ff7a90 !important;
+}
+
+.champion-card[data-team="midnight-sons"] {
+  --team-accent: #ff5a1f !important;
+  --team-accent-2: #ffd15c !important;
+}
+
+/* --- TechLab polish: unified side panels + 2XKO silhouette glow like Marvel --- */
+.info-column {
+  gap: 18px !important;
+}
+
+.selection-builder,
+.resource-panel {
+  margin: 0 !important;
+}
+
+.selection-builder {
+  min-height: 0;
+}
+
+.resource-panel {
+  gap: 10px !important;
+}
+
+/* Même logique d'aura que Marvel : la lumière suit la silhouette du PNG,
+   au lieu d'un halo rond indépendant. */
+.champion-card[data-game="2xko"]::before,
+.champion-card[data-game="2xko"].is-selected::before {
+  display: none !important;
+  opacity: 0 !important;
+}
+
+.champion-card[data-game="2xko"] .champion-art-wrap::after {
+  display: block !important;
+  z-index: -1 !important;
+  opacity: 0.26 !important;
+  background:
+    radial-gradient(ellipse at center,
+      color-mix(in srgb, var(--accent-2) 18%, transparent),
+      color-mix(in srgb, var(--accent) 10%, transparent) 42%,
+      transparent 76%) !important;
+  filter: blur(5px);
+  transition: opacity 170ms ease, transform 170ms ease;
+}
+
+.champion-card[data-game="2xko"] .champion-art {
+  filter:
+    saturate(1.07)
+    contrast(1.06)
+    drop-shadow(0 20px 23px rgba(0, 0, 0, 0.62)) !important;
+}
+
+.champion-card[data-game="2xko"]:hover .champion-art,
+.champion-card[data-game="2xko"] .champion-card-button:focus-visible .champion-art {
+  filter:
+    saturate(1.14)
+    contrast(1.08)
+    drop-shadow(0 0 10px color-mix(in srgb, var(--accent-2) 24%, transparent))
+    drop-shadow(0 20px 25px rgba(0, 0, 0, 0.68)) !important;
+}
+
+.champion-card[data-game="2xko"].is-selected .champion-art {
+  filter:
+    saturate(1.22)
+    contrast(1.10)
+    drop-shadow(0 0 7px color-mix(in srgb, var(--accent-2) 88%, transparent))
+    drop-shadow(0 0 18px color-mix(in srgb, var(--accent-2) 62%, transparent))
+    drop-shadow(0 0 34px color-mix(in srgb, var(--accent) 44%, transparent))
+    drop-shadow(0 24px 30px rgba(0, 0, 0, 0.74)) !important;
+}
+
+.champion-card[data-game="2xko"].is-selected .champion-art-wrap::after {
+  opacity: 0.50 !important;
+  background:
+    radial-gradient(ellipse at center,
+      color-mix(in srgb, var(--accent-2) 24%, transparent),
+      color-mix(in srgb, var(--accent) 14%, transparent) 44%,
+      transparent 76%) !important;
+}
+
+.champion-card[data-game="2xko"] .champion-overlay {
+  border-color: color-mix(in srgb, var(--accent-2) 26%, transparent) !important;
+}
+
+.champion-card[data-game="2xko"].is-selected .champion-overlay {
+  border-color: color-mix(in srgb, var(--accent) 92%, transparent) !important;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--accent) 18%, rgba(7, 18, 22, 0.78)), rgba(3, 8, 12, 0.96)),
+    radial-gradient(circle at 50% -26%, color-mix(in srgb, var(--accent-2) 30%, transparent), transparent 58%) !important;
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--accent) 24%, transparent),
+    0 0 28px color-mix(in srgb, var(--accent-2) 22%, transparent),
+    0 18px 34px rgba(0, 0, 0, 0.46) !important;
+}
+
+/* Les liens/filtres gardent la même respiration d'un jeu à l'autre. */
+body[data-theme="marvel"] .resource-panel,
+body[data-theme="2xko"] .resource-panel,
+body[data-theme="avatar"] .resource-panel,
+body[data-theme="vf"] .resource-panel {
+  margin-top: 0 !important;
+}
+
+/* --- TechLab tweak: stronger hover silhouette on every character --- */
+.champion-card .champion-art,
+.champion-card .champion-art-wrap::after {
+  transition: filter 180ms ease, transform 180ms ease, opacity 180ms ease !important;
+}
+
+/* Base hover for any future game that reuses the same character cards. */
+.champion-card:hover .champion-art,
+.champion-card .champion-card-button:focus-visible .champion-art {
+  filter:
+    saturate(1.16)
+    contrast(1.09)
+    drop-shadow(0 0 8px color-mix(in srgb, var(--accent-2) 42%, transparent))
+    drop-shadow(0 0 18px color-mix(in srgb, var(--accent) 28%, transparent))
+    drop-shadow(0 22px 26px rgba(0, 0, 0, 0.68)) !important;
+}
+
+.champion-card:hover .champion-art-wrap::after,
+.champion-card .champion-card-button:focus-visible .champion-art-wrap::after {
+  opacity: 0.42 !important;
+  transform: scale(1.04);
+}
+
+/* 2XKO hover: visibly brighter, but still below the selected state. */
+.champion-card[data-game="2xko"]:hover .champion-art,
+.champion-card[data-game="2xko"] .champion-card-button:focus-visible .champion-art {
+  filter:
+    saturate(1.18)
+    contrast(1.10)
+    drop-shadow(0 0 9px color-mix(in srgb, var(--accent-2) 58%, transparent))
+    drop-shadow(0 0 20px color-mix(in srgb, var(--accent) 34%, transparent))
+    drop-shadow(0 20px 26px rgba(0, 0, 0, 0.70)) !important;
+}
+
+.champion-card[data-game="2xko"]:hover .champion-art-wrap::after,
+.champion-card[data-game="2xko"] .champion-card-button:focus-visible .champion-art-wrap::after {
+  opacity: 0.44 !important;
+}
+
+/* Marvel Tōkon hover: same silhouette logic, using each team's colors. */
+.champion-card[data-game="marvel-tokon"]:hover .champion-art,
+.champion-card[data-game="marvel-tokon"] .champion-card-button:focus-visible .champion-art {
+  filter:
+    saturate(1.17)
+    contrast(1.10)
+    drop-shadow(0 0 9px color-mix(in srgb, var(--team-accent-2) 58%, transparent))
+    drop-shadow(0 0 20px color-mix(in srgb, var(--team-accent) 34%, transparent))
+    drop-shadow(0 20px 26px rgba(0, 0, 0, 0.70)) !important;
+}
+
+.champion-card[data-game="marvel-tokon"]:hover .champion-art-wrap::after,
+.champion-card[data-game="marvel-tokon"] .champion-card-button:focus-visible .champion-art-wrap::after {
+  opacity: 0.44 !important;
+}
+
+/* Keep selected stronger than hover on every game. */
+.champion-card.is-selected .champion-art-wrap::after {
+  opacity: 0.56 !important;
+}
+
+/* --- Fix: selected state must stay brighter even while the mouse is still over it --- */
+.champion-card.is-selected:hover .champion-art,
+.champion-card.is-selected .champion-card-button:focus-visible .champion-art {
+  filter:
+    saturate(1.24)
+    contrast(1.11)
+    drop-shadow(0 0 8px color-mix(in srgb, var(--team-accent-2, var(--accent-2)) 88%, transparent))
+    drop-shadow(0 0 20px color-mix(in srgb, var(--team-accent-2, var(--accent-2)) 64%, transparent))
+    drop-shadow(0 0 38px color-mix(in srgb, var(--team-accent, var(--accent)) 46%, transparent))
+    drop-shadow(0 25px 32px rgba(0, 0, 0, 0.76)) !important;
+}
+
+.champion-card.is-selected:hover .champion-art-wrap::after,
+.champion-card.is-selected .champion-card-button:focus-visible .champion-art-wrap::after {
+  opacity: 0.62 !important;
+  transform: scale(1.08);
+}
+
+.champion-card[data-game="2xko"].is-selected:hover .champion-art,
+.champion-card[data-game="2xko"].is-selected .champion-card-button:focus-visible .champion-art {
+  filter:
+    saturate(1.25)
+    contrast(1.12)
+    drop-shadow(0 0 8px color-mix(in srgb, var(--accent-2) 92%, transparent))
+    drop-shadow(0 0 22px color-mix(in srgb, var(--accent-2) 68%, transparent))
+    drop-shadow(0 0 40px color-mix(in srgb, var(--accent) 48%, transparent))
+    drop-shadow(0 25px 32px rgba(0, 0, 0, 0.76)) !important;
+}
+
+.champion-card[data-game="marvel-tokon"].is-selected:hover .champion-art,
+.champion-card[data-game="marvel-tokon"].is-selected .champion-card-button:focus-visible .champion-art {
+  filter:
+    saturate(1.23)
+    contrast(1.11)
+    drop-shadow(0 0 8px color-mix(in srgb, var(--team-accent-2) 90%, transparent))
+    drop-shadow(0 0 22px color-mix(in srgb, var(--team-accent-2) 66%, transparent))
+    drop-shadow(0 0 40px color-mix(in srgb, var(--team-accent) 48%, transparent))
+    drop-shadow(0 25px 32px rgba(0, 0, 0, 0.76)) !important;
+}
+
+/* --- TechLab pass: faster hover/selection + Avatar Legends first playable page --- */
+.champion-card .champion-art,
+.champion-card .champion-art-wrap::after,
+.champion-card .champion-overlay,
+.champion-card::before,
+.team-badge {
+  transition-duration: 85ms !important;
+}
+
+.champion-card:hover .champion-art,
+.champion-card .champion-card-button:focus-visible .champion-art,
+.champion-card.is-selected .champion-art,
+.champion-card.is-selected:hover .champion-art {
+  transition-duration: 75ms !important;
+}
+
+.support-panel {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--accent-2) 18%, transparent);
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.support-panel[hidden] { display: none !important; }
+
+.support-panel span {
+  color: var(--accent);
+  font-size: 0.68rem;
+  font-weight: 1000;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.support-panel select {
+  width: 100%;
+  min-height: 42px;
+  color: var(--text);
+  font: inherit;
+  font-weight: 900;
+  padding: 0 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: #060b12;
+  outline: none;
+}
+
+.support-panel select:focus-visible {
+  border-color: color-mix(in srgb, var(--accent-2) 78%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-2) 18%, transparent);
+}
+
+.detail-supports {
+  display: grid;
+  gap: 4px;
+  max-width: 820px;
+  padding: 12px 14px;
+  border: 1px solid color-mix(in srgb, var(--accent-2) 18%, transparent);
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.detail-supports span {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 1000;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.detail-supports strong {
+  color: color-mix(in srgb, var(--accent-2) 80%, white);
+  font-size: 0.92rem;
+}
+
+.champion-card[data-size="small"] .champion-art {
+  width: 112%;
+  height: 96% !important;
+}
+
+.champion-card[data-game="avatar-legends"] {
+  --team-accent: var(--accent);
+  --team-accent-2: var(--accent-2);
+}
+
+.champion-card[data-game="avatar-legends"] .champion-art {
+  filter:
+    saturate(1.07)
+    contrast(1.06)
+    drop-shadow(0 20px 23px rgba(0, 0, 0, 0.62)) !important;
+}
+
+.champion-card[data-game="avatar-legends"]:hover .champion-art,
+.champion-card[data-game="avatar-legends"] .champion-card-button:focus-visible .champion-art {
+  filter:
+    saturate(1.18)
+    contrast(1.10)
+    drop-shadow(0 0 9px color-mix(in srgb, var(--accent-2) 58%, transparent))
+    drop-shadow(0 0 20px color-mix(in srgb, var(--accent) 34%, transparent))
+    drop-shadow(0 20px 26px rgba(0, 0, 0, 0.70)) !important;
+}
+
+.champion-card[data-game="avatar-legends"].is-selected .champion-art,
+.champion-card[data-game="avatar-legends"].is-selected:hover .champion-art {
+  filter:
+    saturate(1.25)
+    contrast(1.12)
+    drop-shadow(0 0 8px color-mix(in srgb, var(--accent-2) 92%, transparent))
+    drop-shadow(0 0 22px color-mix(in srgb, var(--accent-2) 68%, transparent))
+    drop-shadow(0 0 40px color-mix(in srgb, var(--accent) 48%, transparent))
+    drop-shadow(0 25px 32px rgba(0, 0, 0, 0.76)) !important;
+}
+
+.champion-card[data-game="avatar-legends"] .champion-art-wrap::after {
+  display: block !important;
+  z-index: -1 !important;
+  opacity: 0.28 !important;
+  background:
+    radial-gradient(ellipse at center,
+      color-mix(in srgb, var(--accent-2) 22%, transparent),
+      color-mix(in srgb, var(--accent) 10%, transparent) 42%,
+      transparent 76%) !important;
+  filter: blur(5px);
+}
+
+.champion-card[data-game="avatar-legends"]:hover .champion-art-wrap::after,
+.champion-card[data-game="avatar-legends"] .champion-card-button:focus-visible .champion-art-wrap::after {
+  opacity: 0.44 !important;
+}
+
+.champion-card[data-game="avatar-legends"].is-selected .champion-art-wrap::after,
+.champion-card[data-game="avatar-legends"].is-selected:hover .champion-art-wrap::after {
+  opacity: 0.62 !important;
+  transform: scale(1.08);
+}
+
+.champion-card[data-game="avatar-legends"].is-selected .champion-overlay {
+  border-color: color-mix(in srgb, var(--accent-2) 92%, transparent) !important;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--accent) 18%, rgba(7, 18, 22, 0.78)), rgba(3, 8, 12, 0.96)),
+    radial-gradient(circle at 50% -26%, color-mix(in srgb, var(--accent-2) 30%, transparent), transparent 58%) !important;
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--accent-2) 24%, transparent),
+    0 0 28px color-mix(in srgb, var(--accent) 22%, transparent),
+    0 18px 34px rgba(0, 0, 0, 0.46) !important;
+}
+
+/* --- TechLab polish: Avatar Legends sizing + faster hover + readable stands --- */
+.champion-art,
+.champion-art-wrap::after,
+.champion-overlay,
+.champion-card::before {
+  transition-duration: 85ms !important;
+}
+
+.champion-overlay {
+  min-height: 58px;
+  padding: 8px 10px 9px !important;
+  gap: 6px;
+}
+
+.champion-name-link {
+  min-height: 19px;
+  display: grid;
+  place-items: center;
+}
+
+.champion-name {
+  font-size: 0.96rem !important;
+  line-height: 1.1 !important;
+  letter-spacing: -0.035em !important;
+  white-space: nowrap;
+  overflow: visible;
+  text-align: center;
+}
+
+.champion-links {
+  width: 100%;
+  display: grid !important;
+  grid-template-columns: auto auto 1fr auto;
+  align-items: center;
+  justify-content: stretch !important;
+  gap: 6px !important;
+  padding: 0 !important;
+}
+
+.champion-links .health-badge {
+  grid-column: -1;
+  justify-self: end;
+  margin-left: 4px;
+}
+
+.champion-wiki-link,
+.champion-official-link,
+.health-badge {
+  min-height: 20px;
+  padding: 4px 7px !important;
+  font-size: 0.58rem !important;
+  line-height: 1 !important;
+}
+
+/* Avatar Legends : portraits SuperCombo cadrés proprement, sans débordement ni superposition. */
+body[data-game="avatar-legends"] .cast-panel {
+  padding-left: 0;
+}
+
+body[data-game="avatar-legends"] .champion-grid {
+  grid-template-columns: repeat(auto-fill, minmax(170px, 188px)) !important;
+  gap: 28px 24px !important;
+  padding-top: 22px !important;
+  align-items: start;
+}
+
+body[data-game="avatar-legends"] .champion-card,
+body[data-game="avatar-legends"] .champion-card:hover,
+body[data-game="avatar-legends"] .champion-card.is-selected {
+  height: 308px !important;
+  min-height: 308px !important;
+  overflow: visible !important;
+}
+
+body[data-game="avatar-legends"] .champion-card-button,
+body[data-game="avatar-legends"] .champion-art-wrap {
+  inset: 0 0 74px !important;
+  overflow: visible !important;
+}
+
+body[data-game="avatar-legends"] .champion-art-wrap::after {
+  bottom: 2px;
+  opacity: 0.28;
+  filter: blur(5px);
+  background: radial-gradient(ellipse at center,
+    color-mix(in srgb, var(--accent-2) 18%, transparent),
+    color-mix(in srgb, var(--accent) 10%, transparent) 44%,
+    transparent 76%) !important;
+}
+
+body[data-game="avatar-legends"] .champion-art {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none;
+  object-fit: contain !important;
+  object-position: center bottom !important;
+  transform-origin: center 62% !important;
+  filter:
+    saturate(1.05)
+    contrast(1.04)
+    drop-shadow(0 16px 20px rgba(0, 0, 0, 0.58)) !important;
+}
+
+body[data-game="avatar-legends"] .champion-card:hover .champion-art,
+body[data-game="avatar-legends"] .champion-card-button:focus-visible .champion-art {
+  filter:
+    saturate(1.10)
+    contrast(1.07)
+    drop-shadow(0 0 12px color-mix(in srgb, var(--accent-2) 34%, transparent))
+    drop-shadow(0 16px 22px rgba(0, 0, 0, 0.62)) !important;
+  transform:
+    perspective(620px)
+    rotateX(var(--art-tilt-x, 0deg))
+    rotateY(var(--art-tilt-y, 0deg))
+    translate(var(--art-x, 0px), var(--art-y, 0px))
+    scale(calc(var(--art-scale, 0.9) + 0.018)) !important;
+}
+
+body[data-game="avatar-legends"] .champion-card.is-selected .champion-art,
+body[data-game="avatar-legends"] .champion-card.is-selected:hover .champion-art {
+  filter:
+    saturate(1.16)
+    contrast(1.10)
+    drop-shadow(0 0 8px color-mix(in srgb, var(--accent-2) 84%, transparent))
+    drop-shadow(0 0 20px color-mix(in srgb, var(--accent) 58%, transparent))
+    drop-shadow(0 18px 24px rgba(0, 0, 0, 0.70)) !important;
+}
+
+body[data-game="avatar-legends"] .champion-overlay {
+  left: 7px !important;
+  right: 7px !important;
+  bottom: 7px !important;
+  min-height: 66px;
+  border-color: color-mix(in srgb, var(--accent-2) 28%, transparent) !important;
+  background:
+    linear-gradient(180deg, rgba(6, 18, 27, 0.82), rgba(4, 10, 16, 0.97)),
+    radial-gradient(circle at 50% -26%, color-mix(in srgb, var(--accent-2) 18%, transparent), transparent 58%) !important;
+}
+
+body[data-game="avatar-legends"] .champion-card.is-selected .champion-overlay {
+  border-color: color-mix(in srgb, var(--accent-2) 90%, transparent) !important;
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--accent-2) 24%, transparent),
+    0 0 28px color-mix(in srgb, var(--accent) 24%, transparent),
+    0 18px 34px rgba(0,0,0,0.46) !important;
+}
+
+body[data-game="avatar-legends"] .champion-name {
+  font-size: 1.02rem !important;
+}
+
+body[data-game="avatar-legends"] .champion-wiki-link,
+body[data-game="avatar-legends"] .health-badge {
+  font-size: 0.57rem !important;
+}
+
+@media (max-width: 1500px) {
+  body[data-game="avatar-legends"] .champion-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 180px)) !important;
+    gap: 26px 20px !important;
+  }
+
+  body[data-game="avatar-legends"] .champion-card,
+  body[data-game="avatar-legends"] .champion-card:hover,
+  body[data-game="avatar-legends"] .champion-card.is-selected {
+    height: 292px !important;
+    min-height: 292px !important;
+  }
+}
+
+@media (max-width: 920px) {
+  body[data-game="avatar-legends"] .champion-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
+    gap: 24px 16px !important;
+  }
+
+  body[data-game="avatar-legends"] .champion-card,
+  body[data-game="avatar-legends"] .champion-card:hover,
+  body[data-game="avatar-legends"] .champion-card.is-selected {
+    height: 274px !important;
+    min-height: 274px !important;
+  }
+}
+
+/* --- TechLab pass: Avatar roster direct portraits, compact cards, game-switch reset polish --- */
+.champion-card,
+.champion-card .champion-art,
+.champion-card .champion-art-wrap::after,
+.champion-card .champion-overlay,
+.champion-card::before,
+.team-badge {
+  transition-duration: 60ms !important;
+}
+
+/* Socles un peu plus lisibles partout. */
+.champion-overlay {
+  min-height: 64px !important;
+  padding: 9px 11px 10px !important;
+}
+
+.champion-name {
+  font-size: 1.08rem !important;
+  line-height: 1.12 !important;
+  letter-spacing: -0.035em !important;
+}
+
+.champion-links {
+  grid-template-columns: auto auto 1fr !important;
+  gap: 7px !important;
+}
+
+.champion-links .health-badge {
+  justify-self: end !important;
+}
+
+/* Avatar Legends : les portraits wiki sont des cartes carrées, donc on les traite différemment des full-body 2XKO/Marvel. */
+body[data-game="avatar-legends"] .cast-panel {
+  padding-left: 0 !important;
+}
+
+body[data-game="avatar-legends"] .champion-grid {
+  grid-template-columns: repeat(auto-fill, minmax(148px, 166px)) !important;
+  gap: 24px 18px !important;
+  padding-top: 28px !important;
+  align-items: start !important;
+}
+
+body[data-game="avatar-legends"] .champion-card,
+body[data-game="avatar-legends"] .champion-card:hover,
+body[data-game="avatar-legends"] .champion-card.is-selected {
+  height: 246px !important;
+  min-height: 246px !important;
+  overflow: visible !important;
+}
+
+body[data-game="avatar-legends"] .champion-card-button,
+body[data-game="avatar-legends"] .champion-art-wrap {
+  inset: 0 0 78px !important;
+  display: grid !important;
+  place-items: center !important;
+  overflow: visible !important;
+}
+
+body[data-game="avatar-legends"] .champion-art {
+  width: 132px !important;
+  height: 132px !important;
+  max-width: 92% !important;
+  max-height: 132px !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.18);
+  box-shadow: 0 14px 22px rgba(0,0,0,0.30), inset 0 0 0 1px rgba(255,255,255,0.08);
+  transform-origin: center center !important;
+  transform:
+    perspective(620px)
+    rotateX(var(--art-tilt-x, 0deg))
+    rotateY(var(--art-tilt-y, 0deg))
+    translate(var(--art-x, 0px), var(--art-y, 0px))
+    scale(var(--art-scale, 1)) !important;
+}
+
+body[data-game="avatar-legends"] .champion-card:hover .champion-art,
+body[data-game="avatar-legends"] .champion-card-button:focus-visible .champion-art {
+  transform:
+    perspective(620px)
+    rotateX(var(--art-tilt-x, 0deg))
+    rotateY(var(--art-tilt-y, 0deg))
+    translate(var(--art-x, 0px), var(--art-y, 0px))
+    scale(calc(var(--art-scale, 1) + 0.025)) !important;
+}
+
+body[data-game="avatar-legends"] .champion-fallback {
+  width: 74px !important;
+  height: 74px !important;
+  font-size: 1.65rem !important;
+}
+
+body[data-game="avatar-legends"] .champion-overlay {
+  left: 4px !important;
+  right: 4px !important;
+  bottom: 4px !important;
+  min-height: 72px !important;
+  padding: 8px 8px 9px !important;
+}
+
+body[data-game="avatar-legends"] .champion-name {
+  font-size: 1.04rem !important;
+}
+
+body[data-game="avatar-legends"] .champion-links {
+  grid-template-columns: auto 1fr !important;
+  gap: 6px !important;
+}
+
+body[data-game="avatar-legends"] .champion-wiki-link,
+body[data-game="avatar-legends"] .health-badge {
+  font-size: 0.55rem !important;
+  min-height: 20px !important;
+  padding: 4px 6px !important;
+}
+
+body[data-game="avatar-legends"] .health-badge {
+  justify-self: end !important;
+  min-width: 54px !important;
+}
+
+body[data-game="avatar-legends"] .champion-official-link {
+  display: none !important;
+}
+
+.champion-card.is-placeholder {
+  opacity: 0.72;
+}
+
+.champion-card.is-placeholder .champion-card-button {
+  cursor: default;
+}
+
+.champion-card.is-placeholder .champion-name-link {
+  pointer-events: none;
+  color: var(--muted) !important;
+}
+
+.champion-card.is-placeholder .champion-wiki-link {
+  opacity: 0.65;
+}
+
+@media (max-width: 1500px) {
+  body[data-game="avatar-legends"] .champion-grid {
+    grid-template-columns: repeat(auto-fill, minmax(142px, 160px)) !important;
+    gap: 22px 16px !important;
+  }
+  body[data-game="avatar-legends"] .champion-card,
+  body[data-game="avatar-legends"] .champion-card:hover,
+  body[data-game="avatar-legends"] .champion-card.is-selected {
+    height: 236px !important;
+    min-height: 236px !important;
+  }
+  body[data-game="avatar-legends"] .champion-art {
+    width: 124px !important;
+    height: 124px !important;
+  }
+}
+
+@media (max-width: 920px) {
+  body[data-game="avatar-legends"] .champion-grid {
+    grid-template-columns: repeat(auto-fill, minmax(136px, 1fr)) !important;
+    gap: 20px 14px !important;
+  }
+  body[data-game="avatar-legends"] .champion-card,
+  body[data-game="avatar-legends"] .champion-card:hover,
+  body[data-game="avatar-legends"] .champion-card.is-selected {
+    height: 228px !important;
+    min-height: 228px !important;
+  }
+}
+
+/* --- TechLab pass: faster query actions + 2XKO lifebar PV badge --- */
+.query-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.reset-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 13px;
+  border-radius: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.055);
+  color: var(--text);
+  font-size: 0.84rem;
+  font-weight: 1000;
+  cursor: pointer;
+  transition: transform 50ms ease, border-color 50ms ease, background 50ms ease, opacity 50ms ease;
+}
+
+.reset-button:hover:not(:disabled),
+.reset-button:focus-visible:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--accent) 62%, transparent);
+  background: color-mix(in srgb, var(--accent) 13%, rgba(255, 255, 255, 0.055));
+}
+
+.reset-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+}
+
+.selection-help {
+  display: none !important;
+}
+
+.selection-intro h2 {
+  margin-top: 2px;
+}
+
+/* Mini barre de vie façon HUD 2XKO : plus lisible et plus thématique. */
+.champion-card[data-game="2xko"] .health-badge {
+  min-width: 66px !important;
+  height: 22px !important;
+  padding: 0 9px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 4px 12px 12px 4px !important;
+  clip-path: polygon(8px 0, 100% 0, calc(100% - 5px) 100%, 0 100%);
+  border: 1px solid rgba(197, 255, 51, 0.95) !important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.34) 0%, rgba(255,255,255,0.04) 36%, rgba(0,0,0,0.18) 100%),
+    linear-gradient(90deg, #12c99b 0%, #24e7b0 54%, #caff38 100%) !important;
+  color: #061812 !important;
+  font-family: Impact, "Arial Black", "Arial Narrow", system-ui, sans-serif !important;
+  font-size: 0.72rem !important;
+  font-weight: 1000 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.02em !important;
+  text-transform: uppercase;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.22) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.42),
+    inset 0 -2px 0 rgba(0,0,0,0.18),
+    0 0 12px rgba(52, 255, 184, 0.18) !important;
+}
+
+.champion-card[data-game="2xko"].is-selected .health-badge,
+.champion-card[data-game="2xko"]:hover .health-badge {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.52),
+    inset 0 -2px 0 rgba(0,0,0,0.18),
+    0 0 18px rgba(111, 255, 84, 0.34) !important;
+}
+
+@media (max-width: 720px) {
+  .query-actions { gap: 6px; }
+  .reset-button { min-height: 38px; padding: 0 11px; }
+}
+
+/* --- TechLab pass: HUD 2XKO + Marvel Tōkon blue/orange theme + richer game backgrounds --- */
+body[data-theme="2xko"] {
+  --accent: #d7ff36;
+  --accent-2: #18e6ff;
+  --accent-3: #ff2f6d;
+  --border: rgba(215, 255, 54, 0.24);
+  background:
+    linear-gradient(115deg, rgba(215, 255, 54, 0.035) 0 11%, transparent 11% 20%, rgba(24, 230, 255, 0.03) 20% 31%, transparent 31% 100%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.028) 0 1px, transparent 1px 72px),
+    radial-gradient(ellipse at 18% 10%, rgba(215, 255, 54, 0.18), transparent 34rem),
+    radial-gradient(ellipse at 88% 4%, rgba(24, 230, 255, 0.20), transparent 38rem),
+    radial-gradient(ellipse at 56% 9%, rgba(255, 47, 109, 0.14), transparent 34rem),
+    linear-gradient(180deg, #061014 0%, #02050a 58%, #010308 100%);
+}
+
+body[data-theme="marvel"] {
+  --accent: #18bafc;
+  --accent-2: #ff8a00;
+  --accent-3: #f7f1de;
+  --border: rgba(24, 186, 252, 0.27);
+  background:
+    linear-gradient(118deg, rgba(24, 186, 252, 0.12) 0 7%, transparent 7% 13%, rgba(255, 138, 0, 0.10) 13% 18%, transparent 18% 100%),
+    repeating-linear-gradient(105deg, rgba(255,255,255,0.045) 0 1px, transparent 1px 52px),
+    radial-gradient(circle at 10% 0%, rgba(24, 186, 252, 0.22), transparent 32rem),
+    radial-gradient(circle at 90% 4%, rgba(255, 138, 0, 0.24), transparent 34rem),
+    radial-gradient(circle at 55% 26%, rgba(255, 255, 255, 0.055), transparent 42rem),
+    linear-gradient(180deg, #06111a 0%, #06040a 58%, #020208 100%) !important;
+}
+
+body[data-theme="avatar"] {
+  background:
+    linear-gradient(115deg, rgba(73, 198, 255, 0.08), transparent 36%),
+    repeating-linear-gradient(135deg, rgba(255,255,255,0.028) 0 1px, transparent 1px 62px),
+    radial-gradient(circle at 12% 0%, rgba(73, 198, 255, 0.19), transparent 30rem),
+    radial-gradient(circle at 95% 8%, rgba(125, 252, 198, 0.17), transparent 32rem),
+    linear-gradient(180deg, #06131a 0%, #03080c 62%) !important;
+}
+
+body[data-theme="vf"] {
+  background:
+    linear-gradient(115deg, rgba(255, 159, 28, 0.09), transparent 36%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.025) 0 1px, transparent 1px 58px),
+    radial-gradient(circle at 10% 0%, rgba(255, 159, 28, 0.18), transparent 32rem),
+    radial-gradient(circle at 92% 8%, rgba(229, 56, 59, 0.18), transparent 28rem),
+    linear-gradient(180deg, #11100c 0%, #040504 62%) !important;
+}
+
+body[data-theme="marvel"] .selection-builder {
+  border-color: rgba(24, 186, 252, 0.32) !important;
+  background:
+    linear-gradient(135deg, rgba(24, 186, 252, 0.12), rgba(255, 138, 0, 0.09)),
+    rgba(8, 11, 19, 0.62) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 18px 48px rgba(0,0,0,0.22) !important;
+}
+
+body[data-theme="marvel"] .selection-intro .eyebrow,
+body[data-theme="marvel"] .query-mode-card > span {
+  color: #18bafc !important;
+}
+
+body[data-theme="marvel"] .resource-panel {
+  border-color: rgba(24, 186, 252, 0.18) !important;
+}
+
+body[data-theme="marvel"] .resource-link {
+  border-color: rgba(24, 186, 252, 0.18) !important;
+  background: linear-gradient(135deg, rgba(24, 186, 252, 0.06), rgba(255, 138, 0, 0.05)), rgba(255,255,255,0.035) !important;
+}
+
+/* Mini barre de vie 2XKO : plus proche du HUD, angle vers la droite, chiffre seul. */
+.champion-card[data-game="2xko"] .health-badge,
+body[data-game="2xko"] .detail-health {
+  min-width: 66px !important;
+  height: 22px !important;
+  min-height: 22px !important;
+  padding: 0 10px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 100%, 10px 100%) !important;
+  background: linear-gradient(180deg, #22dfb6 0%, #10caa6 52%, #0ba887 100%) !important;
+  color: #fff !important;
+  font-family: Impact, "Arial Black", "Haettenschweiler", "Arial Narrow", system-ui, sans-serif !important;
+  font-size: 0.78rem !important;
+  font-weight: 1000 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  text-shadow: 1px 1px 0 #062b27, -1px -1px 0 rgba(255,255,255,0.18), 0 2px 0 rgba(0,0,0,0.28) !important;
+  filter:
+    drop-shadow(1px 0 0 #d7ff36)
+    drop-shadow(-1px 0 0 #081b17)
+    drop-shadow(0 1px 0 #081b17)
+    drop-shadow(0 -1px 0 rgba(215, 255, 54, 0.75));
+  box-shadow: none !important;
+}
+
+body[data-game="2xko"] .detail-health {
+  width: fit-content !important;
+  min-width: 86px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  padding: 0 16px !important;
+  font-size: 1.18rem !important;
+}
+
+.champion-card[data-game="2xko"].is-selected .health-badge,
+.champion-card[data-game="2xko"]:hover .health-badge {
+  background: linear-gradient(180deg, #27e4bd 0%, #10caa6 58%, #0aa184 100%) !important;
+  filter:
+    drop-shadow(1px 0 0 #d7ff36)
+    drop-shadow(-1px 0 0 #081b17)
+    drop-shadow(0 1px 0 #081b17)
+    drop-shadow(0 -1px 0 rgba(215, 255, 54, 0.95))
+    drop-shadow(0 0 8px rgba(24, 230, 255, 0.28)) !important;
+}
+
+/* --- TechLab pass: 2XKO HUD stands + calmer game backgrounds --- */
+body[data-theme="2xko"] {
+  --accent: #d7ff36;
+  --accent-2: #19e6ff;
+  --accent-3: #ff2f6d;
+  --border: rgba(215, 255, 54, 0.28);
+  background:
+    radial-gradient(ellipse at 23% 0%, rgba(215, 255, 54, 0.20), transparent 28rem),
+    radial-gradient(ellipse at 86% 0%, rgba(25, 230, 255, 0.18), transparent 32rem),
+    radial-gradient(ellipse at 58% 10%, rgba(255, 47, 109, 0.13), transparent 34rem),
+    linear-gradient(132deg, rgba(215, 255, 54, 0.10) 0 10%, transparent 10% 46%, rgba(25, 230, 255, 0.08) 46% 59%, transparent 59% 100%),
+    linear-gradient(180deg, #061116 0%, #03060b 58%, #010309 100%) !important;
+}
+
+body[data-theme="marvel"] {
+  --accent: #18bafc;
+  --accent-2: #ff8a00;
+  --accent-3: #f7f1de;
+  --border: rgba(24, 186, 252, 0.30);
+  background:
+    radial-gradient(ellipse at 14% 2%, rgba(24, 186, 252, 0.27), transparent 31rem),
+    radial-gradient(ellipse at 91% 4%, rgba(255, 138, 0, 0.30), transparent 34rem),
+    linear-gradient(116deg, rgba(24, 186, 252, 0.13) 0 16%, transparent 16% 58%, rgba(255, 138, 0, 0.12) 58% 100%),
+    linear-gradient(180deg, #07141c 0%, #05060c 56%, #020208 100%) !important;
+}
+
+body[data-theme="avatar"] {
+  background:
+    radial-gradient(ellipse at 14% 0%, rgba(73, 198, 255, 0.23), transparent 30rem),
+    radial-gradient(ellipse at 88% 0%, rgba(125, 252, 198, 0.18), transparent 34rem),
+    linear-gradient(128deg, rgba(73, 198, 255, 0.10) 0 24%, transparent 24% 63%, rgba(255, 183, 3, 0.07) 63% 100%),
+    linear-gradient(180deg, #06131a 0%, #03080c 62%) !important;
+}
+
+body[data-theme="vf"] {
+  background:
+    radial-gradient(ellipse at 11% 0%, rgba(255, 159, 28, 0.22), transparent 32rem),
+    radial-gradient(ellipse at 92% 5%, rgba(229, 56, 59, 0.20), transparent 31rem),
+    linear-gradient(130deg, rgba(255, 159, 28, 0.10) 0 22%, transparent 22% 62%, rgba(255, 255, 255, 0.06) 62% 100%),
+    linear-gradient(180deg, #11100c 0%, #040504 62%) !important;
+}
+
+/* 2XKO: the whole stand becomes a mini HUD life bar. */
+.champion-card[data-game="2xko"] .champion-overlay {
+  left: 8px !important;
+  right: 8px !important;
+  bottom: 2px !important;
+  z-index: 34 !important;
+  display: grid !important;
+  gap: 7px !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+.champion-card[data-game="2xko"] .champion-overlay::after {
+  display: none !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name-link {
+  position: relative !important;
+  isolation: isolate !important;
+  justify-self: stretch !important;
+  display: flex !important;
+  align-items: center !important;
+  min-height: 34px !important;
+  width: 100% !important;
+  padding: 0 74px 0 18px !important;
+  color: #fff !important;
+  border-radius: 0 !important;
+  background: linear-gradient(180deg, #19d9b4 0%, #10c8a4 58%, #0aa184 100%) !important;
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 100%, 12px 100%) !important;
+  filter:
+    drop-shadow(2px 0 0 #071916)
+    drop-shadow(-2px 0 0 #071916)
+    drop-shadow(0 2px 0 #071916)
+    drop-shadow(0 -2px 0 #d7ff36)
+    drop-shadow(0 0 10px rgba(24, 230, 255, 0.16)) !important;
+  transition: filter 70ms ease, transform 70ms ease, background 70ms ease !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name-link::before {
+  content: '';
+  position: absolute;
+  inset: 3px 9px 3px 12px;
+  z-index: -1;
+  opacity: 0.28;
+  background: linear-gradient(180deg, rgba(255,255,255,0.42), transparent 42%);
+  clip-path: inherit;
+  pointer-events: none;
+}
+
+.champion-card[data-game="2xko"] .champion-name-link:hover,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible {
+  color: #fff !important;
+  background: linear-gradient(180deg, #22e6bd 0%, #12d0aa 60%, #0aa184 100%) !important;
+  text-shadow: none !important;
+  transform: translateY(-1px) !important;
+  outline: none !important;
+}
+
+.champion-card[data-game="2xko"].is-selected .champion-name-link {
+  background: linear-gradient(180deg, #27f0c6 0%, #13d5ae 58%, #0aa184 100%) !important;
+  filter:
+    drop-shadow(2px 0 0 #071916)
+    drop-shadow(-2px 0 0 #071916)
+    drop-shadow(0 2px 0 #071916)
+    drop-shadow(0 -2px 0 #d7ff36)
+    drop-shadow(0 0 16px rgba(24, 230, 255, 0.30))
+    drop-shadow(0 0 24px rgba(215, 255, 54, 0.20)) !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name {
+  margin: 0 !important;
+  max-width: 100% !important;
+  color: #fff !important;
+  font-family: Impact, "Arial Black", "Haettenschweiler", "Arial Narrow", system-ui, sans-serif !important;
+  font-size: 1.23rem !important;
+  line-height: 1 !important;
+  letter-spacing: 0.025em !important;
+  text-align: left !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  -webkit-text-stroke: 1.15px #071916;
+  paint-order: stroke fill;
+  text-shadow:
+    1px 0 0 #071916,
+    -1px 0 0 #071916,
+    0 1px 0 #071916,
+    0 -1px 0 #071916,
+    2px 2px 0 rgba(0,0,0,0.26) !important;
+}
+
+.champion-card[data-game="2xko"] .champion-links {
+  position: relative !important;
+  z-index: 35 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  min-height: 28px !important;
+  padding: 0 6px !important;
+}
+
+.champion-card[data-game="2xko"] .health-badge {
+  position: absolute !important;
+  top: -41px !important;
+  right: 13px !important;
+  z-index: 38 !important;
+  min-width: 48px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  padding: 0 4px !important;
+  color: #fff !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  clip-path: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  font-family: Impact, "Arial Black", "Haettenschweiler", "Arial Narrow", system-ui, sans-serif !important;
+  font-size: 1.0rem !important;
+  line-height: 1 !important;
+  letter-spacing: 0.035em !important;
+  text-align: right !important;
+  -webkit-text-stroke: 1px #071916;
+  paint-order: stroke fill;
+  text-shadow:
+    1px 0 0 #071916,
+    -1px 0 0 #071916,
+    0 1px 0 #071916,
+    0 -1px 0 #071916,
+    2px 2px 0 rgba(0,0,0,0.25) !important;
+}
+
+/* 2XKO Wiki / Official buttons inspired by the HUD 'FREESTYLE' plate. */
+.champion-card[data-game="2xko"] .champion-wiki-link,
+.champion-card[data-game="2xko"] .champion-official-link {
+  min-width: 70px !important;
+  min-height: 24px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 12px !important;
+  color: #fff !important;
+  background: linear-gradient(180deg, #111417 0%, #05070a 100%) !important;
+  border: 2px solid #f1d331 !important;
+  border-radius: 0 !important;
+  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%) !important;
+  font-family: Impact, "Arial Black", "Haettenschweiler", "Arial Narrow", system-ui, sans-serif !important;
+  font-size: 0.76rem !important;
+  line-height: 1 !important;
+  letter-spacing: 0.035em !important;
+  text-decoration: none !important;
+  text-transform: uppercase !important;
+  -webkit-text-stroke: 0.6px #071916;
+  paint-order: stroke fill;
+  text-shadow:
+    1px 0 0 #071916,
+    -1px 0 0 #071916,
+    0 1px 0 #071916,
+    0 -1px 0 #071916 !important;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.75), inset 0 0 0 1px rgba(255,255,255,0.05) !important;
+  transition: transform 70ms ease, border-color 70ms ease, color 70ms ease, box-shadow 70ms ease !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link:hover,
+.champion-card[data-game="2xko"] .champion-official-link:hover,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible {
+  color: #fff !important;
+  background: linear-gradient(180deg, #151b1f 0%, #06080b 100%) !important;
+  border-color: #fff04a !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 0 12px rgba(241, 211, 49, 0.28), inset 0 0 0 1px rgba(255,255,255,0.08) !important;
+}
+
+/* 2XKO detail page health uses the same HUD language, but bigger. */
+body[data-game="2xko"] .detail-health {
+  min-width: 110px !important;
+  height: 42px !important;
+  padding: 0 20px !important;
+  color: #fff !important;
+  background: linear-gradient(180deg, #19d9b4 0%, #10c8a4 58%, #0aa184 100%) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 100%, 14px 100%) !important;
+  font-family: Impact, "Arial Black", "Haettenschweiler", "Arial Narrow", system-ui, sans-serif !important;
+  font-size: 1.45rem !important;
+  letter-spacing: 0.04em !important;
+  -webkit-text-stroke: 1.1px #071916;
+  paint-order: stroke fill;
+  text-shadow: 1px 0 0 #071916, -1px 0 0 #071916, 0 1px 0 #071916, 0 -1px 0 #071916 !important;
+  filter:
+    drop-shadow(2px 0 0 #071916)
+    drop-shadow(-2px 0 0 #071916)
+    drop-shadow(0 2px 0 #071916)
+    drop-shadow(0 -2px 0 #d7ff36) !important;
+}
+
+/* --- TechLab fix: 2XKO HUD stand accuracy --- */
+/* The 2XKO stand must stay visually stable: selection/hover only affects the character aura, not the HUD plate. */
+.champion-card[data-game="2xko"] .champion-name-link,
+.champion-card[data-game="2xko"] .champion-name-link:hover,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible,
+.champion-card[data-game="2xko"].is-selected .champion-name-link,
+.champion-card[data-game="2xko"].is-selected:hover .champion-name-link {
+  min-height: 36px !important;
+  padding: 0 78px 0 20px !important;
+  color: #fff !important;
+  background: linear-gradient(180deg, #18e2ba 0%, #10caa6 52%, #0aa587 100%) !important;
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 100%, 12px 100%) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  transform: none !important;
+  outline: none !important;
+  filter:
+    drop-shadow(3px 0 0 #020807)
+    drop-shadow(-3px 0 0 #020807)
+    drop-shadow(0 3px 0 #020807)
+    drop-shadow(0 -3px 0 #020807)
+    drop-shadow(0 0 0 #020807) !important;
+  box-shadow: none !important;
+  transition: none !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name-link::before,
+.champion-card[data-game="2xko"] .champion-name-link:hover::before,
+.champion-card[data-game="2xko"].is-selected .champion-name-link::before {
+  inset: 3px 8px 3px 12px !important;
+  opacity: 0.18 !important;
+  background: linear-gradient(180deg, rgba(255,255,255,0.32), rgba(255,255,255,0.02) 44%, rgba(0,0,0,0.10) 100%) !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name {
+  font-family: Impact, "Arial Black", "Haettenschweiler", "Arial Narrow", system-ui, sans-serif !important;
+  font-size: 1.32rem !important;
+  font-weight: 1000 !important;
+  letter-spacing: 0.018em !important;
+  color: #fff !important;
+  -webkit-text-stroke: 1.65px #020807 !important;
+  paint-order: stroke fill !important;
+  text-shadow:
+    2px 0 0 #020807,
+    -2px 0 0 #020807,
+    0 2px 0 #020807,
+    0 -2px 0 #020807,
+    2px 2px 0 #020807,
+    -1px 2px 0 #020807 !important;
+}
+
+.champion-card[data-game="2xko"] .health-badge,
+.champion-card[data-game="2xko"]:hover .health-badge,
+.champion-card[data-game="2xko"].is-selected .health-badge,
+.champion-card[data-game="2xko"].is-selected:hover .health-badge {
+  top: -42px !important;
+  right: 16px !important;
+  min-width: 54px !important;
+  height: 36px !important;
+  min-height: 36px !important;
+  padding: 0 5px !important;
+  color: #fff !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  clip-path: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+  font-family: Impact, "Arial Black", "Haettenschweiler", "Arial Narrow", system-ui, sans-serif !important;
+  font-size: 1.06rem !important;
+  font-weight: 1000 !important;
+  letter-spacing: 0.018em !important;
+  -webkit-text-stroke: 1.45px #020807 !important;
+  paint-order: stroke fill !important;
+  text-shadow:
+    2px 0 0 #020807,
+    -2px 0 0 #020807,
+    0 2px 0 #020807,
+    0 -2px 0 #020807,
+    2px 2px 0 #020807 !important;
+}
+
+/* Freestyle-style buttons: full yellow border, right-leaning angle, thinner lettering. */
+.champion-card[data-game="2xko"] .champion-wiki-link,
+.champion-card[data-game="2xko"] .champion-official-link,
+.champion-card[data-game="2xko"] .champion-wiki-link:hover,
+.champion-card[data-game="2xko"] .champion-official-link:hover,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible {
+  position: relative !important;
+  isolation: isolate !important;
+  min-width: 76px !important;
+  min-height: 25px !important;
+  padding: 0 13px !important;
+  color: #fff !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: #f3d22f !important;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 100%, 10px 100%) !important;
+  font-family: "Arial Narrow", "Roboto Condensed", "Arial", system-ui, sans-serif !important;
+  font-size: 0.76rem !important;
+  font-weight: 1000 !important;
+  letter-spacing: 0.055em !important;
+  line-height: 1 !important;
+  text-transform: uppercase !important;
+  -webkit-text-stroke: 0.55px #020807 !important;
+  paint-order: stroke fill !important;
+  text-shadow:
+    1px 0 0 #020807,
+    -1px 0 0 #020807,
+    0 1px 0 #020807,
+    0 -1px 0 #020807 !important;
+  box-shadow: none !important;
+  filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.75)) !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link::before,
+.champion-card[data-game="2xko"] .champion-official-link::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 3px 4px;
+  background: linear-gradient(180deg, #171a1c 0%, #050608 100%);
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%);
+  pointer-events: none;
+}
+
+.champion-card[data-game="2xko"] .champion-links {
+  gap: 10px !important;
+  min-height: 31px !important;
+}
+
+/* Keep the 2XKO HUD clean on selected/hover: no plate glow, no PV color shift. */
+.champion-card[data-game="2xko"].is-selected .champion-overlay,
+.champion-card[data-game="2xko"]:hover .champion-overlay,
+.champion-card[data-game="2xko"].is-selected:hover .champion-overlay {
+  border: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Detail-page health uses the same corrected black-bordered HUD language. */
+body[data-game="2xko"] .detail-health,
+body[data-game="2xko"] .detail-health:hover {
+  min-width: 112px !important;
+  height: 42px !important;
+  padding: 0 20px !important;
+  color: #fff !important;
+  background: linear-gradient(180deg, #18e2ba 0%, #10caa6 52%, #0aa587 100%) !important;
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 100%, 14px 100%) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  filter:
+    drop-shadow(3px 0 0 #020807)
+    drop-shadow(-3px 0 0 #020807)
+    drop-shadow(0 3px 0 #020807)
+    drop-shadow(0 -3px 0 #020807) !important;
+  font-family: Impact, "Arial Black", "Haettenschweiler", "Arial Narrow", system-ui, sans-serif !important;
+  font-size: 1.45rem !important;
+  -webkit-text-stroke: 1.55px #020807 !important;
+  paint-order: stroke fill !important;
+  text-shadow: 2px 0 0 #020807, -2px 0 0 #020807, 0 2px 0 #020807, 0 -2px 0 #020807 !important;
+}
+
+/* --- TechLab refinement: heavier 2XKO HUD outline + consistent text stroke --- */
+/* Rebuild the life-bar as layered polygons so the black HUD frame is visible on every side. */
+.champion-card[data-game="2xko"] .champion-name-link,
+.champion-card[data-game="2xko"] .champion-name-link:hover,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible,
+.champion-card[data-game="2xko"].is-selected .champion-name-link,
+.champion-card[data-game="2xko"].is-selected:hover .champion-name-link {
+  position: relative !important;
+  overflow: visible !important;
+  isolation: isolate !important;
+  background: transparent !important;
+  clip-path: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name-link::after,
+.champion-card[data-game="2xko"] .champion-name-link:hover::after,
+.champion-card[data-game="2xko"].is-selected .champion-name-link::after,
+.champion-card[data-game="2xko"].is-selected:hover .champion-name-link::after {
+  content: '' !important;
+  position: absolute !important;
+  z-index: 0 !important;
+  inset: -5px -7px -5px -7px !important;
+  background: #020807 !important;
+  clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 100%, 15px 100%) !important;
+  pointer-events: none !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name-link::before,
+.champion-card[data-game="2xko"] .champion-name-link:hover::before,
+.champion-card[data-game="2xko"].is-selected .champion-name-link::before,
+.champion-card[data-game="2xko"].is-selected:hover .champion-name-link::before {
+  content: '' !important;
+  position: absolute !important;
+  z-index: 1 !important;
+  inset: 0 !important;
+  opacity: 1 !important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.035) 38%, rgba(0,0,0,0.12) 100%),
+    linear-gradient(180deg, #19e7c1 0%, #10caa6 54%, #08a486 100%) !important;
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 100%, 12px 100%) !important;
+  pointer-events: none !important;
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.22), inset 0 2px 0 rgba(255,255,255,0.16) !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name,
+.champion-card[data-game="2xko"] .health-badge,
+.champion-card[data-game="2xko"]:hover .health-badge,
+.champion-card[data-game="2xko"].is-selected .health-badge,
+.champion-card[data-game="2xko"].is-selected:hover .health-badge {
+  position: relative !important;
+  z-index: 4 !important;
+  color: #fff !important;
+  -webkit-text-stroke: 2.15px #020807 !important;
+  paint-order: stroke fill !important;
+  text-shadow:
+    2.5px 0 0 #020807,
+    -2.5px 0 0 #020807,
+    0 2.5px 0 #020807,
+    0 -2.5px 0 #020807,
+    2px 2px 0 #020807,
+    -2px 2px 0 #020807,
+    2px -2px 0 #020807,
+    -2px -2px 0 #020807,
+    3px 3px 0 rgba(0,0,0,0.34) !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name {
+  font-size: 1.38rem !important;
+}
+
+.champion-card[data-game="2xko"] .health-badge,
+.champion-card[data-game="2xko"]:hover .health-badge,
+.champion-card[data-game="2xko"].is-selected .health-badge,
+.champion-card[data-game="2xko"].is-selected:hover .health-badge {
+  top: -43px !important;
+  right: 16px !important;
+  font-size: 1.1rem !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* Same HUD frame treatment on the 2XKO detail health badge. */
+body[data-game="2xko"] .detail-health,
+body[data-game="2xko"] .detail-health:hover {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: visible !important;
+  background: transparent !important;
+  clip-path: none !important;
+  filter: none !important;
+  color: #fff !important;
+  -webkit-text-stroke: 2px #020807 !important;
+  text-shadow:
+    2px 0 0 #020807,
+    -2px 0 0 #020807,
+    0 2px 0 #020807,
+    0 -2px 0 #020807,
+    2px 2px 0 #020807,
+    -2px 2px 0 #020807,
+    2px -2px 0 #020807,
+    -2px -2px 0 #020807 !important;
+}
+
+body[data-game="2xko"] .detail-health::after {
+  content: '';
+  position: absolute;
+  z-index: -2;
+  inset: -5px -8px;
+  background: #020807;
+  clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 100%, 16px 100%);
+}
+
+body[data-game="2xko"] .detail-health::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.03) 40%, rgba(0,0,0,0.12) 100%),
+    linear-gradient(180deg, #19e7c1 0%, #10caa6 54%, #08a486 100%);
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 100%, 14px 100%);
+}
+
+/* --- TechLab fix: 2XKO HUD text outline, PV placement, and clickable hovers --- */
+/* The HUD plate stays stable on card hover/selection, but direct link hover is visible. */
+.champion-card[data-game="2xko"] .champion-overlay {
+  position: absolute !important;
+  overflow: visible !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name-link,
+.champion-card[data-game="2xko"] .champion-name-link:hover,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible,
+.champion-card[data-game="2xko"].is-selected .champion-name-link,
+.champion-card[data-game="2xko"].is-selected:hover .champion-name-link {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: visible !important;
+  min-height: 38px !important;
+  padding: 0 72px 0 20px !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  clip-path: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+  transition: filter 70ms ease !important;
+}
+
+/* Black frame + green fill: drop-shadow follows the slanted polygon, so the outline is visible everywhere. */
+.champion-card[data-game="2xko"] .champion-name-link::before,
+.champion-card[data-game="2xko"] .champion-name-link:hover::before,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible::before,
+.champion-card[data-game="2xko"].is-selected .champion-name-link::before,
+.champion-card[data-game="2xko"].is-selected:hover .champion-name-link::before {
+  content: '' !important;
+  position: absolute !important;
+  z-index: 0 !important;
+  inset: 0 !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 100%, 12px 100%) !important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.24) 0%, rgba(255,255,255,0.055) 36%, rgba(0,0,0,0.16) 100%),
+    linear-gradient(180deg, #1ee6bf 0%, #10caa6 54%, #08a486 100%) !important;
+  filter:
+    drop-shadow(4px 0 0 #020807)
+    drop-shadow(-4px 0 0 #020807)
+    drop-shadow(0 4px 0 #020807)
+    drop-shadow(0 -4px 0 #020807)
+    drop-shadow(3px 3px 0 #020807) !important;
+}
+
+/* Disable the previous extra frame layer that was making the HUD harder to control. */
+.champion-card[data-game="2xko"] .champion-name-link::after,
+.champion-card[data-game="2xko"] .champion-name-link:hover::after,
+.champion-card[data-game="2xko"].is-selected .champion-name-link::after,
+.champion-card[data-game="2xko"].is-selected:hover .champion-name-link::after {
+  display: none !important;
+  content: none !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name {
+  position: relative !important;
+  z-index: 3 !important;
+  max-width: calc(100% - 8px) !important;
+  color: #fff !important;
+  font-family: Impact, "Arial Black", "Haettenschweiler", "Arial Narrow", system-ui, sans-serif !important;
+  font-size: 1.36rem !important;
+  font-weight: 1000 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.018em !important;
+  text-align: left !important;
+  text-transform: uppercase !important;
+  -webkit-text-stroke: 0.72px #020807 !important;
+  paint-order: stroke fill !important;
+  text-shadow:
+    1.5px 0 0 #020807,
+    -1.5px 0 0 #020807,
+    0 1.5px 0 #020807,
+    0 -1.5px 0 #020807,
+    1.1px 1.1px 0 #020807,
+    -1.1px 1.1px 0 #020807,
+    1.1px -1.1px 0 #020807,
+    -1.1px -1.1px 0 #020807 !important;
+}
+
+/* PV is now anchored inside the life bar itself, not relative to the lower Wiki/Official row. */
+.champion-card[data-game="2xko"] .health-badge,
+.champion-card[data-game="2xko"]:hover .health-badge,
+.champion-card[data-game="2xko"].is-selected .health-badge,
+.champion-card[data-game="2xko"].is-selected:hover .health-badge {
+  position: absolute !important;
+  top: 6px !important;
+  right: 18px !important;
+  z-index: 5 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  min-width: 56px !important;
+  width: auto !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  color: #fff !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  clip-path: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+  font-family: Impact, "Arial Black", "Haettenschweiler", "Arial Narrow", system-ui, sans-serif !important;
+  font-size: 1.12rem !important;
+  font-weight: 1000 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.018em !important;
+  -webkit-text-stroke: 0.68px #020807 !important;
+  paint-order: stroke fill !important;
+  text-shadow:
+    1.5px 0 0 #020807,
+    -1.5px 0 0 #020807,
+    0 1.5px 0 #020807,
+    0 -1.5px 0 #020807,
+    1.1px 1.1px 0 #020807,
+    -1.1px 1.1px 0 #020807,
+    1.1px -1.1px 0 #020807,
+    -1.1px -1.1px 0 #020807 !important;
+}
+
+.champion-card[data-game="2xko"] .champion-links {
+  position: relative !important;
+  z-index: 4 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+  min-height: 30px !important;
+  padding: 0 6px !important;
+}
+
+/* Direct hover: the clickable HUD name gets a small readable outline/glow without changing selected/card state. */
+.champion-card[data-game="2xko"] .champion-name-link:hover,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible {
+  filter: drop-shadow(0 0 9px rgba(24, 230, 255, 0.30)) !important;
+  outline: none !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name-link:hover .champion-name,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible .champion-name {
+  text-shadow:
+    1.5px 0 0 #020807,
+    -1.5px 0 0 #020807,
+    0 1.5px 0 #020807,
+    0 -1.5px 0 #020807,
+    1.1px 1.1px 0 #020807,
+    -1.1px 1.1px 0 #020807,
+    1.1px -1.1px 0 #020807,
+    -1.1px -1.1px 0 #020807,
+    0 0 12px rgba(255,255,255,0.42),
+    0 0 18px rgba(24,230,255,0.30) !important;
+}
+
+/* Wiki / Official remain stable normally, but clearly react when the button itself is hovered. */
+.champion-card[data-game="2xko"] .champion-wiki-link,
+.champion-card[data-game="2xko"] .champion-official-link {
+  cursor: pointer;
+  transition: transform 70ms ease, filter 70ms ease, background 70ms ease !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link:hover,
+.champion-card[data-game="2xko"] .champion-official-link:hover,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible {
+  transform: translateY(-2px) !important;
+  filter:
+    drop-shadow(2px 2px 0 rgba(0,0,0,0.82))
+    drop-shadow(0 0 10px rgba(241, 211, 49, 0.42)) !important;
+  background: #ffe03a !important;
+  outline: none !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link:hover::before,
+.champion-card[data-game="2xko"] .champion-official-link:hover::before,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible::before,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible::before {
+  background: linear-gradient(180deg, #22282d 0%, #050608 100%) !important;
+}
+
+
+/* --- TechLab hotfix: 2XKO HUD bar rebuilt + HP anchored inside the bar --- */
+.champion-card[data-game="2xko"] .champion-overlay {
+  overflow: visible !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name-link,
+.champion-card[data-game="2xko"] .champion-name-link:hover,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible,
+.champion-card[data-game="2xko"].is-selected .champion-name-link,
+.champion-card[data-game="2xko"].is-selected:hover .champion-name-link {
+  position: relative !important;
+  isolation: isolate !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  min-height: 44px !important;
+  padding: 0 82px 0 24px !important;
+  overflow: visible !important;
+  color: #fff !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  clip-path: none !important;
+  transform: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  transition: filter 55ms ease !important;
+}
+
+/* Thick black outside frame, like the in-game HUD. */
+.champion-card[data-game="2xko"] .champion-name-link::before,
+.champion-card[data-game="2xko"] .champion-name-link:hover::before,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible::before,
+.champion-card[data-game="2xko"].is-selected .champion-name-link::before,
+.champion-card[data-game="2xko"].is-selected:hover .champion-name-link::before {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  z-index: 0 !important;
+  inset: -5px -7px !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+  background: #020807 !important;
+  clip-path: polygon(0 0, calc(100% - 25px) 0, 100% 100%, 17px 100%) !important;
+  filter: drop-shadow(0 3px 0 rgba(0,0,0,0.55)) !important;
+}
+
+/* Green life-bar fill, inset inside the black frame. */
+.champion-card[data-game="2xko"] .champion-name-link::after,
+.champion-card[data-game="2xko"] .champion-name-link:hover::after,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible::after,
+.champion-card[data-game="2xko"].is-selected .champion-name-link::after,
+.champion-card[data-game="2xko"].is-selected:hover .champion-name-link::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  z-index: 1 !important;
+  inset: 2px 2px !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.055) 38%, rgba(0,0,0,0.10) 100%),
+    linear-gradient(180deg, #19e8c1 0%, #10cba7 56%, #08a486 100%) !important;
+  clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 100%, 15px 100%) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -3px 0 rgba(0,0,0,0.18) !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name,
+.champion-card[data-game="2xko"] .health-badge,
+.champion-card[data-game="2xko"]:hover .health-badge,
+.champion-card[data-game="2xko"].is-selected .health-badge,
+.champion-card[data-game="2xko"].is-selected:hover .health-badge {
+  color: #fff !important;
+  font-family: Impact, "Arial Black", "Haettenschweiler", "Arial Narrow", system-ui, sans-serif !important;
+  font-weight: 1000 !important;
+  font-style: italic !important;
+  letter-spacing: 0.018em !important;
+  text-transform: uppercase !important;
+  -webkit-text-stroke: 1.45px #020807 !important;
+  paint-order: stroke fill !important;
+  text-shadow:
+    2px 0 0 #020807,
+    -2px 0 0 #020807,
+    0 2px 0 #020807,
+    0 -2px 0 #020807,
+    1.5px 1.5px 0 #020807,
+    -1.5px 1.5px 0 #020807,
+    1.5px -1.5px 0 #020807,
+    -1.5px -1.5px 0 #020807 !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name {
+  position: relative !important;
+  z-index: 3 !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 3px 0 3px 4px !important;
+  max-width: calc(100% - 76px) !important;
+  overflow: visible !important;
+  white-space: nowrap !important;
+  text-align: left !important;
+  font-size: 1.34rem !important;
+  line-height: 1 !important;
+}
+
+.champion-card[data-game="2xko"] .health-badge,
+.champion-card[data-game="2xko"]:hover .health-badge,
+.champion-card[data-game="2xko"].is-selected .health-badge,
+.champion-card[data-game="2xko"].is-selected:hover .health-badge {
+  position: absolute !important;
+  top: 50% !important;
+  right: 24px !important;
+  left: auto !important;
+  bottom: auto !important;
+  z-index: 4 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  width: 58px !important;
+  min-width: 58px !important;
+  height: 30px !important;
+  min-height: 30px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  transform: translateY(-50%) !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  clip-path: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  font-size: 1.16rem !important;
+  line-height: 1 !important;
+  text-align: right !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name-link:hover,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible {
+  filter: drop-shadow(0 0 9px rgba(24, 230, 255, 0.24)) !important;
+  outline: none !important;
+}
+
+/* 2XKO wiki/official buttons: no jump, just a clean HUD glow when directly hovered. */
+.champion-card[data-game="2xko"] .champion-wiki-link,
+.champion-card[data-game="2xko"] .champion-official-link {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: visible !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+  transition: filter 55ms ease !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link::before,
+.champion-card[data-game="2xko"] .champion-official-link::before {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  z-index: -2 !important;
+  inset: 0 !important;
+  background: #f1d331 !important;
+  clip-path: polygon(9px 0, 100% 0, calc(100% - 9px) 100%, 0 100%) !important;
+  opacity: 1 !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link::after,
+.champion-card[data-game="2xko"] .champion-official-link::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  z-index: -1 !important;
+  inset: 3px !important;
+  background: linear-gradient(180deg, #15191d 0%, #05070a 100%) !important;
+  clip-path: polygon(7px 0, 100% 0, calc(100% - 7px) 100%, 0 100%) !important;
+  opacity: 1 !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link:hover,
+.champion-card[data-game="2xko"] .champion-official-link:hover,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible {
+  transform: none !important;
+  background: transparent !important;
+  color: #fff !important;
+  filter: drop-shadow(0 0 9px rgba(241, 211, 49, 0.52)) !important;
+  outline: none !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link:hover::before,
+.champion-card[data-game="2xko"] .champion-official-link:hover::before,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible::before,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible::before {
+  background: #fff04a !important;
+}
+
+/* --- TechLab final pass: clean 2XKO HUD frame + readable button hovers --- */
+.champion-card[data-game="2xko"] .champion-overlay {
+  overflow: visible !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name-link,
+.champion-card[data-game="2xko"] .champion-name-link:hover,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible,
+.champion-card[data-game="2xko"].is-selected .champion-name-link,
+.champion-card[data-game="2xko"].is-selected:hover .champion-name-link {
+  position: relative !important;
+  isolation: isolate !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  min-height: 42px !important;
+  padding: 0 78px 0 22px !important;
+  overflow: visible !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: filter 65ms ease !important;
+}
+
+/* Barre HUD : cadre noir net, puis remplissage vert turquoise exactement dans le même sens. */
+.champion-card[data-game="2xko"] .champion-name-link::before,
+.champion-card[data-game="2xko"] .champion-name-link:hover::before,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible::before,
+.champion-card[data-game="2xko"].is-selected .champion-name-link::before,
+.champion-card[data-game="2xko"].is-selected:hover .champion-name-link::before {
+  content: '' !important;
+  position: absolute !important;
+  z-index: 0 !important;
+  inset: -6px -9px !important;
+  display: block !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+  background: #020504 !important;
+  clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 100%, 18px 100%) !important;
+  filter: drop-shadow(0 4px 0 rgba(0, 0, 0, 0.62)) !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name-link::after,
+.champion-card[data-game="2xko"] .champion-name-link:hover::after,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible::after,
+.champion-card[data-game="2xko"].is-selected .champion-name-link::after,
+.champion-card[data-game="2xko"].is-selected:hover .champion-name-link::after {
+  content: '' !important;
+  position: absolute !important;
+  z-index: 1 !important;
+  inset: 0 !important;
+  display: block !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.045) 42%, rgba(0,0,0,0.10) 100%),
+    linear-gradient(180deg, #20e2bd 0%, #12c9a7 55%, #08a486 100%) !important;
+  clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 100%, 14px 100%) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -4px 0 rgba(0,0,0,0.18) !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name-link:hover::before,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible::before {
+  filter:
+    drop-shadow(0 4px 0 rgba(0, 0, 0, 0.62))
+    drop-shadow(0 0 10px rgba(24, 230, 255, 0.34)) !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name-link:hover::after,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible::after {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0.065) 42%, rgba(0,0,0,0.08) 100%),
+    linear-gradient(180deg, #2af0cc 0%, #14d4b1 55%, #09ac8e 100%) !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name,
+.champion-card[data-game="2xko"] .health-badge,
+.champion-card[data-game="2xko"]:hover .health-badge,
+.champion-card[data-game="2xko"].is-selected .health-badge,
+.champion-card[data-game="2xko"].is-selected:hover .health-badge {
+  position: relative !important;
+  z-index: 3 !important;
+  color: #fff !important;
+  font-family: Impact, "Arial Black", "Haettenschweiler", "Arial Narrow", system-ui, sans-serif !important;
+  font-weight: 1000 !important;
+  font-style: italic !important;
+  letter-spacing: 0.012em !important;
+  text-transform: uppercase !important;
+  -webkit-text-stroke: 1.15px #020504 !important;
+  paint-order: stroke fill !important;
+  text-shadow:
+    2px 0 0 #020504,
+    -2px 0 0 #020504,
+    0 2px 0 #020504,
+    0 -2px 0 #020504,
+    1.6px 1.6px 0 #020504,
+    -1.6px 1.6px 0 #020504,
+    1.6px -1.6px 0 #020504,
+    -1.6px -1.6px 0 #020504 !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name {
+  display: block !important;
+  max-width: calc(100% - 78px) !important;
+  margin: 0 !important;
+  padding: 2px 0 3px 6px !important;
+  overflow: visible !important;
+  white-space: nowrap !important;
+  text-align: left !important;
+  font-size: 1.32rem !important;
+  line-height: 1 !important;
+}
+
+.champion-card[data-game="2xko"] .health-badge,
+.champion-card[data-game="2xko"]:hover .health-badge,
+.champion-card[data-game="2xko"].is-selected .health-badge,
+.champion-card[data-game="2xko"].is-selected:hover .health-badge {
+  position: absolute !important;
+  top: 50% !important;
+  right: 22px !important;
+  left: auto !important;
+  bottom: auto !important;
+  z-index: 4 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  width: 58px !important;
+  min-width: 58px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  padding: 0 2px 0 0 !important;
+  margin: 0 !important;
+  transform: translateY(-50%) !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  clip-path: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  font-size: 1.12rem !important;
+  line-height: 1 !important;
+  text-align: right !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name-link:hover .champion-name,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible .champion-name,
+.champion-card[data-game="2xko"] .champion-name-link:hover .health-badge,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible .health-badge {
+  text-shadow:
+    2px 0 0 #020504,
+    -2px 0 0 #020504,
+    0 2px 0 #020504,
+    0 -2px 0 #020504,
+    1.6px 1.6px 0 #020504,
+    -1.6px 1.6px 0 #020504,
+    1.6px -1.6px 0 #020504,
+    -1.6px -1.6px 0 #020504,
+    0 0 10px rgba(255,255,255,0.52),
+    0 0 14px rgba(24,230,255,0.34) !important;
+}
+
+/* Boutons type Freestyle : angle remis dans le même sens que la HUD, cadre jaune complet, hover lisible sans saut. */
+.champion-card[data-game="2xko"] .champion-links {
+  gap: 12px !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link,
+.champion-card[data-game="2xko"] .champion-official-link {
+  position: relative !important;
+  isolation: isolate !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 74px !important;
+  min-height: 25px !important;
+  padding: 0 14px !important;
+  overflow: visible !important;
+  color: #fff !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+  cursor: pointer !important;
+  font-family: "Arial Narrow", "Roboto Condensed", "Arial Black", Impact, system-ui, sans-serif !important;
+  font-size: 0.82rem !important;
+  font-weight: 1000 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  -webkit-text-stroke: 0.45px #020504 !important;
+  paint-order: stroke fill !important;
+  text-shadow: 1px 0 0 #020504, -1px 0 0 #020504, 0 1px 0 #020504, 0 -1px 0 #020504 !important;
+  transition: filter 65ms ease, color 65ms ease !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link::before,
+.champion-card[data-game="2xko"] .champion-official-link::before {
+  content: '' !important;
+  position: absolute !important;
+  z-index: -2 !important;
+  inset: 0 !important;
+  display: block !important;
+  opacity: 1 !important;
+  background: #f4d51e !important;
+  clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 100%, 8px 100%) !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link::after,
+.champion-card[data-game="2xko"] .champion-official-link::after {
+  content: '' !important;
+  position: absolute !important;
+  z-index: -1 !important;
+  inset: 3px !important;
+  display: block !important;
+  opacity: 1 !important;
+  background: linear-gradient(180deg, #171b20 0%, #05070a 100%) !important;
+  clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 100%, 6px 100%) !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link:hover,
+.champion-card[data-game="2xko"] .champion-official-link:hover,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible {
+  color: #ffffff !important;
+  outline: none !important;
+  transform: none !important;
+  filter:
+    drop-shadow(0 0 7px rgba(244, 213, 30, 0.72))
+    drop-shadow(0 0 13px rgba(24, 230, 255, 0.28)) !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link:hover::before,
+.champion-card[data-game="2xko"] .champion-official-link:hover::before,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible::before,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible::before {
+  background: #fff141 !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link:hover::after,
+.champion-card[data-game="2xko"] .champion-official-link:hover::after,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible::after,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible::after {
+  background: linear-gradient(180deg, #252b31 0%, #080a0d 100%) !important;
+}
+
+/* --- TechLab hotfix: simpler 2XKO HUD hovers, no movement/no sibling jump --- */
+/* Keep the HUD plate stable. The hover is now a clean color-state, not a zoom/jump. */
+.champion-card[data-game="2xko"] .champion-name-link,
+.champion-card[data-game="2xko"] .champion-name-link:hover,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible,
+.champion-card[data-game="2xko"].is-selected .champion-name-link,
+.champion-card[data-game="2xko"].is-selected:hover .champion-name-link {
+  transform: none !important;
+  filter: none !important;
+  transition: color 70ms ease, opacity 70ms ease !important;
+}
+
+/* Default black frame: stable, no glow by default. */
+.champion-card[data-game="2xko"] .champion-name-link::before,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible::before,
+.champion-card[data-game="2xko"].is-selected .champion-name-link::before,
+.champion-card[data-game="2xko"].is-selected:hover .champion-name-link::before {
+  background: #020504 !important;
+  filter: drop-shadow(0 4px 0 rgba(0, 0, 0, 0.72)) !important;
+  transition: background 70ms ease, filter 70ms ease !important;
+}
+
+/* Lifebar hover: keep the same shape, make the black frame cyan so it reads as clickable. */
+.champion-card[data-game="2xko"] .champion-name-link:hover::before,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible::before {
+  background: #0bf0d0 !important;
+  filter: drop-shadow(0 4px 0 rgba(0, 0, 0, 0.72)) !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name-link::after,
+.champion-card[data-game="2xko"].is-selected .champion-name-link::after,
+.champion-card[data-game="2xko"].is-selected:hover .champion-name-link::after {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.045) 42%, rgba(0,0,0,0.12) 100%),
+    linear-gradient(180deg, #20e2bd 0%, #12c9a7 56%, #08a486 100%) !important;
+  transition: background 70ms ease !important;
+}
+
+.champion-card[data-game="2xko"] .champion-name-link:hover::after,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible::after {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.27) 0%, rgba(255,255,255,0.08) 42%, rgba(0,0,0,0.08) 100%),
+    linear-gradient(180deg, #34ffdc 0%, #18dcb9 56%, #0ab494 100%) !important;
+}
+
+/* Text stays in place; only gains a clean cyan/white readable state on hover. */
+.champion-card[data-game="2xko"] .champion-name-link:hover .champion-name,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible .champion-name,
+.champion-card[data-game="2xko"] .champion-name-link:hover .health-badge,
+.champion-card[data-game="2xko"] .champion-name-link:focus-visible .health-badge {
+  color: #ffffff !important;
+  -webkit-text-stroke: 1.15px #020504 !important;
+  text-shadow:
+    2px 0 0 #020504,
+    -2px 0 0 #020504,
+    0 2px 0 #020504,
+    0 -2px 0 #020504,
+    1.6px 1.6px 0 #020504,
+    -1.6px 1.6px 0 #020504,
+    1.6px -1.6px 0 #020504,
+    -1.6px -1.6px 0 #020504,
+    0 0 8px rgba(255, 255, 255, 0.48) !important;
+}
+
+/* Wiki / Officiel: no zoom, no jump, no shared movement. Only the hovered button changes color. */
+.champion-card[data-game="2xko"] .champion-wiki-link,
+.champion-card[data-game="2xko"] .champion-official-link,
+.champion-card[data-game="2xko"] .champion-wiki-link:hover,
+.champion-card[data-game="2xko"] .champion-official-link:hover,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible {
+  transform: none !important;
+  filter: none !important;
+  outline: none !important;
+  transition: color 70ms ease !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link::before,
+.champion-card[data-game="2xko"] .champion-official-link::before {
+  background: #f4d51e !important;
+  transition: background 70ms ease !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link::after,
+.champion-card[data-game="2xko"] .champion-official-link::after {
+  background: linear-gradient(180deg, #171b20 0%, #05070a 100%) !important;
+  transition: background 70ms ease !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link:hover::before,
+.champion-card[data-game="2xko"] .champion-official-link:hover::before,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible::before,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible::before {
+  background: #18e6ff !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link:hover::after,
+.champion-card[data-game="2xko"] .champion-official-link:hover::after,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible::after,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible::after {
+  background: linear-gradient(180deg, #102429 0%, #05090b 100%) !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link:hover,
+.champion-card[data-game="2xko"] .champion-official-link:hover,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible {
+  color: #ffffff !important;
+  text-shadow:
+    1px 0 0 #020504,
+    -1px 0 0 #020504,
+    0 1px 0 #020504,
+    0 -1px 0 #020504,
+    0 0 5px rgba(24, 230, 255, 0.68) !important;
+}
+
+/* --- TechLab final hotfix: clean uniform 2XKO Wiki/Official buttons --- */
+/* Un seul bouton bouge visuellement au hover : pas de zoom, pas de saut, pas de voisin qui se décale. */
+.champion-card[data-game="2xko"] .champion-links {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 12px !important;
+  overflow: visible !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link,
+.champion-card[data-game="2xko"] .champion-official-link,
+.champion-card[data-game="2xko"] .champion-wiki-link:hover,
+.champion-card[data-game="2xko"] .champion-official-link:hover,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible {
+  position: relative !important;
+  isolation: isolate !important;
+  box-sizing: border-box !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 86px !important;
+  min-width: 86px !important;
+  height: 26px !important;
+  min-height: 26px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  color: #ffffff !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+  filter: none !important;
+  outline: none !important;
+  font-family: "Arial Narrow", "Roboto Condensed", "Arial Black", Impact, system-ui, sans-serif !important;
+  font-size: 0.82rem !important;
+  font-weight: 1000 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.045em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  -webkit-text-stroke: 0.45px #020504 !important;
+  paint-order: stroke fill !important;
+  text-shadow:
+    1px 0 0 #020504,
+    -1px 0 0 #020504,
+    0 1px 0 #020504,
+    0 -1px 0 #020504 !important;
+  transition: color 70ms ease, text-shadow 70ms ease !important;
+}
+
+/* Cadre type Freestyle : bordure uniforme tout autour, côtés inclinés propres, sans clip-path. */
+.champion-card[data-game="2xko"] .champion-wiki-link::before,
+.champion-card[data-game="2xko"] .champion-official-link::before {
+  content: '' !important;
+  position: absolute !important;
+  z-index: -1 !important;
+  inset: 0 4px !important;
+  display: block !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+  background: linear-gradient(180deg, #171b20 0%, #05070a 100%) !important;
+  border: 3px solid #f4d51e !important;
+  border-radius: 0 !important;
+  transform: skewX(12deg) !important;
+  transform-origin: center center !important;
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.72),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+  transition: border-color 70ms ease, background 70ms ease, box-shadow 70ms ease !important;
+}
+
+/* On coupe les anciens pseudo-éléments internes qui provoquaient les côtés rognés. */
+.champion-card[data-game="2xko"] .champion-wiki-link::after,
+.champion-card[data-game="2xko"] .champion-official-link::after,
+.champion-card[data-game="2xko"] .champion-wiki-link:hover::after,
+.champion-card[data-game="2xko"] .champion-official-link:hover::after,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible::after,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible::after {
+  content: none !important;
+  display: none !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link:hover::before,
+.champion-card[data-game="2xko"] .champion-official-link:hover::before,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible::before,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible::before {
+  background: linear-gradient(180deg, #122b30 0%, #050a0d 100%) !important;
+  border-color: #18e6ff !important;
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.72),
+    0 0 0 1px rgba(24, 230, 255, 0.2),
+    0 0 12px rgba(24, 230, 255, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16) !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link:hover,
+.champion-card[data-game="2xko"] .champion-official-link:hover,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible {
+  color: #ffffff !important;
+  text-shadow:
+    1px 0 0 #020504,
+    -1px 0 0 #020504,
+    0 1px 0 #020504,
+    0 -1px 0 #020504,
+    0 0 7px rgba(24, 230, 255, 0.85) !important;
+}
+
+/* --- TechLab final pass: custom site logo + clean 2XKO HUD sub-buttons --- */
+.brand.brand-logo-only {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  margin: 0 0 34px !important;
+  padding: 8px 4px 22px !important;
+  color: inherit !important;
+  text-decoration: none !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.site-logo {
+  display: block !important;
+  width: min(228px, 100%) !important;
+  max-height: 154px !important;
+  object-fit: contain !important;
+  filter:
+    drop-shadow(0 18px 26px rgba(0, 0, 0, 0.45))
+    drop-shadow(0 0 12px rgba(24, 230, 255, 0.10)) !important;
+}
+
+/* The sidebar logo is image-only now. Keep enough air before the game list. */
+.brand-logo-only + .game-nav {
+  margin-top: 6px !important;
+}
+
+/* 2XKO Wiki / Officiel buttons: stable HUD plates with a real continuous frame. */
+.champion-card[data-game="2xko"] .champion-links {
+  gap: 14px !important;
+  overflow: visible !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link,
+.champion-card[data-game="2xko"] .champion-official-link,
+.champion-card[data-game="2xko"] .champion-wiki-link:hover,
+.champion-card[data-game="2xko"] .champion-official-link:hover,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible {
+  position: relative !important;
+  isolation: isolate !important;
+  box-sizing: border-box !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 94px !important;
+  min-width: 94px !important;
+  height: 26px !important;
+  min-height: 26px !important;
+  padding: 0 8px !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  color: #fff !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+  filter: none !important;
+  outline: none !important;
+  font-family: "Arial Narrow", "Roboto Condensed", "Arial Black", Impact, system-ui, sans-serif !important;
+  font-size: 0.78rem !important;
+  font-weight: 1000 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.045em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  -webkit-text-stroke: 0.45px #020504 !important;
+  paint-order: stroke fill !important;
+  text-shadow:
+    1px 0 0 #020504,
+    -1px 0 0 #020504,
+    0 1px 0 #020504,
+    0 -1px 0 #020504 !important;
+  transition: color 70ms ease, text-shadow 70ms ease !important;
+}
+
+/* Outer plate: the yellow frame itself. No CSS border, so the angled sides cannot be cropped unevenly. */
+.champion-card[data-game="2xko"] .champion-wiki-link::before,
+.champion-card[data-game="2xko"] .champion-official-link::before {
+  content: '' !important;
+  position: absolute !important;
+  z-index: -2 !important;
+  inset: 0 !important;
+  display: block !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+  background: #f4d51e !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  clip-path: polygon(11px 0, 100% 0, calc(100% - 11px) 100%, 0 100%) !important;
+  transform: none !important;
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.72),
+    0 0 0 1px rgba(0, 0, 0, 0.72) !important;
+  transition: background 70ms ease, box-shadow 70ms ease !important;
+}
+
+/* Inner plate: black fill, inset equally on all sides so the yellow frame stays continuous. */
+.champion-card[data-game="2xko"] .champion-wiki-link::after,
+.champion-card[data-game="2xko"] .champion-official-link::after,
+.champion-card[data-game="2xko"] .champion-wiki-link:hover::after,
+.champion-card[data-game="2xko"] .champion-official-link:hover::after,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible::after,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible::after {
+  content: '' !important;
+  position: absolute !important;
+  z-index: -1 !important;
+  inset: 3px !important;
+  display: block !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+  background: linear-gradient(180deg, #171b20 0%, #05070a 100%) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%) !important;
+  transform: none !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  transition: background 70ms ease !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link:hover::before,
+.champion-card[data-game="2xko"] .champion-official-link:hover::before,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible::before,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible::before {
+  background: #18e6ff !important;
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.72),
+    0 0 0 1px rgba(0, 0, 0, 0.72),
+    0 0 12px rgba(24, 230, 255, 0.56) !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link:hover::after,
+.champion-card[data-game="2xko"] .champion-official-link:hover::after,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible::after,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible::after {
+  background: linear-gradient(180deg, #10242a 0%, #05090b 100%) !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link:hover,
+.champion-card[data-game="2xko"] .champion-official-link:hover,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible {
+  color: #fff !important;
+  text-shadow:
+    1px 0 0 #020504,
+    -1px 0 0 #020504,
+    0 1px 0 #020504,
+    0 -1px 0 #020504,
+    0 0 7px rgba(24, 230, 255, 0.85) !important;
+}
+
+/* --- TechLab ultra-final: 2XKO Wiki/Official buttons, correct right-leaning angle + uniform border --- */
+.champion-card[data-game="2xko"] .champion-links {
+  gap: 14px !important;
+  overflow: visible !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link,
+.champion-card[data-game="2xko"] .champion-official-link,
+.champion-card[data-game="2xko"] .champion-wiki-link:hover,
+.champion-card[data-game="2xko"] .champion-official-link:hover,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible {
+  position: relative !important;
+  isolation: isolate !important;
+  box-sizing: border-box !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 92px !important;
+  min-width: 92px !important;
+  height: 27px !important;
+  min-height: 27px !important;
+  padding: 0 12px !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  color: #fff !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+  filter: none !important;
+  outline: none !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: color 70ms ease, text-shadow 70ms ease !important;
+}
+
+/* One single skewed plate with a real CSS border: no clipped left/right edges. */
+.champion-card[data-game="2xko"] .champion-wiki-link::before,
+.champion-card[data-game="2xko"] .champion-official-link::before,
+.champion-card[data-game="2xko"] .champion-wiki-link:hover::before,
+.champion-card[data-game="2xko"] .champion-official-link:hover::before,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible::before,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible::before {
+  content: '' !important;
+  position: absolute !important;
+  z-index: -1 !important;
+  inset: 0 7px !important;
+  display: block !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+  box-sizing: border-box !important;
+  background: linear-gradient(180deg, #171b20 0%, #05070a 100%) !important;
+  border: 3px solid #f4d51e !important;
+  border-radius: 0 !important;
+  clip-path: none !important;
+  transform: skewX(12deg) !important;
+  transform-origin: center center !important;
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.74),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10) !important;
+  transition: border-color 70ms ease, background 70ms ease, box-shadow 70ms ease !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link::after,
+.champion-card[data-game="2xko"] .champion-official-link::after,
+.champion-card[data-game="2xko"] .champion-wiki-link:hover::after,
+.champion-card[data-game="2xko"] .champion-official-link:hover::after,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible::after,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible::after {
+  content: none !important;
+  display: none !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link:hover::before,
+.champion-card[data-game="2xko"] .champion-official-link:hover::before,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible::before,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible::before {
+  border-color: #18e6ff !important;
+  background: linear-gradient(180deg, #10272c 0%, #05090b 100%) !important;
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.74),
+    0 0 10px rgba(24, 230, 255, 0.50),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+}
+
+.champion-card[data-game="2xko"] .champion-wiki-link:hover,
+.champion-card[data-game="2xko"] .champion-official-link:hover,
+.champion-card[data-game="2xko"] .champion-wiki-link:focus-visible,
+.champion-card[data-game="2xko"] .champion-official-link:focus-visible {
+  color: #fff !important;
+  text-shadow:
+    1px 0 0 #020504,
+    -1px 0 0 #020504,
+    0 1px 0 #020504,
+    0 -1px 0 #020504,
+    0 0 7px rgba(24, 230, 255, 0.82) !important;
+}

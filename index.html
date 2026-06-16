@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TechLab</title>
+  <meta name="description" content="TechLab : hub de techs pour jeux de combat, par jeu et par personnage." />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="shell">
+    <aside class="game-sidebar" aria-label="Jeux de combat">
+      <a class="brand brand-logo-only" href="#/2xko" aria-label="Retour à TechLab">
+        <img class="site-logo" src="./assets/techlab-logo.png" alt="TechLab" />
+      </a>
+
+      <nav class="game-nav" id="gameNav" aria-label="Liste des jeux"></nav>
+    </aside>
+
+    <main class="app" id="app" aria-live="polite"></main>
+  </div>
+
+  <template id="gameButtonTemplate">
+    <a class="game-button">
+      <span class="game-name"></span>
+      <span class="game-count"></span>
+    </a>
+  </template>
+
+  <template id="championCardTemplate">
+    <article class="champion-card">
+      <button class="champion-card-button" type="button">
+        <div class="champion-art-wrap">
+          <img class="champion-art" alt="" loading="lazy" />
+          <div class="champion-fallback" aria-hidden="true"></div>
+        </div>
+      </button>
+      <div class="champion-overlay">
+        <a class="champion-name-link">
+          <h2 class="champion-name"></h2>
+        </a>
+        <div class="champion-links">
+          <a class="champion-tag" target="_blank" rel="noreferrer noopener"></a>
+          <a class="champion-wiki-link" target="_blank" rel="noreferrer noopener">Wiki</a>
+          <a class="champion-official-link" target="_blank" rel="noreferrer noopener">Officiel</a>
+          <span class="health-badge" title="PV"></span>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="./script.js"></script>
+</body>
+</html>

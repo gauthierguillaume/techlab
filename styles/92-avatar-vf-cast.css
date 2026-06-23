@@ -1,0 +1,1045 @@
+/* --- TechLab v1.0.19 : ébauche select screen Avatar + Virtua Fighter --- */
+body[data-page="game"][data-game="avatar-legends"] {
+  --lab-game-accent: #49c6ff;
+  --lab-game-accent-2: #7dfcc6;
+  --lab-game-panel: rgba(3, 13, 24, 0.82);
+  --lab-game-bar: linear-gradient(100deg, #49c6ff 0%, #1d9ee9 56%, #7dfcc6 100%);
+}
+
+body[data-page="game"][data-game="vf-crossroads"] {
+  --lab-game-accent: #ff9f1c;
+  --lab-game-accent-2: #e5383b;
+  --lab-game-panel: rgba(18, 10, 6, 0.82);
+  --lab-game-bar: linear-gradient(100deg, #ff9f1c 0%, #e85f15 58%, #e5383b 100%);
+}
+
+body[data-page="game"][data-game="avatar-legends"] .app,
+body[data-page="game"][data-game="vf-crossroads"] .app {
+  position: relative !important;
+  isolation: isolate !important;
+  min-height: 100dvh !important;
+  padding: 0 !important;
+  background:
+    radial-gradient(circle at 72% 32%, color-mix(in srgb, var(--lab-game-accent) 16%, transparent), transparent 36%),
+    radial-gradient(circle at 44% 76%, color-mix(in srgb, var(--lab-game-accent-2) 14%, transparent), transparent 35%),
+    linear-gradient(135deg, rgba(1, 6, 12, 0.98), rgba(4, 18, 24, 0.92) 52%, rgba(2, 7, 12, 0.98)) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .app::before,
+body[data-page="game"][data-game="vf-crossroads"] .app::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.035), transparent 22%, transparent 72%, rgba(255,255,255,0.025)),
+    repeating-linear-gradient(135deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 12px) !important;
+  opacity: .38 !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .hero,
+body[data-page="game"][data-game="vf-crossroads"] .hero {
+  display: none !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .game-workspace-stage-picker,
+body[data-page="game"][data-game="avatar-legends"] .game-workspace-2xko-test,
+body[data-page="game"][data-game="vf-crossroads"] .game-workspace-stage-picker,
+body[data-page="game"][data-game="vf-crossroads"] .game-workspace-2xko-test {
+  display: grid !important;
+  grid-template-columns: clamp(320px, 20vw, 400px) minmax(244px, 292px) minmax(0, 1fr) !important;
+  gap: clamp(8px, .75vw, 14px) !important;
+  align-items: stretch !important;
+  min-height: 100dvh !important;
+  height: 100dvh !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail {
+  grid-column: 1 !important;
+  position: sticky !important;
+  top: 0 !important;
+  align-self: stretch !important;
+  width: 100% !important;
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  padding: 7px !important;
+  overflow: hidden !important;
+  background:
+    radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--lab-game-accent) 12%, transparent), transparent 38%),
+    linear-gradient(180deg, color-mix(in srgb, var(--lab-game-panel) 88%, #000), rgba(0, 6, 11, 0.92)) !important;
+  border: 1px solid color-mix(in srgb, var(--lab-game-accent) 34%, transparent) !important;
+  border-left: 0 !important;
+  border-radius: 0 16px 16px 0 !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.035), 0 0 24px rgba(0,0,0,0.22) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-head,
+body[data-page="game"][data-game="avatar-legends"] .character-rail::before,
+body[data-page="game"][data-game="avatar-legends"] .character-rail::after,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-head,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail::before,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail::after {
+  display: none !important;
+  content: none !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-list,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-list {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  grid-auto-flow: row !important;
+  gap: clamp(5px, .55vw, 8px) !important;
+  width: 100% !important;
+  height: calc(100dvh - 14px) !important;
+  max-height: calc(100dvh - 14px) !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-list {
+  grid-template-rows: repeat(4, minmax(0, 1fr)) !important;
+}
+
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  grid-template-rows: repeat(3, minmax(0, 1fr)) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item {
+  position: relative !important;
+  display: block !important;
+  isolation: isolate !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-radius: 10px !important;
+  color: #fff !important;
+  background:
+    radial-gradient(circle at 50% 18%, color-mix(in srgb, var(--lab-game-accent) 12%, transparent), transparent 46%),
+    linear-gradient(180deg, rgba(4, 22, 28, .84), rgba(1, 8, 14, .92)) !important;
+  border: 1px solid color-mix(in srgb, var(--lab-game-accent) 28%, rgba(255,255,255,.12)) !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.045), 0 7px 16px rgba(0,0,0,.24) !important;
+  cursor: pointer !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item::before,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.08), transparent 28%),
+    linear-gradient(0deg, rgba(0,0,0,.84) 0%, rgba(0,0,0,.48) 18%, transparent 46%) !important;
+  opacity: .92 !important;
+  transition: opacity 140ms ease !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-art,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-art {
+  position: absolute !important;
+  inset: -2px 0 0 !important;
+  z-index: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: calc(100% + 6px) !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: cover !important;
+  object-position: center 24% !important;
+  border: 0 !important;
+  border-radius: inherit !important;
+  filter: drop-shadow(0 8px 10px rgba(0,0,0,.56)) !important;
+  transform: perspective(520px) rotateX(0deg) rotateY(0deg) translateY(0) scale(1.02) !important;
+  transform-origin: center bottom !important;
+  transition: transform 145ms ease-out, filter 145ms ease-out !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-fallback,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-fallback {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  color: color-mix(in srgb, var(--lab-game-accent) 72%, #fff) !important;
+  font-family: Impact, "Arial Black", system-ui, sans-serif !important;
+  font-size: clamp(1.8rem, 4vw, 4.8rem) !important;
+  font-weight: 1000 !important;
+  letter-spacing: -.08em !important;
+  text-shadow: 2px 2px 0 #000, 0 0 16px color-mix(in srgb, var(--lab-game-accent) 48%, transparent) !important;
+  background: radial-gradient(circle at center, color-mix(in srgb, var(--lab-game-accent) 18%, transparent), transparent 62%) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item span,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item span {
+  position: absolute !important;
+  left: 3px !important;
+  right: 3px !important;
+  bottom: 3px !important;
+  z-index: 2 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: clamp(16px, 1.22vw, 22px) !important;
+  padding: 1px 2px 0 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  color: #fff !important;
+  font-size: clamp(.48rem, .60vw, .74rem) !important;
+  line-height: 1 !important;
+  font-weight: 1000 !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+  text-shadow: 1px 1px 0 #000, 0 2px 5px rgba(0,0,0,.92) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item:hover:not(.is-selected),
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item:focus-visible:not(.is-selected),
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item:hover:not(.is-selected),
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item:focus-visible:not(.is-selected) {
+  border-color: color-mix(in srgb, var(--lab-game-accent) 82%, white) !important;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--lab-game-accent) 42%, transparent), 0 0 16px color-mix(in srgb, var(--lab-game-accent) 24%, transparent), inset 0 0 18px color-mix(in srgb, var(--lab-game-accent-2) 9%, transparent) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item:hover:not(.is-selected) .character-rail-art,
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item:focus-visible:not(.is-selected) .character-rail-art,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item:hover:not(.is-selected) .character-rail-art,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item:focus-visible:not(.is-selected) .character-rail-art {
+  filter: drop-shadow(0 10px 13px rgba(0,0,0,.68)) drop-shadow(0 0 8px color-mix(in srgb, var(--lab-game-accent) 22%, transparent)) !important;
+  transform: perspective(520px) rotateX(5deg) rotateY(-7deg) translateY(-2px) scale(1.07) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item.is-selected,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item.is-selected {
+  border-color: var(--lab-game-accent) !important;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--lab-game-accent) 55%, transparent), 0 0 22px color-mix(in srgb, var(--lab-game-accent) 36%, transparent), inset 0 0 24px color-mix(in srgb, var(--lab-game-accent-2) 12%, transparent) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item.is-selected .character-rail-art,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item.is-selected .character-rail-art {
+  transform: perspective(520px) rotateX(0deg) rotateY(0deg) translateY(-1px) scale(1.045) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item.is-selected span,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item.is-selected span {
+  color: var(--lab-game-accent-2) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .game-workspace-stage-picker .info-column,
+body[data-page="game"][data-game="avatar-legends"] .game-workspace-2xko-test .info-column,
+body[data-page="game"][data-game="vf-crossroads"] .game-workspace-stage-picker .info-column,
+body[data-page="game"][data-game="vf-crossroads"] .game-workspace-2xko-test .info-column {
+  grid-column: 2 !important;
+  align-self: start !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin-top: clamp(12px, 1.2vw, 20px) !important;
+  gap: clamp(8px, .8vw, 12px) !important;
+  padding: 0 !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .selection-builder,
+body[data-page="game"][data-game="vf-crossroads"] .selection-builder {
+  border-color: color-mix(in srgb, var(--lab-game-accent) 24%, transparent) !important;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--lab-game-panel) 88%, #000), rgba(1, 8, 12, .78)) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .selection-heading,
+body[data-page="game"][data-game="vf-crossroads"] .selection-heading {
+  color: var(--lab-game-accent-2) !important;
+  text-shadow: 1px 1px 0 #000, 0 0 10px color-mix(in srgb, var(--lab-game-accent) 32%, transparent) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .query-mode-card > span,
+body[data-page="game"][data-game="vf-crossroads"] .query-mode-card > span {
+  color: var(--lab-game-accent) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .resource-panel,
+body[data-page="game"][data-game="vf-crossroads"] .resource-panel {
+  padding: 0 !important;
+  gap: 8px !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .resource-link,
+body[data-page="game"][data-game="vf-crossroads"] .resource-link {
+  border-radius: 12px !important;
+  background: linear-gradient(90deg, rgba(6, 14, 18, .94), rgba(2, 16, 26, .84)) !important;
+  border-top-color: rgba(255,255,255,.12) !important;
+  border-right-color: rgba(255,255,255,.12) !important;
+  border-bottom-color: rgba(255,255,255,.12) !important;
+  box-shadow: 0 8px 17px rgba(0,0,0,.30), inset 0 0 0 1px rgba(255,255,255,.04) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .resource-link-x,
+body[data-page="game"][data-game="vf-crossroads"] .resource-link-x { --lab-resource-accent: #ffffff; }
+
+body[data-page="game"][data-game="avatar-legends"] .resource-link-reddit,
+body[data-page="game"][data-game="vf-crossroads"] .resource-link-reddit { --lab-resource-accent: #ff6a00; }
+
+body[data-page="game"][data-game="avatar-legends"] .resource-link span:not(.resource-icon),
+body[data-page="game"][data-game="vf-crossroads"] .resource-link span:not(.resource-icon) {
+  color: var(--lab-resource-accent, var(--lab-game-accent)) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .resource-link strong,
+body[data-page="game"][data-game="vf-crossroads"] .resource-link strong {
+  color: #fff !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage {
+  grid-column: 3 !important;
+  position: relative !important;
+  isolation: isolate !important;
+  height: 100dvh !important;
+  min-height: 0 !important;
+  margin-left: -10px !important;
+  width: calc(100% + 10px) !important;
+  max-width: none !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage-empty,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage-empty {
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  opacity: .42 !important;
+  background: radial-gradient(circle at 50% 48%, color-mix(in srgb, var(--lab-game-accent) 14%, transparent), transparent 42%) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage-grid,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage-grid {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 2 !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage-grid.has-two,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage-grid.has-two { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage-card,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage-card {
+  --lab-hud-top: clamp(42px, 4.65dvh, 54px);
+  position: relative !important;
+  min-width: 0 !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage-main-link,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage-main-link {
+  position: absolute !important;
+  inset: 0 !important;
+  display: block !important;
+  height: 100% !important;
+  border-radius: 0 !important;
+  overflow: hidden !important;
+  cursor: default !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage-art-wrap,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage-art-wrap {
+  position: absolute !important;
+  top: clamp(100px, 11dvh, 126px) !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  z-index: 3 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage-art,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage-art {
+  width: auto !important;
+  height: auto !important;
+  max-width: 112% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  object-position: center bottom !important;
+  filter: drop-shadow(0 34px 30px rgba(0,0,0,.68)) drop-shadow(0 0 14px color-mix(in srgb, var(--lab-game-accent) 18%, transparent)) !important;
+  transform:
+    perspective(1100px)
+    translate3d(var(--stage-shift-x, 0px), var(--stage-shift-y, 0px), 0)
+    rotateX(var(--stage-tilt-x, 0deg))
+    rotateY(var(--stage-tilt-y, 0deg))
+    translate(var(--art-x, 0px), var(--art-y, 0px))
+    scaleX(var(--stage-face, 1))
+    scale(var(--art-scale, 1.08)) !important;
+  transform-origin: center center !important;
+  transition: transform 120ms ease-out, filter 120ms ease-out !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage-caption,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage-caption {
+  position: absolute !important;
+  top: var(--lab-hud-top) !important;
+  left: clamp(8px, .95vw, 18px) !important;
+  right: clamp(8px, .95vw, 18px) !important;
+  bottom: auto !important;
+  z-index: 5 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: clamp(8px, .75vw, 18px) !important;
+  min-height: clamp(48px, 4.9dvh, 58px) !important;
+  padding: clamp(6px, .65vw, 9px) clamp(12px, 1vw, 18px) !important;
+  border: 3px solid #03080b !important;
+  border-radius: 0 !important;
+  background: var(--lab-game-bar) !important;
+  box-shadow: 7px 7px 0 rgba(0,0,0,.82), 0 12px 28px rgba(0,0,0,.40) !important;
+  transform: skewX(10deg) !important;
+  cursor: pointer !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage-caption strong,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage-caption strong,
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage-caption span,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage-caption span {
+  color: #fff !important;
+  font-family: Impact, "Arial Black", system-ui, sans-serif !important;
+  font-weight: 1000 !important;
+  font-size: clamp(1.25rem, 2.35vw, 3.65rem) !important;
+  line-height: .88 !important;
+  letter-spacing: -.055em !important;
+  text-transform: uppercase !important;
+  -webkit-text-stroke: 1px #020504 !important;
+  paint-order: stroke fill !important;
+  text-shadow: 2px 2px 0 #020504 !important;
+  transform: skewX(-10deg) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage-health,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage-health {
+  color: #05070a !important;
+  text-align: right !important;
+  -webkit-text-stroke: .55px rgba(255,255,255,.96) !important;
+  text-shadow: 1px 1px 0 rgba(255,255,255,.86), 0 3px 7px rgba(0,0,0,.32) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage-actions,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage-actions {
+  position: absolute !important;
+  top: clamp(9px, 1.25dvh, 15px) !important;
+  left: clamp(8px, .95vw, 18px) !important;
+  right: clamp(8px, .95vw, 18px) !important;
+  z-index: 6 !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: clamp(6px, .55vw, 9px) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage-action,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage-action {
+  position: static !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: clamp(70px, 4.2vw, 88px) !important;
+  min-height: clamp(23px, 1.35vw, 29px) !important;
+  padding: 0 clamp(9px, .75vw, 13px) !important;
+  color: #fff !important;
+  font-size: clamp(.60rem, .50vw, .74rem) !important;
+  font-weight: 1000 !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  border: 2px solid var(--lab-game-accent) !important;
+  border-radius: 2px !important;
+  background: rgba(0,0,0,.84) !important;
+  box-shadow: 4px 4px 0 rgba(0,0,0,.64), 0 8px 15px rgba(0,0,0,.30) !important;
+  transform: skewX(8deg) !important;
+}
+
+@media (max-width: 1080px) {
+  body[data-page="game"][data-game="avatar-legends"] .game-workspace-stage-picker,
+  body[data-page="game"][data-game="avatar-legends"] .game-workspace-2xko-test,
+  body[data-page="game"][data-game="vf-crossroads"] .game-workspace-stage-picker,
+  body[data-page="game"][data-game="vf-crossroads"] .game-workspace-2xko-test {
+    grid-template-columns: minmax(300px, 36vw) minmax(0, 1fr) !important;
+  }
+
+  body[data-page="game"][data-game="avatar-legends"] .game-workspace-stage-picker .info-column,
+  body[data-page="game"][data-game="avatar-legends"] .game-workspace-2xko-test .info-column,
+  body[data-page="game"][data-game="vf-crossroads"] .game-workspace-stage-picker .info-column,
+  body[data-page="game"][data-game="vf-crossroads"] .game-workspace-2xko-test .info-column {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    align-self: end !important;
+    margin: 0 6px 8px !important;
+    z-index: 8 !important;
+  }
+
+  body[data-page="game"][data-game="avatar-legends"] .x2ko-stage,
+  body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage {
+    grid-column: 2 !important;
+    grid-row: 1 / span 2 !important;
+  }
+}
+
+/* --- TechLab v1.0.20 : noms Avatar/VF lisibles sur deux lignes --- */
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item span,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item span {
+  left: 4px !important;
+  right: 4px !important;
+  bottom: 4px !important;
+  min-height: clamp(24px, 1.8vw, 34px) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  padding: 1px 2px 0 !important;
+  overflow: hidden !important;
+  white-space: normal !important;
+  text-overflow: clip !important;
+  color: #fff !important;
+  font-family: Impact, "Arial Black", system-ui, sans-serif !important;
+  font-size: clamp(0.68rem, 0.86vw, 1rem) !important;
+  line-height: .84 !important;
+  letter-spacing: -0.035em !important;
+  -webkit-text-stroke: .35px rgba(0,0,0,.95) !important;
+  paint-order: stroke fill !important;
+  text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 0 2px 5px rgba(0,0,0,.95) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item[data-character-slug="aang-avatar-state"] span,
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item[data-character-slug="korra-avatar-state"] span {
+  font-size: clamp(0.56rem, 0.74vw, 0.86rem) !important;
+  letter-spacing: -0.04em !important;
+}
+
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item[data-character-slug="wolf-oakfield"] span,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item[data-character-slug="jackie-bryant"] span {
+  font-size: clamp(0.62rem, 0.78vw, 0.94rem) !important;
+}
+
+@media (max-height: 720px) and (min-width: 860px) {
+  body[data-page="game"][data-game="avatar-legends"] .character-rail-item span,
+  body[data-page="game"][data-game="vf-crossroads"] .character-rail-item span {
+    min-height: 18px !important;
+    font-size: clamp(0.54rem, 0.72vw, 0.74rem) !important;
+  }
+
+  body[data-page="game"][data-game="avatar-legends"] .character-rail-item[data-character-slug="aang-avatar-state"] span,
+  body[data-page="game"][data-game="avatar-legends"] .character-rail-item[data-character-slug="korra-avatar-state"] span {
+    font-size: clamp(0.48rem, 0.64vw, 0.66rem) !important;
+  }
+}
+
+/* --- TechLab v1.0.21 : noms Avatar/VF sans changement de police + sélection non coupée --- */
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item span,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item span {
+  font-family: inherit !important;
+  font-size: clamp(0.58rem, 0.74vw, 0.88rem) !important;
+  line-height: .88 !important;
+  letter-spacing: -0.024em !important;
+  -webkit-text-stroke: 0 !important;
+  paint-order: normal !important;
+  text-shadow: 1px 1px 0 #000, 0 2px 5px rgba(0,0,0,.95) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item[data-character-slug="aang-avatar-state"] span,
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item[data-character-slug="korra-avatar-state"] span,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item[data-character-slug="wolf-oakfield"] span,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item[data-character-slug="jackie-bryant"] span {
+  font-family: inherit !important;
+  font-size: clamp(0.50rem, 0.66vw, 0.78rem) !important;
+  letter-spacing: -0.028em !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-art,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-art {
+  inset: 0 !important;
+  height: 100% !important;
+  transform-origin: center center !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item:hover:not(.is-selected) .character-rail-art,
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item:focus-visible:not(.is-selected) .character-rail-art,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item:hover:not(.is-selected) .character-rail-art,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item:focus-visible:not(.is-selected) .character-rail-art {
+  transform: perspective(520px) rotateX(5deg) rotateY(-7deg) translateY(0) scale(1.045) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item.is-selected .character-rail-art,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item.is-selected .character-rail-art {
+  transform: perspective(520px) rotateX(0deg) rotateY(0deg) translateY(1px) scale(1.025) !important;
+}
+
+@media (max-height: 720px) and (min-width: 860px) {
+  body[data-page="game"][data-game="avatar-legends"] .character-rail-item span,
+  body[data-page="game"][data-game="vf-crossroads"] .character-rail-item span {
+    font-size: clamp(0.50rem, 0.68vw, 0.68rem) !important;
+  }
+
+  body[data-page="game"][data-game="avatar-legends"] .character-rail-item[data-character-slug="aang-avatar-state"] span,
+  body[data-page="game"][data-game="avatar-legends"] .character-rail-item[data-character-slug="korra-avatar-state"] span,
+  body[data-page="game"][data-game="vf-crossroads"] .character-rail-item[data-character-slug="wolf-oakfield"] span,
+  body[data-page="game"][data-game="vf-crossroads"] .character-rail-item[data-character-slug="jackie-bryant"] span {
+    font-size: clamp(0.44rem, 0.60vw, 0.60rem) !important;
+  }
+}
+
+/* --- TechLab v1.0.22 : noms exacts, taille uniforme + sélection non coupée Avatar/VF --- */
+body[data-page="game"][data-game="avatar-legends"] .character-rail-list,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-list {
+  padding-top: 2px !important;
+  height: calc(100dvh - 16px) !important;
+  max-height: calc(100dvh - 16px) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item span,
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item[data-character-slug="aang-avatar-state"] span,
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item[data-character-slug="korra-avatar-state"] span,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item span,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item[data-character-slug="wolf-hawkfield"] span,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item[data-character-slug="jacky-bryant"] span,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item[data-character-slug="wolf-oakfield"] span,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item[data-character-slug="jackie-bryant"] span {
+  font-family: inherit !important;
+  min-height: clamp(19px, 1.42vw, 26px) !important;
+  font-size: clamp(0.52rem, 0.68vw, 0.78rem) !important;
+  line-height: .88 !important;
+  letter-spacing: -0.032em !important;
+  white-space: normal !important;
+  -webkit-text-stroke: 0 !important;
+  paint-order: normal !important;
+  text-shadow: 1px 1px 0 #000, 0 2px 5px rgba(0,0,0,.96) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-art,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-art {
+  inset: 2px 0 0 !important;
+  height: calc(100% - 2px) !important;
+  transform-origin: center center !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item:hover:not(.is-selected) .character-rail-art,
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item:focus-visible:not(.is-selected) .character-rail-art,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item:hover:not(.is-selected) .character-rail-art,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item:focus-visible:not(.is-selected) .character-rail-art {
+  transform: perspective(520px) rotateX(5deg) rotateY(-7deg) translateY(1px) scale(1.035) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item.is-selected .character-rail-art,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item.is-selected .character-rail-art {
+  transform: perspective(520px) rotateX(0deg) rotateY(0deg) translateY(1px) scale(1.01) !important;
+}
+
+@media (max-height: 720px) and (min-width: 860px) {
+  body[data-page="game"][data-game="avatar-legends"] .character-rail-list,
+  body[data-page="game"][data-game="vf-crossroads"] .character-rail-list {
+    padding-top: 2px !important;
+    height: calc(100dvh - 10px) !important;
+    max-height: calc(100dvh - 10px) !important;
+  }
+
+  body[data-page="game"][data-game="avatar-legends"] .character-rail-item span,
+  body[data-page="game"][data-game="avatar-legends"] .character-rail-item[data-character-slug="aang-avatar-state"] span,
+  body[data-page="game"][data-game="avatar-legends"] .character-rail-item[data-character-slug="korra-avatar-state"] span,
+  body[data-page="game"][data-game="vf-crossroads"] .character-rail-item span,
+  body[data-page="game"][data-game="vf-crossroads"] .character-rail-item[data-character-slug="wolf-hawkfield"] span,
+  body[data-page="game"][data-game="vf-crossroads"] .character-rail-item[data-character-slug="jacky-bryant"] span {
+    min-height: 17px !important;
+    font-size: clamp(0.46rem, 0.62vw, 0.60rem) !important;
+  }
+}
+
+/* --- TechLab v1.0.23 : backgrounds Avatar/VF + labels max lisibles --- */
+body[data-page="game"][data-game="avatar-legends"] .app {
+  background:
+    linear-gradient(90deg, rgba(2, 6, 12, 0.26) 0%, rgba(2, 6, 12, 0.44) 38%, rgba(2, 6, 12, 0.34) 100%),
+    url("../assets/avatar-legends/backgrounds/avatar-legends-key-art.webp") center center / cover no-repeat !important;
+}
+
+body[data-page="game"][data-game="vf-crossroads"] .app {
+  background:
+    linear-gradient(90deg, rgba(2, 6, 12, 0.24) 0%, rgba(2, 6, 12, 0.42) 38%, rgba(2, 6, 12, 0.32) 100%),
+    url("../assets/vf-crossroads/backgrounds/vf-crossroads-key-art.webp") center center / cover no-repeat !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .app:has(.x2ko-stage.has-selection)::before,
+body[data-page="game"][data-game="vf-crossroads"] .app:has(.x2ko-stage.has-selection)::before {
+  background: rgba(0, 0, 0, 0.44) !important;
+  opacity: 1 !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-list,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-list {
+  padding-top: 7px !important;
+  height: calc(100dvh - 14px) !important;
+  max-height: calc(100dvh - 14px) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item span,
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item[data-character-slug="aang-avatar-state"] span,
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item[data-character-slug="korra-avatar-state"] span,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item span,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item[data-character-slug="wolf-hawkfield"] span,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item[data-character-slug="jacky-bryant"] span {
+  font-family: inherit !important;
+  left: 4px !important;
+  right: 4px !important;
+  bottom: 4px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: clamp(24px, 1.82vw, 34px) !important;
+  padding: 1px 2px 0 !important;
+  white-space: normal !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+  font-size: clamp(0.74rem, 0.92vw, 1.04rem) !important;
+  line-height: .86 !important;
+  letter-spacing: -0.032em !important;
+  -webkit-text-stroke: 0 !important;
+  paint-order: normal !important;
+  text-shadow: 1px 1px 0 #000, 0 2px 5px rgba(0,0,0,.96) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-art,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-art {
+  inset: 3px 0 0 !important;
+  height: calc(100% - 3px) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item:hover:not(.is-selected) .character-rail-art,
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item:focus-visible:not(.is-selected) .character-rail-art,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item:hover:not(.is-selected) .character-rail-art,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item:focus-visible:not(.is-selected) .character-rail-art {
+  transform: perspective(520px) rotateX(5deg) rotateY(-7deg) translateY(2px) scale(1.032) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .character-rail-item.is-selected .character-rail-art,
+body[data-page="game"][data-game="vf-crossroads"] .character-rail-item.is-selected .character-rail-art {
+  transform: perspective(520px) rotateX(0deg) rotateY(0deg) translateY(2px) scale(1.01) !important;
+}
+
+@media (max-height: 720px) and (min-width: 860px) {
+  body[data-page="game"][data-game="avatar-legends"] .character-rail-item span,
+  body[data-page="game"][data-game="avatar-legends"] .character-rail-item[data-character-slug="aang-avatar-state"] span,
+  body[data-page="game"][data-game="avatar-legends"] .character-rail-item[data-character-slug="korra-avatar-state"] span,
+  body[data-page="game"][data-game="vf-crossroads"] .character-rail-item span,
+  body[data-page="game"][data-game="vf-crossroads"] .character-rail-item[data-character-slug="wolf-hawkfield"] span,
+  body[data-page="game"][data-game="vf-crossroads"] .character-rail-item[data-character-slug="jacky-bryant"] span {
+    min-height: 20px !important;
+    font-size: clamp(0.58rem, 0.78vw, 0.76rem) !important;
+  }
+}
+
+
+/* --- TechLab v1.0.24 : Avatar/VF fonds propres, sans barres, assombrissement seulement avec sélection --- */
+body[data-page="game"][data-game="avatar-legends"] .app {
+  background: url("../assets/avatar-legends/backgrounds/avatar-legends-key-art.webp") center center / cover no-repeat !important;
+}
+
+body[data-page="game"][data-game="vf-crossroads"] .app {
+  background: url("../assets/vf-crossroads/backgrounds/vf-crossroads-key-art.webp") center center / cover no-repeat !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .app::before,
+body[data-page="game"][data-game="vf-crossroads"] .app::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  background: transparent !important;
+  opacity: 0 !important;
+  transition: opacity 180ms ease, background 180ms ease !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .app:has(.x2ko-stage.has-selection)::before,
+body[data-page="game"][data-game="vf-crossroads"] .app:has(.x2ko-stage.has-selection)::before {
+  background: rgba(0, 0, 0, 0.48) !important;
+  opacity: 1 !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage-empty,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage-empty {
+  background: transparent !important;
+  opacity: 0 !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage-art,
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage-grid.has-two .x2ko-stage-art,
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage-card.is-duo .x2ko-stage-art,
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage-card.is-right .x2ko-stage-art,
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage-main-link.is-alpha-hover .x2ko-stage-art,
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage-main-link:hover .x2ko-stage-art,
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage-main-link:focus-visible .x2ko-stage-art,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage-art,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage-grid.has-two .x2ko-stage-art,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage-card.is-duo .x2ko-stage-art,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage-card.is-right .x2ko-stage-art,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage-main-link.is-alpha-hover .x2ko-stage-art,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage-main-link:hover .x2ko-stage-art,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage-main-link:focus-visible .x2ko-stage-art {
+  filter:
+    drop-shadow(0 36px 32px rgba(0,0,0,0.72))
+    drop-shadow(0 14px 15px rgba(0,0,0,0.56))
+    drop-shadow(0 2px 2px rgba(0,0,0,0.72)) !important;
+  transition: transform 120ms ease-out !important;
+}
+
+/* --- TechLab v1.0.25 : suppression du voile/barres sur Avatar + Virtua Fighter à vide --- */
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage::before,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage::before {
+  display: none !important;
+  content: none !important;
+  background: transparent !important;
+  opacity: 0 !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage-grid[hidden],
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage-grid[hidden] {
+  display: none !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .x2ko-stage.has-selection .x2ko-stage-grid,
+body[data-page="game"][data-game="vf-crossroads"] .x2ko-stage.has-selection .x2ko-stage-grid {
+  background: transparent !important;
+}
+
+/* --- TechLab v1.0.26 : liens Avatar/VF alignés sur la logique 2XKO/Marvel + sans ombre externe --- */
+body[data-page="game"][data-game="avatar-legends"] .resource-panel,
+body[data-page="game"][data-game="vf-crossroads"] .resource-panel {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 8px !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .resource-link-x,
+body[data-page="game"][data-game="vf-crossroads"] .resource-link-x {
+  --lab-resource-accent: #ffffff !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .resource-link-youtube,
+body[data-page="game"][data-game="vf-crossroads"] .resource-link-youtube {
+  --lab-resource-accent: #ff0033 !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .resource-link-reddit,
+body[data-page="game"][data-game="vf-crossroads"] .resource-link-reddit {
+  --lab-resource-accent: #ff6a00 !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .resource-link-tournament,
+body[data-page="game"][data-game="vf-crossroads"] .resource-link-tournament {
+  --lab-resource-accent: #ffe100 !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .resource-link-glossary,
+body[data-page="game"][data-game="vf-crossroads"] .resource-link-glossary {
+  --lab-resource-accent: #19e6ff !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .resource-link,
+body[data-page="game"][data-game="vf-crossroads"] .resource-link {
+  display: grid !important;
+  grid-template-columns: 46px minmax(0, 1fr) !important;
+  grid-template-rows: auto auto !important;
+  column-gap: 11px !important;
+  row-gap: 4px !important;
+  align-items: center !important;
+  min-height: 56px !important;
+  padding: 8px 11px 9px 9px !important;
+  color: inherit !important;
+  text-decoration: none !important;
+  border-radius: 12px !important;
+  background: linear-gradient(90deg, rgba(6, 14, 18, 0.94), rgba(2, 16, 26, 0.84)) !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  border-left: 5px solid var(--lab-resource-accent, var(--lab-game-accent)) !important;
+  filter: none !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
+  transition: transform 150ms ease, background 150ms ease, border-color 150ms ease !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .resource-link:hover,
+body[data-page="game"][data-game="avatar-legends"] .resource-link:focus-visible,
+body[data-page="game"][data-game="vf-crossroads"] .resource-link:hover,
+body[data-page="game"][data-game="vf-crossroads"] .resource-link:focus-visible {
+  background: linear-gradient(90deg, rgba(9, 28, 32, 0.96), rgba(3, 23, 31, 0.86)) !important;
+  border-color: color-mix(in srgb, var(--lab-resource-accent, var(--lab-game-accent)) 42%, rgba(255,255,255,0.16)) !important;
+  border-left-color: var(--lab-resource-accent, var(--lab-game-accent)) !important;
+  transform: translateX(2px) !important;
+  filter: none !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .resource-icon,
+body[data-page="game"][data-game="vf-crossroads"] .resource-icon {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 13px !important;
+  display: grid !important;
+  place-items: center !important;
+  color: #fff !important;
+  filter: none !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.16) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .resource-icon-x,
+body[data-page="game"][data-game="vf-crossroads"] .resource-icon-x {
+  background: #050505 !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.32) !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .resource-icon-reddit,
+body[data-page="game"][data-game="vf-crossroads"] .resource-icon-reddit {
+  background: #ff6a00 !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .resource-icon-youtube,
+body[data-page="game"][data-game="vf-crossroads"] .resource-icon-youtube {
+  background: #ff0033 !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .resource-icon-tournament,
+body[data-page="game"][data-game="vf-crossroads"] .resource-icon-tournament {
+  background: #ffe100 !important;
+  color: #081012 !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .resource-icon-glossary,
+body[data-page="game"][data-game="vf-crossroads"] .resource-icon-glossary {
+  background: #19e6ff !important;
+  color: #031014 !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .resource-icon .x-icon,
+body[data-page="game"][data-game="avatar-legends"] .resource-icon .youtube-icon,
+body[data-page="game"][data-game="avatar-legends"] .resource-icon .reddit-icon,
+body[data-page="game"][data-game="avatar-legends"] .resource-icon .tournament-icon,
+body[data-page="game"][data-game="avatar-legends"] .resource-icon .glossary-icon,
+body[data-page="game"][data-game="vf-crossroads"] .resource-icon .x-icon,
+body[data-page="game"][data-game="vf-crossroads"] .resource-icon .youtube-icon,
+body[data-page="game"][data-game="vf-crossroads"] .resource-icon .reddit-icon,
+body[data-page="game"][data-game="vf-crossroads"] .resource-icon .tournament-icon,
+body[data-page="game"][data-game="vf-crossroads"] .resource-icon .glossary-icon {
+  width: 23px !important;
+  height: 23px !important;
+  fill: currentColor !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .resource-link span:not(.resource-icon),
+body[data-page="game"][data-game="vf-crossroads"] .resource-link span:not(.resource-icon) {
+  color: var(--lab-resource-accent, var(--lab-game-accent)) !important;
+  font-size: 0.64rem !important;
+  line-height: 1.16 !important;
+  font-weight: 1000 !important;
+  letter-spacing: .028em !important;
+  text-transform: uppercase !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .resource-link strong,
+body[data-page="game"][data-game="vf-crossroads"] .resource-link strong {
+  color: #ffffff !important;
+  font-size: 0.86rem !important;
+  line-height: 1.16 !important;
+  font-weight: 1000 !important;
+  text-shadow: 1px 1px 0 #000 !important;
+}
+
+/* --- TechLab v1.0.27 : nettoyage définitif des ombres/bavures panneaux/liens Avatar + VF --- */
+body[data-page="game"][data-game="avatar-legends"] .game-workspace-stage-picker .info-column,
+body[data-page="game"][data-game="avatar-legends"] .game-workspace-2xko-test .info-column,
+body[data-page="game"][data-game="vf-crossroads"] .game-workspace-stage-picker .info-column,
+body[data-page="game"][data-game="vf-crossroads"] .game-workspace-2xko-test .info-column,
+body[data-page="game"][data-game="avatar-legends"] .selection-builder,
+body[data-page="game"][data-game="vf-crossroads"] .selection-builder,
+body[data-page="game"][data-game="avatar-legends"] .query-panel,
+body[data-page="game"][data-game="vf-crossroads"] .query-panel,
+body[data-page="game"][data-game="avatar-legends"] .query-mode-card,
+body[data-page="game"][data-game="vf-crossroads"] .query-mode-card,
+body[data-page="game"][data-game="avatar-legends"] .generated-query,
+body[data-page="game"][data-game="vf-crossroads"] .generated-query,
+body[data-page="game"][data-game="avatar-legends"] .resource-panel,
+body[data-page="game"][data-game="vf-crossroads"] .resource-panel,
+body[data-page="game"][data-game="avatar-legends"] .resource-link,
+body[data-page="game"][data-game="vf-crossroads"] .resource-link,
+body[data-page="game"][data-game="avatar-legends"] .resource-icon,
+body[data-page="game"][data-game="vf-crossroads"] .resource-icon,
+body[data-page="game"][data-game="avatar-legends"] .query-actions .big-link,
+body[data-page="game"][data-game="avatar-legends"] .query-actions .copy-button,
+body[data-page="game"][data-game="avatar-legends"] .query-actions .reset-button,
+body[data-page="game"][data-game="vf-crossroads"] .query-actions .big-link,
+body[data-page="game"][data-game="vf-crossroads"] .query-actions .copy-button,
+body[data-page="game"][data-game="vf-crossroads"] .query-actions .reset-button {
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+body[data-page="game"][data-game="avatar-legends"] .selection-builder::before,
+body[data-page="game"][data-game="avatar-legends"] .selection-builder::after,
+body[data-page="game"][data-game="avatar-legends"] .query-panel::before,
+body[data-page="game"][data-game="avatar-legends"] .query-panel::after,
+body[data-page="game"][data-game="avatar-legends"] .query-mode-card::before,
+body[data-page="game"][data-game="avatar-legends"] .query-mode-card::after,
+body[data-page="game"][data-game="avatar-legends"] .resource-panel::before,
+body[data-page="game"][data-game="avatar-legends"] .resource-panel::after,
+body[data-page="game"][data-game="avatar-legends"] .resource-link::before,
+body[data-page="game"][data-game="avatar-legends"] .resource-link::after,
+body[data-page="game"][data-game="vf-crossroads"] .selection-builder::before,
+body[data-page="game"][data-game="vf-crossroads"] .selection-builder::after,
+body[data-page="game"][data-game="vf-crossroads"] .query-panel::before,
+body[data-page="game"][data-game="vf-crossroads"] .query-panel::after,
+body[data-page="game"][data-game="vf-crossroads"] .query-mode-card::before,
+body[data-page="game"][data-game="vf-crossroads"] .query-mode-card::after,
+body[data-page="game"][data-game="vf-crossroads"] .resource-panel::before,
+body[data-page="game"][data-game="vf-crossroads"] .resource-panel::after,
+body[data-page="game"][data-game="vf-crossroads"] .resource-link::before,
+body[data-page="game"][data-game="vf-crossroads"] .resource-link::after {
+  display: none !important;
+  content: none !important;
+  opacity: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+}

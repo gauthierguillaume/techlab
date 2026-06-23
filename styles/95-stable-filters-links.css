@@ -1,0 +1,570 @@
+/* TechLab — stabilité finale des filtres X/Twitter et des liens rapides.
+   Scope volontairement limité aux pages de jeu : aucun roster, HUD, stage ou fiche perso n'est modifié ici. */
+
+html body[data-page="game"][data-game="2xko"] {
+  --tl-game-primary: #cdf564;
+  --tl-game-secondary: #00bc9e;
+}
+html body[data-page="game"][data-game="marvel-tokon"] {
+  --tl-game-primary: #00a0f8;
+  --tl-game-secondary: #f86800;
+}
+html body[data-page="game"][data-game="avatar-legends"] {
+  --tl-game-primary: #ff7a1a;
+  --tl-game-secondary: #74cfff;
+}
+html body[data-page="game"][data-game="vf-crossroads"] {
+  --tl-game-primary: #c65a2b;
+  --tl-game-secondary: #ffffff;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column {
+  position: relative !important;
+  z-index: 70 !important;
+  isolation: isolate !important;
+  min-width: 0 !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel {
+  position: relative !important;
+  z-index: 80 !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-style: normal !important;
+  font-stretch: normal !important;
+  text-rendering: auto !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder *,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder *::before,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder *::after,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel *,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel *::before,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel *::after {
+  box-sizing: border-box !important;
+  font-family: inherit !important;
+  font-style: normal !important;
+  font-stretch: normal !important;
+  transform: none !important;
+  translate: none !important;
+  scale: 1 !important;
+  rotate: 0deg !important;
+  animation: none !important;
+}
+
+/* Panneau de filtres : même structure dans tous les jeux. */
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder {
+  display: block !important;
+  margin: 0 !important;
+  padding: clamp(12px, .85vw, 16px) !important;
+  border: 1px solid color-mix(in srgb, var(--tl-game-primary) 22%, rgba(255,255,255,.10)) !important;
+  border-radius: 18px !important;
+  background: rgba(0, 24, 30, .76) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  overflow: hidden !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .selection-title,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder #selectionNames {
+  display: none !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .selection-intro {
+  display: block !important;
+  margin: 0 0 12px !important;
+  padding: 0 !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .selection-heading.selection-heading,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .selection-heading.selection-heading:hover,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .selection-heading.selection-heading:focus {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: var(--tl-game-primary) !important;
+  font-size: clamp(20px, 1.25vw, 26px) !important;
+  line-height: 1.05 !important;
+  font-weight: 950 !important;
+  letter-spacing: -.055em !important;
+  text-transform: none !important;
+  text-decoration: none !important;
+  white-space: normal !important;
+  transform: none !important;
+  transition: none !important;
+  text-shadow: 0 1px 0 #000, 0 0 14px color-mix(in srgb, var(--tl-game-primary) 24%, transparent) !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .selection-heading.selection-heading::after {
+  content: "" !important;
+  display: block !important;
+  width: 58px !important;
+  height: 2px !important;
+  margin: 8px 0 0 !important;
+  border-radius: 999px !important;
+  background: linear-gradient(90deg, var(--tl-game-primary), var(--tl-game-secondary), transparent) !important;
+  transform: none !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-panel.query-panel {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-mode-card.query-mode-card,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-mode-card.query-mode-card:hover,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-mode-card.query-mode-card:focus-within {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 112px !important;
+  grid-template-rows: 34px auto !important;
+  grid-template-areas: "title actions" "query query" !important;
+  align-items: center !important;
+  column-gap: 10px !important;
+  row-gap: 8px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 11px !important;
+  border: 1px solid rgba(255,255,255,.11) !important;
+  border-radius: 14px !important;
+  background: rgba(0, 11, 18, .76) !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.025) !important;
+  filter: none !important;
+  overflow: hidden !important;
+  transform: none !important;
+  transition: border-color 120ms ease, background-color 120ms ease, box-shadow 120ms ease !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-mode-card.query-mode-card:hover,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-mode-card.query-mode-card:focus-within {
+  border-color: color-mix(in srgb, var(--tl-game-secondary) 50%, rgba(255,255,255,.16)) !important;
+  background: rgba(0, 13, 21, .80) !important;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tl-game-secondary) 14%, transparent) !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-mode-card.query-mode-card > span,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-mode-card.query-mode-card:hover > span,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-mode-card.query-mode-card:focus-within > span {
+  grid-area: title !important;
+  display: block !important;
+  align-self: center !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 22px !important;
+  min-height: 22px !important;
+  max-height: 22px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: var(--tl-game-secondary) !important;
+  font-size: 16px !important;
+  line-height: 22px !important;
+  font-weight: 900 !important;
+  letter-spacing: .055em !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-mode-card.query-mode-card:hover .query-actions.query-actions,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-mode-card.query-mode-card:focus-within .query-actions.query-actions {
+  grid-area: actions !important;
+  display: grid !important;
+  grid-template-columns: repeat(3, 32px) !important;
+  grid-auto-rows: 32px !important;
+  gap: 6px !important;
+  justify-content: end !important;
+  align-items: center !important;
+  width: 108px !important;
+  min-width: 108px !important;
+  max-width: 108px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .big-link,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .big-link:link,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .big-link:visited,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .big-link:hover,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .big-link:focus,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .big-link:focus-visible,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .big-link:active,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .copy-button,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .copy-button:hover,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .copy-button:focus,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .copy-button:focus-visible,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .copy-button:active,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .reset-button,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .reset-button:hover,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .reset-button:focus,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .reset-button:focus-visible,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .reset-button:active {
+  appearance: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 32px !important;
+  min-width: 32px !important;
+  max-width: 32px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 1px solid rgba(255,255,255,.18) !important;
+  border-radius: 9px !important;
+  background: rgba(255,255,255,.055) !important;
+  color: rgba(255,255,255,.92) !important;
+  opacity: 1 !important;
+  text-decoration: none !important;
+  font-size: 0 !important;
+  line-height: 1 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  filter: none !important;
+  cursor: pointer !important;
+  overflow: hidden !important;
+  transform: none !important;
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .big-link:hover,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .big-link:focus-visible,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .copy-button:hover,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .copy-button:focus-visible {
+  border-color: color-mix(in srgb, var(--tl-game-secondary) 62%, rgba(255,255,255,.20)) !important;
+  background: color-mix(in srgb, var(--tl-game-secondary) 13%, rgba(255,255,255,.06)) !important;
+  color: #fff !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .reset-button,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .reset-button:hover,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .reset-button:focus-visible {
+  color: #ff5d68 !important;
+}
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .reset-button:hover,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .reset-button:focus-visible {
+  border-color: rgba(255, 93, 104, .64) !important;
+  background: rgba(255, 93, 104, .12) !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .big-link.is-disabled,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .copy-button:disabled,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .reset-button:disabled {
+  opacity: .42 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions svg,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions img,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .x-icon,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-actions.query-actions .action-icon-svg {
+  display: block !important;
+  width: 18px !important;
+  min-width: 18px !important;
+  max-width: 18px !important;
+  height: 18px !important;
+  min-height: 18px !important;
+  max-height: 18px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  fill: currentColor !important;
+  filter: none !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .generated-query.generated-query,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .generated-query.generated-query:hover,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .generated-query.generated-query:focus,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .generated-query.generated-query:focus-visible,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-mode-card.query-mode-card:hover .generated-query.generated-query,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-mode-card.query-mode-card:focus-within .generated-query.generated-query {
+  grid-area: query !important;
+  display: block !important;
+  position: static !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 42px !important;
+  max-height: 118px !important;
+  margin: 0 !important;
+  padding: 9px 10px !important;
+  border: 1px solid rgba(255,255,255,.11) !important;
+  border-radius: 10px !important;
+  background: rgba(0, 8, 14, .78) !important;
+  color: #fff !important;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-size: 12px !important;
+  line-height: 1.25 !important;
+  font-weight: 650 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  text-decoration: none !important;
+  text-align: left !important;
+  text-shadow: none !important;
+  white-space: pre-wrap !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  scrollbar-gutter: stable !important;
+  box-shadow: none !important;
+  outline: none !important;
+  opacity: 1 !important;
+  clip: auto !important;
+  cursor: text !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder #simpleQuery.generated-query,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder #simpleQuery.generated-query:hover,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-mode-card.query-mode-card:hover #simpleQuery.generated-query {
+  max-height: 64px !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .generated-query.generated-query:empty::before {
+  content: "" !important;
+  display: none !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .generated-query.generated-query::-webkit-scrollbar { width: 7px !important; }
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .generated-query.generated-query::-webkit-scrollbar-track { background: rgba(255,255,255,.045) !important; border-radius: 999px !important; }
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .generated-query.generated-query::-webkit-scrollbar-thumb { background: var(--tl-game-secondary) !important; border-radius: 999px !important; }
+
+/* Liens rapides : une seule structure fixe, hover purement visuel. */
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link-main,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link-official { --tl-link-accent: var(--tl-game-primary); }
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link-x { --tl-link-accent: #f7f7fb; }
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link-reddit { --tl-link-accent: #ff7a1a; }
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link-youtube { --tl-link-accent: #ff3157; }
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link-tournament { --tl-link-accent: #ffe600; }
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link-glossary { --tl-link-accent: #29e6ff; }
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link-marvel,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link-playstation { --tl-link-accent: var(--tl-game-primary); }
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link:link,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link:visited,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link:hover,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link:focus,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link:focus-visible,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link:active {
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: 38px minmax(0, 1fr) !important;
+  grid-template-rows: 16px 22px !important;
+  align-items: center !important;
+  column-gap: 10px !important;
+  row-gap: 0 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  height: 52px !important;
+  min-height: 52px !important;
+  max-height: 52px !important;
+  margin: 0 !important;
+  padding: 6px 10px !important;
+  border: 1px solid rgba(255,255,255,.16) !important;
+  border-left: 4px solid var(--tl-link-accent, var(--tl-game-primary)) !important;
+  border-radius: 10px !important;
+  background: rgba(0, 13, 20, .70) !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  overflow: hidden !important;
+  outline: none !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.025) !important;
+  filter: none !important;
+  transform: none !important;
+  transition: background-color 120ms ease, border-color 120ms ease, box-shadow 120ms ease !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link:hover,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link:focus-visible {
+  border-color: color-mix(in srgb, var(--tl-link-accent, var(--tl-game-primary)) 68%, rgba(255,255,255,.22)) !important;
+  border-left-color: var(--tl-link-accent, var(--tl-game-primary)) !important;
+  background: color-mix(in srgb, var(--tl-link-accent, var(--tl-game-primary)) 9%, rgba(0, 13, 20, .74)) !important;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tl-link-accent, var(--tl-game-primary)) 16%, transparent) !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link::before,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link::after,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link:hover::before,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link:hover::after,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link:focus-visible::before,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link:focus-visible::after {
+  content: none !important;
+  display: none !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link > .resource-icon,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link:hover > .resource-icon,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link:focus-visible > .resource-icon {
+  grid-column: 1 !important;
+  grid-row: 1 / 3 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  align-self: center !important;
+  justify-self: center !important;
+  width: 34px !important;
+  min-width: 34px !important;
+  max-width: 34px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 9px !important;
+  background: color-mix(in srgb, var(--tl-link-accent, var(--tl-game-primary)) 18%, rgba(255,255,255,.05)) !important;
+  color: var(--tl-link-accent, var(--tl-game-primary)) !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link > .resource-icon svg,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link > .resource-icon img {
+  display: block !important;
+  width: 23px !important;
+  height: 23px !important;
+  min-width: 23px !important;
+  min-height: 23px !important;
+  max-width: 23px !important;
+  max-height: 23px !important;
+  object-fit: contain !important;
+  fill: currentColor !important;
+  filter: none !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link > span:not(.resource-icon),
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link:hover > span:not(.resource-icon),
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link:focus-visible > span:not(.resource-icon) {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  position: static !important;
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  height: 16px !important;
+  min-height: 16px !important;
+  max-height: 16px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--tl-link-accent, var(--tl-game-primary)) !important;
+  opacity: 1 !important;
+  font-size: 10px !important;
+  line-height: 16px !important;
+  font-weight: 950 !important;
+  letter-spacing: .045em !important;
+  text-transform: uppercase !important;
+  text-align: left !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  pointer-events: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link > strong,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link:hover > strong,
+html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link:focus-visible > strong {
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+  position: static !important;
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  height: 22px !important;
+  min-height: 22px !important;
+  max-height: 22px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #fff !important;
+  opacity: 1 !important;
+  font-size: 13px !important;
+  line-height: 22px !important;
+  font-weight: 850 !important;
+  letter-spacing: -.025em !important;
+  text-transform: none !important;
+  text-align: left !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  pointer-events: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+@media (max-height: 820px) {
+  html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder {
+    padding: 10px !important;
+  }
+  html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-panel.query-panel,
+  html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel {
+    gap: 7px !important;
+  }
+  html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .query-mode-card.query-mode-card {
+    padding: 10px !important;
+  }
+  html body[data-page="game"][data-game] .game-workspace .info-column.info-column .selection-builder.selection-builder .generated-query.generated-query {
+    max-height: 90px !important;
+  }
+  html body[data-page="game"][data-game] .game-workspace .info-column.info-column .resource-panel.resource-panel > a.resource-link.resource-link {
+    height: 46px !important;
+    min-height: 46px !important;
+    max-height: 46px !important;
+  }
+}

@@ -1,0 +1,3333 @@
+/* --- TechLab 2XKO builder visual pass: meter/fuses en CSS/SVG + meta sans rond --- */
+body[data-page="detail"] .combo-position-option-group .combo-choice-options {
+  display: grid !important;
+  grid-template-columns: repeat(3, max-content) !important;
+  justify-content: start !important;
+  gap: 6px !important;
+}
+
+body[data-page="detail"] .combo-meter-option-group .combo-choice-options {
+  display: inline-flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+body[data-page="detail"] .combo-meter-visual-option {
+  width: 34px !important;
+  min-width: 34px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+body[data-page="detail"] .combo-meter-visual-option:hover,
+body[data-page="detail"] .combo-meter-visual-option:focus-visible,
+body[data-page="detail"] .combo-meter-visual-option.is-active,
+body[data-page="detail"] .combo-meter-visual-option.is-active:hover {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: translateY(-1px) scale(1.06) !important;
+}
+
+.combo-meter-digit {
+  display: inline-block !important;
+  font-family: Impact, "Arial Black", Haettenschweiler, sans-serif !important;
+  font-size: 35px !important;
+  font-weight: 1000 !important;
+  line-height: .78 !important;
+  letter-spacing: -0.12em !important;
+  -webkit-text-stroke: 2px #050505 !important;
+  paint-order: stroke fill !important;
+  text-shadow:
+    2px 2px 0 #050505,
+    4px 4px 0 rgba(0,0,0,.42) !important;
+  transform: skewX(-8deg) !important;
+}
+
+.combo-meter-digit-1 { color: #ff6a62 !important; }
+.combo-meter-digit-2 { color: #ffc552 !important; }
+.combo-meter-digit-3 { color: #fff1a2 !important; }
+
+body[data-page="detail"] .combo-fuse-option-group {
+  grid-column: 1 / -1 !important;
+}
+
+body[data-page="detail"] .combo-fuse-option-group .combo-choice-options {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 8px 10px !important;
+}
+
+body[data-page="detail"] .combo-fuse-visual-option {
+  width: 124px !important;
+  min-width: 124px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+body[data-page="detail"] .combo-fuse-visual-option:hover,
+body[data-page="detail"] .combo-fuse-visual-option:focus-visible,
+body[data-page="detail"] .combo-fuse-visual-option.is-active,
+body[data-page="detail"] .combo-fuse-visual-option.is-active:hover {
+  color: inherit !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: translateY(-1px) scale(1.025) !important;
+  outline: none !important;
+}
+
+.combo-choice-visual {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  pointer-events: none !important;
+}
+
+.combo-fuse-svg {
+  display: block !important;
+  width: 124px !important;
+  height: 32px !important;
+  overflow: visible !important;
+  filter: drop-shadow(0 4px 5px rgba(0,0,0,.50)) !important;
+}
+
+body[data-page="detail"] .combo-fuse-visual-option.is-active .combo-fuse-svg,
+body[data-page="detail"] .combo-fuse-visual-option:hover .combo-fuse-svg,
+body[data-page="detail"] .combo-fuse-visual-option:focus-visible .combo-fuse-svg {
+  filter:
+    drop-shadow(0 4px 5px rgba(0,0,0,.50))
+    drop-shadow(0 0 7px color-mix(in srgb, var(--accent-2) 58%, transparent)) !important;
+}
+
+/* Les mots de timing restent lisibles, mais sans pastille ronde autour. */
+body[data-page="detail"] .combo-token-button[data-combo-token="Delay"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Hold"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Air"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="OR"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="HIT#"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Mash"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Whiff"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Run"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="__newline__"] .combo-text-token {
+  width: auto !important;
+  min-width: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 2px 1px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #f2f5f7 !important;
+  font-size: 9px !important;
+  line-height: .86 !important;
+  letter-spacing: -0.045em !important;
+  text-align: center !important;
+  text-shadow:
+    1px 1px 0 #000,
+    0 2px 5px rgba(0,0,0,.82) !important;
+}
+
+body[data-page="detail"] .combo-token-button[data-combo-token="Delay"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Hold"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Air"],
+body[data-page="detail"] .combo-token-button[data-combo-token="OR"],
+body[data-page="detail"] .combo-token-button[data-combo-token="HIT#"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Mash"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Whiff"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Run"],
+body[data-page="detail"] .combo-token-button[data-combo-token="__newline__"] {
+  align-self: center !important;
+}
+
+/* Les chips sauvegardées utilisent aussi les versions visuelles, sans image distante pour les fuses. */
+.combo-meta-chip:has(.combo-meta-chip-visual) {
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+.combo-meta-chip-visual {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.combo-meta-chip-visual .combo-meter-digit {
+  font-size: 22px !important;
+  -webkit-text-stroke-width: 1.45px !important;
+  text-shadow:
+    1px 1px 0 #050505,
+    2px 2px 0 rgba(0,0,0,.36) !important;
+}
+
+.combo-meta-chip-visual .combo-fuse-svg {
+  width: 86px !important;
+  height: 20px !important;
+  filter: none !important;
+}
+
+.combo-meta-chip-visual .combo-fuse-svg text {
+  font-size: 18px !important;
+}
+
+@container (max-width: 760px) {
+  body[data-page="detail"] .combo-fuse-visual-option,
+  body[data-page="detail"] .combo-fuse-svg {
+    width: 112px !important;
+  }
+}
+
+/* --- TechLab hotfix: fuses inclinées à droite, sélection lisible, starter inline --- */
+body[data-page="detail"] .combo-fuse-visual-option,
+body[data-page="detail"] .combo-fuse-svg {
+  width: 142px !important;
+  min-width: 142px !important;
+}
+
+body[data-page="detail"] .combo-fuse-visual-option[data-combo-fuse="DOUBLE DOWN"],
+body[data-page="detail"] .combo-fuse-visual-option[data-combo-fuse="JUGGERNAUT"] {
+  width: 150px !important;
+  min-width: 150px !important;
+}
+
+body[data-page="detail"] .combo-fuse-visual-option[data-combo-fuse="DOUBLE DOWN"] .combo-fuse-svg,
+body[data-page="detail"] .combo-fuse-visual-option[data-combo-fuse="JUGGERNAUT"] .combo-fuse-svg {
+  width: 150px !important;
+  min-width: 150px !important;
+}
+
+body[data-page="detail"] .combo-meter-visual-option,
+body[data-page="detail"] .combo-fuse-visual-option {
+  position: relative !important;
+  isolation: isolate !important;
+}
+
+body[data-page="detail"] .combo-meter-visual-option.is-active::after,
+body[data-page="detail"] .combo-fuse-visual-option.is-active::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 7px !important;
+  right: 7px !important;
+  bottom: -4px !important;
+  height: 3px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(90deg, var(--accent-2), var(--accent)) !important;
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.55),
+    0 0 10px color-mix(in srgb, var(--accent-2) 80%, transparent),
+    0 0 16px color-mix(in srgb, var(--accent) 58%, transparent) !important;
+  pointer-events: none !important;
+}
+
+body[data-page="detail"] .combo-meter-visual-option.is-active .combo-meter-digit {
+  filter:
+    drop-shadow(0 0 5px color-mix(in srgb, var(--accent) 90%, transparent))
+    drop-shadow(0 0 10px color-mix(in srgb, var(--accent-2) 72%, transparent)) !important;
+  transform: skewX(-8deg) translateY(-2px) scale(1.16) !important;
+}
+
+body[data-page="detail"] .combo-fuse-visual-option.is-active .combo-fuse-svg {
+  filter:
+    drop-shadow(0 4px 5px rgba(0,0,0,.55))
+    drop-shadow(0 0 7px color-mix(in srgb, var(--accent-2) 88%, transparent))
+    drop-shadow(0 0 14px color-mix(in srgb, var(--accent) 55%, transparent)) !important;
+  transform: translateY(-2px) scale(1.035) !important;
+}
+
+body[data-page="detail"] .combo-fuse-visual-option.is-active .combo-fuse-frame {
+  stroke-width: 6 !important;
+}
+
+/* La touche ~ est un séparateur/timing, pas une pastille ronde. */
+body[data-page="detail"] .combo-token-button[data-combo-token="~"] .combo-text-token {
+  width: auto !important;
+  min-width: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 2px 1px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #f2f5f7 !important;
+  font-size: 17px !important;
+  line-height: .75 !important;
+  letter-spacing: -0.045em !important;
+  text-align: center !important;
+  text-shadow:
+    1px 1px 0 #000,
+    0 2px 5px rgba(0,0,0,.82) !important;
+}
+
+body[data-page="detail"] .combo-token-button[data-combo-token="~"] {
+  align-self: center !important;
+}
+
+body[data-page="detail"] .combo-pad-action-spacer {
+  width: 30px !important;
+  min-width: 30px !important;
+  height: 24px !important;
+  display: inline-block !important;
+}
+
+/* Chips sauvegardées : meter/fuse/assist/starter sans capsule en plus. */
+.combo-meta-chip-visual-only,
+.saved-combo-meta > .combo-meta-chip-visual-only,
+.combo-meta-chip-assist-visual,
+.saved-combo-meta > .combo-meta-chip-assist-visual {
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+}
+
+.combo-meta-chip-visual-only > span,
+.saved-combo-meta > .combo-meta-chip-visual-only > span,
+.combo-meta-chip-assist-visual > span,
+.saved-combo-meta > .combo-meta-chip-assist-visual > span {
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.combo-meta-chip-assist-visual .combo-meta-chip-icon {
+  width: 24px !important;
+  min-width: 24px !important;
+  height: 24px !important;
+  border-radius: 7px !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+  transform: scale(1.04) !important;
+}
+
+.combo-meta-chip-starter .combo-meta-chip-visual,
+.saved-combo-starter-inline {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0 !important;
+}
+
+.combo-meta-chip-starter .combo-output-token,
+.combo-meta-chip-starter .combo-word-token {
+  margin-inline: -3px !important;
+}
+
+.combo-meta-chip-starter .combo-icon-wrap,
+.combo-meta-chip-starter .combo-text-token {
+  width: 22px !important;
+  min-width: 22px !important;
+  height: 22px !important;
+  min-height: 22px !important;
+}
+
+.combo-meta-chip-starter .combo-output-token-dir .combo-icon-wrap {
+  width: 25px !important;
+  min-width: 25px !important;
+  height: 25px !important;
+  min-height: 25px !important;
+}
+
+/* L'ancien bloc starter ne doit plus créer une ligne dédiée si un vieux rendu reste en cache. */
+body[data-page="detail"] .saved-combo-starter > span {
+  display: none !important;
+}
+
+body[data-page="detail"] .saved-combo-starter {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+@container (max-width: 760px) {
+  body[data-page="detail"] .combo-fuse-visual-option,
+  body[data-page="detail"] .combo-fuse-svg {
+    width: 128px !important;
+    min-width: 128px !important;
+  }
+
+  body[data-page="detail"] .combo-fuse-visual-option[data-combo-fuse="DOUBLE DOWN"],
+  body[data-page="detail"] .combo-fuse-visual-option[data-combo-fuse="JUGGERNAUT"],
+  body[data-page="detail"] .combo-fuse-visual-option[data-combo-fuse="DOUBLE DOWN"] .combo-fuse-svg,
+  body[data-page="detail"] .combo-fuse-visual-option[data-combo-fuse="JUGGERNAUT"] .combo-fuse-svg {
+    width: 136px !important;
+    min-width: 136px !important;
+  }
+}
+
+/* --- TechLab hotfix: pad 4 lignes + visuels meta cohérents --- */
+body[data-page="detail"] .combo-pad-actions {
+  display: grid !important;
+  grid-auto-rows: 32px !important;
+  gap: 8px !important;
+  align-items: center !important;
+}
+
+body[data-page="detail"] .combo-pad-row-actions {
+  display: grid !important;
+  grid-template-columns: repeat(5, 32px) !important;
+  gap: 8px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 32px !important;
+}
+
+body[data-page="detail"] .combo-token-button[data-combo-token="Delay"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Hold"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Air"],
+body[data-page="detail"] .combo-token-button[data-combo-token="OR"],
+body[data-page="detail"] .combo-token-button[data-combo-token="HIT#"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Mash"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Whiff"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Run"],
+body[data-page="detail"] .combo-token-button[data-combo-token="__newline__"],
+body[data-page="detail"] .combo-token-button[data-combo-token="~"] {
+  width: 32px !important;
+  min-width: 32px !important;
+  height: 26px !important;
+  min-height: 26px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body[data-page="detail"] .combo-pad-action-spacer {
+  width: 32px !important;
+  min-width: 32px !important;
+  height: 26px !important;
+}
+
+body[data-page="detail"] .combo-builder-pad-area {
+  min-height: 190px !important;
+}
+
+/* Même portrait/crop pour les assists du formulaire, des tags sauvegardés et des filtres. */
+.combo-assist-thumb-frame {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  border-radius: inherit !important;
+  background: rgba(255,255,255,.06) !important;
+  pointer-events: none !important;
+}
+
+.combo-assist-thumb-frame .combo-assist-thumb {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center 9% !important;
+  transform: scale(1.72) translateY(5px) !important;
+  transform-origin: center top !important;
+  filter: none !important;
+  pointer-events: none !important;
+}
+
+.combo-assist-thumb-fallback span {
+  font-size: .66rem !important;
+  font-weight: 1000 !important;
+  color: var(--text) !important;
+}
+
+body[data-page="detail"] .combo-assist-option .combo-assist-thumb-frame {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 10px !important;
+}
+
+body[data-page="detail"] .combo-assist-option img.combo-assist-thumb {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center 9% !important;
+  transform: scale(1.72) translateY(5px) !important;
+}
+
+.saved-combo-meta .combo-meta-chip-assist-visual .combo-assist-thumb-frame,
+.combo-filter-chip-assist .combo-assist-thumb-frame {
+  width: 24px !important;
+  min-width: 24px !important;
+  height: 24px !important;
+  min-height: 24px !important;
+  border-radius: 7px !important;
+}
+
+.saved-combo-meta .combo-meta-chip-assist-visual .combo-assist-thumb,
+.combo-filter-chip-assist .combo-assist-thumb {
+  transform: scale(1.72) translateY(4px) !important;
+}
+
+/* Meter/fuse/assist sauvegardés : même visuel que le formulaire, sans capsule ni nom en plus. */
+.saved-combo-meta > .combo-meta-chip-visual-only,
+.saved-combo-meta > .combo-meta-chip-meter-visual,
+.saved-combo-meta > .combo-meta-chip-fuse-visual,
+.saved-combo-meta > .combo-meta-chip-assist-visual,
+.combo-meta-chip-visual-only,
+.combo-meta-chip-meter-visual,
+.combo-meta-chip-fuse-visual,
+.combo-meta-chip-assist-visual {
+  padding: 0 !important;
+  margin: 0 !important;
+  min-height: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+.saved-combo-meta .combo-meta-chip-visual,
+.saved-combo-meta .combo-choice-visual,
+.combo-filter-chip .combo-choice-visual {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.saved-combo-meta .combo-meter-digit,
+.combo-filter-chip-meter .combo-meter-digit {
+  font-size: 31px !important;
+  line-height: .78 !important;
+  -webkit-text-stroke-width: 2px !important;
+  text-shadow:
+    2px 2px 0 #050505,
+    4px 4px 0 rgba(0,0,0,.42) !important;
+  filter: none !important;
+  transform: skewX(-8deg) !important;
+}
+
+.saved-combo-meta .combo-fuse-svg {
+  width: 92px !important;
+  min-width: 92px !important;
+  height: 21px !important;
+  filter: none !important;
+}
+
+.saved-combo-meta .combo-fuse-svg text {
+  font-size: 18px !important;
+}
+
+/* Filtres du haut : meter/fuse/assist reprennent les logos, pas du texte brut. */
+.combo-filter-chip-visual {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 5px !important;
+  min-height: 28px !important;
+  overflow: visible !important;
+}
+
+.combo-filter-chip-meter {
+  min-width: 30px !important;
+  padding-inline: 2px !important;
+  border-color: transparent !important;
+  background: transparent !important;
+}
+
+.combo-filter-chip-fuse {
+  min-width: 96px !important;
+  padding-inline: 2px !important;
+  border-color: transparent !important;
+  background: transparent !important;
+}
+
+.combo-filter-chip-fuse .combo-fuse-svg {
+  width: 92px !important;
+  min-width: 92px !important;
+  height: 21px !important;
+  filter: none !important;
+}
+
+.combo-filter-chip-fuse .combo-fuse-svg text {
+  font-size: 18px !important;
+}
+
+.combo-filter-chip-visual:hover,
+.combo-filter-chip-visual:focus-visible,
+.combo-filter-chip-visual.is-active {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.combo-filter-chip-meter.is-active .combo-meter-digit,
+.combo-filter-chip-meter:hover .combo-meter-digit,
+.combo-filter-chip-meter:focus-visible .combo-meter-digit {
+  filter:
+    drop-shadow(0 0 5px color-mix(in srgb, var(--accent) 78%, transparent))
+    drop-shadow(0 0 9px color-mix(in srgb, var(--accent-2) 62%, transparent)) !important;
+  transform: skewX(-8deg) translateY(-1px) scale(1.08) !important;
+}
+
+.combo-filter-chip-fuse.is-active .combo-fuse-svg,
+.combo-filter-chip-fuse:hover .combo-fuse-svg,
+.combo-filter-chip-fuse:focus-visible .combo-fuse-svg {
+  filter:
+    drop-shadow(0 0 6px color-mix(in srgb, var(--accent-2) 70%, transparent))
+    drop-shadow(0 0 12px color-mix(in srgb, var(--accent) 45%, transparent)) !important;
+}
+
+/* Starter sauvegardé : juste les touches, pas de mot STARTER et pas de mini capsule imbriquée. */
+.saved-combo-meta .combo-meta-inline-input,
+.saved-combo-meta .combo-meta-starter-inline {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  padding: 0 !important;
+  margin: 0 2px !important;
+  min-height: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  vertical-align: middle !important;
+}
+
+.saved-combo-meta .combo-meta-starter-inline .combo-output-token,
+.saved-combo-meta .combo-meta-starter-inline .combo-word-token,
+.saved-combo-meta .combo-meta-starter-inline .combo-free-text {
+  margin-inline: -3px !important;
+  padding: 0 !important;
+}
+
+.saved-combo-meta .combo-meta-starter-inline .combo-icon-wrap,
+.saved-combo-meta .combo-meta-starter-inline .combo-text-token {
+  width: 24px !important;
+  min-width: 24px !important;
+  height: 24px !important;
+  min-height: 24px !important;
+}
+
+.saved-combo-meta .combo-meta-starter-inline .combo-output-token-dir .combo-icon-wrap {
+  width: 28px !important;
+  min-width: 28px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+}
+
+/* --- TechLab hotfix: pad respirant + meta sauvegardées sans double capsule --- */
+body[data-page="detail"] .combo-builder-pad-area .combo-token-grid {
+  grid-template-columns: 178px 304px !important;
+  gap: 24px !important;
+  align-items: center !important;
+  justify-content: start !important;
+  width: max-content !important;
+  padding: 10px 12px !important;
+}
+
+body[data-page="detail"] .combo-pad-directions {
+  gap: 14px !important;
+}
+
+body[data-page="detail"] .combo-pad-row-directions {
+  display: grid !important;
+  grid-template-columns: repeat(3, 42px) !important;
+  gap: 14px 16px !important;
+  min-height: 42px !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+body[data-page="detail"] .combo-pad-actions {
+  display: grid !important;
+  grid-auto-rows: 38px !important;
+  gap: 8px !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+body[data-page="detail"] .combo-pad-row-actions {
+  display: grid !important;
+  grid-template-columns: repeat(6, 40px) !important;
+  gap: 8px !important;
+  min-height: 38px !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+body[data-page="detail"] .combo-pad-spacer,
+body[data-page="detail"] .combo-pad-action-spacer {
+  width: 40px !important;
+  min-width: 40px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+}
+
+body[data-page="detail"] .combo-token-button {
+  width: 40px !important;
+  min-width: 40px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  padding: 0 !important;
+}
+
+body[data-page="detail"] .combo-token-button.combo-token-dir {
+  width: 42px !important;
+  min-width: 42px !important;
+  height: 42px !important;
+  min-height: 42px !important;
+}
+
+body[data-page="detail"] .combo-token-button .combo-icon-wrap,
+body[data-page="detail"] .combo-token-button .combo-text-token {
+  width: 36px !important;
+  min-width: 36px !important;
+  height: 36px !important;
+  min-height: 36px !important;
+}
+
+body[data-page="detail"] .combo-token-button.combo-token-dir .combo-icon-wrap {
+  width: 40px !important;
+  min-width: 40px !important;
+  height: 40px !important;
+  min-height: 40px !important;
+}
+
+body[data-page="detail"] .combo-token-button[data-combo-token="Delay"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Hold"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Air"],
+body[data-page="detail"] .combo-token-button[data-combo-token="OR"],
+body[data-page="detail"] .combo-token-button[data-combo-token="HIT#"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Mash"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Whiff"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Run"],
+body[data-page="detail"] .combo-token-button[data-combo-token="__newline__"],
+body[data-page="detail"] .combo-token-button[data-combo-token="~"] {
+  width: 40px !important;
+  min-width: 40px !important;
+  height: 30px !important;
+  min-height: 30px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body[data-page="detail"] .combo-token-button[data-combo-token="Delay"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Hold"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Air"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="OR"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="HIT#"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Mash"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Whiff"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Run"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="__newline__"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="~"] .combo-text-token {
+  width: 40px !important;
+  min-width: 40px !important;
+  height: 24px !important;
+  min-height: 24px !important;
+  padding: 0 !important;
+  font-size: 9px !important;
+  line-height: .9 !important;
+  letter-spacing: -0.055em !important;
+}
+
+body[data-page="detail"] .combo-token-button[data-combo-token="~"] .combo-text-token {
+  font-size: 18px !important;
+  line-height: .65 !important;
+}
+
+@container (max-width: 720px) {
+  body[data-page="detail"] .combo-builder-pad-area .combo-token-grid {
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    justify-items: center !important;
+  }
+}
+
+/* Dans les combos sauvegardés, les meta visuelles reprennent directement le logo du formulaire. */
+.saved-combo-meta .combo-meta-plain {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  padding: 0 !important;
+  margin: 0 3px !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  vertical-align: middle !important;
+}
+
+.saved-combo-meta .combo-meta-meter-inline .combo-meter-digit {
+  font-size: 35px !important;
+  line-height: .78 !important;
+  letter-spacing: -0.12em !important;
+  -webkit-text-stroke: 2px #050505 !important;
+  text-shadow:
+    2px 2px 0 #050505,
+    4px 4px 0 rgba(0,0,0,.42) !important;
+  filter: none !important;
+  transform: skewX(-8deg) !important;
+}
+
+.saved-combo-meta .combo-meta-assist-inline .combo-assist-thumb-frame {
+  width: 38px !important;
+  min-width: 38px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  border-radius: 10px !important;
+}
+
+.saved-combo-meta .combo-meta-assist-inline .combo-assist-thumb {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center 9% !important;
+  transform: scale(1.72) translateY(5px) !important;
+  transform-origin: center top !important;
+}
+
+.saved-combo-meta .combo-meta-starter-inline {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0 !important;
+}
+
+.saved-combo-meta .combo-meta-starter-inline .combo-output-placeholder {
+  display: none !important;
+}
+
+.saved-combo-meta .combo-meta-starter-inline .combo-output-token,
+.saved-combo-meta .combo-meta-starter-inline .combo-word-token,
+.saved-combo-meta .combo-meta-starter-inline .combo-free-text {
+  padding: 0 !important;
+  margin: 0 -2px !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+.saved-combo-meta .combo-meta-starter-inline .combo-icon-wrap,
+.saved-combo-meta .combo-meta-starter-inline .combo-text-token {
+  width: 30px !important;
+  min-width: 30px !important;
+  height: 30px !important;
+  min-height: 30px !important;
+}
+
+.saved-combo-meta .combo-meta-starter-inline .combo-output-token-dir .combo-icon-wrap {
+  width: 34px !important;
+  min-width: 34px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+}
+
+.saved-combo-meta .combo-meta-starter-inline .combo-svg {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* --- TechLab hotfix: pad propre + meta combos strictement identiques au formulaire --- */
+body[data-page="detail"] .combo-builder-layout {
+  grid-template-columns: minmax(500px, 560px) minmax(0, 1fr) !important;
+  align-items: start !important;
+  gap: 18px !important;
+}
+
+body[data-page="detail"] .combo-builder-pad-area {
+  max-width: 560px !important;
+  width: 100% !important;
+  padding: 12px !important;
+}
+
+body[data-page="detail"] .combo-builder-pad-area .combo-token-grid {
+  grid-template-columns: 178px 326px !important;
+  gap: 24px !important;
+  width: max-content !important;
+  max-width: 100% !important;
+  justify-content: start !important;
+  align-items: center !important;
+  padding: 10px 12px !important;
+}
+
+body[data-page="detail"] .combo-pad-directions {
+  display: grid !important;
+  grid-template-rows: repeat(3, 44px) !important;
+  gap: 12px !important;
+}
+
+body[data-page="detail"] .combo-pad-row-directions {
+  display: grid !important;
+  grid-template-columns: repeat(3, 44px) !important;
+  gap: 12px 16px !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+body[data-page="detail"] .combo-pad-actions {
+  display: grid !important;
+  grid-template-rows: repeat(4, 40px) !important;
+  gap: 8px !important;
+  align-items: center !important;
+  justify-content: start !important;
+}
+
+body[data-page="detail"] .combo-pad-row-actions {
+  display: grid !important;
+  grid-template-columns: repeat(6, 45px) !important;
+  gap: 8px !important;
+  min-height: 40px !important;
+  align-items: center !important;
+  justify-content: start !important;
+}
+
+body[data-page="detail"] .combo-pad-spacer,
+body[data-page="detail"] .combo-pad-action-spacer {
+  width: 45px !important;
+  min-width: 45px !important;
+  height: 40px !important;
+  min-height: 40px !important;
+}
+
+body[data-page="detail"] .combo-token-button {
+  width: 45px !important;
+  min-width: 45px !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  display: grid !important;
+  place-items: center !important;
+  padding: 0 !important;
+}
+
+body[data-page="detail"] .combo-token-button.combo-token-dir,
+body[data-page="detail"] .combo-token-button[data-combo-token=">"],
+body[data-page="detail"] .combo-token-button[data-combo-token="+"] {
+  width: 45px !important;
+  min-width: 45px !important;
+  height: 40px !important;
+  min-height: 40px !important;
+}
+
+body[data-page="detail"] .combo-token-button .combo-icon-wrap,
+body[data-page="detail"] .combo-token-button .combo-text-token {
+  width: 34px !important;
+  min-width: 34px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+}
+
+body[data-page="detail"] .combo-token-button.combo-token-dir .combo-icon-wrap,
+body[data-page="detail"] .combo-token-button[data-combo-token=">"] .combo-icon-wrap,
+body[data-page="detail"] .combo-token-button[data-combo-token="+"] .combo-icon-wrap {
+  width: 38px !important;
+  min-width: 38px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+}
+
+body[data-page="detail"] .combo-token-button[data-combo-token="Delay"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Hold"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Air"],
+body[data-page="detail"] .combo-token-button[data-combo-token="OR"],
+body[data-page="detail"] .combo-token-button[data-combo-token="HIT#"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Mash"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Whiff"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Run"],
+body[data-page="detail"] .combo-token-button[data-combo-token="__newline__"],
+body[data-page="detail"] .combo-token-button[data-combo-token="~"] {
+  width: 45px !important;
+  min-width: 45px !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body[data-page="detail"] .combo-token-button[data-combo-token="Delay"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Hold"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Air"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="OR"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="HIT#"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Mash"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Whiff"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Run"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="__newline__"] .combo-text-token {
+  width: 45px !important;
+  min-width: 45px !important;
+  height: 22px !important;
+  min-height: 22px !important;
+  padding: 0 !important;
+  font-size: 9.5px !important;
+  line-height: .9 !important;
+  letter-spacing: -0.035em !important;
+  text-align: center !important;
+}
+
+body[data-page="detail"] .combo-token-button[data-combo-token="~"] .combo-text-token {
+  width: 45px !important;
+  min-width: 45px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  font-size: 18px !important;
+  line-height: .8 !important;
+}
+
+body[data-page="detail"] .combo-output,
+body[data-page="detail"] .combo-editor,
+body[data-page="detail"] .saved-combo-notation {
+  line-height: 1.35 !important;
+  word-spacing: 0 !important;
+  letter-spacing: 0 !important;
+}
+
+body[data-page="detail"] .combo-editor-token {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 4px 4px 0 !important;
+  padding: 0 !important;
+  vertical-align: middle !important;
+  line-height: 1 !important;
+}
+
+body[data-page="detail"] .combo-output-token,
+body[data-page="detail"] .combo-word-token,
+body[data-page="detail"] .combo-free-text,
+body[data-page="detail"] .saved-combo-notation .combo-output-token,
+body[data-page="detail"] .saved-combo-notation .combo-word-token,
+body[data-page="detail"] .saved-combo-notation .combo-free-text {
+  margin: 0 4px 4px 0 !important;
+}
+
+body[data-page="detail"] .combo-word-token,
+body[data-page="detail"] .combo-free-text {
+  padding-inline: 4px !important;
+  white-space: nowrap !important;
+}
+
+body[data-page="detail"] .combo-output-token + .combo-output-token,
+body[data-page="detail"] .combo-output-token + .combo-word-token,
+body[data-page="detail"] .combo-word-token + .combo-output-token,
+body[data-page="detail"] .saved-combo-notation .combo-output-token + .combo-output-token,
+body[data-page="detail"] .saved-combo-notation .combo-output-token + .combo-word-token,
+body[data-page="detail"] .saved-combo-notation .combo-word-token + .combo-output-token {
+  margin-left: 0 !important;
+}
+
+body[data-page="detail"] .combo-starter-editor {
+  border: 1px solid rgba(255,255,255,0.13) !important;
+  background: rgba(0,0,0,0.34) !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.025) !important;
+  outline: none !important;
+}
+
+body[data-page="detail"] .combo-starter-editor:focus,
+body[data-page="detail"] .combo-starter-editor:focus-visible,
+body[data-page="detail"] .combo-output.is-active-editor,
+body[data-page="detail"] .combo-starter-editor.is-active-editor {
+  border-color: color-mix(in srgb, var(--accent-2) 70%, rgba(255,255,255,.18)) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.05),
+    0 0 0 1px color-mix(in srgb, var(--accent-2) 28%, transparent) !important;
+  outline: none !important;
+}
+
+/* Metas sauvegardées/filtres : pas de double carré, pas de capsule autour des logos. */
+.saved-combo-meta .combo-meta-plain,
+.saved-combo-meta .combo-meta-plain > span,
+.saved-combo-meta .combo-meta-plain > i,
+.saved-combo-meta .combo-meta-plain .combo-choice-visual,
+.combo-filter-chip-visual .combo-choice-visual {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  vertical-align: middle !important;
+}
+
+.combo-meter-digit {
+  display: inline-block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  font-family: "Arial Black", Impact, system-ui, sans-serif !important;
+  font-style: italic !important;
+  font-weight: 1000 !important;
+  line-height: .8 !important;
+  letter-spacing: -0.12em !important;
+  -webkit-text-stroke: 2px #050505 !important;
+  paint-order: stroke fill !important;
+  text-shadow: 2px 2px 0 #050505, 4px 4px 0 rgba(0,0,0,.42) !important;
+  transform: skewX(-8deg) !important;
+}
+
+.combo-choice-options .combo-meter-digit,
+.combo-filter-chip-meter .combo-meter-digit,
+.saved-combo-meta .combo-meta-meter-inline .combo-meter-digit {
+  font-size: 34px !important;
+}
+
+.combo-meter-digit-1 { color: #ff6460 !important; }
+.combo-meter-digit-2 { color: #ffc35e !important; }
+.combo-meter-digit-3 { color: #fff0a6 !important; }
+
+.saved-combo-meta .combo-meta-starter-inline,
+.saved-combo-meta .combo-meta-starter-inline span {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  border-radius: 0 !important;
+}
+
+.saved-combo-meta .combo-meta-starter-inline {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 1px !important;
+  margin-right: 4px !important;
+}
+
+.saved-combo-meta .combo-meta-starter-inline .combo-output-token,
+.saved-combo-meta .combo-meta-starter-inline .combo-word-token,
+.saved-combo-meta .combo-meta-starter-inline .combo-free-text {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 1px 0 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.saved-combo-meta .combo-meta-starter-inline .combo-icon-wrap,
+.saved-combo-meta .combo-meta-starter-inline .combo-text-token {
+  width: 28px !important;
+  min-width: 28px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.saved-combo-meta .combo-meta-starter-inline .combo-output-token-dir .combo-icon-wrap {
+  width: 32px !important;
+  min-width: 32px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+}
+
+.saved-combo-meta .combo-meta-assist-inline .combo-assist-thumb-frame,
+.combo-filter-chip-assist .combo-assist-thumb-frame {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 38px !important;
+  min-width: 38px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  padding: 0 !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(255,255,255,0.14) !important;
+  background: rgba(255,255,255,0.065) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08) !important;
+  overflow: hidden !important;
+}
+
+.saved-combo-meta .combo-meta-assist-inline .combo-assist-thumb,
+.combo-filter-chip-assist .combo-assist-thumb {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center 10% !important;
+  transform: scale(1.72) translateY(10%) !important;
+  transform-origin: center 16% !important;
+  filter: none !important;
+}
+
+.saved-combo-meta .combo-meta-fuse-inline .combo-fuse-svg {
+  width: 118px !important;
+  min-width: 118px !important;
+  height: 24px !important;
+  filter: none !important;
+}
+
+@container (max-width: 1120px) {
+  body[data-page="detail"] .combo-builder-layout {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  body[data-page="detail"] .combo-builder-pad-area {
+    max-width: 560px !important;
+    justify-self: center !important;
+  }
+}
+
+/* --- TechLab patch: logos Fury / Limit Strike, damage plaque, meter digits, spacing --- */
+body[data-page="detail"] .combo-tag-visual-option {
+  width: auto !important;
+  min-width: 0 !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  padding: 0 2px !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+.combo-tag-logo-svg {
+  display: block !important;
+  width: 118px !important;
+  height: 24px !important;
+  overflow: visible !important;
+  filter: none !important;
+  flex: 0 0 auto !important;
+}
+
+.combo-tag-logo-fury {
+  width: 78px !important;
+  height: 24px !important;
+}
+
+.combo-tag-logo-limit-strike- {
+  width: 126px !important;
+  height: 24px !important;
+}
+
+body[data-page="detail"] .combo-tag-visual-option:hover .combo-tag-logo-svg,
+body[data-page="detail"] .combo-tag-visual-option:focus-visible .combo-tag-logo-svg,
+body[data-page="detail"] .combo-tag-visual-option.is-active .combo-tag-logo-svg,
+.combo-filter-chip-tag-logo:hover .combo-tag-logo-svg,
+.combo-filter-chip-tag-logo.is-active .combo-tag-logo-svg {
+  filter: drop-shadow(0 0 7px color-mix(in srgb, var(--accent-2) 58%, transparent)) !important;
+  transform: translateY(-1px) !important;
+}
+
+body[data-page="detail"] .combo-tag-visual-option.is-active .combo-tag-logo-frame,
+.combo-filter-chip-tag-logo.is-active .combo-tag-logo-frame,
+.saved-combo-meta .combo-meta-tag-logo .combo-tag-logo-frame {
+  stroke-width: 6 !important;
+}
+
+/* Les chiffres de meter doivent ressembler aux images 1/2/3 : droits, tassés, gros, sans italique. */
+.combo-meter-digit {
+  display: inline-block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  font-family: "Arial Black", Impact, system-ui, sans-serif !important;
+  font-style: normal !important;
+  font-weight: 1000 !important;
+  line-height: .78 !important;
+  letter-spacing: -0.08em !important;
+  -webkit-text-stroke: 2.3px #050505 !important;
+  paint-order: stroke fill !important;
+  text-shadow: 2px 2px 0 #050505, 4px 4px 0 rgba(0,0,0,.46) !important;
+  transform: scaleX(.78) !important;
+  transform-origin: center center !important;
+}
+
+body[data-page="detail"] .combo-choice-options .combo-meter-digit,
+.combo-filter-chip-meter .combo-meter-digit,
+.saved-combo-meta .combo-meta-meter-inline .combo-meter-digit {
+  font-size: 39px !important;
+}
+
+.combo-meter-digit-1 { color: #ff665f !important; }
+.combo-meter-digit-2 { color: #ffc55c !important; }
+.combo-meter-digit-3 { color: #fff0a6 !important; }
+
+/* Visuel dégâts façon petite barre de vie, sans capsule autour. */
+.combo-damage-svg {
+  display: block !important;
+  width: 78px !important;
+  height: 30px !important;
+  overflow: visible !important;
+  flex: 0 0 auto !important;
+}
+
+.saved-combo-meta .combo-meta-damage-visual,
+.saved-combo-meta .combo-meta-damage-visual > span,
+.saved-combo-meta .combo-meta-damage-visual .combo-meta-chip-visual {
+  padding: 0 !important;
+  margin: 0 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+/* Cohérence des espacements dans les tags sauvegardés, comme dans les filtres. */
+.saved-combo-meta {
+  gap: 8px !important;
+  column-gap: 8px !important;
+  row-gap: 6px !important;
+  align-items: center !important;
+}
+
+.saved-combo-meta > *,
+.saved-combo-meta > .combo-meta-chip,
+.saved-combo-meta > .combo-meta-plain {
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+
+.saved-combo-meta .combo-meta-tag-logo,
+.saved-combo-meta .combo-meta-tag-logo > span,
+.saved-combo-meta .combo-meta-tag-logo .combo-meta-chip-visual,
+.combo-filter-chip-tag-logo,
+.combo-filter-chip-tag-logo .combo-choice-visual {
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+}
+
+.saved-combo-meta .combo-meta-tag-logo .combo-tag-logo-svg,
+.combo-filter-chip-tag-logo .combo-tag-logo-svg {
+  width: 112px !important;
+  height: 23px !important;
+}
+
+.saved-combo-meta .combo-meta-tag-logo .combo-tag-logo-fury,
+.combo-filter-chip-tag-logo .combo-tag-logo-fury {
+  width: 74px !important;
+  height: 23px !important;
+}
+
+/* En filtre, une assist doit être juste son avatar, pas une image dans un carré/capsule supplémentaire. */
+.combo-filter-chip-assist,
+.combo-filter-chip-assist .combo-choice-visual,
+.combo-filter-chip-assist .combo-assist-thumb-frame {
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+.combo-filter-chip-assist .combo-assist-thumb-frame {
+  width: 32px !important;
+  min-width: 32px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  border-radius: 9px !important;
+  overflow: hidden !important;
+}
+
+.combo-filter-chip-assist .combo-assist-thumb {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center 10% !important;
+  transform: scale(1.72) translateY(10%) !important;
+  transform-origin: center 16% !important;
+}
+
+/* Décalage léger des mots du haut : Air/OR remplissent le trou au-dessus des attaques. */
+body[data-page="detail"] .combo-pad-row-actions:first-child {
+  grid-template-columns: repeat(6, 45px) !important;
+}
+
+
+/* --- TechLab hotfix: tags restaurés, logos Limit/Fury propres, ordre formulaire/meta --- */
+body[data-page="detail"] .combo-builder-pad-area .combo-token-grid {
+  grid-template-columns: 178px 326px !important;
+  gap: 24px !important;
+}
+
+body[data-page="detail"] .combo-pad-row-actions {
+  grid-template-columns: repeat(6, 45px) !important;
+  gap: 8px !important;
+}
+
+body[data-page="detail"] .combo-pad-row-actions:first-child .combo-token-button[data-combo-token=">"] {
+  justify-self: center !important;
+}
+
+body[data-page="detail"] .combo-meta-grid-visual {
+  display: grid !important;
+  grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+  gap: 10px 12px !important;
+  align-items: start !important;
+}
+
+body[data-page="detail"] .combo-starter-field {
+  grid-column: 1 / 4 !important;
+  max-width: 170px !important;
+}
+
+body[data-page="detail"] .combo-assist-picker {
+  grid-column: 1 / 7 !important;
+}
+
+body[data-page="detail"] .combo-fuse-option-group {
+  grid-column: 7 / 10 !important;
+}
+
+body[data-page="detail"] .combo-meter-option-group {
+  grid-column: 10 / 13 !important;
+}
+
+body[data-page="detail"] .combo-position-option-group {
+  grid-column: 1 / 4 !important;
+}
+
+body[data-page="detail"] .combo-damage-field {
+  grid-column: 4 / 6 !important;
+  align-self: start !important;
+}
+
+body[data-page="detail"] .combo-tags-field-inline {
+  grid-column: 6 / 13 !important;
+  display: grid !important;
+  gap: 7px !important;
+  min-width: 0 !important;
+}
+
+body[data-page="detail"] .combo-tags-field-inline .combo-tag-options {
+  gap: 6px !important;
+}
+
+body[data-page="detail"] .combo-assist-options {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+}
+
+body[data-page="detail"] .combo-assist-option {
+  width: 34px !important;
+  min-width: 34px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  border-radius: 9px !important;
+}
+
+@container (max-width: 980px) {
+  body[data-page="detail"] .combo-meta-grid-visual {
+    grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+  }
+  body[data-page="detail"] .combo-starter-field,
+  body[data-page="detail"] .combo-assist-picker,
+  body[data-page="detail"] .combo-fuse-option-group,
+  body[data-page="detail"] .combo-meter-option-group,
+  body[data-page="detail"] .combo-position-option-group,
+  body[data-page="detail"] .combo-damage-field,
+  body[data-page="detail"] .combo-tags-field-inline {
+    grid-column: 1 / -1 !important;
+    max-width: none !important;
+  }
+}
+
+.combo-tag-logo-limit-strike {
+  width: 134px !important;
+  height: 24px !important;
+  overflow: visible !important;
+}
+
+.combo-tag-logo-fury {
+  width: 82px !important;
+  height: 24px !important;
+  overflow: visible !important;
+}
+
+body[data-page="detail"] .combo-tag-visual-option,
+.combo-filter-chip-tag-logo {
+  min-height: 28px !important;
+}
+
+body[data-page="detail"] .combo-tag-visual-option .combo-tag-logo-svg,
+.combo-filter-chip-tag-logo .combo-tag-logo-svg,
+.saved-combo-meta .combo-meta-tag-logo .combo-tag-logo-svg {
+  filter: none !important;
+}
+
+body[data-page="detail"] .combo-tag-visual-option.is-active .combo-tag-logo-svg,
+body[data-page="detail"] .combo-tag-visual-option:hover .combo-tag-logo-svg,
+.combo-filter-chip-tag-logo.is-active .combo-tag-logo-svg,
+.combo-filter-chip-tag-logo:hover .combo-tag-logo-svg {
+  filter: drop-shadow(0 0 7px color-mix(in srgb, var(--accent-2) 55%, transparent)) !important;
+}
+
+.combo-meter-digit {
+  font-style: normal !important;
+  font-family: Impact, "Arial Black", Haettenschweiler, system-ui, sans-serif !important;
+  font-stretch: condensed !important;
+  font-weight: 1000 !important;
+  letter-spacing: -0.14em !important;
+  line-height: .74 !important;
+  transform: scaleX(.62) scaleY(.94) !important;
+  transform-origin: center center !important;
+  -webkit-text-stroke: 2.5px #050505 !important;
+  text-shadow: 2px 2px 0 #050505, 4px 4px 0 rgba(0,0,0,.52) !important;
+}
+
+body[data-page="detail"] .combo-choice-options .combo-meter-digit,
+.combo-filter-chip-meter .combo-meter-digit,
+.saved-combo-meta .combo-meta-meter-inline .combo-meter-digit {
+  font-size: 43px !important;
+}
+
+.saved-combo-meta-stack {
+  display: grid !important;
+  gap: 5px !important;
+  min-width: 0 !important;
+}
+
+.saved-combo-meta-stack .saved-combo-meta {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  margin: 0 !important;
+}
+
+.saved-combo-meta-primary {
+  min-height: 28px !important;
+}
+
+.saved-combo-meta-secondary {
+  min-height: 24px !important;
+}
+
+.saved-combo-meta .combo-meta-meter-inline .combo-meter-digit {
+  font-size: 36px !important;
+  transform: scaleX(.62) scaleY(.94) !important;
+}
+
+.saved-combo-meta .combo-meta-fuse-inline .combo-fuse-svg {
+  width: 112px !important;
+  height: 23px !important;
+}
+
+.saved-combo-meta .combo-meta-tag-logo .combo-tag-logo-limit-strike,
+.combo-filter-chip-tag-logo .combo-tag-logo-limit-strike {
+  width: 124px !important;
+  height: 23px !important;
+}
+
+.saved-combo-meta .combo-meta-tag-logo .combo-tag-logo-fury,
+.combo-filter-chip-tag-logo .combo-tag-logo-fury {
+  width: 76px !important;
+  height: 23px !important;
+}
+
+.combo-filter-chip[data-filter="OKI"],
+.combo-filter-chip[data-filter="MIXUP"] {
+  display: inline-flex !important;
+}
+
+
+/* --- TechLab hotfix: retrait starter, Limit Strike propre, meter écrasé verticalement --- */
+body[data-page="detail"] .combo-starter-field,
+body[data-page="detail"] .saved-combo-starter,
+body[data-page="detail"] .combo-meta-starter-inline {
+  display: none !important;
+}
+
+body[data-page="detail"] .combo-builder-pad-area .combo-token-grid {
+  grid-template-columns: 178px max-content !important;
+  gap: 20px !important;
+  justify-content: start !important;
+}
+
+body[data-page="detail"] .combo-pad-actions {
+  display: grid !important;
+  grid-auto-rows: 34px !important;
+  gap: 8px !important;
+  align-items: center !important;
+  justify-content: start !important;
+}
+
+body[data-page="detail"] .combo-pad-row-actions {
+  display: grid !important;
+  grid-template-columns: repeat(5, 38px) !important;
+  gap: 8px !important;
+  align-items: center !important;
+  justify-content: start !important;
+  min-height: 34px !important;
+}
+
+body[data-page="detail"] .combo-pad-action-spacer {
+  display: none !important;
+}
+
+body[data-page="detail"] .combo-token-button[data-combo-token=">"] {
+  justify-self: center !important;
+}
+
+/* Première ligne : Assist / Fuse / Meter. Deuxième ligne : Position / Dégâts / Tags. */
+body[data-page="detail"] .combo-meta-grid-visual {
+  grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+  gap: 10px 12px !important;
+  align-items: start !important;
+}
+
+body[data-page="detail"] .combo-assist-picker {
+  grid-column: 1 / 6 !important;
+  grid-row: 1 !important;
+}
+
+body[data-page="detail"] .combo-fuse-option-group {
+  grid-column: 6 / 10 !important;
+  grid-row: 1 !important;
+}
+
+body[data-page="detail"] .combo-meter-option-group {
+  grid-column: 10 / 13 !important;
+  grid-row: 1 !important;
+}
+
+body[data-page="detail"] .combo-position-option-group {
+  grid-column: 1 / 4 !important;
+  grid-row: 2 !important;
+}
+
+body[data-page="detail"] .combo-damage-field {
+  grid-column: 4 / 6 !important;
+  grid-row: 2 !important;
+  max-width: 122px !important;
+}
+
+body[data-page="detail"] .combo-tags-field-inline {
+  grid-column: 6 / 13 !important;
+  grid-row: 2 !important;
+}
+
+body[data-page="detail"] .combo-tag-options,
+body[data-page="detail"] .combo-tags-field-inline .combo-tag-options {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+}
+
+body[data-page="detail"] .combo-tag-option {
+  display: inline-flex !important;
+}
+
+/* Limit Strike : uniquement la bannière noire + cap rouge, sans triangle blanc à gauche. */
+.combo-tag-logo-limit-strike {
+  width: 138px !important;
+  height: 25px !important;
+  overflow: visible !important;
+}
+
+.combo-tag-logo-limit-strike .combo-limit-notch {
+  display: none !important;
+}
+
+/* Meter cost : chiffres droits mais écrasés verticalement, comme les captures. */
+.combo-meter-digit {
+  display: inline-block !important;
+  font-family: Impact, "Arial Black", Haettenschweiler, system-ui, sans-serif !important;
+  font-style: normal !important;
+  font-weight: 1000 !important;
+  line-height: .66 !important;
+  letter-spacing: -0.13em !important;
+  transform: scaleX(.90) scaleY(.70) !important;
+  transform-origin: center center !important;
+  -webkit-text-stroke: 2.6px #050505 !important;
+  paint-order: stroke fill !important;
+  text-shadow: 2px 2px 0 #050505, 4px 4px 0 rgba(0,0,0,.50) !important;
+}
+
+body[data-page="detail"] .combo-choice-options .combo-meter-digit,
+.combo-filter-chip-meter .combo-meter-digit {
+  font-size: 46px !important;
+}
+
+.saved-combo-meta .combo-meta-meter-inline .combo-meter-digit {
+  font-size: 38px !important;
+  transform: scaleX(.90) scaleY(.70) !important;
+}
+
+/* Nom facultatif : si vide, aucune ligne morte. */
+.saved-combo-head:empty {
+  display: none !important;
+}
+
+/* Dégâts : centrage visuel dans la petite barre. */
+.combo-damage-svg text {
+  dominant-baseline: middle !important;
+  text-anchor: middle !important;
+}
+
+@container (max-width: 980px) {
+  body[data-page="detail"] .combo-assist-picker,
+  body[data-page="detail"] .combo-fuse-option-group,
+  body[data-page="detail"] .combo-meter-option-group,
+  body[data-page="detail"] .combo-position-option-group,
+  body[data-page="detail"] .combo-damage-field,
+  body[data-page="detail"] .combo-tags-field-inline {
+    grid-column: 1 / -1 !important;
+    grid-row: auto !important;
+    max-width: none !important;
+  }
+}
+
+/* --- TechLab hotfix: assists officielles, tags visibles, pad recadré, meter plus écrasé --- */
+body[data-page="detail"] .combo-builder-pad-area .combo-token-grid {
+  grid-template-columns: 178px 276px !important;
+  gap: 24px !important;
+  justify-content: start !important;
+  align-items: center !important;
+}
+
+body[data-page="detail"] .combo-pad-actions {
+  display: grid !important;
+  grid-template-rows: repeat(4, 36px) !important;
+  gap: 10px !important;
+  width: 276px !important;
+  min-width: 276px !important;
+  max-width: 276px !important;
+  justify-content: start !important;
+  align-items: center !important;
+}
+
+body[data-page="detail"] .combo-pad-row-actions {
+  display: grid !important;
+  grid-template-columns: repeat(5, 44px) !important;
+  gap: 10px !important;
+  min-height: 36px !important;
+  width: 260px !important;
+  justify-content: start !important;
+  align-items: center !important;
+}
+
+body[data-page="detail"] .combo-pad-action-spacer {
+  display: block !important;
+  visibility: hidden !important;
+  width: 44px !important;
+  min-width: 44px !important;
+  height: 36px !important;
+  min-height: 36px !important;
+}
+
+body[data-page="detail"] .combo-token-button,
+body[data-page="detail"] .combo-token-button[data-combo-token="Delay"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Hold"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Air"],
+body[data-page="detail"] .combo-token-button[data-combo-token="OR"],
+body[data-page="detail"] .combo-token-button[data-combo-token="HIT#"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Mash"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Whiff"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Run"],
+body[data-page="detail"] .combo-token-button[data-combo-token="__newline__"],
+body[data-page="detail"] .combo-token-button[data-combo-token="~"] {
+  width: 44px !important;
+  min-width: 44px !important;
+  height: 36px !important;
+  min-height: 36px !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+body[data-page="detail"] .combo-token-button[data-combo-token="Delay"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Hold"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Air"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="OR"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="HIT#"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Mash"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Whiff"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Run"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="__newline__"] .combo-text-token {
+  width: 44px !important;
+  min-width: 44px !important;
+  height: 20px !important;
+  min-height: 20px !important;
+  padding: 0 !important;
+  font-size: 9.3px !important;
+  line-height: .94 !important;
+  letter-spacing: -0.045em !important;
+  text-align: center !important;
+  white-space: normal !important;
+}
+
+body[data-page="detail"] .combo-token-button[data-combo-token=">"] {
+  justify-self: center !important;
+}
+
+body[data-page="detail"] .combo-token-button[data-combo-token=">"] .combo-icon-wrap,
+body[data-page="detail"] .combo-token-button[data-combo-token="+"] .combo-icon-wrap,
+body[data-page="detail"] .combo-token-button[data-combo-token="~"] .combo-text-token {
+  width: 32px !important;
+  min-width: 32px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+}
+
+/* Les portraits fournis sont déjà des close-ups officiels : on les affiche sans zoom CSS destructeur. */
+.combo-assist-thumb-frame,
+body[data-page="detail"] .combo-assist-option .combo-assist-thumb-frame,
+.saved-combo-meta .combo-meta-assist-inline .combo-assist-thumb-frame,
+.combo-filter-chip-assist .combo-assist-thumb-frame {
+  overflow: hidden !important;
+  border-radius: 9px !important;
+}
+
+.combo-assist-thumb-frame .combo-assist-thumb,
+body[data-page="detail"] .combo-assist-option img.combo-assist-thumb,
+.saved-combo-meta .combo-meta-assist-inline .combo-assist-thumb,
+.combo-filter-chip-assist .combo-assist-thumb {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  transform: none !important;
+  transform-origin: center center !important;
+}
+
+/* Meter cost : plus proche des captures, plus large et beaucoup plus écrasé verticalement. */
+.combo-meter-digit {
+  font-family: Impact, "Arial Black", Haettenschweiler, system-ui, sans-serif !important;
+  font-style: normal !important;
+  font-weight: 1000 !important;
+  line-height: .54 !important;
+  letter-spacing: -0.11em !important;
+  transform: scaleX(1.12) scaleY(.54) !important;
+  transform-origin: center center !important;
+  -webkit-text-stroke: 2.65px #050505 !important;
+  paint-order: stroke fill !important;
+  text-shadow: 2px 2px 0 #050505, 4px 4px 0 rgba(0,0,0,.52) !important;
+}
+
+body[data-page="detail"] .combo-choice-options .combo-meter-digit,
+.combo-filter-chip-meter .combo-meter-digit {
+  font-size: 48px !important;
+}
+
+.saved-combo-meta .combo-meta-meter-inline .combo-meter-digit {
+  font-size: 39px !important;
+  transform: scaleX(1.12) scaleY(.54) !important;
+}
+
+/* Dégâts : meilleur centrage visuel du chiffre dans la barre. */
+.combo-damage-svg text {
+  dominant-baseline: central !important;
+  text-anchor: middle !important;
+}
+
+/* --- TechLab hotfix: official 2XKO button accent + position logos --- */
+body[data-game="2xko"] .champion-card[data-game="2xko"] .champion-official-link::before,
+body[data-theme="2xko"] .champion-card[data-game="2xko"] .champion-official-link::before {
+  border-color: #00BC9E !important;
+  background: linear-gradient(180deg, #132823 0%, #05090b 100%) !important;
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.74),
+    0 0 7px rgba(0, 188, 158, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+}
+
+body[data-game="2xko"] .champion-card[data-game="2xko"] .champion-official-link:hover::before,
+body[data-game="2xko"] .champion-card[data-game="2xko"] .champion-official-link:focus-visible::before,
+body[data-theme="2xko"] .champion-card[data-game="2xko"] .champion-official-link:hover::before,
+body[data-theme="2xko"] .champion-card[data-game="2xko"] .champion-official-link:focus-visible::before {
+  border-color: #d7ff36 !important;
+  background: linear-gradient(180deg, #1d2c13 0%, #05090b 100%) !important;
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.74),
+    0 0 11px rgba(215, 255, 54, 0.58),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16) !important;
+}
+
+body[data-game="2xko"] .champion-card[data-game="2xko"] .champion-official-link:hover,
+body[data-game="2xko"] .champion-card[data-game="2xko"] .champion-official-link:focus-visible,
+body[data-theme="2xko"] .champion-card[data-game="2xko"] .champion-official-link:hover,
+body[data-theme="2xko"] .champion-card[data-game="2xko"] .champion-official-link:focus-visible {
+  text-shadow:
+    1px 0 0 #020504,
+    -1px 0 0 #020504,
+    0 1px 0 #020504,
+    0 -1px 0 #020504,
+    0 0 7px rgba(215, 255, 54, 0.78) !important;
+}
+
+.combo-position-svg {
+  display: block !important;
+  width: auto !important;
+  height: 30px !important;
+  overflow: visible !important;
+  filter: drop-shadow(0 2px 0 rgba(0,0,0,.72)) drop-shadow(0 0 4px rgba(215,255,54,.20)) !important;
+}
+
+.combo-position-svg text {
+  text-transform: uppercase !important;
+  text-shadow: 0 2px 0 #050505 !important;
+}
+
+.combo-position-svg-corner { width: 104px !important; }
+.combo-position-svg-midscreen { width: 142px !important; }
+.combo-position-svg-fullscreen { width: 150px !important; }
+
+body[data-page="detail"] .combo-position-option-group {
+  grid-column: 1 / 5 !important;
+}
+
+body[data-page="detail"] .combo-damage-field {
+  grid-column: 5 / 7 !important;
+}
+
+body[data-page="detail"] .combo-tags-field-inline {
+  grid-column: 7 / 13 !important;
+}
+
+body[data-page="detail"] .combo-position-option-group .combo-choice-options {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 7px !important;
+  align-items: center !important;
+}
+
+body[data-page="detail"] .combo-position-visual-option,
+.combo-filter-chip-position,
+.saved-combo-meta .combo-meta-position-logo {
+  width: auto !important;
+  min-width: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  color: inherit !important;
+}
+
+body[data-page="detail"] .combo-position-visual-option .combo-choice-visual,
+.combo-filter-chip-position .combo-choice-visual,
+.saved-combo-meta .combo-meta-position-logo .combo-meta-chip-visual {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 0 !important;
+  overflow: visible !important;
+}
+
+body[data-page="detail"] .combo-position-visual-option.is-active .combo-position-svg,
+body[data-page="detail"] .combo-position-visual-option:hover .combo-position-svg,
+body[data-page="detail"] .combo-position-visual-option:focus-visible .combo-position-svg,
+.combo-filter-chip-position.is-active .combo-position-svg,
+.combo-filter-chip-position:hover .combo-position-svg,
+.combo-filter-chip-position:focus-visible .combo-position-svg {
+  filter:
+    drop-shadow(0 2px 0 rgba(0,0,0,.82))
+    drop-shadow(0 0 7px rgba(215,255,54,.56))
+    drop-shadow(0 0 3px rgba(215,255,54,.36)) !important;
+}
+
+body[data-page="detail"] .combo-position-visual-option.is-active .combo-position-svg path,
+.combo-filter-chip-position.is-active .combo-position-svg path {
+  stroke: #d7ff36 !important;
+}
+
+.saved-combo-meta .combo-meta-position-logo .combo-position-svg,
+.combo-filter-chip-position .combo-position-svg {
+  height: 22px !important;
+}
+
+.saved-combo-meta .combo-meta-position-logo .combo-position-svg-corner,
+.combo-filter-chip-position .combo-position-svg-corner { width: 76px !important; }
+.saved-combo-meta .combo-meta-position-logo .combo-position-svg-midscreen,
+.combo-filter-chip-position .combo-position-svg-midscreen { width: 104px !important; }
+.saved-combo-meta .combo-meta-position-logo .combo-position-svg-fullscreen,
+.combo-filter-chip-position .combo-position-svg-fullscreen { width: 112px !important; }
+
+.saved-combo-meta .combo-meta-position-logo .combo-position-svg text,
+.combo-filter-chip-position .combo-position-svg text {
+  font-size: 28px !important;
+}
+
+/* --- TechLab hotfix: positions propres, grille du pad, tags restaurés --- */
+body[data-page="detail"] #comboTagOptions .combo-tag-option,
+body[data-page="detail"] .combo-tag-options .combo-tag-option {
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Positions : traits droits, espacés des lettres, vert 2XKO. */
+.combo-position-svg {
+  height: 32px !important;
+  overflow: visible !important;
+  filter:
+    drop-shadow(0 2px 0 rgba(0,0,0,.82))
+    drop-shadow(0 0 3px rgba(215,255,54,.24)) !important;
+}
+.combo-position-svg text {
+  text-shadow: none !important;
+}
+.combo-position-svg path {
+  stroke: #d7ff36 !important;
+}
+.combo-position-svg-corner { width: 118px !important; }
+.combo-position-svg-midscreen { width: 146px !important; }
+.combo-position-svg-fullscreen { width: 168px !important; }
+
+.saved-combo-meta .combo-meta-position-logo .combo-position-svg,
+.combo-filter-chip-position .combo-position-svg {
+  height: 23px !important;
+}
+.saved-combo-meta .combo-meta-position-logo .combo-position-svg-corner,
+.combo-filter-chip-position .combo-position-svg-corner { width: 82px !important; }
+.saved-combo-meta .combo-meta-position-logo .combo-position-svg-midscreen,
+.combo-filter-chip-position .combo-position-svg-midscreen { width: 108px !important; }
+.saved-combo-meta .combo-meta-position-logo .combo-position-svg-fullscreen,
+.combo-filter-chip-position .combo-position-svg-fullscreen { width: 120px !important; }
+
+/* Pad : vrai quadrillage propre, sans colonne morte à droite. */
+body[data-page="detail"] .combo-builder-pad-area .combo-token-grid {
+  grid-template-columns: 178px 276px !important;
+  gap: 22px !important;
+  align-items: center !important;
+  justify-content: start !important;
+}
+body[data-page="detail"] .combo-pad-actions {
+  width: 276px !important;
+  display: grid !important;
+  grid-auto-rows: 40px !important;
+  gap: 8px !important;
+  align-items: center !important;
+  justify-content: start !important;
+}
+body[data-page="detail"] .combo-pad-row-actions {
+  width: 276px !important;
+  display: grid !important;
+  grid-template-columns: repeat(5, 46px) !important;
+  gap: 8px !important;
+  min-height: 40px !important;
+  align-items: center !important;
+  justify-content: start !important;
+}
+body[data-page="detail"] .combo-token-button,
+body[data-page="detail"] .combo-token-button[data-combo-token="Delay"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Hold"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Air"],
+body[data-page="detail"] .combo-token-button[data-combo-token="OR"],
+body[data-page="detail"] .combo-token-button[data-combo-token="HIT#"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Mash"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Whiff"],
+body[data-page="detail"] .combo-token-button[data-combo-token="Run"],
+body[data-page="detail"] .combo-token-button[data-combo-token="__newline__"],
+body[data-page="detail"] .combo-token-button[data-combo-token="~"] {
+  width: 46px !important;
+  min-width: 46px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  display: grid !important;
+  place-items: center !important;
+  justify-self: center !important;
+  align-self: center !important;
+}
+body[data-page="detail"] .combo-token-button[data-combo-token="Delay"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Hold"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Air"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="OR"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="HIT#"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Mash"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Whiff"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="Run"] .combo-text-token,
+body[data-page="detail"] .combo-token-button[data-combo-token="__newline__"] .combo-text-token {
+  width: 46px !important;
+  min-width: 46px !important;
+  font-size: 9.4px !important;
+  line-height: .96 !important;
+  letter-spacing: -0.035em !important;
+  text-align: center !important;
+}
+
+/* Meter cost : encore plus écrasé verticalement, plus proche des captures. */
+.combo-meter-digit {
+  line-height: .42 !important;
+  transform: scaleX(1.20) scaleY(.42) !important;
+  transform-origin: center center !important;
+  letter-spacing: -0.10em !important;
+}
+body[data-page="detail"] .combo-choice-options .combo-meter-digit,
+.combo-filter-chip-meter .combo-meter-digit {
+  font-size: 52px !important;
+}
+.saved-combo-meta .combo-meta-meter-inline .combo-meter-digit {
+  font-size: 42px !important;
+  transform: scaleX(1.20) scaleY(.42) !important;
+}
+
+/* Dégâts : petit recentrage optique dans la barre. */
+.combo-damage-svg text {
+  transform: translate(2px, 1px) !important;
+}
+
+/* --- TechLab hotfix: filtres sans Tous, positions alignées, liens compacts --- */
+body[data-page="detail"] .combo-filter-bar .combo-filter-chip[data-filter="__all__"] {
+  display: none !important;
+}
+
+/* Les positions doivent se comporter comme de vrais petits logos propres, alignés à gauche quand ça wrap. */
+body[data-page="detail"] .combo-position-option-group .combo-choice-options {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  gap: 8px 12px !important;
+}
+
+body[data-page="detail"] .combo-position-visual-option,
+.combo-filter-chip-position,
+.saved-combo-meta .combo-meta-position-logo {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+.combo-position-svg {
+  display: block !important;
+  height: 34px !important;
+  overflow: visible !important;
+  filter:
+    drop-shadow(0 2px 0 rgba(0,0,0,.84))
+    drop-shadow(0 0 4px rgba(215,255,54,.24)) !important;
+}
+.combo-position-svg path { stroke: #d7ff36 !important; }
+.combo-position-svg text { text-shadow: none !important; }
+.combo-position-svg-corner { width: 118px !important; }
+.combo-position-svg-midscreen { width: 140px !important; }
+.combo-position-svg-fullscreen { width: 158px !important; }
+
+.saved-combo-meta .combo-meta-position-logo .combo-position-svg,
+.combo-filter-chip-position .combo-position-svg {
+  height: 23px !important;
+}
+.saved-combo-meta .combo-meta-position-logo .combo-position-svg-corner,
+.combo-filter-chip-position .combo-position-svg-corner { width: 82px !important; }
+.saved-combo-meta .combo-meta-position-logo .combo-position-svg-midscreen,
+.combo-filter-chip-position .combo-position-svg-midscreen { width: 98px !important; }
+.saved-combo-meta .combo-meta-position-logo .combo-position-svg-fullscreen,
+.combo-filter-chip-position .combo-position-svg-fullscreen { width: 110px !important; }
+
+/* Meter cost : même rendu visuel dans le formulaire, les filtres et les combos. */
+.combo-meter-digit {
+  font-style: normal !important;
+  font-family: Impact, "Arial Black", Haettenschweiler, system-ui, sans-serif !important;
+  font-weight: 1000 !important;
+  letter-spacing: -0.16em !important;
+  line-height: .72 !important;
+  transform: scaleX(.66) scaleY(.78) !important;
+  transform-origin: center center !important;
+  -webkit-text-stroke: 2.6px #050505 !important;
+  text-shadow: 2px 2px 0 #050505, 4px 4px 0 rgba(0,0,0,.52) !important;
+}
+body[data-page="detail"] .combo-choice-options .combo-meter-digit,
+.combo-filter-chip-meter .combo-meter-digit,
+.saved-combo-meta .combo-meta-meter-inline .combo-meter-digit {
+  font-size: 45px !important;
+}
+.combo-filter-chip-meter,
+.combo-filter-chip-meter .combo-choice-visual {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 34px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+.combo-filter-chip-meter:hover,
+.combo-filter-chip-meter:focus-visible,
+.combo-filter-chip-meter.is-active {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.combo-filter-chip-meter.is-active .combo-meter-digit,
+.combo-filter-chip-meter:hover .combo-meter-digit,
+.combo-filter-chip-meter:focus-visible .combo-meter-digit {
+  transform: scaleX(.66) scaleY(.78) translateY(-1px) !important;
+  filter:
+    drop-shadow(0 0 5px rgba(215,255,54,.54))
+    drop-shadow(0 0 9px rgba(24,230,255,.28)) !important;
+}
+
+/* Cartes de liens simples : version compacte, proche des liens officiels de la page jeu. */
+.personal-link-item-link {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.personal-link-item-link .personal-preview-compact {
+  display: grid !important;
+  grid-template-columns: 38px minmax(0, 1fr) !important;
+  align-items: center !important;
+  gap: 11px !important;
+  min-height: 62px !important;
+  padding: 10px 42px 10px 12px !important;
+  color: inherit !important;
+  text-decoration: none !important;
+  background: linear-gradient(135deg, rgba(255,255,255,.075), rgba(255,255,255,.03)) !important;
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, rgba(255,255,255,.12)) !important;
+  border-radius: 18px !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035) !important;
+  overflow: hidden !important;
+}
+.personal-link-item-link .personal-preview-compact:hover,
+.personal-link-item-link .personal-preview-compact:focus-visible {
+  background: color-mix(in srgb, var(--accent) 10%, rgba(255,255,255,.055)) !important;
+  border-color: color-mix(in srgb, var(--accent-2) 58%, rgba(255,255,255,.12)) !important;
+  transform: translateY(-1px) !important;
+  outline: none !important;
+}
+.personal-preview-compact .personal-preview-icon {
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 11px !important;
+  font-size: 1rem !important;
+  background: #020506 !important;
+  border: 1px solid rgba(255,255,255,.16) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08) !important;
+}
+.personal-preview-compact .personal-preview-text {
+  display: grid !important;
+  gap: 2px !important;
+  min-width: 0 !important;
+}
+.personal-preview-compact strong {
+  color: var(--accent-2) !important;
+  font-size: .92rem !important;
+  line-height: 1.05 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+.personal-preview-compact small {
+  color: var(--muted) !important;
+  font-size: .72rem !important;
+  font-weight: 850 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+.personal-link-item-link .personal-drag-handle {
+  left: 8px !important;
+  top: 8px !important;
+  width: 24px !important;
+  height: 24px !important;
+  opacity: 0 !important;
+}
+.personal-link-item-link .personal-delete-link {
+  right: 9px !important;
+  top: 9px !important;
+  width: 26px !important;
+  height: 26px !important;
+  font-size: 1.02rem !important;
+  opacity: .68 !important;
+}
+.personal-link-item-link:hover .personal-drag-handle,
+.personal-link-item-link:focus-within .personal-drag-handle,
+.personal-link-item-link:hover .personal-delete-link,
+.personal-link-item-link:focus-within .personal-delete-link {
+  opacity: 1 !important;
+}
+
+
+/* --- TechLab hotfix: 2XKO buttons, meter filters, saved dash arrows --- */
+:root {
+  --tl-2xko-lime: #d7ff36;
+  --tl-2xko-yellow: #f4d51e;
+}
+
+/* Casting 2XKO : Wiki = jaune au texte seulement en hover ; Officiel = vert 2XKO, pas turquoise. */
+body[data-game="2xko"] .champion-card[data-game="2xko"] .champion-wiki-link,
+body[data-theme="2xko"] .champion-card[data-game="2xko"] .champion-wiki-link {
+  color: #ffffff !important;
+}
+
+body[data-game="2xko"] .champion-card[data-game="2xko"] .champion-wiki-link::before,
+body[data-theme="2xko"] .champion-card[data-game="2xko"] .champion-wiki-link::before {
+  border-color: var(--tl-2xko-yellow) !important;
+  background: linear-gradient(180deg, #181b18 0%, #050707 100%) !important;
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.74),
+    0 0 5px rgba(244, 213, 30, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10) !important;
+}
+
+body[data-game="2xko"] .champion-card[data-game="2xko"] .champion-wiki-link:hover,
+body[data-game="2xko"] .champion-card[data-game="2xko"] .champion-wiki-link:focus-visible,
+body[data-theme="2xko"] .champion-card[data-game="2xko"] .champion-wiki-link:hover,
+body[data-theme="2xko"] .champion-card[data-game="2xko"] .champion-wiki-link:focus-visible {
+  color: var(--tl-2xko-yellow) !important;
+  text-shadow:
+    1px 0 0 #020504,
+    -1px 0 0 #020504,
+    0 1px 0 #020504,
+    0 -1px 0 #020504,
+    0 0 7px rgba(244, 213, 30, 0.66) !important;
+}
+
+body[data-game="2xko"] .champion-card[data-game="2xko"] .champion-wiki-link:hover::before,
+body[data-game="2xko"] .champion-card[data-game="2xko"] .champion-wiki-link:focus-visible::before,
+body[data-theme="2xko"] .champion-card[data-game="2xko"] .champion-wiki-link:hover::before,
+body[data-theme="2xko"] .champion-card[data-game="2xko"] .champion-wiki-link:focus-visible::before {
+  border-color: var(--tl-2xko-yellow) !important;
+  background: linear-gradient(180deg, #181b18 0%, #050707 100%) !important;
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.74),
+    0 0 8px rgba(244, 213, 30, 0.44),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+}
+
+body[data-game="2xko"] .champion-card[data-game="2xko"] .champion-official-link,
+body[data-theme="2xko"] .champion-card[data-game="2xko"] .champion-official-link {
+  color: #ffffff !important;
+}
+
+body[data-game="2xko"] .champion-card[data-game="2xko"] .champion-official-link::before,
+body[data-theme="2xko"] .champion-card[data-game="2xko"] .champion-official-link::before {
+  border-color: var(--tl-2xko-lime) !important;
+  background: linear-gradient(180deg, #18220d 0%, #050707 100%) !important;
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.74),
+    0 0 6px rgba(215, 255, 54, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.11) !important;
+}
+
+body[data-game="2xko"] .champion-card[data-game="2xko"] .champion-official-link:hover,
+body[data-game="2xko"] .champion-card[data-game="2xko"] .champion-official-link:focus-visible,
+body[data-theme="2xko"] .champion-card[data-game="2xko"] .champion-official-link:hover,
+body[data-theme="2xko"] .champion-card[data-game="2xko"] .champion-official-link:focus-visible {
+  color: var(--tl-2xko-lime) !important;
+  text-shadow:
+    1px 0 0 #020504,
+    -1px 0 0 #020504,
+    0 1px 0 #020504,
+    0 -1px 0 #020504,
+    0 0 7px rgba(215, 255, 54, 0.78) !important;
+}
+
+body[data-game="2xko"] .champion-card[data-game="2xko"] .champion-official-link:hover::before,
+body[data-game="2xko"] .champion-card[data-game="2xko"] .champion-official-link:focus-visible::before,
+body[data-theme="2xko"] .champion-card[data-game="2xko"] .champion-official-link:hover::before,
+body[data-theme="2xko"] .champion-card[data-game="2xko"] .champion-official-link:focus-visible::before {
+  border-color: var(--tl-2xko-lime) !important;
+  background: linear-gradient(180deg, #1d2a10 0%, #050707 100%) !important;
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.74),
+    0 0 10px rgba(215, 255, 54, 0.52),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+}
+
+/* Meter cost dans les filtres : même esprit que le formulaire, mais dimensionné pour la barre de filtres. */
+.combo-filter-chip-meter,
+.combo-filter-chip-meter .combo-choice-visual {
+  width: 24px !important;
+  min-width: 24px !important;
+  height: 24px !important;
+  min-height: 24px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  margin: 0 2px !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+.combo-filter-chip-meter .combo-meter-digit {
+  font-size: 34px !important;
+  line-height: .52 !important;
+  transform: scaleX(1.12) scaleY(.54) !important;
+  transform-origin: center center !important;
+}
+
+.combo-filter-chip-meter:hover .combo-meter-digit,
+.combo-filter-chip-meter:focus-visible .combo-meter-digit,
+.combo-filter-chip-meter.is-active .combo-meter-digit {
+  transform: scaleX(1.12) scaleY(.54) translateY(-1px) !important;
+  filter:
+    drop-shadow(0 0 5px rgba(215,255,54,.54))
+    drop-shadow(0 0 8px rgba(215,255,54,.22)) !important;
+}
+
+/* Dans les combos sauvegardés, les dash >> / << reprennent la lisibilité du builder. */
+.saved-combo-notation .combo-output-token[data-combo-token=">>"],
+.saved-combo-notation .combo-output-token[data-combo-token="<<"] {
+  width: 34px !important;
+  min-width: 34px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  margin-right: 5px !important;
+  vertical-align: middle !important;
+}
+
+.saved-combo-notation .combo-output-token[data-combo-token=">>"] .combo-icon-wrap,
+.saved-combo-notation .combo-output-token[data-combo-token="<<"] .combo-icon-wrap {
+  width: 34px !important;
+  min-width: 34px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.saved-combo-notation .combo-output-token[data-combo-token=">>"] .combo-svg,
+.saved-combo-notation .combo-output-token[data-combo-token="<<"] .combo-svg {
+  width: 34px !important;
+  min-width: 34px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  display: block !important;
+  filter: drop-shadow(0 1px 0 rgba(0,0,0,.72)) !important;
+}
+
+/* --- TechLab hotfix: cohérence meter + doubles flèches sauvegardées --- */
+/* Le meter cost doit garder EXACTEMENT la même forme partout : formulaire, filtres et combos. */
+body[data-page="detail"] .combo-meter-option-group .combo-choice-options,
+body[data-page="detail"] .combo-meter-option-group .combo-choice-options .combo-choice-option,
+body[data-page="detail"] .combo-meter-visual-option,
+.combo-filter-chip-meter,
+.combo-filter-chip-meter .combo-choice-visual,
+.saved-combo-meta .combo-meta-meter-inline,
+.saved-combo-meta .combo-meta-meter-inline > span {
+  overflow: visible !important;
+}
+
+body[data-page="detail"] .combo-meter-visual-option,
+body[data-page="detail"] .combo-meter-option,
+.combo-filter-chip-meter,
+.saved-combo-meta .combo-meta-meter-inline {
+  width: 28px !important;
+  min-width: 28px !important;
+  height: 26px !important;
+  min-height: 26px !important;
+  padding: 0 !important;
+  margin: 0 3px !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+body[data-page="detail"] .combo-meter-visual-option .combo-meter-digit,
+body[data-page="detail"] .combo-meter-visual-option.is-active .combo-meter-digit,
+body[data-page="detail"] .combo-meter-visual-option:hover .combo-meter-digit,
+body[data-page="detail"] .combo-meter-visual-option:focus-visible .combo-meter-digit,
+body[data-page="detail"] .combo-choice-options .combo-meter-digit,
+.combo-filter-chip-meter .combo-meter-digit,
+.combo-filter-chip-meter.is-active .combo-meter-digit,
+.combo-filter-chip-meter:hover .combo-meter-digit,
+.combo-filter-chip-meter:focus-visible .combo-meter-digit,
+.saved-combo-meta .combo-meta-meter-inline .combo-meter-digit {
+  font-family: Impact, "Arial Black", Haettenschweiler, system-ui, sans-serif !important;
+  font-size: 37px !important;
+  font-style: normal !important;
+  font-weight: 1000 !important;
+  line-height: .46 !important;
+  letter-spacing: -0.12em !important;
+  -webkit-text-stroke: 2.2px #050505 !important;
+  paint-order: stroke fill !important;
+  transform: scaleX(1.18) scaleY(.48) !important;
+  transform-origin: center center !important;
+  text-shadow:
+    2px 2px 0 #050505,
+    3px 3px 0 rgba(0,0,0,.52) !important;
+  filter: none !important;
+}
+
+body[data-page="detail"] .combo-meter-visual-option.is-active .combo-meter-digit,
+.combo-filter-chip-meter.is-active .combo-meter-digit {
+  filter:
+    drop-shadow(0 0 4px rgba(215,255,54,.55))
+    drop-shadow(0 0 8px rgba(215,255,54,.22)) !important;
+}
+
+/* Les doubles flèches doivent rester identiques, que le builder soit ouvert ou fermé. */
+body[data-page="detail"] .saved-combo-notation .combo-output-token[data-combo-token=">>"],
+body[data-page="detail"] .saved-combo-notation .combo-output-token[data-combo-token="<<"] {
+  width: 35px !important;
+  min-width: 35px !important;
+  height: 30px !important;
+  min-height: 30px !important;
+  padding: 0 !important;
+  margin: 0 4px 4px 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  vertical-align: middle !important;
+}
+
+body[data-page="detail"] .saved-combo-notation .combo-output-token[data-combo-token=">>"] .combo-icon-wrap,
+body[data-page="detail"] .saved-combo-notation .combo-output-token[data-combo-token="<<"] .combo-icon-wrap,
+body[data-page="detail"] .saved-combo-notation .combo-output-token[data-combo-token=">>"] .combo-svg,
+body[data-page="detail"] .saved-combo-notation .combo-output-token[data-combo-token="<<"] .combo-svg {
+  width: 35px !important;
+  min-width: 35px !important;
+  height: 30px !important;
+  min-height: 30px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  display: block !important;
+  filter: drop-shadow(0 1px 0 rgba(0,0,0,.74)) !important;
+}
+
+body[data-page="detail"] .saved-combo-notation .combo-output-token[data-combo-token=">>"] path,
+body[data-page="detail"] .saved-combo-notation .combo-output-token[data-combo-token="<<"] path {
+  vector-effect: non-scaling-stroke;
+}
+
+/* --- TechLab responsive pass: desktop / tablet / mobile clean layout --- */
+html,
+body {
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+
+img,
+svg,
+video,
+iframe {
+  max-width: 100%;
+}
+
+.shell,
+.app,
+.game-workspace,
+.detail-lab-grid,
+.personal-panel,
+.combo-builder-shell,
+.combo-builder-layout,
+.saved-combo-card,
+.personal-links-panel {
+  min-width: 0 !important;
+}
+
+/* Medium desktops / small laptops: keep everything readable without side clipping. */
+@media (max-width: 1480px) and (min-width: 1101px) {
+  :root { --tl-sidebar-width: 250px !important; }
+
+  .shell,
+  body[data-page="game"] .shell,
+  body[data-page="detail"] .shell {
+    grid-template-columns: var(--tl-sidebar-width) minmax(0, 1fr) !important;
+  }
+
+  .game-sidebar,
+  body[data-page="game"] .game-sidebar,
+  body[data-page="detail"] .game-sidebar {
+    width: var(--tl-sidebar-width) !important;
+    min-width: var(--tl-sidebar-width) !important;
+    max-width: var(--tl-sidebar-width) !important;
+    padding-inline: 14px !important;
+  }
+
+  body[data-page="detail"] .app {
+    padding-inline: 18px !important;
+  }
+
+  body[data-page="detail"] .detail-page-reworked .detail-lab-grid {
+    grid-template-columns: minmax(220px, 290px) minmax(520px, 1fr) minmax(260px, 350px) !important;
+    gap: 14px !important;
+  }
+
+  body[data-page="detail"] .combo-builder-layout {
+    grid-template-columns: minmax(280px, 390px) minmax(0, 1fr) !important;
+    gap: 16px !important;
+  }
+}
+
+/* Tablet: sidebar becomes a top game bar and pages stack safely. */
+@media (max-width: 1100px) {
+  html,
+  body {
+    height: auto !important;
+    min-height: 100dvh !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }
+
+  .shell,
+  body[data-page="game"] .shell,
+  body[data-page="detail"] .shell {
+    display: block !important;
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    min-height: 100dvh !important;
+    overflow: visible !important;
+  }
+
+  .game-sidebar,
+  body[data-page="game"] .game-sidebar,
+  body[data-page="detail"] .game-sidebar {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1000 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 10px 12px 8px !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--border) !important;
+    background: rgba(2, 6, 23, 0.90) !important;
+    backdrop-filter: blur(18px) !important;
+    overflow: hidden !important;
+  }
+
+  .brand,
+  .brand-logo-only {
+    justify-content: center !important;
+    margin: 0 0 8px !important;
+    min-height: 0 !important;
+  }
+
+  .site-logo {
+    width: auto !important;
+    height: 58px !important;
+    max-width: min(220px, 55vw) !important;
+    object-fit: contain !important;
+  }
+
+  .game-nav {
+    display: flex !important;
+    grid-template-columns: none !important;
+    gap: 8px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    padding: 2px 2px 8px !important;
+    scroll-snap-type: x proximity !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .game-nav::-webkit-scrollbar { height: 4px !important; }
+
+  .game-button {
+    flex: 0 0 clamp(116px, 22vw, 170px) !important;
+    width: clamp(116px, 22vw, 170px) !important;
+    min-width: clamp(116px, 22vw, 170px) !important;
+    min-height: 58px !important;
+    height: 58px !important;
+    padding: 8px 10px !important;
+    border-radius: 14px !important;
+    scroll-snap-align: start !important;
+    transform: none !important;
+  }
+
+  .game-button:hover,
+  .game-button.is-active {
+    transform: none !important;
+  }
+
+  .game-name .game-logo,
+  .game-name .text-logo {
+    max-height: 42px !important;
+    max-width: 150px !important;
+  }
+
+  .app,
+  body[data-page="game"] .app,
+  body[data-page="detail"] .app {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    padding: 16px !important;
+    overflow: visible !important;
+    scrollbar-width: auto !important;
+  }
+
+  body[data-page="game"] .game-workspace,
+  body[data-page="detail"] .detail-page-reworked .detail-lab-grid,
+  body[data-page="detail"] .detail-page-personal .detail-lab-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    gap: 16px !important;
+    overflow: visible !important;
+  }
+
+  body[data-page="game"] .info-column,
+  body[data-page="game"] .cast-panel,
+  body[data-page="detail"] .detail-character-column,
+  body[data-page="detail"] .personal-combos-panel,
+  body[data-page="detail"] .personal-links-panel {
+    position: static !important;
+    top: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  body[data-page="game"] .cast-panel,
+  body[data-page="game"] .champion-grid,
+  body[data-page="game"] .team-grid {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-bottom: 38px !important;
+  }
+
+  body[data-page="game"] .champion-grid:not(.has-team-sections),
+  body[data-page="game"] .team-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)) !important;
+    justify-items: center !important;
+    gap: 28px 14px !important;
+  }
+
+  body[data-page="game"] .champion-card,
+  body[data-page="game"] .champion-card:hover,
+  body[data-page="game"] .champion-card.is-selected {
+    width: min(230px, 100%) !important;
+    max-width: 100% !important;
+  }
+
+  body[data-page="detail"] .detail-roster-card {
+    width: min(360px, 100%) !important;
+    margin: 0 auto !important;
+    min-height: 0 !important;
+  }
+
+  body[data-page="detail"] .detail-roster-card .champion-art-wrap {
+    height: clamp(230px, 44vw, 320px) !important;
+    min-height: clamp(230px, 44vw, 320px) !important;
+  }
+
+  body[data-page="detail"] .detail-character-column {
+    grid-template-columns: minmax(240px, 360px) minmax(0, 1fr) !important;
+    align-items: stretch !important;
+  }
+
+  body[data-page="detail"] .notes-panel,
+  body[data-page="detail"] .personal-notes-panel {
+    height: auto !important;
+    min-height: 220px !important;
+  }
+
+  body[data-page="detail"] .combo-filter-bar {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 8px 10px !important;
+    overflow: visible !important;
+  }
+
+  body[data-page="detail"] .combo-builder-layout {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  body[data-page="detail"] .combo-builder-pad-area {
+    width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  body[data-page="detail"] .combo-builder-pad-area .combo-token-grid {
+    width: max-content !important;
+    min-width: min(100%, 560px) !important;
+    grid-template-columns: 178px 276px !important;
+    justify-content: start !important;
+  }
+
+  body[data-page="detail"] .combo-meta-grid,
+  body[data-page="detail"] .combo-meta-grid-visual {
+    display: grid !important;
+    grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+    gap: 12px 14px !important;
+    align-items: start !important;
+  }
+
+  body[data-page="detail"] .combo-assist-field,
+  body[data-page="detail"] .combo-fuse-option-group,
+  body[data-page="detail"] .combo-meter-option-group,
+  body[data-page="detail"] .combo-position-option-group,
+  body[data-page="detail"] .combo-damage-field,
+  body[data-page="detail"] .combo-tags-field-inline {
+    grid-column: span 6 !important;
+  }
+
+  body[data-page="detail"] .combo-assist-field,
+  body[data-page="detail"] .combo-tags-field-inline {
+    grid-column: 1 / -1 !important;
+  }
+
+  body[data-page="detail"] .personal-link-form {
+    grid-template-columns: minmax(0, 1fr) auto !important;
+  }
+
+  body[data-page="detail"] .personal-links-list {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+}
+
+/* Phones: readable single-column interface, horizontal chips when necessary. */
+@media (max-width: 700px) {
+  .game-sidebar,
+  body[data-page="game"] .game-sidebar,
+  body[data-page="detail"] .game-sidebar {
+    padding: 8px 10px 6px !important;
+  }
+
+  .site-logo {
+    height: 46px !important;
+    max-width: 160px !important;
+  }
+
+  .game-button {
+    flex-basis: 102px !important;
+    width: 102px !important;
+    min-width: 102px !important;
+    height: 52px !important;
+    min-height: 52px !important;
+    border-radius: 12px !important;
+  }
+
+  .game-name .game-logo,
+  .game-name .text-logo {
+    max-height: 34px !important;
+    max-width: 92px !important;
+  }
+
+  .app,
+  body[data-page="game"] .app,
+  body[data-page="detail"] .app {
+    padding: 12px 10px 34px !important;
+  }
+
+  body[data-page="game"] .game-workspace {
+    gap: 14px !important;
+  }
+
+  .selection-builder,
+  .resource-panel,
+  .personal-panel,
+  .personal-combos-panel,
+  .personal-links-panel .personal-panel,
+  .combo-builder-shell,
+  .saved-combo-card {
+    border-radius: 16px !important;
+  }
+
+  .query-mode-card {
+    padding: 10px !important;
+  }
+
+  .query-actions {
+    display: grid !important;
+    grid-template-columns: 42px 1fr 1fr !important;
+    gap: 7px !important;
+  }
+
+  .query-link,
+  .copy-button {
+    min-width: 0 !important;
+    width: 100% !important;
+    min-height: 40px !important;
+    padding: 0 10px !important;
+  }
+
+  body[data-page="game"] .champion-grid:not(.has-team-sections),
+  body[data-page="game"] .team-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 22px 8px !important;
+    align-items: end !important;
+  }
+
+  body[data-page="game"] .champion-card,
+  body[data-page="game"] .champion-card:hover,
+  body[data-page="game"] .champion-card.is-selected {
+    width: min(170px, 100%) !important;
+    min-height: 260px !important;
+    height: auto !important;
+  }
+
+  body[data-page="game"] .champion-card-button {
+    min-height: 205px !important;
+  }
+
+  body[data-page="game"] .champion-card .champion-art-wrap {
+    height: 205px !important;
+    min-height: 205px !important;
+  }
+
+  body[data-page="game"] .champion-card .champion-art {
+    max-height: 210px !important;
+  }
+
+  body[data-page="game"] .champion-overlay {
+    margin-top: -12px !important;
+  }
+
+  body[data-page="game"] .champion-name-link {
+    min-height: 34px !important;
+  }
+
+  body[data-page="game"] .champion-name {
+    font-size: clamp(0.78rem, 4vw, 1rem) !important;
+    line-height: .95 !important;
+  }
+
+  body[data-page="game"] .champion-links {
+    gap: 5px !important;
+    padding-inline: 2px !important;
+  }
+
+  body[data-page="game"] .champion-wiki-link,
+  body[data-page="game"] .champion-official-link {
+    min-width: 54px !important;
+    height: 26px !important;
+    font-size: 0.66rem !important;
+  }
+
+  body[data-page="detail"] .detail-character-column {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  body[data-page="detail"] .detail-roster-card {
+    width: min(310px, 100%) !important;
+  }
+
+  body[data-page="detail"] .detail-roster-card .champion-art-wrap {
+    height: clamp(210px, 72vw, 285px) !important;
+    min-height: clamp(210px, 72vw, 285px) !important;
+  }
+
+  body[data-page="detail"] .personal-panel-header,
+  body[data-page="detail"] .combo-list-header {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    align-items: center !important;
+  }
+
+  body[data-page="detail"] .combo-open-builder,
+  body[data-page="detail"] .combo-builder-add,
+  body[data-page="detail"] .combo-builder-clear {
+    min-height: 38px !important;
+  }
+
+  body[data-page="detail"] .combo-filter-bar {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    padding-bottom: 6px !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  body[data-page="detail"] .combo-filter-bar > span {
+    flex: 0 0 auto !important;
+  }
+
+  body[data-page="detail"] .combo-filter-chip,
+  body[data-page="detail"] .combo-filter-chip-visual {
+    flex: 0 0 auto !important;
+  }
+
+  body[data-page="detail"] .combo-builder-shell:not([hidden]) {
+    padding: 12px !important;
+    overflow: visible !important;
+  }
+
+  body[data-page="detail"] .combo-builder-topline {
+    gap: 8px !important;
+  }
+
+  body[data-page="detail"] .combo-builder-pad-area .combo-token-grid {
+    transform: scale(.86) !important;
+    transform-origin: left center !important;
+    margin-bottom: -20px !important;
+  }
+
+  body[data-page="detail"] .combo-output,
+  body[data-page="detail"] .combo-editor,
+  body[data-page="detail"] .saved-combo-notation {
+    min-height: 46px !important;
+    padding: 10px !important;
+    overflow-x: auto !important;
+  }
+
+  body[data-page="detail"] .combo-meta-grid,
+  body[data-page="detail"] .combo-meta-grid-visual {
+    grid-template-columns: 1fr !important;
+    gap: 11px !important;
+  }
+
+  body[data-page="detail"] .combo-assist-field,
+  body[data-page="detail"] .combo-fuse-option-group,
+  body[data-page="detail"] .combo-meter-option-group,
+  body[data-page="detail"] .combo-position-option-group,
+  body[data-page="detail"] .combo-damage-field,
+  body[data-page="detail"] .combo-tags-field-inline {
+    grid-column: 1 / -1 !important;
+  }
+
+  body[data-page="detail"] .combo-choice-options,
+  body[data-page="detail"] .combo-tag-options {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 7px 9px !important;
+    align-items: center !important;
+  }
+
+  body[data-page="detail"] .combo-assist-options {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    padding-bottom: 5px !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  body[data-page="detail"] .combo-assist-option {
+    flex: 0 0 auto !important;
+  }
+
+  body[data-page="detail"] .combo-name-field input,
+  body[data-page="detail"] .combo-media-field input,
+  body[data-page="detail"] .combo-damage-field input,
+  body[data-page="detail"] .personal-link-form input {
+    min-width: 0 !important;
+    width: 100% !important;
+    font-size: 16px !important; /* évite le zoom automatique iOS */
+  }
+
+  body[data-page="detail"] .combo-save-row,
+  body[data-page="detail"] .combo-builder-actions {
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    gap: 8px !important;
+  }
+
+  body[data-page="detail"] .saved-combos-list {
+    gap: 10px !important;
+  }
+
+  body[data-page="detail"] .saved-combo-card {
+    padding: 12px 42px 12px 12px !important;
+    min-height: 0 !important;
+  }
+
+  body[data-page="detail"] .saved-combo-head,
+  body[data-page="detail"] .saved-combo-meta,
+  body[data-page="detail"] .saved-combo-meta-stack,
+  body[data-page="detail"] .saved-combo-meta-primary,
+  body[data-page="detail"] .saved-combo-meta-secondary {
+    max-width: 100% !important;
+  }
+
+  body[data-page="detail"] .saved-combo-meta,
+  body[data-page="detail"] .saved-combo-meta-primary,
+  body[data-page="detail"] .saved-combo-meta-secondary {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 7px 9px !important;
+    align-items: center !important;
+  }
+
+  body[data-page="detail"] .saved-combo-delete,
+  body[data-page="detail"] .saved-combo-edit,
+  body[data-page="detail"] .saved-combo-copy {
+    right: 8px !important;
+  }
+
+  body[data-page="detail"] .personal-link-form {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 42px !important;
+    gap: 8px !important;
+  }
+
+  body[data-page="detail"] .personal-link-item {
+    min-height: 46px !important;
+    padding: 8px 38px 8px 10px !important;
+  }
+
+  body[data-page="detail"] .personal-link-preview,
+  body[data-page="detail"] .personal-link-title,
+  body[data-page="detail"] .personal-link-domain {
+    min-width: 0 !important;
+    overflow-wrap: anywhere !important;
+  }
+}
+
+/* Very small phones: avoid any information being clipped; use one-card rows. */
+@media (max-width: 430px) {
+  .app,
+  body[data-page="game"] .app,
+  body[data-page="detail"] .app {
+    padding-inline: 8px !important;
+  }
+
+  body[data-page="game"] .champion-grid:not(.has-team-sections),
+  body[data-page="game"] .team-grid {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+  }
+
+  body[data-page="game"] .champion-card,
+  body[data-page="game"] .champion-card:hover,
+  body[data-page="game"] .champion-card.is-selected {
+    width: min(235px, 100%) !important;
+  }
+
+  body[data-page="detail"] .combo-builder-pad-area .combo-token-grid {
+    transform: scale(.78) !important;
+    margin-bottom: -32px !important;
+  }
+
+  body[data-page="detail"] .combo-builder-shell:not([hidden]) {
+    padding-inline: 10px !important;
+  }
+
+  body[data-page="detail"] .combo-position-svg-fullscreen { width: 132px !important; }
+  body[data-page="detail"] .combo-position-svg-midscreen { width: 118px !important; }
+  body[data-page="detail"] .combo-position-svg-corner { width: 96px !important; }
+}
+
+/* --- Hotfix combo meta consistency: assists, meter/fury and form order --- */
+.combo-editor[data-empty="true"]::before {
+  content: 'Construis ton combo avec le pad.' !important;
+}
+
+.combo-assist-thumb-frame,
+.saved-combo-meta .combo-meta-assist-inline .combo-assist-thumb-frame,
+.combo-filter-chip-assist .combo-assist-thumb-frame,
+body[data-page="detail"] .combo-assist-option .combo-assist-thumb-frame {
+  overflow: hidden !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  background: rgba(255,255,255,.05) !important;
+}
+
+.combo-assist-thumb-frame .combo-assist-thumb,
+.saved-combo-meta .combo-meta-assist-inline .combo-assist-thumb,
+.combo-filter-chip-assist .combo-assist-thumb,
+body[data-page="detail"] .combo-assist-option img.combo-assist-thumb {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  transform: none !important;
+}
+
+.combo-meta-grid-visual .combo-assist-picker { order: 1 !important; }
+.combo-meta-grid-visual .combo-fuse-option-group { order: 2 !important; }
+.combo-meta-grid-visual .combo-meter-option-group { order: 3 !important; }
+.combo-meta-grid-visual .combo-position-option-group { order: 4 !important; }
+.combo-meta-grid-visual .combo-damage-field { order: 5 !important; }
+.combo-meta-grid-visual .combo-tags-field { order: 6 !important; }
+
+.combo-meter-option.combo-choice-option,
+.combo-filter-chip-meter,
+.saved-combo-meta .combo-meta-meter-inline {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  min-width: 0 !important;
+  padding: 0 3px !important;
+}
+
+.combo-meter-option.combo-choice-option .combo-choice-visual,
+.combo-filter-chip-meter .combo-choice-visual,
+.saved-combo-meta .combo-meta-meter-inline {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 5px !important;
+}
+
+.combo-meter-option.combo-choice-option .combo-meter-digit,
+.combo-filter-chip-meter .combo-meter-digit,
+.saved-combo-meta .combo-meta-meter-inline .combo-meter-digit {
+  display: inline-block !important;
+  font-family: Impact, 'Arial Black', system-ui, sans-serif !important;
+  font-size: 1.75rem !important;
+  font-weight: 1000 !important;
+  line-height: .72 !important;
+  letter-spacing: -.08em !important;
+  transform: scaleX(1.16) scaleY(.58) !important;
+  transform-origin: center !important;
+  -webkit-text-stroke: 1.5px #090909 !important;
+  text-shadow: 0 2px 0 #050505, 0 0 7px rgba(255,255,255,.22) !important;
+  font-style: normal !important;
+}
+
+.combo-meter-option.combo-choice-option.is-active .combo-meter-digit,
+.combo-filter-chip-meter.is-active .combo-meter-digit {
+  filter: drop-shadow(0 0 5px rgba(207,255,67,.75)) drop-shadow(0 0 10px rgba(207,255,67,.30)) !important;
+}
+
+.combo-meter-option.combo-choice-option .combo-tag-logo-fury,
+.combo-filter-chip-meter .combo-tag-logo-fury,
+.saved-combo-meta .combo-meta-meter-inline .combo-tag-logo-fury {
+  width: 56px !important;
+  height: 16px !important;
+  display: block !important;
+}
+
+.saved-combo-meta-stack {
+  display: grid !important;
+  gap: 6px !important;
+}
+
+.saved-combo-meta-primary,
+.saved-combo-meta-secondary {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+}
+
+.combo-tags-field .combo-tag-options {
+  gap: 8px !important;
+}
+
+/* --- TechLab hotfix: meter order/size + stable saved dash icons --- */
+/* Fury est maintenant un meter cost comme les autres : même taille partout, placé après 1/2/3 par le JS. */
+body[data-page="detail"] .combo-meter-option.combo-choice-option .combo-tag-logo-fury,
+body[data-page="detail"] .combo-filter-chip-meter .combo-tag-logo-fury,
+body[data-page="detail"] .saved-combo-meta .combo-meta-meter-inline .combo-tag-logo-fury {
+  width: 82px !important;
+  min-width: 82px !important;
+  height: 24px !important;
+  min-height: 24px !important;
+  display: block !important;
+  overflow: visible !important;
+}
+
+body[data-page="detail"] .combo-meter-option.combo-choice-option[data-combo-meter="FURY"],
+body[data-page="detail"] .combo-filter-chip-meter[data-filter="FURY"],
+body[data-page="detail"] .saved-combo-meta .combo-meta-meter-inline[aria-label="FURY"] {
+  width: auto !important;
+  min-width: 86px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  padding: 0 3px !important;
+  overflow: visible !important;
+}
+
+/* Les doubles flèches sauvegardées utilisent le SVG officiel plein format, même quand le builder est fermé. */
+body[data-page="detail"] .saved-combo-notation .combo-output-token[data-combo-token=">>"],
+body[data-page="detail"] .saved-combo-notation .combo-output-token[data-combo-token="<<"] {
+  width: 42px !important;
+  min-width: 42px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  margin: 0 3px 2px 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  vertical-align: middle !important;
+}
+
+body[data-page="detail"] .saved-combo-notation .combo-output-token[data-combo-token=">>"] .combo-icon-wrap,
+body[data-page="detail"] .saved-combo-notation .combo-output-token[data-combo-token="<<"] .combo-icon-wrap,
+body[data-page="detail"] .saved-combo-notation .combo-output-token[data-combo-token=">>"] svg.combo-svg,
+body[data-page="detail"] .saved-combo-notation .combo-output-token[data-combo-token="<<"] svg.combo-svg {
+  width: 42px !important;
+  min-width: 42px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  display: block !important;
+  overflow: visible !important;
+  transform: none !important;
+  filter: drop-shadow(0 1px 0 rgba(0,0,0,.74)) !important;
+}
+
+body[data-page="detail"] .saved-combo-notation .combo-output-token[data-combo-token=">>"] svg.combo-svg path,
+body[data-page="detail"] .saved-combo-notation .combo-output-token[data-combo-token="<<"] svg.combo-svg path {
+  vector-effect: non-scaling-stroke !important;
+}
+

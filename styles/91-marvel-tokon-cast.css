@@ -1,0 +1,1643 @@
+/* --- TechLab v1.0.17 : Marvel Tōkon character select aligné sur 2XKO --- */
+body[data-page="game"][data-game="marvel-tokon"] {
+  --marvel-blue: #18bafc;
+  --marvel-orange: #ff8a00;
+  --marvel-orange-2: #ffbe45;
+  --marvel-panel: rgba(3, 12, 18, 0.78);
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .app {
+  position: relative !important;
+  isolation: isolate !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+  padding: 0 !important;
+  background:
+    linear-gradient(90deg, rgba(2, 6, 15, 0.15) 0%, rgba(2, 6, 15, 0.40) 38%, rgba(2, 6, 15, 0.32) 100%),
+    url("../assets/marvel-tokon/backgrounds/marvel-tokon-key-art.webp") center center / cover no-repeat !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .app::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: -1 !important;
+  background: rgba(0, 0, 0, 0.08) !important;
+  pointer-events: none !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .app:has(.x2ko-stage.has-selection)::before {
+  background: rgba(0, 0, 0, 0.50) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .hero {
+  display: none !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .game-workspace-stage-picker,
+body[data-page="game"][data-game="marvel-tokon"] .game-workspace-2xko-test {
+  display: grid !important;
+  grid-template-columns: clamp(336px, 24vw, 430px) clamp(232px, 15vw, 270px) minmax(0, 1fr) !important;
+  gap: clamp(8px, 0.75vw, 12px) !important;
+  align-items: stretch !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .marvel-character-rail,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail {
+  grid-column: 1 !important;
+  position: sticky !important;
+  top: 0 !important;
+  align-self: stretch !important;
+  width: 100% !important;
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  padding: 4px !important;
+  overflow: hidden !important;
+  background:
+    linear-gradient(180deg, rgba(3, 16, 24, 0.86), rgba(0, 8, 14, 0.88)) !important;
+  border: 1px solid rgba(24, 186, 252, 0.26) !important;
+  border-left: 0 !important;
+  border-radius: 0 14px 14px 0 !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 138, 0, 0.06), 0 0 24px rgba(0, 0, 0, 0.18) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-head,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail::before,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail::after {
+  display: none !important;
+  content: none !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .marvel-character-rail-list,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-list {
+  display: grid !important;
+  grid-template-rows: repeat(5, minmax(0, 1fr)) !important;
+  grid-template-columns: 1fr !important;
+  grid-auto-flow: row !important;
+  gap: 4px !important;
+  height: calc(100dvh - 8px) !important;
+  max-height: calc(100dvh - 8px) !important;
+  width: 100% !important;
+  max-width: none !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  scrollbar-width: none !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-list::-webkit-scrollbar {
+  display: none !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .marvel-team-section {
+  display: grid !important;
+  grid-template-rows: clamp(14px, 1.9dvh, 18px) minmax(0, 1fr) !important;
+  min-height: 0 !important;
+  gap: 3px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .marvel-team-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  min-width: 0 !important;
+  height: 100% !important;
+  padding: 0 4px !important;
+  color: var(--team-accent, var(--marvel-orange)) !important;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--team-accent, var(--marvel-orange)) 18%, rgba(3, 12, 18, 0.60)), transparent) !important;
+  border-left: 4px solid var(--team-accent, var(--marvel-orange)) !important;
+  border-radius: 4px !important;
+  overflow: hidden !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .marvel-team-logo {
+  flex: 0 0 clamp(13px, 1.75dvh, 17px) !important;
+  display: grid !important;
+  place-items: center !important;
+  width: clamp(13px, 1.75dvh, 17px) !important;
+  height: clamp(13px, 1.75dvh, 17px) !important;
+  color: #03080e !important;
+  font-size: 0.42rem !important;
+  font-weight: 1000 !important;
+  line-height: 1 !important;
+  background: var(--team-accent, var(--marvel-orange)) !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 8px color-mix(in srgb, var(--team-accent, var(--marvel-orange)) 36%, transparent) !important;
+  overflow: hidden !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .marvel-team-logo img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .marvel-team-name {
+  min-width: 0 !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
+  color: #ffffff !important;
+  font-size: clamp(0.48rem, 0.78dvh, 0.70rem) !important;
+  line-height: 1 !important;
+  font-weight: 1000 !important;
+  letter-spacing: .02em !important;
+  text-transform: uppercase !important;
+  text-shadow: 1px 1px 0 #000 !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .marvel-team-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  grid-auto-rows: minmax(0, 1fr) !important;
+  gap: 4px !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item {
+  container-type: inline-size !important;
+  position: relative !important;
+  display: block !important;
+  isolation: isolate !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-radius: 10px !important;
+  color: #ffffff !important;
+  background:
+    radial-gradient(circle at 50% 18%, color-mix(in srgb, var(--team-accent, var(--marvel-orange)) 12%, transparent), transparent 46%),
+    linear-gradient(180deg, rgba(4, 22, 28, 0.84), rgba(1, 8, 14, 0.92)) !important;
+  border: 1px solid color-mix(in srgb, var(--team-accent, var(--marvel-orange)) 28%, rgba(255,255,255,0.12)) !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045), 0 7px 16px rgba(0,0,0,0.24) !important;
+  transform: none !important;
+  cursor: pointer !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.08), transparent 28%),
+    linear-gradient(0deg, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.50) 17%, transparent 46%) !important;
+  opacity: 0.92 !important;
+  transition: opacity 140ms ease !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item img,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item .character-rail-art {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: cover !important;
+  object-position: center 20% !important;
+  border: 0 !important;
+  border-radius: inherit !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 8px 10px rgba(0,0,0,0.56)) !important;
+  transform: perspective(520px) rotateX(0deg) rotateY(0deg) translateY(0) scale(1.002) !important;
+  transform-origin: center bottom !important;
+  transition: transform 145ms ease-out, filter 145ms ease-out !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item span {
+  position: absolute !important;
+  left: 2px !important;
+  right: 2px !important;
+  bottom: 2px !important;
+  z-index: 2 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: clamp(15px, 19cqw, 23px) !important;
+  width: auto !important;
+  max-width: none !important;
+  padding: 1px 2px 0 !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+  white-space: nowrap !important;
+  color: #ffffff !important;
+  font-size: clamp(7px, 10.5cqw, 12px) !important;
+  line-height: 0.94 !important;
+  font-weight: 1000 !important;
+  letter-spacing: 0 !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+  text-shadow: 1px 1px 0 #000, 0 2px 5px rgba(0,0,0,0.92) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item:hover:not(.is-selected),
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item:focus-visible:not(.is-selected) {
+  outline: none !important;
+  border-color: color-mix(in srgb, var(--team-accent, var(--marvel-orange)) 82%, white) !important;
+  background:
+    radial-gradient(circle at 50% 18%, color-mix(in srgb, var(--team-accent, var(--marvel-orange)) 18%, transparent), transparent 46%),
+    linear-gradient(180deg, rgba(28, 26, 18, 0.94), rgba(3, 22, 30, 0.90)) !important;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--team-accent, var(--marvel-orange)) 40%, transparent),
+    0 0 15px color-mix(in srgb, var(--team-accent, var(--marvel-orange)) 26%, transparent),
+    inset 0 0 18px rgba(24,186,252,0.08) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item:hover:not(.is-selected)::before,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item:focus-visible:not(.is-selected)::before {
+  opacity: 0.76 !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item:hover:not(.is-selected) img,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item:focus-visible:not(.is-selected) img {
+  filter: drop-shadow(0 10px 13px rgba(0,0,0,0.68)) drop-shadow(0 0 8px color-mix(in srgb, var(--team-accent, var(--marvel-orange)) 22%, transparent)) !important;
+  transform: perspective(520px) rotateX(5deg) rotateY(-7deg) translateY(-2px) scale(1.045) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item.is-selected,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item.is-selected:hover,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item.is-selected:focus-visible {
+  outline: none !important;
+  border-color: color-mix(in srgb, var(--team-accent, var(--marvel-orange)) 88%, white) !important;
+  background:
+    radial-gradient(circle at 50% 18%, color-mix(in srgb, var(--team-accent, var(--marvel-orange)) 24%, transparent), transparent 48%),
+    linear-gradient(180deg, rgba(34, 24, 14, 0.96), rgba(3, 24, 34, 0.90)) !important;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--team-accent, var(--marvel-orange)) 56%, transparent),
+    0 0 20px color-mix(in srgb, var(--team-accent, var(--marvel-orange)) 36%, transparent),
+    inset 0 0 22px rgba(24,186,252,0.11) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item.is-selected::before {
+  opacity: 0.68 !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item.is-selected img {
+  filter: drop-shadow(0 10px 13px rgba(0,0,0,0.72)) drop-shadow(0 0 10px color-mix(in srgb, var(--team-accent, var(--marvel-orange)) 32%, transparent)) !important;
+  transform: perspective(520px) rotateX(0deg) rotateY(0deg) translateY(-1px) scale(1.025) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item.is-selected span {
+  color: var(--team-accent-2, var(--marvel-orange-2)) !important;
+}
+
+/* Colonne recherche et liens rapides : logique 2XKO, couleurs Marvel. */
+body[data-page="game"][data-game="marvel-tokon"] .game-workspace-stage-picker .info-column,
+body[data-page="game"][data-game="marvel-tokon"] .game-workspace-2xko-test .info-column {
+  grid-column: 2 !important;
+  position: sticky !important;
+  top: 12px !important;
+  align-self: start !important;
+  max-height: calc(100dvh - 24px) !important;
+  overflow: auto !important;
+  padding: 0 !important;
+  gap: 10px !important;
+  z-index: 6 !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .selection-builder,
+body[data-page="game"][data-game="marvel-tokon"] .resource-panel {
+  background: rgba(3, 12, 18, 0.74) !important;
+  border: 1px solid rgba(24, 186, 252, 0.18) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 138, 0, 0.04), 0 10px 26px rgba(0,0,0,0.22) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .selection-builder {
+  padding: 12px 12px 14px !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .selection-heading {
+  color: #ffffff !important;
+  font-size: clamp(1.08rem, 1vw, 1.32rem) !important;
+  line-height: 1.05 !important;
+  text-shadow: 2px 2px 0 #000 !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .selection-heading::after {
+  background: linear-gradient(90deg, var(--marvel-orange), var(--marvel-blue)) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .query-mode-card {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+  padding: 10px 10px 11px !important;
+  gap: 8px !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .query-mode-card > span {
+  color: var(--marvel-blue) !important;
+  font-size: clamp(0.78rem, 0.7vw, 0.92rem) !important;
+  font-weight: 1000 !important;
+  letter-spacing: .06em !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .generated-query {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  min-height: 34px !important;
+  box-sizing: border-box !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+  max-height: none !important;
+  color: #7de8ff !important;
+  font-size: clamp(0.70rem, 0.64vw, 0.84rem) !important;
+  line-height: 1.42 !important;
+  font-weight: 900 !important;
+  padding-block: 9px !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .query-actions {
+  display: grid !important;
+  grid-template-columns: 42px minmax(0, 1fr) minmax(0, 1fr) !important;
+  gap: 7px !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  margin-top: 2px !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .query-actions .big-link,
+body[data-page="game"][data-game="marvel-tokon"] .query-actions .copy-button,
+body[data-page="game"][data-game="marvel-tokon"] .query-actions .reset-button {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  min-height: 38px !important;
+  padding-inline: 6px !important;
+  font-size: 0.66rem !important;
+  font-weight: 950 !important;
+  justify-content: center !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .resource-panel {
+  gap: 9px !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .resource-link-x { --marvel-resource-accent: #ffffff !important; }
+body[data-page="game"][data-game="marvel-tokon"] .resource-link-youtube { --marvel-resource-accent: #ff0033 !important; }
+body[data-page="game"][data-game="marvel-tokon"] .resource-link-reddit { --marvel-resource-accent: #ff6a00 !important; }
+body[data-page="game"][data-game="marvel-tokon"] .resource-link-tournament { --marvel-resource-accent: #ffe100 !important; }
+body[data-page="game"][data-game="marvel-tokon"] .resource-link-glossary { --marvel-resource-accent: #19e6ff !important; }
+body[data-page="game"][data-game="marvel-tokon"] .resource-link-main,
+body[data-page="game"][data-game="marvel-tokon"] .resource-link-official { --marvel-resource-accent: var(--marvel-orange) !important; }
+
+body[data-page="game"][data-game="marvel-tokon"] .resource-link {
+  display: grid !important;
+  grid-template-columns: 46px minmax(0, 1fr) !important;
+  column-gap: 11px !important;
+  row-gap: 4px !important;
+  min-height: 56px !important;
+  padding: 8px 11px 9px 9px !important;
+  background: linear-gradient(90deg, rgba(20, 25, 28, 0.88), rgba(2, 16, 26, 0.72)) !important;
+  border: 1px solid rgba(255,255,255,0.16) !important;
+  border-left: 5px solid var(--marvel-resource-accent, var(--marvel-orange)) !important;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.23), inset 0 0 0 1px rgba(24,186,252,0.05) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .resource-link:hover,
+body[data-page="game"][data-game="marvel-tokon"] .resource-link:focus-visible {
+  background: linear-gradient(90deg, rgba(34, 30, 20, 0.94), rgba(3, 23, 35, 0.84)) !important;
+  border-color: color-mix(in srgb, var(--marvel-resource-accent, var(--marvel-orange)) 42%, rgba(255,255,255,0.16)) !important;
+  border-left-color: var(--marvel-resource-accent, var(--marvel-orange)) !important;
+  transform: translateX(2px) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .resource-icon {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 13px !important;
+  display: grid !important;
+  place-items: center !important;
+  color: #fff !important;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.34), inset 0 0 0 1px rgba(255,255,255,0.18) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .resource-icon-x {
+  background: #050505 !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.32) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .resource-icon-reddit { background: #ff6a00 !important; }
+body[data-page="game"][data-game="marvel-tokon"] .resource-icon-youtube { background: #ff0033 !important; }
+body[data-page="game"][data-game="marvel-tokon"] .resource-icon-tournament { background: #ffe100 !important; color: #081012 !important; }
+body[data-page="game"][data-game="marvel-tokon"] .resource-icon-glossary { background: #19e6ff !important; color: #031014 !important; }
+body[data-page="game"][data-game="marvel-tokon"] .resource-icon-marvel { background: #e62429 !important; color: #ffffff !important; }
+
+body[data-page="game"][data-game="marvel-tokon"] .resource-icon .x-icon,
+body[data-page="game"][data-game="marvel-tokon"] .resource-icon .youtube-icon,
+body[data-page="game"][data-game="marvel-tokon"] .resource-icon .reddit-icon,
+body[data-page="game"][data-game="marvel-tokon"] .resource-icon .tournament-icon,
+body[data-page="game"][data-game="marvel-tokon"] .resource-icon .glossary-icon {
+  width: 23px !important;
+  height: 23px !important;
+  fill: currentColor !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .resource-link span:not(.resource-icon) {
+  color: var(--marvel-resource-accent, var(--marvel-orange)) !important;
+  font-size: 0.64rem !important;
+  line-height: 1.16 !important;
+  font-weight: 1000 !important;
+  letter-spacing: .028em !important;
+  text-transform: uppercase !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .resource-link strong {
+  color: #ffffff !important;
+  font-size: 0.86rem !important;
+  line-height: 1.16 !important;
+  font-weight: 1000 !important;
+  text-shadow: 1px 1px 0 #000 !important;
+}
+
+/* Scène sélectionnée : même principe 2XKO, jusqu'à 4 persos. */
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage {
+  grid-column: 3 !important;
+  position: relative !important;
+  isolation: isolate !important;
+  height: 100dvh !important;
+  min-height: 0 !important;
+  margin-left: -10px !important;
+  width: calc(100% + 10px) !important;
+  max-width: none !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage::before,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-empty {
+  display: none !important;
+  content: none !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 2 !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid[hidden] {
+  display: none !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-two { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-three { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-four { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-card {
+  --marvel-hud-top: clamp(42px, 4.65dvh, 52px);
+  --marvel-art-top-safe: clamp(98px, 10dvh, 112px);
+  --marvel-art-bottom-safe: 0px;
+  --marvel-hud-side-pad: clamp(8px, 0.95vw, 18px);
+  position: relative !important;
+  min-width: 0 !important;
+  min-height: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-main-link {
+  position: absolute !important;
+  inset: 0 !important;
+  display: block !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  border-radius: 0 !important;
+  overflow: hidden !important;
+  cursor: default !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-main-link::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 11% 9% 17% !important;
+  z-index: -1 !important;
+  display: block !important;
+  opacity: 0.72 !important;
+  pointer-events: none !important;
+  background: radial-gradient(ellipse at center, color-mix(in srgb, var(--team-accent, var(--marvel-orange)) 24%, transparent), rgba(24,186,252,0.12) 42%, transparent 70%) !important;
+  filter: blur(18px) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-main-link.is-alpha-hover,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-caption:hover {
+  cursor: pointer !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-art-wrap,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-two .x2ko-stage-art-wrap,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-three .x2ko-stage-art-wrap,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-four .x2ko-stage-art-wrap {
+  position: absolute !important;
+  top: var(--marvel-art-top-safe) !important;
+  right: 0 !important;
+  bottom: var(--marvel-art-bottom-safe) !important;
+  left: 0 !important;
+  z-index: 3 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+  background: transparent !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-art,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-two .x2ko-stage-art,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-three .x2ko-stage-art,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-four .x2ko-stage-art {
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  filter:
+    drop-shadow(0 34px 30px rgba(0,0,0,0.68))
+    drop-shadow(0 10px 11px rgba(0,0,0,0.50)) !important;
+  transform:
+    perspective(1100px)
+    translate3d(var(--stage-shift-x, 0px), var(--stage-shift-y, 0px), 0)
+    rotateX(var(--stage-tilt-x, 0deg))
+    rotateY(var(--stage-tilt-y, 0deg))
+    translate(var(--art-x, 0px), var(--art-y, 0px))
+    scaleX(var(--stage-face, 1))
+    scale(var(--art-scale, 1)) !important;
+  transform-origin: center center !important;
+  transition: transform 120ms ease-out, filter 120ms ease-out !important;
+  will-change: transform !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-three .x2ko-stage-art,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-four .x2ko-stage-art {
+  max-width: 118% !important;
+  max-height: 100% !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-main-link.is-alpha-hover .x2ko-stage-art {
+  filter:
+    drop-shadow(0 38px 34px rgba(0,0,0,0.76))
+    drop-shadow(0 12px 13px rgba(0,0,0,0.56))
+    drop-shadow(0 0 12px color-mix(in srgb, var(--team-accent, var(--marvel-orange)) 22%, transparent)) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-caption {
+  position: absolute !important;
+  top: var(--marvel-hud-top) !important;
+  left: var(--marvel-hud-side-pad) !important;
+  right: var(--marvel-hud-side-pad) !important;
+  bottom: auto !important;
+  z-index: 5 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: clamp(8px, 0.75vw, 18px) !important;
+  min-width: 0 !important;
+  min-height: clamp(48px, 4.9dvh, 58px) !important;
+  padding: clamp(6px, 0.65vw, 9px) clamp(12px, 1vw, 18px) !important;
+  border: 3px solid #090503 !important;
+  border-radius: 0 !important;
+  background: linear-gradient(100deg, #ff8a00 0%, #f26a00 58%, #da4b00 100%) !important;
+  box-shadow: 7px 7px 0 rgba(0,0,0,0.82), 0 12px 28px rgba(0,0,0,0.40) !important;
+  transform: skewX(10deg) !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-caption strong {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  color: #ffffff !important;
+  font-family: Impact, "Arial Black", system-ui, sans-serif !important;
+  font-weight: 1000 !important;
+  font-size: clamp(1.25rem, 2.35vw, 3.65rem) !important;
+  line-height: .88 !important;
+  letter-spacing: -0.055em !important;
+  text-transform: uppercase !important;
+  -webkit-text-stroke: 1px #020504 !important;
+  paint-order: stroke fill !important;
+  text-shadow: 2px 2px 0 #020504 !important;
+  transform: skewX(-10deg) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-health,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-team {
+  flex: 0 1 auto !important;
+  min-width: 0 !important;
+  max-width: 52% !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  color: #070707 !important;
+  font-family: Impact, "Arial Black", system-ui, sans-serif !important;
+  font-weight: 1000 !important;
+  font-size: clamp(0.62rem, 0.85vw, 1.12rem) !important;
+  line-height: .9 !important;
+  letter-spacing: -0.02em !important;
+  text-transform: uppercase !important;
+  -webkit-text-stroke: .35px rgba(255,255,255,0.95) !important;
+  paint-order: stroke fill !important;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.86), 0 3px 7px rgba(0,0,0,0.32) !important;
+  transform: skewX(-10deg) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-actions {
+  position: absolute !important;
+  top: clamp(9px, 1.25dvh, 15px) !important;
+  left: var(--marvel-hud-side-pad) !important;
+  right: var(--marvel-hud-side-pad) !important;
+  z-index: 6 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: clamp(6px, 0.55vw, 9px) !important;
+  width: auto !important;
+  max-width: none !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-action,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-actions .x2ko-stage-action,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-actions .x2ko-stage-wiki-link {
+  position: static !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: clamp(70px, 4.2vw, 88px) !important;
+  min-height: clamp(23px, 1.35vw, 29px) !important;
+  padding: 0 clamp(9px, 0.75vw, 13px) !important;
+  color: #ffffff !important;
+  font-size: clamp(0.60rem, 0.50vw, 0.74rem) !important;
+  line-height: 1 !important;
+  font-weight: 1000 !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  border: 2px solid var(--marvel-blue) !important;
+  border-radius: 2px !important;
+  background: rgba(0,0,0,0.84) !important;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.64), 0 8px 15px rgba(0,0,0,0.30) !important;
+  transform: skewX(8deg) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-action:hover,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-action:focus-visible {
+  color: var(--marvel-blue) !important;
+  border-color: var(--marvel-blue) !important;
+  outline: none !important;
+}
+
+@media (max-width: 1360px) {
+  body[data-page="game"][data-game="marvel-tokon"] .game-workspace-stage-picker,
+  body[data-page="game"][data-game="marvel-tokon"] .game-workspace-2xko-test {
+    grid-template-columns: clamp(308px, 27vw, 370px) minmax(220px, 255px) minmax(0, 1fr) !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .resource-link {
+    grid-template-columns: 42px minmax(0, 1fr) !important;
+    min-height: 52px !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .resource-icon {
+    width: 35px !important;
+    height: 35px !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-caption strong {
+    font-size: clamp(1.02rem, 2.5vw, 3.05rem) !important;
+  }
+}
+
+@media (max-height: 720px) and (min-width: 860px) {
+  body[data-page="game"][data-game="marvel-tokon"] .marvel-character-rail,
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail {
+    padding: 3px !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .marvel-character-rail-list,
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail-list {
+    height: calc(100dvh - 6px) !important;
+    max-height: calc(100dvh - 6px) !important;
+    gap: 3px !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .marvel-team-section {
+    grid-template-rows: 13px minmax(0, 1fr) !important;
+    gap: 2px !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .marvel-team-grid {
+    gap: 3px !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail-item span {
+    min-height: clamp(13px, 17cqw, 19px) !important;
+    font-size: clamp(6px, 9.5cqw, 10px) !important;
+  }
+}
+
+@media (max-width: 1080px) {
+  body[data-page="game"][data-game="marvel-tokon"] .app {
+    padding: 0 !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .game-workspace-stage-picker,
+  body[data-page="game"][data-game="marvel-tokon"] .game-workspace-2xko-test {
+    grid-template-columns: minmax(292px, 34vw) minmax(0, 1fr) !important;
+    grid-template-rows: auto minmax(620px, 78dvh) !important;
+    height: auto !important;
+    min-height: 100dvh !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .game-workspace-stage-picker .info-column,
+  body[data-page="game"][data-game="marvel-tokon"] .game-workspace-2xko-test .info-column {
+    position: relative !important;
+    top: auto !important;
+    grid-column: 2 !important;
+    max-height: none !important;
+    padding-top: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail {
+    grid-row: 1 / span 2 !important;
+    position: sticky !important;
+    top: 0 !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage {
+    grid-column: 2 !important;
+    height: 620px !important;
+    min-height: 620px !important;
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 720px) {
+  body[data-page="game"][data-game="marvel-tokon"] .game-workspace-stage-picker,
+  body[data-page="game"][data-game="marvel-tokon"] .game-workspace-2xko-test {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto auto minmax(620px, 78dvh) !important;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail,
+  body[data-page="game"][data-game="marvel-tokon"] .game-workspace-stage-picker .info-column,
+  body[data-page="game"][data-game="marvel-tokon"] .game-workspace-2xko-test .info-column,
+  body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage {
+    position: static !important;
+    grid-column: auto !important;
+    grid-row: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    min-height: 0 !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail {
+    width: 100% !important;
+    padding: 6px !important;
+    border-left: 1px solid rgba(24, 186, 252, 0.26) !important;
+    border-radius: 14px !important;
+    overflow: visible !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .marvel-character-rail-list,
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail-list {
+    display: flex !important;
+    flex-direction: column !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    gap: 6px !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .marvel-team-grid {
+    grid-template-columns: repeat(4, minmax(64px, 1fr)) !important;
+    grid-auto-rows: minmax(92px, 1fr) !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage {
+    height: 620px !important;
+    min-height: 620px !important;
+    width: 100% !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-two,
+  body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-three,
+  body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-four {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+
+/* --- TechLab v1.0.18 : Marvel Tōkon cleanup liens + bustes + lisibilité équipes --- */
+body[data-page="game"][data-game="marvel-tokon"] .resource-panel {
+  padding: 0 !important;
+  gap: 8px !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .resource-link {
+  border-radius: 12px !important;
+  background:
+    linear-gradient(90deg, rgba(6, 14, 18, 0.94), rgba(2, 16, 26, 0.84)) !important;
+  border-top-color: rgba(255,255,255,0.12) !important;
+  border-right-color: rgba(255,255,255,0.12) !important;
+  border-bottom-color: rgba(255,255,255,0.12) !important;
+  box-shadow: 0 8px 17px rgba(0,0,0,0.30), inset 0 0 0 1px rgba(255,255,255,0.04) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .resource-link-x { --marvel-resource-accent: #ffffff !important; }
+body[data-page="game"][data-game="marvel-tokon"] .resource-link-reddit { --marvel-resource-accent: #ff6a00 !important; }
+
+body[data-page="game"][data-game="marvel-tokon"] .resource-link span:not(.resource-icon) {
+  color: var(--marvel-resource-accent, var(--marvel-orange)) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .resource-link strong {
+  color: #ffffff !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .marvel-team-header {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--team-accent, var(--marvel-orange)) 10%, rgba(3, 12, 18, 0.72)), transparent) !important;
+  border-left-color: var(--team-accent, var(--marvel-orange)) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .marvel-team-logo {
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--team-accent, var(--marvel-orange)) 72%, transparent)) drop-shadow(1px 1px 0 #000) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .marvel-team-logo img {
+  transform: scale(1.28) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .marvel-team-name {
+  color: var(--team-accent, var(--marvel-orange)) !important;
+  text-shadow: 1px 1px 0 #000, 0 0 8px color-mix(in srgb, var(--team-accent, var(--marvel-orange)) 36%, transparent) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item img,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item .character-rail-art {
+  object-fit: cover !important;
+  object-position: var(--rail-object-position, center 18%) !important;
+  transform:
+    perspective(520px)
+    rotateX(0deg)
+    rotateY(0deg)
+    translate(var(--rail-x, 0px), var(--rail-y, 0px))
+    scale(var(--rail-zoom, 1.46)) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item:hover:not(.is-selected) img,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item:focus-visible:not(.is-selected) img {
+  transform:
+    perspective(520px)
+    rotateX(5deg)
+    rotateY(-7deg)
+    translate(var(--rail-x, 0px), calc(var(--rail-y, 0px) - 2px))
+    scale(calc(var(--rail-zoom, 1.46) * 1.045)) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item.is-selected img {
+  transform:
+    perspective(520px)
+    rotateX(0deg)
+    rotateY(0deg)
+    translate(var(--rail-x, 0px), calc(var(--rail-y, 0px) - 1px))
+    scale(calc(var(--rail-zoom, 1.46) * 1.025)) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="storm"] { --rail-zoom: 1.58; --rail-y: 6px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="wolverine"] { --rail-zoom: 1.58; --rail-y: 4px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="magik"] { --rail-zoom: 1.46; --rail-y: 8px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="danger"] { --rail-zoom: 1.54; --rail-y: 5px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="spider-man"] { --rail-zoom: 1.54; --rail-y: 6px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="ms-marvel"] { --rail-zoom: 1.52; --rail-y: 7px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="peni-parker"] { --rail-zoom: 1.46; --rail-y: 8px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="star-lord"] { --rail-zoom: 1.58; --rail-y: 5px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="captain-america"] { --rail-zoom: 1.56; --rail-y: 5px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="iron-man"] { --rail-zoom: 1.48; --rail-y: 6px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="black-panther"] { --rail-zoom: 1.56; --rail-y: 5px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="hulk"] { --rail-zoom: 1.36; --rail-y: 5px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="doctor-doom"] { --rail-zoom: 1.50; --rail-y: 5px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="magneto"] { --rail-zoom: 1.50; --rail-y: 6px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="green-goblin"] { --rail-zoom: 1.46; --rail-y: 7px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="carnage"] { --rail-zoom: 1.50; --rail-y: 5px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="ghost-rider"] { --rail-zoom: 1.54; --rail-y: 6px; }
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-health,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-team {
+  flex: 0 0 auto !important;
+  max-width: 58% !important;
+  font-size: clamp(0.78rem, 1.08vw, 1.42rem) !important;
+  letter-spacing: -0.035em !important;
+}
+
+@media (max-height: 720px) and (min-width: 860px) {
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail-item img,
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail-item .character-rail-art {
+    --rail-zoom: 1.40;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-health,
+  body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-team {
+    font-size: clamp(0.66rem, 0.92vw, 1.08rem) !important;
+  }
+}
+
+/* --- TechLab v1.0.19 : Marvel Tōkon bustes plus hauts + HUD équipe lisible --- */
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item img,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item .character-rail-art {
+  object-fit: cover !important;
+  object-position: var(--rail-object-position, center 6%) !important;
+  transform:
+    perspective(520px)
+    rotateX(0deg)
+    rotateY(0deg)
+    translate(var(--rail-x, 0px), var(--rail-y, 24px))
+    scale(var(--rail-zoom, 2.12)) !important;
+  transform-origin: center 18% !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item:hover:not(.is-selected) img,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item:focus-visible:not(.is-selected) img {
+  transform:
+    perspective(520px)
+    rotateX(5deg)
+    rotateY(-7deg)
+    translate(var(--rail-x, 0px), calc(var(--rail-y, 24px) + 1px))
+    scale(calc(var(--rail-zoom, 2.12) * 1.045)) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item.is-selected img {
+  transform:
+    perspective(520px)
+    rotateX(0deg)
+    rotateY(0deg)
+    translate(var(--rail-x, 0px), calc(var(--rail-y, 24px) + 1px))
+    scale(calc(var(--rail-zoom, 2.12) * 1.025)) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="storm"] { --rail-zoom: 2.08; --rail-y: 26px; --rail-object-position: center 5%; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="wolverine"] { --rail-zoom: 2.18; --rail-y: 24px; --rail-object-position: center 5%; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="magik"] { --rail-zoom: 2.02; --rail-y: 28px; --rail-object-position: center 4%; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="danger"] { --rail-zoom: 2.08; --rail-y: 24px; --rail-object-position: center 6%; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="spider-man"] { --rail-zoom: 2.18; --rail-y: 26px; --rail-object-position: center 4%; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="ms-marvel"] { --rail-zoom: 2.08; --rail-y: 28px; --rail-object-position: center 5%; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="peni-parker"] { --rail-zoom: 2.00; --rail-y: 28px; --rail-object-position: center 4%; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="star-lord"] { --rail-zoom: 2.18; --rail-y: 25px; --rail-object-position: center 5%; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="captain-america"] { --rail-zoom: 2.10; --rail-y: 26px; --rail-object-position: center 5%; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="iron-man"] { --rail-zoom: 2.05; --rail-y: 25px; --rail-object-position: center 5%; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="black-panther"] { --rail-zoom: 2.14; --rail-y: 26px; --rail-object-position: center 5%; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="hulk"] { --rail-zoom: 1.88; --rail-y: 18px; --rail-object-position: center 7%; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="doctor-doom"] { --rail-zoom: 2.05; --rail-y: 23px; --rail-object-position: center 5%; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="magneto"] { --rail-zoom: 2.08; --rail-y: 24px; --rail-object-position: center 5%; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="green-goblin"] { --rail-zoom: 2.02; --rail-y: 25px; --rail-object-position: center 5%; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="carnage"] { --rail-zoom: 2.12; --rail-y: 23px; --rail-object-position: center 5%; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="ghost-rider"] { --rail-zoom: 2.16; --rail-y: 24px; --rail-object-position: center 5%; }
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-caption {
+  gap: clamp(10px, 1.05vw, 24px) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-caption strong {
+  flex: 1 1 50% !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-health,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-team {
+  flex: 1 1 46% !important;
+  max-width: 50% !important;
+  font-size: clamp(1.05rem, 1.75vw, 3.15rem) !important;
+  line-height: .88 !important;
+  letter-spacing: -0.06em !important;
+  text-align: right !important;
+  -webkit-text-stroke: .55px rgba(255,255,255,0.96) !important;
+}
+
+@media (max-height: 720px) and (min-width: 860px) {
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail-item img,
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail-item .character-rail-art {
+    transform:
+      perspective(520px)
+      rotateX(0deg)
+      rotateY(0deg)
+      translate(var(--rail-x, 0px), var(--rail-y, 18px))
+      scale(var(--rail-zoom, 1.96)) !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-health,
+  body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-team {
+    font-size: clamp(0.82rem, 1.16vw, 1.62rem) !important;
+  }
+}
+
+/* --- TechLab v1.0.20 : labels roster Marvel + bustes haut du corps + HUD équipe --- */
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item span {
+  left: 3px !important;
+  right: 3px !important;
+  bottom: 3px !important;
+  min-height: clamp(22px, 26cqw, 34px) !important;
+  padding: 1px 2px 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  overflow: hidden !important;
+  white-space: normal !important;
+  text-overflow: clip !important;
+  color: #fff !important;
+  font-family: Impact, "Arial Black", system-ui, sans-serif !important;
+  font-size: clamp(8px, 15.5cqw, 15px) !important;
+  line-height: 0.84 !important;
+  letter-spacing: -0.035em !important;
+  -webkit-text-stroke: 0.35px rgba(0,0,0,0.95) !important;
+  paint-order: stroke fill !important;
+  text-shadow:
+    1px 1px 0 #000,
+    -1px 1px 0 #000,
+    0 2px 5px rgba(0,0,0,0.96) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="spider-man"] span,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="star-lord"] span {
+  flex-direction: row !important;
+  white-space: nowrap !important;
+  font-size: clamp(7px, 13.2cqw, 13px) !important;
+  letter-spacing: -0.055em !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item img,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item .character-rail-art {
+  object-fit: cover !important;
+  object-position: var(--rail-object-position, center top) !important;
+  transform:
+    perspective(520px)
+    rotateX(0deg)
+    rotateY(0deg)
+    translate(var(--rail-x, 0px), var(--rail-y, 34px))
+    scale(var(--rail-zoom, 2.42)) !important;
+  transform-origin: center top !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item:hover:not(.is-selected) img,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item:focus-visible:not(.is-selected) img {
+  transform:
+    perspective(520px)
+    rotateX(5deg)
+    rotateY(-7deg)
+    translate(var(--rail-x, 0px), calc(var(--rail-y, 34px) + 1px))
+    scale(calc(var(--rail-zoom, 2.42) * 1.045)) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item.is-selected img {
+  transform:
+    perspective(520px)
+    rotateX(0deg)
+    rotateY(0deg)
+    translate(var(--rail-x, 0px), calc(var(--rail-y, 34px) + 1px))
+    scale(calc(var(--rail-zoom, 2.42) * 1.025)) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="storm"] { --rail-zoom: 2.40; --rail-y: 38px; --rail-object-position: center top; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="magik"] { --rail-zoom: 2.36; --rail-y: 40px; --rail-object-position: center top; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="wolverine"] { --rail-zoom: 2.46; --rail-y: 36px; --rail-object-position: center top; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="danger"] { --rail-zoom: 2.40; --rail-y: 36px; --rail-object-position: center top; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="spider-man"] { --rail-zoom: 2.50; --rail-y: 38px; --rail-object-position: center top; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="ms-marvel"] { --rail-zoom: 2.38; --rail-y: 40px; --rail-object-position: center top; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="star-lord"] { --rail-zoom: 2.46; --rail-y: 36px; --rail-object-position: center top; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="peni-parker"] { --rail-zoom: 2.34; --rail-y: 40px; --rail-object-position: center top; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="captain-america"] { --rail-zoom: 2.42; --rail-y: 36px; --rail-object-position: center top; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="iron-man"] { --rail-zoom: 2.34; --rail-y: 36px; --rail-object-position: center top; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="black-panther"] { --rail-zoom: 2.44; --rail-y: 37px; --rail-object-position: center top; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="hulk"] { --rail-zoom: 2.18; --rail-y: 27px; --rail-object-position: center top; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="doctor-doom"] { --rail-zoom: 2.36; --rail-y: 34px; --rail-object-position: center top; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="magneto"] { --rail-zoom: 2.40; --rail-y: 35px; --rail-object-position: center top; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="green-goblin"] { --rail-zoom: 2.36; --rail-y: 36px; --rail-object-position: center top; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="carnage"] { --rail-zoom: 2.42; --rail-y: 33px; --rail-object-position: center top; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="ghost-rider"] { --rail-zoom: 2.44; --rail-y: 35px; --rail-object-position: center top; }
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-caption {
+  gap: clamp(12px, 1.15vw, 26px) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-caption strong,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-health,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-team {
+  font-size: clamp(1.16rem, 2.25vw, 3.65rem) !important;
+  line-height: .82 !important;
+  letter-spacing: -0.065em !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-health,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-team {
+  flex: 1 1 50% !important;
+  max-width: 52% !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  text-align: right !important;
+  -webkit-text-stroke: .7px rgba(255,255,255,0.98) !important;
+}
+
+@media (max-height: 720px) and (min-width: 860px) {
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail-item span {
+    min-height: 18px !important;
+    font-size: clamp(7px, 12.5cqw, 11px) !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="spider-man"] span,
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="star-lord"] span {
+    font-size: clamp(6px, 11.5cqw, 10px) !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail-item img,
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail-item .character-rail-art {
+    transform:
+      perspective(520px)
+      rotateX(0deg)
+      rotateY(0deg)
+      translate(var(--rail-x, 0px), var(--rail-y, 28px))
+      scale(var(--rail-zoom, 2.22)) !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-caption strong,
+  body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-health,
+  body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-team {
+    font-size: clamp(0.92rem, 1.34vw, 1.88rem) !important;
+  }
+}
+
+/* --- TechLab v1.0.21 : noms roster Marvel sans changement de police + recadrage buste/tête --- */
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item span {
+  font-family: inherit !important;
+  min-height: clamp(20px, 1.45vw, 27px) !important;
+  font-size: clamp(9px, 16cqw, 14px) !important;
+  line-height: .88 !important;
+  letter-spacing: -0.025em !important;
+  -webkit-text-stroke: 0 !important;
+  paint-order: normal !important;
+  text-shadow: 1px 1px 0 #000, 0 2px 5px rgba(0,0,0,.95) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="spider-man"] span,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="star-lord"] span {
+  font-size: clamp(8px, 13.5cqw, 12px) !important;
+  letter-spacing: -0.04em !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item img,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item .character-rail-art {
+  object-position: center top !important;
+  transform-origin: center center !important;
+  transform:
+    perspective(520px)
+    rotateX(0deg)
+    rotateY(0deg)
+    translate(var(--rail-x, 0px), var(--rail-y, -46px))
+    scale(var(--rail-zoom, 2.02)) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item:hover:not(.is-selected) img,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item:focus-visible:not(.is-selected) img {
+  transform:
+    perspective(520px)
+    rotateX(5deg)
+    rotateY(-7deg)
+    translate(var(--rail-x, 0px), calc(var(--rail-y, -46px) + 1px))
+    scale(calc(var(--rail-zoom, 2.02) * 1.035)) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item.is-selected img {
+  transform:
+    perspective(520px)
+    rotateX(0deg)
+    rotateY(0deg)
+    translate(var(--rail-x, 0px), calc(var(--rail-y, -46px) + 1px))
+    scale(calc(var(--rail-zoom, 2.02) * 1.018)) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="storm"] { --rail-zoom: 2.00; --rail-y: -52px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="magik"] { --rail-zoom: 1.92; --rail-y: -52px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="wolverine"] { --rail-zoom: 2.10; --rail-y: -48px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="danger"] { --rail-zoom: 2.02; --rail-y: -50px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="spider-man"] { --rail-zoom: 2.08; --rail-y: -46px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="ms-marvel"] { --rail-zoom: 1.96; --rail-y: -50px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="star-lord"] { --rail-zoom: 2.08; --rail-y: -48px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="peni-parker"] { --rail-zoom: 1.96; --rail-y: -50px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="captain-america"] { --rail-zoom: 2.08; --rail-y: -48px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="iron-man"] { --rail-zoom: 1.96; --rail-y: -44px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="black-panther"] { --rail-zoom: 2.08; --rail-y: -48px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="hulk"] { --rail-zoom: 1.84; --rail-y: -36px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="doctor-doom"] { --rail-zoom: 1.98; --rail-y: -46px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="magneto"] { --rail-zoom: 2.02; --rail-y: -46px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="green-goblin"] { --rail-zoom: 1.98; --rail-y: -48px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="carnage"] { --rail-zoom: 2.06; --rail-y: -46px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="ghost-rider"] { --rail-zoom: 2.02; --rail-y: -42px; --rail-x: 0px; }
+
+@media (max-height: 720px) and (min-width: 860px) {
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail-item span {
+    min-height: 17px !important;
+    font-size: clamp(7px, 13cqw, 11px) !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="spider-man"] span,
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="star-lord"] span {
+    font-size: clamp(6px, 11.5cqw, 10px) !important;
+  }
+}
+
+/* --- TechLab v1.0.22 : labels uniformes + recadrage tête/buste Marvel --- */
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item span,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="spider-man"] span,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="star-lord"] span {
+  font-family: inherit !important;
+  left: 3px !important;
+  right: 3px !important;
+  bottom: 3px !important;
+  min-height: clamp(20px, 24cqw, 32px) !important;
+  padding: 1px 2px 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  white-space: normal !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+  font-size: clamp(8px, 14.2cqw, 13px) !important;
+  line-height: .88 !important;
+  letter-spacing: -0.032em !important;
+  -webkit-text-stroke: 0 !important;
+  paint-order: normal !important;
+  text-shadow: 1px 1px 0 #000, 0 2px 5px rgba(0,0,0,.96) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="spider-man"] span,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="star-lord"] span {
+  flex-direction: row !important;
+  white-space: nowrap !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item img,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item .character-rail-art {
+  object-fit: contain !important;
+  object-position: center top !important;
+  transform-origin: center top !important;
+  transform:
+    perspective(520px)
+    rotateX(0deg)
+    rotateY(0deg)
+    translate(var(--rail-x, 0px), var(--rail-y, 4px))
+    scale(var(--rail-zoom, 1.78)) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item:hover:not(.is-selected) img,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item:focus-visible:not(.is-selected) img {
+  transform:
+    perspective(520px)
+    rotateX(5deg)
+    rotateY(-7deg)
+    translate(var(--rail-x, 0px), calc(var(--rail-y, 4px) + 1px))
+    scale(calc(var(--rail-zoom, 1.78) * 1.035)) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item.is-selected img {
+  transform:
+    perspective(520px)
+    rotateX(0deg)
+    rotateY(0deg)
+    translate(var(--rail-x, 0px), calc(var(--rail-y, 4px) + 1px))
+    scale(calc(var(--rail-zoom, 1.78) * 1.018)) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="storm"] { --rail-zoom: 1.84; --rail-y: 12px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="magik"] { --rail-zoom: 1.76; --rail-y: 10px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="wolverine"] { --rail-zoom: 1.86; --rail-y: 10px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="danger"] { --rail-zoom: 1.78; --rail-y: 10px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="spider-man"] { --rail-zoom: 1.86; --rail-y: 12px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="ms-marvel"] { --rail-zoom: 1.74; --rail-y: 10px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="star-lord"] { --rail-zoom: 1.88; --rail-y: 10px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="peni-parker"] { --rail-zoom: 1.72; --rail-y: 12px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="captain-america"] { --rail-zoom: 1.84; --rail-y: 12px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="iron-man"] { --rail-zoom: 1.76; --rail-y: 10px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="black-panther"] { --rail-zoom: 1.84; --rail-y: 10px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="hulk"] { --rail-zoom: 1.58; --rail-y: 8px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="doctor-doom"] { --rail-zoom: 1.76; --rail-y: 8px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="magneto"] { --rail-zoom: 1.82; --rail-y: 10px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="green-goblin"] { --rail-zoom: 1.74; --rail-y: 8px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="carnage"] { --rail-zoom: 1.82; --rail-y: 8px; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="ghost-rider"] { --rail-zoom: 1.82; --rail-y: 8px; --rail-x: 0px; }
+
+@media (max-height: 720px) and (min-width: 860px) {
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail-item span,
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="spider-man"] span,
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="star-lord"] span {
+    min-height: 17px !important;
+    font-size: clamp(7px, 12.2cqw, 10.5px) !important;
+  }
+}
+
+/* --- TechLab v1.0.23 : labels Marvel une ligne si possible + recadrage buste --- */
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item span,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="spider-man"] span,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="star-lord"] span {
+  font-family: inherit !important;
+  left: 3px !important;
+  right: 3px !important;
+  bottom: 3px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: clamp(19px, 22cqw, 30px) !important;
+  padding: 1px 2px 0 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+  font-size: clamp(8px, 13.4cqw, 13px) !important;
+  line-height: .9 !important;
+  letter-spacing: -0.025em !important;
+  text-shadow: 1px 1px 0 #000, 0 2px 5px rgba(0,0,0,.96) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item img,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item .character-rail-art {
+  object-fit: contain !important;
+  object-position: center top !important;
+  transform-origin: center top !important;
+  transform:
+    perspective(520px)
+    rotateX(0deg)
+    rotateY(0deg)
+    translate(var(--rail-x, 0px), var(--rail-y, 22%))
+    scale(var(--rail-zoom, 1.64)) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item:hover:not(.is-selected) img,
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item:focus-visible:not(.is-selected) img {
+  transform:
+    perspective(520px)
+    rotateX(5deg)
+    rotateY(-7deg)
+    translate(var(--rail-x, 0px), calc(var(--rail-y, 22%) + 1px))
+    scale(calc(var(--rail-zoom, 1.64) * 1.03)) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item.is-selected img {
+  transform:
+    perspective(520px)
+    rotateX(0deg)
+    rotateY(0deg)
+    translate(var(--rail-x, 0px), calc(var(--rail-y, 22%) + 1px))
+    scale(calc(var(--rail-zoom, 1.64) * 1.012)) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="storm"] { --rail-zoom: 1.58; --rail-y: 24%; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="magik"] { --rail-zoom: 1.54; --rail-y: 25%; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="wolverine"] { --rail-zoom: 1.64; --rail-y: 24%; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="danger"] { --rail-zoom: 1.58; --rail-y: 24%; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="spider-man"] { --rail-zoom: 1.62; --rail-y: 24%; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="ms-marvel"] { --rail-zoom: 1.52; --rail-y: 25%; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="star-lord"] { --rail-zoom: 1.62; --rail-y: 24%; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="peni-parker"] { --rail-zoom: 1.52; --rail-y: 26%; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="captain-america"] { --rail-zoom: 1.58; --rail-y: 23%; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="iron-man"] { --rail-zoom: 1.54; --rail-y: 25%; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="black-panther"] { --rail-zoom: 1.62; --rail-y: 24%; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="hulk"] { --rail-zoom: 1.44; --rail-y: 21%; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="doctor-doom"] { --rail-zoom: 1.54; --rail-y: 23%; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="magneto"] { --rail-zoom: 1.58; --rail-y: 24%; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="green-goblin"] { --rail-zoom: 1.56; --rail-y: 23%; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="carnage"] { --rail-zoom: 1.58; --rail-y: 23%; --rail-x: 0px; }
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="ghost-rider"] { --rail-zoom: 1.58; --rail-y: 22%; --rail-x: 0px; }
+
+@media (max-height: 720px) and (min-width: 860px) {
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail-item span,
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="spider-man"] span,
+  body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-character-slug="star-lord"] span {
+    min-height: 17px !important;
+    font-size: clamp(7px, 12.2cqw, 10.5px) !important;
+  }
+}
+
+
+/* --- TechLab v1.0.24 : Marvel Tōkon fond non assombri hors sélection + ombre stable selected art --- */
+body[data-page="game"][data-game="marvel-tokon"] .app {
+  background: url("../assets/marvel-tokon/backgrounds/marvel-tokon-key-art.webp") center center / cover no-repeat !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .app::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  background: transparent !important;
+  opacity: 0 !important;
+  transition: opacity 180ms ease, background 180ms ease !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .app:has(.x2ko-stage.has-selection)::before {
+  background: rgba(0, 0, 0, 0.48) !important;
+  opacity: 1 !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-empty {
+  background: transparent !important;
+  opacity: 0 !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-art,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-two .x2ko-stage-art,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-card.is-duo .x2ko-stage-art,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-card.is-right .x2ko-stage-art,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-main-link.is-alpha-hover .x2ko-stage-art,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-main-link:hover .x2ko-stage-art,
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-main-link:focus-visible .x2ko-stage-art {
+  filter:
+    drop-shadow(0 36px 32px rgba(0,0,0,0.72))
+    drop-shadow(0 14px 15px rgba(0,0,0,0.56))
+    drop-shadow(0 2px 2px rgba(0,0,0,0.72)) !important;
+  transition: transform 120ms ease-out !important;
+}
+
+/* --- TechLab v1.0.26 : liens rapides sans ombre externe / sans bavure sous les cartes --- */
+body[data-page="game"][data-game="marvel-tokon"] .resource-panel {
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .resource-link,
+body[data-page="game"][data-game="marvel-tokon"] .resource-link:hover,
+body[data-page="game"][data-game="marvel-tokon"] .resource-link:focus-visible {
+  filter: none !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045) !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .resource-icon,
+body[data-page="game"][data-game="marvel-tokon"] .resource-icon:hover,
+body[data-page="game"][data-game="marvel-tokon"] .resource-icon:focus-visible {
+  filter: none !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.16) !important;
+}
+
+/* --- TechLab v1.0.27 : team headers plus lisibles + placeholders Midnight Sons + nettoyage panneaux/liens --- */
+body[data-page="game"][data-game="marvel-tokon"] .marvel-team-section {
+  grid-template-rows: clamp(20px, 2.55dvh, 26px) minmax(0, 1fr) !important;
+  gap: 4px !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .marvel-team-header {
+  gap: 6px !important;
+  padding: 0 6px !important;
+  border-left-width: 5px !important;
+  border-radius: 6px !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .marvel-team-logo {
+  flex-basis: clamp(17px, 2.25dvh, 23px) !important;
+  width: clamp(17px, 2.25dvh, 23px) !important;
+  height: clamp(17px, 2.25dvh, 23px) !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .marvel-team-name {
+  color: var(--team-accent, var(--marvel-orange)) !important;
+  font-size: clamp(0.66rem, 1.16dvh, 0.94rem) !important;
+  line-height: 1 !important;
+  letter-spacing: .025em !important;
+  text-shadow: 1px 1px 0 #000 !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item.is-placeholder {
+  cursor: default !important;
+  pointer-events: none !important;
+  opacity: .92 !important;
+  background:
+    radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--team-accent, var(--marvel-orange)) 16%, transparent), transparent 50%),
+    linear-gradient(180deg, rgba(4, 20, 24, 0.82), rgba(1, 8, 12, 0.94)) !important;
+  border-style: dashed !important;
+  border-color: color-mix(in srgb, var(--team-accent, var(--marvel-orange)) 48%, rgba(255,255,255,0.10)) !important;
+  box-shadow: none !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item.is-placeholder::before {
+  opacity: .42 !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item.is-placeholder .character-rail-fallback {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 2 !important;
+  display: grid !important;
+  place-items: center !important;
+  color: var(--team-accent, var(--marvel-orange)) !important;
+  font-size: clamp(2.15rem, 20cqw, 4.15rem) !important;
+  line-height: 1 !important;
+  font-weight: 1000 !important;
+  text-shadow: 1px 1px 0 #000 !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .character-rail-item.is-placeholder span {
+  display: none !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .game-workspace-stage-picker .info-column,
+body[data-page="game"][data-game="marvel-tokon"] .game-workspace-2xko-test .info-column,
+body[data-page="game"][data-game="marvel-tokon"] .selection-builder,
+body[data-page="game"][data-game="marvel-tokon"] .query-panel,
+body[data-page="game"][data-game="marvel-tokon"] .query-mode-card,
+body[data-page="game"][data-game="marvel-tokon"] .generated-query,
+body[data-page="game"][data-game="marvel-tokon"] .resource-panel,
+body[data-page="game"][data-game="marvel-tokon"] .resource-link,
+body[data-page="game"][data-game="marvel-tokon"] .resource-icon,
+body[data-page="game"][data-game="marvel-tokon"] .query-actions .big-link,
+body[data-page="game"][data-game="marvel-tokon"] .query-actions .copy-button,
+body[data-page="game"][data-game="marvel-tokon"] .query-actions .reset-button {
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+body[data-page="game"][data-game="marvel-tokon"] .selection-builder::before,
+body[data-page="game"][data-game="marvel-tokon"] .selection-builder::after,
+body[data-page="game"][data-game="marvel-tokon"] .query-panel::before,
+body[data-page="game"][data-game="marvel-tokon"] .query-panel::after,
+body[data-page="game"][data-game="marvel-tokon"] .query-mode-card::before,
+body[data-page="game"][data-game="marvel-tokon"] .query-mode-card::after,
+body[data-page="game"][data-game="marvel-tokon"] .resource-panel::before,
+body[data-page="game"][data-game="marvel-tokon"] .resource-panel::after,
+body[data-page="game"][data-game="marvel-tokon"] .resource-link::before,
+body[data-page="game"][data-game="marvel-tokon"] .resource-link::after {
+  display: none !important;
+  content: none !important;
+  opacity: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+}

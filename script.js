@@ -162,7 +162,7 @@ function playLabQuoteAudio() {
 }
 
 
-const TECHLAB_VERSION = 'v1.0.57';
+const TECHLAB_VERSION = 'v1.0.59';
 const SUPABASE_PROJECT_URL = 'https://ebqwfijathcyfudkmvdq.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_kwGiDUzAu4thk7340RDFOg_kRoXSUAt';
 const SUPABASE_PERSONAL_TABLE = 'personal_records';
@@ -1097,6 +1097,7 @@ function clearAllSelections() {
 }
 
 function renderGameNav(activeGameId) {
+  if (!gameNav || !gameButtonTemplate) return;
   gameNav.innerHTML = '';
 
   games.forEach((game) => {
@@ -1755,6 +1756,29 @@ function renderMarvelCharacterRail(game) {
         `).join('')}
       </div>
     </aside>
+  `;
+}
+
+function renderDetailGameHeader(game) {
+  return `
+    <header class="rail-game-header detail-game-header" aria-label="Navigation ${escapeHtml(game.name)}">
+      <a class="rail-techlab-logo" href="#/home" aria-label="Accueil TechLab" title="Accueil TechLab">
+        <img src="./assets/techlab-logo.png" alt="TechLab" loading="lazy" />
+      </a>
+      <a class="detail-game-back" href="#/${escapeHtml(game.id)}" aria-label="Retour au cast ${escapeHtml(game.name)}" title="Retour au cast ${escapeHtml(game.name)}" style="--button-accent:${game.navAccent || '#eaff2c'};--button-accent-2:${game.navAccent2 || game.navAccent || '#18e6ff'}">
+        <span class="rail-current-game-logo">${renderLogo(game, true)}</span>
+      </a>
+      ${renderAuthButtonMarkup()}
+    </header>
+  `;
+}
+
+
+function renderHomeAuthDock() {
+  return `
+    <div class="home-auth-dock" aria-label="Compte TechLab">
+      ${renderAuthButtonMarkup()}
+    </div>
   `;
 }
 
@@ -4394,6 +4418,7 @@ function renderCharacterPage(game, character) {
     <article class="detail-page detail-page-personal detail-page-reworked${detailBackground.className}"${detailBackground.style}>
       <section class="detail-lab-grid">
         <aside class="detail-character-column">
+          ${renderDetailGameHeader(game)}
           ${renderDetailRosterCard(game, character)}
           ${renderPersonalNotesPanel(record)}
         </aside>
@@ -4435,6 +4460,7 @@ function renderHomePage() {
 
   app.innerHTML = `
     <section class="home-screen home-screen-labgate" aria-label="Accueil TechLab">
+      ${renderHomeAuthDock()}
       <nav class="home-game-column" aria-label="Choisir un jeu">
         ${gameCards}
       </nav>

@@ -5732,3 +5732,626 @@ html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-four 
   .rail-login-button.is-google-auth strong { display: none !important; }
   .rail-login-button.is-google-auth { grid-template-columns: 1fr !important; }
 }
+
+/* TechLab v1.0.58 : header local sur les fiches perso + sidebar retirée */
+body[data-page="detail"] {
+  --detail-rail-header-h: clamp(58px, 6.2dvh, 76px);
+  --rail-header-h: var(--detail-rail-header-h);
+}
+
+body[data-page="detail"] .shell {
+  grid-template-columns: minmax(0, 1fr) !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+}
+
+body[data-page="detail"] .game-sidebar {
+  display: none !important;
+}
+
+body[data-page="detail"] .app {
+  width: 100vw !important;
+  max-width: 100vw !important;
+}
+
+body[data-page="detail"] .detail-game-header {
+  width: 100% !important;
+  max-width: 310px !important;
+  height: var(--detail-rail-header-h) !important;
+  min-height: var(--detail-rail-header-h) !important;
+  margin: 0 auto !important;
+  grid-template-columns: clamp(46px, 3.2vw, 62px) minmax(0, 1fr) clamp(44px, 3.7vw, 62px) !important;
+  gap: 4px !important;
+}
+
+body[data-page="detail"] .detail-game-back {
+  display: grid !important;
+  place-items: center !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  padding: 4px 8px !important;
+  color: inherit !important;
+  text-decoration: none !important;
+  border: 1px solid color-mix(in srgb, var(--button-accent, var(--accent, #eaff2c)) 42%, transparent) !important;
+  border-radius: 10px !important;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--button-accent, var(--accent, #eaff2c)) 12%, transparent), rgba(0,0,0,.36)),
+    rgba(2, 8, 15, .76) !important;
+  cursor: pointer !important;
+  overflow: hidden !important;
+  transition: border-color 140ms ease, filter 140ms ease, box-shadow 140ms ease, transform 140ms ease !important;
+}
+
+body[data-page="detail"] .detail-game-back:hover,
+body[data-page="detail"] .detail-game-back:focus-visible {
+  border-color: color-mix(in srgb, var(--button-accent, var(--accent, #eaff2c)) 78%, transparent) !important;
+  filter: brightness(1.08) saturate(1.06) !important;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--button-accent, var(--accent, #eaff2c)) 24%, transparent), 0 10px 22px rgba(0, 0, 0, .34) !important;
+  outline: none !important;
+}
+
+body[data-page="detail"] .detail-game-back .rail-current-game-logo {
+  width: 100% !important;
+  height: 100% !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+body[data-page="detail"] .detail-game-back .game-logo,
+body[data-page="detail"] .detail-game-back .text-logo {
+  width: 100% !important;
+  max-width: 100% !important;
+  max-height: calc(var(--detail-rail-header-h) - 10px) !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  filter: drop-shadow(0 5px 10px rgba(0,0,0,.48)) !important;
+}
+
+body[data-page="detail"] .detail-game-header .rail-login-button.is-avatar-only {
+  min-width: clamp(44px, 3.7vw, 62px) !important;
+  width: clamp(44px, 3.7vw, 62px) !important;
+}
+
+body[data-page="detail"] .detail-game-header .rail-login-button.is-google-auth {
+  grid-template-columns: 1fr !important;
+  padding-inline: 6px !important;
+}
+
+body[data-page="detail"] .detail-game-header .rail-login-button.is-google-auth strong {
+  display: none !important;
+}
+
+@media (max-width: 900px) {
+  body[data-page="detail"] .detail-game-header {
+    max-width: 100% !important;
+  }
+}
+
+
+/* TechLab v1.0.59 : header détail remonté, ancienne sidebar retirée du DOM, connexion accueil */
+.shell.shell-no-sidebar {
+  grid-template-columns: minmax(0, 1fr) !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+}
+
+.shell.shell-no-sidebar .app {
+  grid-column: 1 !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+}
+
+body[data-page="home"] .home-auth-dock {
+  position: absolute !important;
+  z-index: 30 !important;
+  top: clamp(10px, 1.4dvh, 22px) !important;
+  right: clamp(12px, 1.8vw, 34px) !important;
+  width: auto !important;
+  height: clamp(46px, 5.4dvh, 64px) !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+body[data-page="home"] .home-auth-dock .rail-login-button {
+  height: 100% !important;
+  min-height: 100% !important;
+}
+
+body[data-page="home"] .home-auth-dock .rail-login-button.is-avatar-only {
+  width: clamp(46px, 4vw, 66px) !important;
+  min-width: clamp(46px, 4vw, 66px) !important;
+}
+
+body[data-page="home"] .home-auth-dock .rail-login-button.is-google-auth {
+  min-width: clamp(74px, 7vw, 116px) !important;
+}
+
+body[data-page="detail"] .app {
+  padding: 0 !important;
+}
+
+body[data-page="detail"] .detail-page-personal,
+body[data-page="detail"] .detail-page-reworked {
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  min-height: 100dvh !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+body[data-page="detail"] .detail-page-personal .detail-lab-grid,
+body[data-page="detail"] .detail-page-reworked .detail-lab-grid {
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  min-height: 0 !important;
+  padding: clamp(5px, .45vw, 8px) clamp(7px, .7vw, 12px) clamp(7px, .75vw, 12px) clamp(5px, .45vw, 8px) !important;
+  gap: var(--compact-gap, clamp(7px, .62vw, 11px)) !important;
+  box-sizing: border-box !important;
+}
+
+body[data-page="detail"] .detail-character-column {
+  display: grid !important;
+  grid-template-rows: var(--detail-rail-header-h) auto minmax(0, 1fr) !important;
+  align-content: stretch !important;
+  gap: clamp(5px, .42vw, 8px) !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+body[data-page="detail"] .detail-game-header {
+  align-self: start !important;
+  justify-self: stretch !important;
+  margin: 0 !important;
+  max-width: none !important;
+}
+
+body[data-page="detail"] .detail-character-column .detail-roster-card {
+  align-self: start !important;
+}
+
+body[data-page="detail"] .detail-character-column .personal-notes-panel {
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+@media (max-width: 900px) {
+  body[data-page="home"] .home-auth-dock {
+    top: 10px !important;
+    right: 10px !important;
+  }
+}
+
+/* TechLab v1.0.60 : header fiche perso recalé sur le header du cast */
+body[data-page="detail"] {
+  --detail-rail-header-h: clamp(42px, 4.35dvh, 56px) !important;
+  --rail-header-h: var(--detail-rail-header-h) !important;
+}
+
+body[data-page="detail"] .detail-page-personal .detail-lab-grid,
+body[data-page="detail"] .detail-page-reworked .detail-lab-grid {
+  padding-top: clamp(5px, .45vw, 8px) !important;
+}
+
+body[data-page="detail"] .detail-character-column {
+  grid-template-rows: var(--detail-rail-header-h) auto minmax(0, 1fr) !important;
+  gap: clamp(8px, .62vw, 12px) !important;
+}
+
+body[data-page="detail"] .detail-game-header {
+  align-self: start !important;
+  justify-self: stretch !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: var(--detail-rail-header-h) !important;
+  min-height: var(--detail-rail-header-h) !important;
+  max-height: var(--detail-rail-header-h) !important;
+  margin: 0 !important;
+  grid-template-columns: clamp(46px, 3vw, 58px) minmax(0, 1fr) clamp(88px, 5.8vw, 108px) !important;
+  gap: 4px !important;
+}
+
+body[data-page="detail"] .detail-game-header .rail-techlab-logo,
+body[data-page="detail"] .detail-game-header .detail-game-back,
+body[data-page="detail"] .detail-game-header .rail-login-button {
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: var(--detail-rail-header-h) !important;
+  border-radius: 9px !important;
+}
+
+body[data-page="detail"] .detail-game-back {
+  padding: 4px 6px !important;
+}
+
+body[data-page="detail"] .detail-game-back .game-logo,
+body[data-page="detail"] .detail-game-back .text-logo,
+body[data-page="detail"] .detail-game-header .rail-current-game-logo .game-logo,
+body[data-page="detail"] .detail-game-header .rail-current-game-logo .text-logo {
+  max-height: calc(var(--detail-rail-header-h) - 10px) !important;
+}
+
+body[data-page="detail"] .detail-game-header .rail-login-button.is-avatar-only {
+  justify-self: end !important;
+  min-width: clamp(44px, 3.7vw, 62px) !important;
+  width: clamp(44px, 3.7vw, 62px) !important;
+}
+
+body[data-page="detail"] .detail-game-header .rail-login-button.is-google-auth {
+  justify-self: stretch !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  grid-template-columns: 1fr !important;
+  padding-inline: 6px !important;
+}
+
+body[data-page="detail"] .detail-game-header .rail-login-button.is-google-auth strong {
+  display: none !important;
+}
+
+body[data-page="detail"] .detail-character-column .detail-roster-card {
+  align-self: start !important;
+  margin-top: 0 !important;
+}
+
+
+/* TechLab v1.0.61 : fiche perso alignée sur le rail du cast */
+body[data-page="detail"] {
+  --compact-info-w: clamp(250px, 13.8vw, 304px) !important;
+  --compact-gap: clamp(4px, .35vw, 7px) !important;
+  --rail-header-h: clamp(42px, 4.35dvh, 56px) !important;
+  --detail-rail-header-h: var(--rail-header-h) !important;
+}
+
+body[data-page="detail"][data-game="2xko"] { --compact-rail-w: clamp(356px, 20.4vw, 420px) !important; }
+body[data-page="detail"][data-game="marvel-tokon"] { --compact-rail-w: clamp(392px, 22.4vw, 468px) !important; }
+body[data-page="detail"][data-game="avatar-legends"] { --compact-rail-w: clamp(314px, 18.2vw, 386px) !important; }
+body[data-page="detail"][data-game="vf-crossroads"] { --compact-rail-w: clamp(292px, 17vw, 360px) !important; }
+
+body[data-page="detail"] .detail-page-personal .detail-lab-grid,
+body[data-page="detail"] .detail-page-reworked .detail-lab-grid {
+  grid-template-columns: var(--compact-rail-w) minmax(0, 1fr) minmax(310px, 390px) !important;
+  gap: var(--compact-gap) !important;
+  padding: 0 !important;
+  align-items: stretch !important;
+}
+
+body[data-page="detail"] .detail-page-personal .detail-character-column,
+body[data-page="detail"] .detail-page-reworked .detail-character-column,
+body[data-page="detail"][data-game] .detail-character-column,
+body[data-page="detail"][data-game] .detail-page-reworked .detail-character-column {
+  display: grid !important;
+  grid-template-rows: var(--rail-header-h) auto minmax(0, 1fr) !important;
+  gap: clamp(7px, .62vw, 11px) !important;
+  row-gap: clamp(7px, .62vw, 11px) !important;
+  padding: clamp(5px, .45vw, 8px) !important;
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+body[data-page="detail"] .detail-game-header,
+body[data-page="detail"][data-game] .detail-game-header {
+  grid-row: 1 !important;
+  align-self: stretch !important;
+  justify-self: stretch !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: var(--rail-header-h) !important;
+  min-height: var(--rail-header-h) !important;
+  max-height: var(--rail-header-h) !important;
+  margin: 0 !important;
+  grid-template-columns: clamp(46px, 3vw, 58px) minmax(0, 1fr) clamp(88px, 5.8vw, 108px) !important;
+  gap: 4px !important;
+}
+
+body[data-page="detail"] .detail-game-header .rail-techlab-logo,
+body[data-page="detail"] .detail-game-header .detail-game-back,
+body[data-page="detail"] .detail-game-header .rail-login-button {
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: var(--rail-header-h) !important;
+  border-radius: 9px !important;
+}
+
+body[data-page="detail"] .detail-game-header .detail-game-back {
+  padding: 4px 6px !important;
+}
+
+body[data-page="detail"] .detail-game-header .rail-current-game-logo .game-logo,
+body[data-page="detail"] .detail-game-header .rail-current-game-logo .text-logo,
+body[data-page="detail"] .detail-game-header .detail-game-back .game-logo,
+body[data-page="detail"] .detail-game-header .detail-game-back .text-logo {
+  width: 100% !important;
+  max-width: 100% !important;
+  max-height: calc(var(--rail-header-h) - 10px) !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+}
+
+body[data-page="detail"] .detail-game-header .rail-login-button.is-avatar-only {
+  justify-self: stretch !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+body[data-page="detail"] .detail-game-header .rail-login-button.is-google-auth {
+  justify-self: stretch !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  grid-template-columns: 1fr !important;
+  padding-inline: 6px !important;
+}
+
+body[data-page="detail"] .detail-game-header .rail-login-button.is-google-auth strong {
+  display: none !important;
+}
+
+body[data-page="detail"] .detail-character-column .detail-roster-card,
+body[data-page="detail"][data-game="2xko"] .detail-character-column .detail-roster-card,
+body[data-page="detail"][data-game="2xko"] .detail-character-column .x2ko-detail-roster-card {
+  grid-row: 2 !important;
+  align-self: start !important;
+  margin-top: 0 !important;
+}
+
+body[data-page="detail"] .detail-character-column .personal-notes-panel,
+body[data-page="detail"][data-game="2xko"] .detail-character-column .personal-notes-panel {
+  grid-row: 3 !important;
+  min-height: 0 !important;
+  margin-top: 0 !important;
+  overflow: hidden !important;
+}
+
+/* TechLab v1.0.62 : alignement final du header fiche + respiration panneaux */
+html body[data-page="detail"] {
+  --detail-top-safe-gap: clamp(6px, .48vw, 10px) !important;
+}
+
+html body[data-page="detail"] .detail-page-personal .detail-lab-grid,
+html body[data-page="detail"] .detail-page-reworked .detail-lab-grid {
+  padding: 0 !important;
+  align-items: stretch !important;
+}
+
+html body[data-page="detail"] .detail-page-personal .detail-character-column,
+html body[data-page="detail"] .detail-page-reworked .detail-character-column,
+html body[data-page="detail"][data-game] .detail-character-column {
+  padding: 0 clamp(5px, .45vw, 8px) clamp(5px, .45vw, 8px) clamp(5px, .45vw, 8px) !important;
+  grid-template-rows: var(--rail-header-h) auto minmax(0, 1fr) !important;
+  gap: clamp(8px, .62vw, 12px) !important;
+  row-gap: clamp(8px, .62vw, 12px) !important;
+}
+
+html body[data-page="detail"] .detail-game-header,
+html body[data-page="detail"][data-game] .detail-game-header {
+  align-self: start !important;
+  margin-top: 0 !important;
+  transform: none !important;
+}
+
+html body[data-page="detail"] .detail-character-column .detail-roster-card,
+html body[data-page="detail"] .detail-character-column .x2ko-detail-roster-card {
+  margin-top: 0 !important;
+}
+
+html body[data-page="detail"] .detail-page-personal .personal-combos-panel,
+html body[data-page="detail"] .detail-page-reworked .personal-combos-panel,
+html body[data-page="detail"] .detail-page-personal .personal-links-panel,
+html body[data-page="detail"] .detail-page-reworked .personal-links-panel {
+  padding-top: var(--detail-top-safe-gap) !important;
+  box-sizing: border-box !important;
+}
+
+html body[data-page="detail"] .detail-page-personal .personal-combos-panel > .personal-panel-header.combo-list-header,
+html body[data-page="detail"] .detail-page-reworked .personal-combos-panel > .personal-panel-header.combo-list-header,
+html body[data-page="detail"] .detail-page-personal .personal-links-panel > .personal-panel > .personal-panel-header,
+html body[data-page="detail"] .detail-page-reworked .personal-links-panel > .personal-panel > .personal-panel-header {
+  margin-top: 0 !important;
+}
+
+html body[data-page="detail"] .detail-page-personal .personal-links-panel > .personal-panel,
+html body[data-page="detail"] .detail-page-reworked .personal-links-panel > .personal-panel {
+  height: 100% !important;
+  min-height: 0 !important;
+  box-sizing: border-box !important;
+}
+
+html body[data-page="detail"] .personal-combos-panel .combo-filter-bar,
+html body[data-page="detail"] .personal-combos-panel .combo-builder-shell,
+html body[data-page="detail"] .personal-combos-panel .saved-combos-list,
+html body[data-page="detail"] .personal-links-panel .personal-link-form,
+html body[data-page="detail"] .personal-links-panel .personal-links-list {
+  margin-top: clamp(7px, .55vw, 11px) !important;
+}
+
+/* TechLab v1.0.63 : header fiche collé en haut + retrait respiration filtres */
+html body[data-page="detail"] {
+  --detail-top-safe-gap: 0px !important;
+}
+
+html body[data-page="detail"] .detail-page-personal .detail-character-column,
+html body[data-page="detail"] .detail-page-reworked .detail-character-column,
+html body[data-page="detail"][data-game] .detail-character-column {
+  padding-top: 0 !important;
+}
+
+html body[data-page="detail"] .detail-game-header,
+html body[data-page="detail"][data-game] .detail-game-header {
+  margin-top: 0 !important;
+  transform: translateY(-5px) !important;
+}
+
+html body[data-page="detail"] .detail-page-personal .personal-combos-panel,
+html body[data-page="detail"] .detail-page-reworked .personal-combos-panel,
+html body[data-page="detail"] .detail-page-personal .personal-links-panel,
+html body[data-page="detail"] .detail-page-reworked .personal-links-panel {
+  padding-top: 0 !important;
+}
+
+html body[data-page="detail"] .personal-combos-panel .combo-filter-bar,
+html body[data-page="detail"] .personal-combos-panel .combo-builder-shell,
+html body[data-page="detail"] .personal-combos-panel .saved-combos-list,
+html body[data-page="detail"] .personal-links-panel .personal-link-form,
+html body[data-page="detail"] .personal-links-panel .personal-links-list {
+  margin-top: 0 !important;
+}
+
+/* TechLab v1.0.64 : header fiche tout en haut + respiration panneaux sans décoller les filtres */
+html body[data-page="detail"] {
+  --detail-left-header-lift: clamp(10px, .8vw, 16px) !important;
+  --detail-panel-top-gap: clamp(8px, .6vw, 12px) !important;
+}
+
+html body[data-page="detail"] .detail-page-personal .detail-character-column,
+html body[data-page="detail"] .detail-page-reworked .detail-character-column,
+html body[data-page="detail"][data-game] .detail-character-column {
+  padding-top: 0 !important;
+  transform: translateY(calc(-1 * var(--detail-left-header-lift))) !important;
+  height: calc(100dvh + var(--detail-left-header-lift)) !important;
+  max-height: calc(100dvh + var(--detail-left-header-lift)) !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .detail-game-header,
+html body[data-page="detail"][data-game] .detail-game-header {
+  margin-top: 0 !important;
+  transform: none !important;
+}
+
+html body[data-page="detail"] .detail-page-personal .personal-combos-panel,
+html body[data-page="detail"] .detail-page-reworked .personal-combos-panel,
+html body[data-page="detail"] .detail-page-personal .personal-links-panel,
+html body[data-page="detail"] .detail-page-reworked .personal-links-panel {
+  padding-top: var(--detail-panel-top-gap) !important;
+  box-sizing: border-box !important;
+}
+
+html body[data-page="detail"] .personal-combos-panel .combo-filter-bar {
+  margin: -12px 0 8px !important;
+}
+
+html body[data-page="detail"] .personal-combos-panel .combo-builder-shell,
+html body[data-page="detail"] .personal-combos-panel .saved-combos-list,
+html body[data-page="detail"] .personal-links-panel .personal-link-form,
+html body[data-page="detail"] .personal-links-panel .personal-links-list {
+  margin-top: 0 !important;
+}
+
+/* TechLab v1.0.65 : hover header logos + largeur avatar Google harmonisée */
+.rail-techlab-logo,
+.rail-game-switcher summary,
+body[data-page="detail"] .detail-game-back,
+body[data-page="detail"] .detail-game-header .rail-techlab-logo {
+  cursor: pointer !important;
+  transition:
+    border-color 140ms ease,
+    background 140ms ease,
+    filter 140ms ease,
+    box-shadow 140ms ease,
+    transform 140ms ease !important;
+}
+
+.rail-techlab-logo:hover,
+.rail-techlab-logo:focus-visible,
+body[data-page="detail"] .detail-game-header .rail-techlab-logo:hover,
+body[data-page="detail"] .detail-game-header .rail-techlab-logo:focus-visible {
+  border-color: color-mix(in srgb, var(--accent, #eaff2c) 78%, transparent) !important;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent, #eaff2c) 16%, transparent), rgba(0,0,0,.32)),
+    rgba(2, 8, 15, .78) !important;
+  filter: brightness(1.08) saturate(1.08) !important;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent, #eaff2c) 24%, transparent),
+    0 10px 22px rgba(0, 0, 0, .34) !important;
+  transform: translateY(-1px) !important;
+  outline: none !important;
+}
+
+.rail-game-switcher summary:hover,
+.rail-game-switcher summary:focus-visible,
+.rail-game-switcher[open] summary {
+  border-color: color-mix(in srgb, var(--button-accent, var(--accent, #eaff2c)) 78%, transparent) !important;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--button-accent, var(--accent, #eaff2c)) 16%, transparent), rgba(0,0,0,.32)),
+    rgba(2, 8, 15, .78) !important;
+  filter: brightness(1.08) saturate(1.08) !important;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--button-accent, var(--accent, #eaff2c)) 24%, transparent),
+    0 10px 22px rgba(0, 0, 0, .34) !important;
+  outline: none !important;
+}
+
+body[data-page="detail"] .detail-game-back:hover,
+body[data-page="detail"] .detail-game-back:focus-visible {
+  transform: translateY(-1px) !important;
+}
+
+body[data-page="game"] .rail-game-header .rail-login-button.is-avatar-only,
+body[data-page="game"] .rail-game-header .rail-login-button.is-connected.is-avatar-only {
+  justify-self: stretch !important;
+  align-self: stretch !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  grid-template-columns: 1fr !important;
+  padding-inline: 6px !important;
+}
+
+body[data-page="game"] .rail-game-header .rail-login-button.is-google-auth {
+  justify-self: stretch !important;
+  align-self: stretch !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+}
+
+body[data-page="game"] .rail-game-header .rail-login-button.is-avatar-only .rail-login-avatar,
+body[data-page="game"] .rail-game-header .rail-login-button.is-avatar-only .rail-login-avatar-fallback {
+  margin: auto !important;
+}
+
+/* TechLab v1.0.66 : avatar Google unifié sans pastille + dock accueil à gauche */
+.rail-login-status-dot {
+  display: none !important;
+}
+
+.rail-login-avatar {
+  box-shadow: 0 8px 18px rgba(0, 0, 0, .42) !important;
+  outline: none !important;
+  border: 0 !important;
+}
+
+.rail-login-button.is-avatar-only {
+  overflow: hidden !important;
+}
+
+body[data-page="game"] .rail-game-header .rail-login-button.is-avatar-only,
+body[data-page="game"] .rail-game-header .rail-login-button.is-connected.is-avatar-only,
+body[data-page="detail"] .detail-game-header .rail-login-button.is-avatar-only,
+body[data-page="detail"] .detail-game-header .rail-login-button.is-connected.is-avatar-only,
+body[data-page="home"] .home-auth-dock .rail-login-button.is-avatar-only,
+body[data-page="home"] .home-auth-dock .rail-login-button.is-connected.is-avatar-only {
+  border-color: rgba(205, 245, 100, .62) !important;
+  box-shadow: 0 0 0 1px rgba(205, 245, 100, .20), 0 10px 22px rgba(0, 0, 0, .34) !important;
+}
+
+body[data-page="game"] .rail-game-header .rail-login-button.is-avatar-only .rail-login-avatar,
+body[data-page="detail"] .detail-game-header .rail-login-button.is-avatar-only .rail-login-avatar,
+body[data-page="home"] .home-auth-dock .rail-login-button.is-avatar-only .rail-login-avatar,
+body[data-page="game"] .rail-game-header .rail-login-button.is-avatar-only .rail-login-avatar-fallback,
+body[data-page="detail"] .detail-game-header .rail-login-button.is-avatar-only .rail-login-avatar-fallback,
+body[data-page="home"] .home-auth-dock .rail-login-button.is-avatar-only .rail-login-avatar-fallback {
+  width: clamp(30px, 2.55vw, 43px) !important;
+  height: clamp(30px, 2.55vw, 43px) !important;
+  margin: auto !important;
+}
+
+body[data-page="home"] .home-auth-dock {
+  left: clamp(12px, 1.8vw, 34px) !important;
+  right: auto !important;
+}

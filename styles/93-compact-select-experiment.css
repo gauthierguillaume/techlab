@@ -5372,3 +5372,363 @@ html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-three
 html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-four .x2ko-stage-card .x2ko-stage-art-wrap {
   max-width: 100% !important;
 }
+
+/* TechLab v1.0.52 : connexion Supabase */
+.rail-login-button.is-connected {
+  border-color: rgba(205, 245, 100, .92) !important;
+  box-shadow: 0 0 0 1px rgba(205, 245, 100, .35), 0 10px 22px rgba(0, 0, 0, .34) !important;
+}
+
+.rail-login-button.is-connected span {
+  color: #cdf564;
+  font-weight: 1000;
+}
+
+.techlab-auth-modal[hidden] {
+  display: none !important;
+}
+
+.techlab-auth-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 3vw, 36px);
+}
+
+.techlab-auth-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(1, 6, 14, .70);
+  backdrop-filter: blur(8px);
+}
+
+.techlab-auth-card {
+  position: relative;
+  width: min(440px, 100%);
+  border: 1px solid rgba(205, 245, 100, .45);
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(7, 18, 29, .98), rgba(4, 12, 20, .94));
+  box-shadow: 0 28px 70px rgba(0, 0, 0, .55), 0 0 32px rgba(205, 245, 100, .14);
+  padding: clamp(22px, 3vw, 34px);
+  color: #fff;
+}
+
+.techlab-auth-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(110deg, rgba(205, 245, 100, .12), transparent 42%, rgba(0, 188, 158, .12));
+}
+
+.techlab-auth-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.techlab-auth-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, .32);
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.techlab-auth-card h2 {
+  margin: 0 0 12px;
+  color: #cdf564;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  line-height: 1;
+  text-shadow: 0 3px 0 rgba(0, 0, 0, .85);
+}
+
+.techlab-auth-card p {
+  margin: 0 0 18px;
+  color: rgba(255, 255, 255, .82);
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.techlab-auth-current strong {
+  color: #fff;
+}
+
+.techlab-auth-form {
+  display: grid;
+  gap: 10px;
+}
+
+.techlab-auth-form label {
+  color: #cdf564;
+  font-weight: 1000;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  font-size: .78rem;
+}
+
+.techlab-auth-form input {
+  min-height: 48px;
+  border: 1px solid rgba(205, 245, 100, .42);
+  border-radius: 14px;
+  background: rgba(3, 12, 18, .86);
+  color: #fff;
+  padding: 0 14px;
+  font-weight: 900;
+  outline: none;
+}
+
+.techlab-auth-form input:focus {
+  border-color: #cdf564;
+  box-shadow: 0 0 0 3px rgba(205, 245, 100, .16);
+}
+
+.techlab-auth-primary {
+  min-height: 48px;
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #cdf564, #00bc9e);
+  color: #06100d;
+  font-weight: 1000;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .34);
+}
+
+.techlab-auth-primary:disabled {
+  cursor: wait;
+  opacity: .75;
+}
+
+.techlab-auth-help {
+  margin-top: 16px !important;
+  margin-bottom: 0 !important;
+  font-size: .86rem;
+  color: rgba(255, 255, 255, .62) !important;
+}
+
+.techlab-auth-status {
+  margin-top: 14px !important;
+  margin-bottom: 0 !important;
+  border: 1px solid rgba(205, 245, 100, .35);
+  border-radius: 12px;
+  background: rgba(205, 245, 100, .12);
+  padding: 10px 12px;
+  color: #cdf564 !important;
+}
+
+.techlab-auth-status.is-error {
+  border-color: rgba(255, 91, 91, .42);
+  background: rgba(255, 91, 91, .12);
+  color: #ffb2b2 !important;
+}
+
+
+/* TechLab v1.0.53 : auth redirect + feedback clic connexion */
+.rail-login-button,
+.rail-login-button * {
+  cursor: pointer !important;
+}
+
+.rail-login-button:hover {
+  opacity: 1 !important;
+  border-color: rgba(205, 245, 100, .72) !important;
+  box-shadow: 0 0 0 1px rgba(205, 245, 100, .22), 0 10px 22px rgba(0, 0, 0, .34) !important;
+  filter: brightness(1.08);
+}
+
+
+/* TechLab v1.0.55 : connexion Google OAuth */
+.techlab-auth-google {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 52px;
+  border: 1px solid rgba(205, 245, 100, .45);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, .95);
+  color: #081018;
+  font-weight: 1000;
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .36);
+  transition: transform .16s ease, filter .16s ease, box-shadow .16s ease;
+}
+
+.techlab-auth-google:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, .42), 0 0 0 3px rgba(205, 245, 100, .16);
+}
+
+.techlab-auth-google:disabled {
+  cursor: wait;
+  opacity: .72;
+  transform: none;
+}
+
+.techlab-auth-google-icon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin-left: 11px;
+  border-radius: 999px;
+  background: #fff;
+  color: #111827;
+  font-family: Arial, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 1000;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .12), 0 4px 10px rgba(0, 0, 0, .16);
+}
+
+.techlab-auth-google strong {
+  text-align: left;
+  letter-spacing: .01em;
+}
+
+/* TechLab v1.0.56 : bouton Google propre + avatar de compte */
+.google-mark {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.rail-login-button.is-google-auth {
+  grid-template-columns: clamp(18px, 1.35vw, 26px) minmax(0, auto) !important;
+  gap: clamp(4px, .42vw, 8px) !important;
+  padding-inline: clamp(6px, .7vw, 12px) !important;
+  border-color: rgba(205, 245, 100, .62) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, .95), rgba(236, 245, 255, .88)) !important;
+  color: #07121a !important;
+}
+
+.rail-login-button.is-google-auth:hover {
+  border-color: rgba(205, 245, 100, .95) !important;
+  filter: brightness(1.08) saturate(1.04) !important;
+}
+
+.rail-login-button.is-google-auth .rail-login-google-mark {
+  display: grid !important;
+  place-items: center !important;
+  width: clamp(18px, 1.35vw, 26px) !important;
+  height: clamp(18px, 1.35vw, 26px) !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+}
+
+.rail-login-button.is-google-auth strong {
+  color: #07121a !important;
+  text-shadow: none !important;
+  letter-spacing: -.035em !important;
+}
+
+.rail-login-button.is-avatar-only {
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  place-items: center !important;
+  justify-content: center !important;
+  padding: 4px !important;
+  min-width: clamp(44px, 3.7vw, 62px) !important;
+  width: clamp(44px, 3.7vw, 62px) !important;
+  border-color: rgba(205, 245, 100, .92) !important;
+  background: rgba(4, 13, 19, .72) !important;
+  overflow: visible !important;
+}
+
+.rail-login-avatar {
+  display: block !important;
+  width: clamp(30px, 2.55vw, 43px) !important;
+  height: clamp(30px, 2.55vw, 43px) !important;
+  border-radius: 999px !important;
+  object-fit: cover !important;
+  box-shadow: 0 0 0 2px rgba(205, 245, 100, .72), 0 8px 18px rgba(0, 0, 0, .42) !important;
+  background: #fff !important;
+}
+
+.rail-login-avatar-fallback {
+  display: grid !important;
+  place-items: center !important;
+  padding: 5px !important;
+}
+
+.rail-login-status-dot {
+  position: absolute !important;
+  right: 2px !important;
+  bottom: 2px !important;
+  width: clamp(11px, .95vw, 15px) !important;
+  height: clamp(11px, .95vw, 15px) !important;
+  border-radius: 999px !important;
+  background: #cdf564 !important;
+  box-shadow: 0 0 0 2px rgba(4, 13, 19, .94), 0 0 12px rgba(205, 245, 100, .75) !important;
+}
+
+.techlab-auth-google-icon {
+  background: #fff !important;
+  color: transparent !important;
+  padding: 5px !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+}
+
+.techlab-auth-google-icon .google-mark-modal {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.techlab-auth-account-card {
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  align-items: center;
+  gap: 14px;
+  margin: 4px 0 18px;
+  padding: 12px;
+  border: 1px solid rgba(205, 245, 100, .25);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, .06);
+}
+
+.techlab-auth-account-avatar {
+  display: block;
+  width: 54px;
+  height: 54px;
+  border-radius: 999px;
+  object-fit: cover;
+  background: #fff;
+  box-shadow: 0 0 0 2px rgba(205, 245, 100, .72), 0 10px 22px rgba(0, 0, 0, .36);
+}
+
+.techlab-auth-account-avatar-fallback {
+  display: grid;
+  place-items: center;
+  padding: 8px;
+}
+
+.techlab-auth-current {
+  margin: 0 !important;
+}
+
+.techlab-auth-current strong {
+  display: block;
+  margin-top: 2px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 1280px) {
+  .rail-login-button.is-google-auth strong { display: none !important; }
+  .rail-login-button.is-google-auth { grid-template-columns: 1fr !important; }
+}

@@ -162,6 +162,518 @@ function playLabQuoteAudio() {
 }
 
 
+const TECHLAB_VERSION = 'v1.0.57';
+const SUPABASE_PROJECT_URL = 'https://ebqwfijathcyfudkmvdq.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_kwGiDUzAu4thk7340RDFOg_kRoXSUAt';
+const SUPABASE_PERSONAL_TABLE = 'personal_records';
+const TECHLAB_AUTH_RETURN_ROUTE_KEY = 'techlab-auth-return-route-v1';
+
+const supabaseClient = (() => {
+  if (!SUPABASE_PROJECT_URL || !SUPABASE_PUBLISHABLE_KEY) return null;
+  if (!window.supabase?.createClient) {
+    console.warn('TechLab Supabase non chargé : sauvegarde compte désactivée.');
+    return null;
+  }
+
+  try {
+    return window.supabase.createClient(SUPABASE_PROJECT_URL, SUPABASE_PUBLISHABLE_KEY, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true,
+      },
+    });
+  } catch (error) {
+    console.warn('TechLab Supabase indisponible : sauvegarde compte désactivée.', error);
+    return null;
+  }
+})();
+
+let techLabUser = null;
+let techLabAuthReady = false;
+const hydratedCloudRecords = new Set();
+const personalRecordCache = new Map();
+const pendingCloudRecordSaves = new Map();
+
+function getTechLabUserLabel() {
+  const email = techLabUser?.email || '';
+  const fullName = techLabUser?.user_metadata?.full_name || techLabUser?.user_metadata?.name || '';
+  if (fullName) return fullName;
+  if (!email) return 'Compte Google';
+  const name = email.split('@')[0] || email;
+  return name.length > 16 ? `${name.slice(0, 14)}…` : name;
+}
+
+function getTechLabGoogleAvatarUrl() {
+  const metadata = techLabUser?.user_metadata || {};
+  const identityData = techLabUser?.identities?.find((identity) => identity?.provider === 'google')?.identity_data || {};
+  return metadata.avatar_url
+    || metadata.picture
+    || identityData.avatar_url
+    || identityData.picture
+    || '';
+}
+
+function getGoogleMarkSvg(className = 'google-mark') {
+  return `
+    <svg class="${className}" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+      <path fill="#4285F4" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.1 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c10 0 19-7.3 19-20 0-1.3-.1-2.4-.4-3.5Z"/>
+      <path fill="#34A853" d="M6.3 14.7 12.9 19.5C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.1 6.1 29.3 4 24 4 16.2 4 9.5 8.5 6.3 14.7Z"/>
+      <path fill="#FBBC05" d="M24 44c5.2 0 9.9-2 13.5-5.2l-6.2-5.2C29.3 35.1 26.8 36 24 36c-5.3 0-9.8-3.3-11.4-7.9L6.1 33.1C9.3 39.5 16 44 24 44Z"/>
+      <path fill="#EA4335" d="M12.6 28.1A12.2 12.2 0 0 1 12 24c0-1.4.2-2.8.7-4.1L6.3 14.7A19.8 19.8 0 0 0 4 24c0 3.2.8 6.3 2.1 9.1l6.5-5Z"/>
+    </svg>
+  `;
+}
+
+function renderAuthButtonMarkup() {
+  const connected = Boolean(techLabUser);
+  const title = connected ? `Connecté : ${techLabUser.email || 'compte Google'}` : 'Se connecter avec Google';
+
+  if (connected) {
+    const avatarUrl = getTechLabGoogleAvatarUrl();
+    const avatarMarkup = avatarUrl
+      ? `<img class="rail-login-avatar" src="${escapeHtml(avatarUrl)}" alt="" referrerpolicy="no-referrer">`
+      : `<span class="rail-login-avatar rail-login-avatar-fallback" aria-hidden="true">${getGoogleMarkSvg('google-mark google-mark-avatar')}</span>`;
+
+    return `
+      <button class="rail-login-button is-connected is-avatar-only" data-auth-button type="button" aria-label="${escapeHtml(title)}" title="${escapeHtml(title)}">
+        ${avatarMarkup}
+        <span class="rail-login-status-dot" aria-hidden="true"></span>
+      </button>
+    `;
+  }
+
+  return `
+    <button class="rail-login-button is-google-auth" data-auth-button type="button" aria-label="${escapeHtml(title)}" title="${escapeHtml(title)}">
+      <span class="rail-login-google-mark" aria-hidden="true">${getGoogleMarkSvg()}</span>
+      <strong>Google</strong>
+    </button>
+  `;
+}
+
+function updateAuthButtons() {
+  document.querySelectorAll('[data-auth-button]').forEach((button) => {
+    button.outerHTML = renderAuthButtonMarkup();
+  });
+}
+
+function hasAuthCallbackParams() {
+  const href = window.location.href;
+  return href.includes('access_token=')
+    || href.includes('refresh_token=')
+    || href.includes('error_code=')
+    || href.includes('error_description=')
+    || href.includes('?code=')
+    || href.includes('&code=');
+}
+
+function getSafeCurrentRoute() {
+  const hash = window.location.hash || '';
+  if (!hash || hasAuthCallbackParams()) return '#/home';
+  return hash.startsWith('#/') ? hash : '#/home';
+}
+
+function getCleanPageUrl() {
+  return `${window.location.origin}${window.location.pathname}`;
+}
+
+function getAuthRedirectUrl() {
+  try {
+    sessionStorage.setItem(TECHLAB_AUTH_RETURN_ROUTE_KEY, getSafeCurrentRoute());
+  } catch {
+    // sessionStorage peut être indisponible selon les réglages du navigateur.
+  }
+
+  // Important : ne pas mettre la route hash dans le redirect Supabase.
+  // Sinon le lien magique revient parfois en #/route?access_token=..., et Supabase ne détecte pas la session.
+  return getCleanPageUrl();
+}
+
+function getStoredAuthReturnRoute() {
+  try {
+    const route = sessionStorage.getItem(TECHLAB_AUTH_RETURN_ROUTE_KEY);
+    sessionStorage.removeItem(TECHLAB_AUTH_RETURN_ROUTE_KEY);
+    return route && route.startsWith('#/') ? route : '#/home';
+  } catch {
+    return '#/home';
+  }
+}
+
+function restoreRouteAfterAuth(explicitRoute = '') {
+  const route = explicitRoute && explicitRoute.startsWith('#/') ? explicitRoute : getStoredAuthReturnRoute();
+  const cleanUrl = `${getCleanPageUrl()}${route || '#/home'}`;
+  window.history.replaceState(null, '', cleanUrl);
+}
+
+async function recoverSessionFromRoutedMagicLink() {
+  if (!supabaseClient) return false;
+
+  const hash = window.location.hash || '';
+  const queryIndex = hash.indexOf('?');
+  if (!hash.startsWith('#/') || queryIndex === -1 || !hash.includes('access_token=')) return false;
+
+  const route = hash.slice(0, queryIndex) || '#/home';
+  const params = new URLSearchParams(hash.slice(queryIndex + 1));
+  const accessToken = params.get('access_token');
+  const refreshToken = params.get('refresh_token');
+  if (!accessToken || !refreshToken) return false;
+
+  const { data, error } = await supabaseClient.auth.setSession({
+    access_token: accessToken,
+    refresh_token: refreshToken,
+  });
+
+  if (error) {
+    console.warn('TechLab auth callback recovery failed:', error);
+    return false;
+  }
+
+  techLabUser = data?.user || data?.session?.user || null;
+  restoreRouteAfterAuth(route);
+  return Boolean(techLabUser);
+}
+
+function ensureAuthModal() {
+  let modal = document.querySelector('#techlabAuthModal');
+  if (modal) return modal;
+
+  modal = document.createElement('div');
+  modal.id = 'techlabAuthModal';
+  modal.className = 'techlab-auth-modal';
+  modal.hidden = true;
+  modal.innerHTML = `
+    <div class="techlab-auth-backdrop" data-auth-close></div>
+    <section class="techlab-auth-card" role="dialog" aria-modal="true" aria-labelledby="techlabAuthTitle">
+      <button class="techlab-auth-close" type="button" data-auth-close aria-label="Fermer">×</button>
+      <div id="techlabAuthContent"></div>
+    </section>
+  `;
+  document.body.appendChild(modal);
+  return modal;
+}
+
+function getAuthModalContent() {
+  if (!supabaseClient) {
+    return `
+      <h2 id="techlabAuthTitle">Connexion indisponible</h2>
+      <p>Supabase n’est pas chargé. La sauvegarde des notes, combos et liens est désactivée tant que la connexion n’est pas disponible.</p>
+    `;
+  }
+
+  if (techLabUser) {
+    const avatarUrl = getTechLabGoogleAvatarUrl();
+    const avatarMarkup = avatarUrl
+      ? `<img class="techlab-auth-account-avatar" src="${escapeHtml(avatarUrl)}" alt="" referrerpolicy="no-referrer">`
+      : `<span class="techlab-auth-account-avatar techlab-auth-account-avatar-fallback" aria-hidden="true">${getGoogleMarkSvg('google-mark google-mark-account')}</span>`;
+
+    return `
+      <h2 id="techlabAuthTitle">Compte TechLab</h2>
+      <div class="techlab-auth-account-card">
+        ${avatarMarkup}
+        <p class="techlab-auth-current">Connecté avec Google<br><strong>${escapeHtml(techLabUser.email || getTechLabUserLabel())}</strong></p>
+      </div>
+      <button class="techlab-auth-primary" type="button" data-auth-logout>Se déconnecter</button>
+      <p class="techlab-auth-help">Les notes, combos et liens sont sauvegardés sur ton compte quand tu modifies une fiche perso.</p>
+      <p class="techlab-auth-status" id="techlabAuthStatus" hidden></p>
+    `;
+  }
+
+  return `
+    <h2 id="techlabAuthTitle">Connexion TechLab</h2>
+    <p>Connecte-toi avec Google pour sauvegarder tes notes, combos et liens sur ton compte.</p>
+    <button class="techlab-auth-google" type="button" data-auth-google>
+      <span class="techlab-auth-google-icon" aria-hidden="true">${getGoogleMarkSvg('google-mark google-mark-modal')}</span>
+      <strong>Continuer avec Google</strong>
+    </button>
+    <p class="techlab-auth-help">Les données perso ne sont plus sauvegardées hors connexion : il faut être connecté pour enregistrer.</p>
+    <p class="techlab-auth-status" id="techlabAuthStatus" hidden></p>
+  `;
+}
+
+function openAuthModal() {
+  const modal = ensureAuthModal();
+  const content = modal.querySelector('#techlabAuthContent');
+  content.innerHTML = getAuthModalContent();
+  modal.hidden = false;
+  document.body.classList.add('has-auth-modal');
+  modal.querySelector('#techlabAuthEmail')?.focus();
+}
+
+function closeAuthModal() {
+  const modal = document.querySelector('#techlabAuthModal');
+  if (!modal) return;
+  modal.hidden = true;
+  document.body.classList.remove('has-auth-modal');
+}
+
+function setAuthModalStatus(message, isError = false) {
+  const status = document.querySelector('#techlabAuthStatus');
+  if (!status) return;
+  status.textContent = message;
+  status.hidden = false;
+  status.classList.toggle('is-error', Boolean(isError));
+}
+
+async function submitAuthEmail(email) {
+  if (!supabaseClient) {
+    setAuthModalStatus('Supabase n’est pas disponible sur cette page.', true);
+    return;
+  }
+
+  const { error } = await supabaseClient.auth.signInWithOtp({
+    email,
+    options: {
+      emailRedirectTo: getAuthRedirectUrl(),
+      shouldCreateUser: true,
+    },
+  });
+
+  if (error) {
+    setAuthModalStatus(error.message || 'Connexion impossible pour le moment.', true);
+    return;
+  }
+
+  setAuthModalStatus('Lien envoyé. Va voir tes mails puis clique sur le lien magique.');
+}
+
+async function signInWithGoogleTechLab() {
+  if (!supabaseClient) {
+    setAuthModalStatus('Supabase n’est pas disponible sur cette page.', true);
+    return;
+  }
+
+  const { error } = await supabaseClient.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: getAuthRedirectUrl(),
+      queryParams: {
+        access_type: 'offline',
+        prompt: 'select_account',
+      },
+    },
+  });
+
+  if (error) {
+    setAuthModalStatus(error.message || 'Connexion Google impossible pour le moment.', true);
+  }
+}
+
+async function signOutTechLab() {
+  if (!supabaseClient) return;
+  const { error } = await supabaseClient.auth.signOut();
+  if (error) {
+    setAuthModalStatus(error.message || 'Déconnexion impossible.', true);
+    return;
+  }
+  closeAuthModal();
+}
+
+function getCloudHydrationKey(game, character) {
+  return `${techLabUser?.id || 'anon'}:${game.id}:${character.slug}`;
+}
+
+function normalizePersonalRecord(record = {}) {
+  return {
+    notes: record.notes || '',
+    combos: normalizePersonalCombos(record.combos),
+    links: Array.isArray(record.links) ? record.links : [],
+  };
+}
+
+function isEmptyPersonalRecord(record = {}) {
+  const normalized = normalizePersonalRecord(record);
+  return !normalized.notes.trim() && !normalized.combos.length && !normalized.links.length;
+}
+
+function canUseCloudPersonalData() {
+  return Boolean(supabaseClient && techLabUser?.id);
+}
+
+function clearLegacyPersonalLocalStorage() {
+  try {
+    localStorage.removeItem(PERSONAL_DATA_KEY);
+  } catch {
+    // Le navigateur peut bloquer localStorage selon ses réglages.
+  }
+}
+
+function setCachedPersonalRecord(game, character, record) {
+  if (!canUseCloudPersonalData()) return;
+  personalRecordCache.set(getCloudHydrationKey(game, character), normalizePersonalRecord(record));
+}
+
+function getCachedPersonalRecord(game, character) {
+  if (!canUseCloudPersonalData()) return null;
+  return personalRecordCache.get(getCloudHydrationKey(game, character)) || null;
+}
+
+function samePersonalRecord(left = {}, right = {}) {
+  return JSON.stringify(normalizePersonalRecord(left)) === JSON.stringify(normalizePersonalRecord(right));
+}
+
+function isCurrentCharacterRoute(game, character) {
+  const route = parseRoute();
+  return route.gameId === game.id && route.characterSlug === character.slug;
+}
+
+function queueCloudPersonalRecordSave(game, character, record) {
+  if (!supabaseClient || !techLabUser?.id) return;
+
+  const key = getCloudHydrationKey(game, character);
+  const pending = pendingCloudRecordSaves.get(key);
+  if (pending?.timer) window.clearTimeout(pending.timer);
+
+  const normalized = normalizePersonalRecord(record);
+  const payload = {
+    user_id: techLabUser.id,
+    game_id: game.id,
+    character_slug: character.slug,
+    notes: normalized.notes,
+    combos: normalized.combos,
+    links: normalized.links,
+  };
+
+  const timer = window.setTimeout(async () => {
+    const latest = pendingCloudRecordSaves.get(key);
+    pendingCloudRecordSaves.delete(key);
+
+    const { error } = await supabaseClient
+      .from(SUPABASE_PERSONAL_TABLE)
+      .upsert(latest?.payload || payload, { onConflict: 'user_id,game_id,character_slug' });
+
+    if (error) {
+      console.warn('TechLab cloud save failed:', error);
+      setPersonalStatus('Sauvegarde compte impossible');
+      return;
+    }
+
+    setPersonalStatus('Sauvegardé sur le compte');
+  }, 650);
+
+  pendingCloudRecordSaves.set(key, { timer, payload });
+}
+
+async function hydratePersonalRecordFromCloud(game, character) {
+  if (!supabaseClient || !techLabUser?.id) return;
+
+  const key = getCloudHydrationKey(game, character);
+  if (hydratedCloudRecords.has(key)) return;
+  hydratedCloudRecords.add(key);
+
+  const { data, error } = await supabaseClient
+    .from(SUPABASE_PERSONAL_TABLE)
+    .select('notes, combos, links')
+    .eq('user_id', techLabUser.id)
+    .eq('game_id', game.id)
+    .eq('character_slug', character.slug)
+    .maybeSingle();
+
+  if (error) {
+    console.warn('TechLab cloud load failed:', error);
+    setPersonalStatus('Chargement compte impossible');
+    return;
+  }
+
+  const cloudRecord = normalizePersonalRecord(data || {});
+  const cachedRecord = getCachedPersonalRecord(game, character) || {};
+  setCachedPersonalRecord(game, character, cloudRecord);
+
+  if (!samePersonalRecord(cachedRecord, cloudRecord) && isCurrentCharacterRoute(game, character)) {
+    render();
+  }
+}
+
+async function initializeTechLabAuth() {
+  clearLegacyPersonalLocalStorage();
+
+  if (!supabaseClient) {
+    techLabAuthReady = true;
+    updateAuthButtons();
+    return;
+  }
+
+  const wasAuthCallback = hasAuthCallbackParams();
+  const recoveredFromRoutedLink = await recoverSessionFromRoutedMagicLink();
+
+  const { data, error } = await supabaseClient.auth.getSession();
+  if (error) console.warn('TechLab auth session failed:', error);
+  techLabUser = data?.session?.user || techLabUser || null;
+  techLabAuthReady = true;
+
+  if (techLabUser && wasAuthCallback && !recoveredFromRoutedLink) restoreRouteAfterAuth();
+
+  updateAuthButtons();
+
+  // Après un refresh, la première render() peut partir avant que Supabase ait restauré
+  // la session. On relance donc la route courante dès que l'utilisateur est connu,
+  // pour recharger les notes/combos/liens cloud sur la fiche affichée.
+  if (techLabUser) render();
+
+  supabaseClient.auth.onAuthStateChange((event, session) => {
+    techLabUser = session?.user || null;
+    hydratedCloudRecords.clear();
+    personalRecordCache.clear();
+    pendingCloudRecordSaves.forEach((entry) => {
+      if (entry?.timer) window.clearTimeout(entry.timer);
+    });
+    pendingCloudRecordSaves.clear();
+    clearLegacyPersonalLocalStorage();
+
+    if (event === 'SIGNED_IN') {
+      if (hasAuthCallbackParams()) restoreRouteAfterAuth();
+      closeAuthModal();
+      render();
+    }
+
+    if (event === 'SIGNED_OUT') render();
+
+    updateAuthButtons();
+  });
+}
+
+document.addEventListener('click', (event) => {
+  if (event.target.closest('[data-auth-button]')) {
+    openAuthModal();
+    return;
+  }
+
+  if (event.target.closest('[data-auth-close]')) {
+    closeAuthModal();
+    return;
+  }
+
+  if (event.target.closest('[data-auth-logout]')) {
+    signOutTechLab();
+    return;
+  }
+
+  const googleButton = event.target.closest('[data-auth-google]');
+  if (googleButton) {
+    googleButton.disabled = true;
+    googleButton.classList.add('is-loading');
+    signInWithGoogleTechLab().finally(() => {
+      googleButton.disabled = false;
+      googleButton.classList.remove('is-loading');
+    });
+  }
+});
+
+document.addEventListener('submit', (event) => {
+  const form = event.target.closest('#techlabAuthForm');
+  if (!form) return;
+  event.preventDefault();
+  const submit = form.querySelector('button[type="submit"]');
+  const email = form.querySelector('#techlabAuthEmail')?.value.trim();
+  if (!email) return;
+  submit.disabled = true;
+  submit.textContent = 'Envoi…';
+  submitAuthEmail(email).finally(() => {
+    submit.disabled = false;
+    submit.textContent = 'Recevoir le lien';
+  });
+});
+
+
 const games = [
   {
     id: '2xko',
@@ -1271,10 +1783,7 @@ function renderRailGameSwitcher(game) {
           ${otherGames}
         </nav>
       </details>
-      <button class="rail-login-button" type="button" aria-label="Connexion bientôt disponible" title="Connexion bientôt disponible">
-        <span aria-hidden="true">👤</span>
-        <strong>Connexion</strong>
-      </button>
+      ${renderAuthButtonMarkup()}
     </header>
   `;
 }
@@ -1516,23 +2025,6 @@ function escapeHtml(value) {
     .replaceAll("'", '&#039;');
 }
 
-function getCharacterStorageKey(game, character) {
-  return `${game.id}:${character.slug}`;
-}
-
-function readPersonalStore() {
-  try {
-    return JSON.parse(localStorage.getItem(PERSONAL_DATA_KEY) || '{}');
-  } catch (error) {
-    console.warn('TechLab personal store reset:', error);
-    return {};
-  }
-}
-
-function writePersonalStore(store) {
-  localStorage.setItem(PERSONAL_DATA_KEY, JSON.stringify(store));
-}
-
 function normalizeComboPosition(value) {
   const raw = String(value || '').trim().toUpperCase();
   if (!raw) return '';
@@ -1595,24 +2087,19 @@ function normalizePersonalCombos(value) {
 }
 
 function getPersonalRecord(game, character) {
-  const store = readPersonalStore();
-  const key = getCharacterStorageKey(game, character);
-  const record = store[key] || {};
-  return {
-    notes: record.notes || '',
-    combos: normalizePersonalCombos(record.combos),
-    links: Array.isArray(record.links) ? record.links : [],
-  };
+  return normalizePersonalRecord(getCachedPersonalRecord(game, character) || {});
 }
 
 function savePersonalRecord(game, character, record) {
-  const store = readPersonalStore();
-  store[getCharacterStorageKey(game, character)] = {
-    notes: record.notes || '',
-    combos: normalizePersonalCombos(record.combos),
-    links: Array.isArray(record.links) ? record.links : [],
-  };
-  writePersonalStore(store);
+  if (!canUseCloudPersonalData()) {
+    setPersonalStatus('Connecte-toi pour sauvegarder');
+    return false;
+  }
+
+  const normalized = normalizePersonalRecord(record);
+  setCachedPersonalRecord(game, character, normalized);
+  queueCloudPersonalRecordSave(game, character, normalized);
+  return true;
 }
 
 function getUrlHostname(url) {
@@ -1805,13 +2292,16 @@ function setPersonalStatus(message) {
 
 function renderPersonalNotesPanel(record) {
   const notes = escapeHtml(record.notes || '');
+  const locked = !canUseCloudPersonalData();
+  const lockAttrs = locked ? ' disabled aria-disabled="true"' : '';
+  const placeholder = locked ? 'Connecte-toi pour enregistrer tes notes…' : 'Notes perso, matchups, idées, rappels…';
   return `
-    <section class="personal-panel personal-notes-panel">
+    <section class="personal-panel personal-notes-panel${locked ? ' is-locked' : ''}">
       <div class="personal-panel-header">
         <span>Notes</span>
         <small id="personalSaveStatus" hidden></small>
       </div>
-      <textarea id="personalNotes" class="personal-textarea" rows="10" placeholder="Notes perso, matchups, idées, rappels…">${notes}</textarea>
+      <textarea id="personalNotes" class="personal-textarea" rows="10" placeholder="${escapeHtml(placeholder)}"${lockAttrs}>${notes}</textarea>
     </section>
   `;
 }
@@ -2657,11 +3147,12 @@ function renderComboFilterBar(combos = []) {
 }
 
 function renderPersonalCombosPanel(record, game, character) {
+  const locked = !canUseCloudPersonalData();
   return `
-    <section class="personal-panel personal-combos-panel">
+    <section class="personal-panel personal-combos-panel${locked ? ' is-locked' : ''}">
       <div class="personal-panel-header combo-list-header">
         <span>Combos</span>
-        ${game?.id === '2xko' ? '<button class="combo-open-builder" type="button" id="comboOpenBuilder">Ajouter un combo</button>' : ''}
+        ${game?.id === '2xko' ? `<button class="combo-open-builder" type="button" id="comboOpenBuilder"${locked ? ' disabled aria-disabled="true" title="Connecte-toi pour ajouter un combo"' : ''}>Ajouter un combo</button>` : ''}
       </div>
       ${game?.id === '2xko' ? renderComboFilterBar(record.combos || []) : ''}
       ${renderComboBuilderForm(game, character)}
@@ -2673,16 +3164,18 @@ function renderPersonalCombosPanel(record, game, character) {
 }
 
 function renderPersonalLinksPanel(record) {
+  const locked = !canUseCloudPersonalData();
+  const lockAttrs = locked ? ' disabled aria-disabled="true"' : '';
   return `
     <aside class="personal-column personal-links-panel">
-      <section class="personal-panel">
+      <section class="personal-panel${locked ? ' is-locked' : ''}">
         <div class="personal-panel-header">
           <span>Liens</span>
         </div>
         <form class="personal-link-form" id="personalLinkForm">
-          <input id="personalLinkUrl" type="url" autocomplete="off" placeholder="Colle un lien YouTube, X ou autre…" required />
+          <input id="personalLinkUrl" type="url" autocomplete="off" placeholder="${locked ? 'Connecte-toi pour ajouter un lien…' : 'Colle un lien YouTube, X ou autre…'}" required${lockAttrs} />
           <div class="personal-form-actions">
-            <button id="personalSubmitLink" type="submit" aria-label="Ajouter le lien">+</button>
+            <button id="personalSubmitLink" type="submit" aria-label="Ajouter le lien"${lockAttrs}>+</button>
           </div>
         </form>
         <div class="personal-links-list" id="personalLinksList">
@@ -2714,13 +3207,23 @@ function bindPersonalLab(game, character) {
   let suppressLinkClick = false;
   const LINK_DRAG_HOLD_MS = 650;
   const LINK_DRAG_CANCEL_DISTANCE = 10;
+  const isLocked = () => !canUseCloudPersonalData();
+
+  const requireConnection = () => {
+    setPersonalStatus('Connecte-toi pour sauvegarder');
+    openAuthModal();
+  };
 
   const persist = (message = 'Sauvegardé') => {
-    savePersonalRecord(game, character, record);
+    if (!savePersonalRecord(game, character, record)) return;
     setPersonalStatus(message);
   };
 
   const scheduleTextSave = () => {
+    if (isLocked()) {
+      requireConnection();
+      return;
+    }
     record.notes = notes.value;
     window.clearTimeout(saveTimer);
     saveTimer = window.setTimeout(() => persist('Sauvegardé'), 180);
@@ -2832,6 +3335,10 @@ function bindPersonalLab(game, character) {
   };
 
   const openComboBuilder = () => {
+    if (isLocked()) {
+      requireConnection();
+      return;
+    }
     if (!comboBuilderShell) return;
     comboBuilderShell.hidden = false;
     comboBuilderShell.classList.add('is-open');
@@ -3442,6 +3949,10 @@ function bindPersonalLab(game, character) {
   const comboAdd = app.querySelector('#comboAddNotation');
   if (comboAdd) {
     comboAdd.addEventListener('click', async () => {
+      if (isLocked()) {
+        requireConnection();
+        return;
+      }
       const name = (comboNameInput?.value || '').trim();
       const tokens = getComboEditorTokens(comboOutput);
       const starterTokens = [];
@@ -3511,6 +4022,10 @@ function bindPersonalLab(game, character) {
 
     const deleteComboButton = event.target.closest('.saved-combo-delete');
     if (deleteComboButton) {
+      if (isLocked()) {
+        requireConnection();
+        return;
+      }
       const card = deleteComboButton.closest('.saved-combo-card');
       const id = card?.dataset.comboId;
       record.combos = normalizePersonalCombos(record.combos).filter((combo) => combo.id !== id);
@@ -3620,6 +4135,10 @@ function bindPersonalLab(game, character) {
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
+    if (isLocked()) {
+      requireConnection();
+      return;
+    }
     const url = normalizePersonalUrl(urlInput.value);
     if (!url) return;
     submit.disabled = true;
@@ -3655,6 +4174,10 @@ function bindPersonalLab(game, character) {
     const id = item.dataset.linkId;
 
     if (event.target.closest('.personal-delete-link')) {
+      if (isLocked()) {
+        requireConnection();
+        return;
+      }
       record.links = (record.links || []).filter((entry) => entry.id !== id);
       persist('Lien supprimé');
       refreshLinks();
@@ -3720,6 +4243,7 @@ function bindPersonalLab(game, character) {
   };
 
   list.addEventListener('pointerdown', (event) => {
+    if (isLocked()) return;
     if (event.button !== 0) return;
     const item = event.target.closest('.personal-link-item');
     if (!item || event.target.closest('.personal-delete-link, input, textarea, select')) return;
@@ -3885,6 +4409,7 @@ function renderCharacterPage(game, character) {
   loadCharacterImage(image, fallback, character);
   if (character.health && detailHealth) loadCharacterHealth(detailHealth, character, game);
   bindPersonalLab(game, character);
+  hydratePersonalRecordFromCloud(game, character);
 }
 
 function resetSelectionsOnGameSwitch(nextGameId) {
@@ -3969,6 +4494,8 @@ function render() {
 }
 
 window.addEventListener('hashchange', render);
+
+initializeTechLabAuth();
 
 if (!window.location.hash) {
   setRoute('home');

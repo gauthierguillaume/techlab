@@ -197,7 +197,7 @@ function playLabQuoteAudio() {
 }
 
 
-const TECHLAB_VERSION = 'v1.0.85';
+const TECHLAB_VERSION = 'v1.0.86';
 const SUPABASE_PROJECT_URL = 'https://ebqwfijathcyfudkmvdq.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_kwGiDUzAu4thk7340RDFOg_kRoXSUAt';
 const SUPABASE_PERSONAL_TABLE = 'personal_records';
@@ -1802,7 +1802,7 @@ function renderDetailGameHeader(game) {
   return `
     <header class="rail-game-header detail-game-header" aria-label="Navigation ${escapeHtml(game.name)}">
       <a class="rail-techlab-logo" href="#/home" aria-label="Accueil TechLab" title="Accueil TechLab">
-        <img src="./assets/techlab-logo.png" alt="TechLab" loading="lazy" />
+        <img src="./assets/techlab-logo.png?v=1.0.86" alt="TechLab" loading="lazy" />
       </a>
       <a class="detail-game-back" href="#/${escapeHtml(game.id)}" aria-label="Retour au cast ${escapeHtml(game.name)}" title="Retour au cast ${escapeHtml(game.name)}" style="--button-accent:${game.navAccent || '#eaff2c'};--button-accent-2:${game.navAccent2 || game.navAccent || '#18e6ff'}">
         <span class="rail-current-game-logo">${renderLogo(game, true)}</span>
@@ -1834,7 +1834,7 @@ function renderRailGameSwitcher(game) {
   return `
     <header class="rail-game-header" aria-label="Jeu actif">
       <a class="rail-techlab-logo" href="#/home" aria-label="Accueil TechLab" title="Accueil TechLab">
-        <img src="./assets/techlab-logo.png" alt="TechLab" loading="lazy" />
+        <img src="./assets/techlab-logo.png?v=1.0.86" alt="TechLab" loading="lazy" />
       </a>
       <details class="rail-game-switcher">
         <summary aria-label="Changer de jeu" title="Changer de jeu">
@@ -2051,7 +2051,7 @@ function renderMobileGameDock(game) {
   return `
     <header class="rail-game-header mobile-bottom-dock" aria-label="Navigation mobile ${escapeHtml(game.name)}">
       <a class="rail-techlab-logo" href="#/home" aria-label="Accueil TechLab" title="Accueil TechLab">
-        <img src="./assets/techlab-logo.png" alt="TechLab" loading="lazy" />
+        <img src="./assets/techlab-logo.png?v=1.0.86" alt="TechLab" loading="lazy" />
       </a>
       <details class="rail-game-switcher mobile-game-switcher">
         <summary aria-label="Changer de jeu" title="Changer de jeu">
@@ -2081,7 +2081,7 @@ function renderMobileHomeDock() {
   return `
     <header class="rail-game-header mobile-bottom-dock mobile-home-dock" aria-label="Navigation mobile TechLab">
       <a class="rail-techlab-logo" href="#/home" aria-label="Accueil TechLab" title="Accueil TechLab">
-        <img src="./assets/techlab-logo.png" alt="TechLab" loading="lazy" />
+        <img src="./assets/techlab-logo.png?v=1.0.86" alt="TechLab" loading="lazy" />
       </a>
       <details class="rail-game-switcher mobile-game-switcher mobile-home-game-switcher">
         <summary aria-label="Choisir un jeu" title="Choisir un jeu">
@@ -4852,7 +4852,7 @@ function renderHomePage() {
 
       <div class="home-main-zone">
         <a class="home-brand home-brand-xl" href="#/home" aria-label="Accueil TechLab" title="Accueil TechLab">
-          <img src="./assets/techlab-logo.png" alt="TechLab" loading="eager" />
+          <img src="./assets/techlab-logo.png?v=1.0.86" alt="TechLab" loading="eager" />
         </a>
 
         <div class="home-intro-panel">

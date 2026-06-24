@@ -889,3 +889,1685 @@ body[data-page="game"] .game-page-layout {
   --game-layout-secondary: var(--game-secondary);
   --game-layout-panel: var(--game-panel);
 }
+
+/* TechLab v1.0.72 — responsive mobile rebuild from v1.0.71.
+   Mobile utilise une couche dédiée pour éviter de casser le layout desktop. */
+.mobile-game-layer,
+.mobile-detail-tabs {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100dvh;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  body[data-page="game"] .app,
+  body[data-page="detail"] .app {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    min-height: 100dvh !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  body[data-page="game"] .game-workspace,
+  body[data-page="game"] .game-workspace-stage-picker,
+  body[data-page="game"] .game-workspace-2xko-test,
+  body[data-page="game"] .game-page-layout {
+    display: none !important;
+  }
+
+  body[data-page="game"] .mobile-game-layer {
+    --mobile-dock-h: 64px;
+    --mobile-roster-h: 94px;
+    --mobile-twitter-h: 92px;
+    --mobile-safe-bottom: env(safe-area-inset-bottom, 0px);
+    position: fixed;
+    inset: 0;
+    z-index: 4000;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto auto auto;
+    width: 100vw;
+    max-width: 100vw;
+    height: 100dvh;
+    min-height: 100dvh;
+    overflow: hidden;
+    color: #fff;
+    background: rgba(0, 0, 0, .18);
+  }
+
+  body[data-page="game"] .mobile-game-main {
+    position: relative;
+    min-height: 0;
+    padding: 10px 10px 8px;
+    overflow: hidden;
+  }
+
+  body[data-page="game"] .mobile-game-hero {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    display: grid;
+    place-items: stretch;
+  }
+
+  body[data-page="game"] .mobile-game-hero-empty,
+  body[data-page="game"] .mobile-game-hero-link {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    border: 1px solid color-mix(in srgb, var(--game-primary, var(--tl-game-primary, #cdf564)) 34%, rgba(255,255,255,.14));
+    border-radius: 18px;
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--game-primary, #cdf564) 12%, transparent), rgba(0,0,0,.30)),
+      rgba(0, 12, 16, .58);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.035), 0 14px 32px rgba(0,0,0,.28);
+    overflow: hidden;
+    text-decoration: none;
+    color: #fff;
+  }
+
+  body[data-page="game"] .mobile-game-hero-empty {
+    place-items: center;
+    text-align: center;
+    gap: 8px;
+    padding: 22px;
+  }
+
+  body[data-page="game"] .mobile-game-hero-empty strong {
+    color: var(--game-primary, var(--tl-game-primary, #cdf564));
+    font-size: clamp(26px, 8vw, 38px);
+    line-height: 1;
+    letter-spacing: -.06em;
+    text-shadow: 0 2px 0 #000, 0 0 18px color-mix(in srgb, var(--game-primary, #cdf564) 28%, transparent);
+  }
+
+  body[data-page="game"] .mobile-game-hero-empty span {
+    color: rgba(255,255,255,.72);
+    font-weight: 900;
+    font-size: 13px;
+  }
+
+  body[data-page="game"] .mobile-game-hero-hud {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 12px;
+    background: linear-gradient(90deg, var(--game-secondary, var(--tl-game-secondary, #00bc9e)), color-mix(in srgb, var(--game-secondary, #00bc9e) 64%, #000));
+    color: #fff;
+    text-shadow: 0 2px 0 #000, 0 0 8px rgba(0,0,0,.52);
+    font-weight: 1000;
+    letter-spacing: -.065em;
+    text-transform: uppercase;
+  }
+
+  body[data-page="game"] .mobile-game-hero-hud strong {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: clamp(23px, 7vw, 36px);
+  }
+
+  body[data-page="game"] .mobile-game-hero-health,
+  body[data-page="game"] .mobile-game-hero-team {
+    flex: 0 0 auto;
+    font-size: clamp(17px, 5vw, 26px);
+  }
+
+  body[data-page="game"] .mobile-game-hero-art-wrap {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    min-height: 0;
+    padding: 8px;
+  }
+
+  body[data-page="game"] .mobile-game-hero-art {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: 44dvh;
+    object-fit: contain;
+    object-position: center bottom;
+    filter: drop-shadow(0 22px 20px rgba(0,0,0,.42));
+  }
+
+  body[data-page="game"] .mobile-game-hero-tag {
+    position: relative;
+    z-index: 2;
+    display: block;
+    margin: 0 12px 12px;
+    padding: 9px 12px;
+    border: 1px solid color-mix(in srgb, var(--game-primary, #cdf564) 28%, rgba(255,255,255,.14));
+    border-radius: 999px;
+    background: rgba(0, 12, 16, .76);
+    color: var(--game-primary, #cdf564);
+    font-weight: 950;
+    font-size: 13px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  body[data-page="game"] .mobile-twitter-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 0 10px 8px;
+    min-width: 0;
+  }
+
+  body[data-page="game"] .mobile-twitter-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 34px 34px;
+    grid-template-rows: 18px 32px;
+    grid-template-areas: "label open copy" "query query query";
+    gap: 5px;
+    align-items: center;
+    min-width: 0;
+    padding: 8px;
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 14px;
+    background: rgba(0, 10, 14, .82);
+  }
+
+  body[data-page="game"] .mobile-twitter-card > span {
+    grid-area: label;
+    color: var(--game-secondary, var(--tl-game-secondary, #00bc9e));
+    font-weight: 1000;
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  body[data-page="game"] .mobile-twitter-card code {
+    grid-area: query;
+    display: block;
+    min-width: 0;
+    height: 32px;
+    padding: 7px 9px;
+    border-radius: 10px;
+    background: rgba(0,0,0,.52);
+    color: #fff;
+    font: 850 11px/18px Inter, ui-sans-serif, system-ui, sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  body[data-page="game"] .mobile-twitter-card code:empty::before {
+    content: "Sélectionne un perso";
+    color: rgba(255,255,255,.42);
+  }
+
+  body[data-page="game"] .mobile-twitter-card a,
+  body[data-page="game"] .mobile-twitter-card button {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid color-mix(in srgb, var(--game-primary, #cdf564) 28%, rgba(255,255,255,.12));
+    border-radius: 10px;
+    background: rgba(255,255,255,.06);
+    color: #fff;
+  }
+
+  body[data-page="game"] .mobile-twitter-card a { grid-area: open; }
+  body[data-page="game"] .mobile-twitter-card button { grid-area: copy; }
+  body[data-page="game"] .mobile-twitter-card a.is-disabled,
+  body[data-page="game"] .mobile-twitter-card button:disabled { opacity: .35; pointer-events: none; }
+
+  body[data-page="game"] .mobile-links-drawer {
+    position: fixed;
+    right: 10px;
+    bottom: calc(64px + 94px + env(safe-area-inset-bottom, 0px) + 8px);
+    z-index: 4045;
+    width: min(330px, calc(100vw - 20px));
+    pointer-events: auto;
+  }
+
+  body[data-page="game"] .mobile-links-drawer summary {
+    display: grid;
+    place-items: center;
+    height: 42px;
+    padding: 0 16px;
+    border: 1px solid color-mix(in srgb, var(--game-primary, #cdf564) 40%, rgba(255,255,255,.14));
+    border-radius: 14px;
+    background: rgba(0, 13, 18, .88);
+    color: var(--game-primary, #cdf564);
+    font-weight: 1000;
+    list-style: none;
+    cursor: pointer;
+  }
+
+  body[data-page="game"] .mobile-links-drawer summary::-webkit-details-marker { display: none; }
+
+  body[data-page="game"] .mobile-links-drawer-panel {
+    margin-top: 8px;
+    padding: 8px;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 16px;
+    background: rgba(0, 12, 18, .94);
+    max-height: 44dvh;
+    overflow: auto;
+    box-shadow: 0 18px 38px rgba(0,0,0,.45);
+  }
+
+  body[data-page="game"] .mobile-character-strip {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+    z-index: 4040;
+    display: flex;
+    gap: 8px;
+    height: 94px;
+    padding: 8px 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    background: linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.76));
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body[data-page="game"] .mobile-character-strip::-webkit-scrollbar { display: none; }
+
+  body[data-page="game"] .mobile-character-strip-item {
+    position: relative;
+    flex: 0 0 70px;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) 18px;
+    width: 70px;
+    height: 78px;
+    padding: 4px;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 12px;
+    background: rgba(0, 15, 20, .82);
+    color: #fff;
+    overflow: hidden;
+  }
+
+  body[data-page="game"] .mobile-character-strip-item.is-selected {
+    border-color: var(--game-primary, #cdf564);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--game-primary, #cdf564) 54%, transparent), 0 0 16px color-mix(in srgb, var(--game-primary, #cdf564) 22%, transparent);
+  }
+
+  body[data-page="game"] .mobile-character-strip-art,
+  body[data-page="game"] .mobile-character-strip-fallback {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 8px;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .mobile-character-strip-art,
+  body[data-page="game"][data-game="avatar-legends"] .mobile-character-strip-art,
+  body[data-page="game"][data-game="vf-crossroads"] .mobile-character-strip-art {
+    object-fit: contain;
+    object-position: center bottom;
+    background: rgba(0,0,0,.28);
+  }
+
+  body[data-page="game"] .mobile-character-strip-item > span:last-child {
+    display: block;
+    min-width: 0;
+    color: #fff;
+    font-weight: 1000;
+    font-size: 9px;
+    line-height: 18px;
+    letter-spacing: -.04em;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 1px 0 #000, 0 0 5px #000;
+  }
+
+  body[data-page="game"] .mobile-bottom-dock,
+  body[data-page="detail"] .detail-game-header {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: env(safe-area-inset-bottom, 0px) !important;
+    top: auto !important;
+    z-index: 4050 !important;
+    display: grid !important;
+    grid-template-columns: 58px minmax(0, 1fr) 74px !important;
+    gap: 8px !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 64px !important;
+    min-height: 64px !important;
+    max-height: 64px !important;
+    padding: 7px 10px !important;
+    border-radius: 0 !important;
+    background: rgba(0, 12, 17, .92) !important;
+    border-top: 1px solid color-mix(in srgb, var(--game-primary, var(--tl-2xko-real-green, #cdf564)) 32%, rgba(255,255,255,.16)) !important;
+    backdrop-filter: blur(16px) saturate(1.15) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(1.15) !important;
+  }
+
+  body[data-page="game"] .mobile-bottom-dock .rail-techlab-logo,
+  body[data-page="game"] .mobile-bottom-dock .rail-game-switcher summary,
+  body[data-page="game"] .mobile-bottom-dock .rail-login-button,
+  body[data-page="detail"] .detail-game-header .rail-techlab-logo,
+  body[data-page="detail"] .detail-game-header .detail-game-back,
+  body[data-page="detail"] .detail-game-header .rail-login-button {
+    height: 50px !important;
+    min-height: 50px !important;
+    max-height: 50px !important;
+    border-radius: 12px !important;
+  }
+
+  body[data-page="game"] .mobile-bottom-dock .rail-game-menu,
+  body[data-page="detail"] .detail-game-header .rail-game-menu {
+    bottom: calc(100% + 8px) !important;
+    top: auto !important;
+    max-height: 55dvh !important;
+    overflow: auto !important;
+  }
+
+  body[data-page="detail"] .detail-page,
+  body[data-page="detail"] .detail-page-reworked,
+  body[data-page="detail"] .detail-lab-grid {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  body[data-page="detail"] .detail-lab-grid {
+    display: block !important;
+  }
+
+  body[data-page="detail"] .detail-character-column,
+  body[data-page="detail"] .personal-combos-panel,
+  body[data-page="detail"] .personal-links-panel {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: calc(100dvh - 116px - env(safe-area-inset-bottom, 0px)) !important;
+    max-height: calc(100dvh - 116px - env(safe-area-inset-bottom, 0px)) !important;
+    padding: 10px !important;
+    overflow: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  body[data-page="detail"] .detail-character-column {
+    display: block !important;
+    padding-bottom: 126px !important;
+  }
+
+  body[data-page="detail"] .personal-combos-panel,
+  body[data-page="detail"] .personal-links-panel {
+    padding-bottom: 126px !important;
+  }
+
+  body[data-page="detail"] .personal-combos-panel,
+  body[data-page="detail"] .personal-links-panel,
+  body[data-page="detail"] .detail-character-column .personal-combos-panel,
+  body[data-page="detail"] .detail-character-column .personal-links-panel {
+    display: none !important;
+  }
+
+  body[data-page="detail"][data-mobile-detail-tab="combos"] .personal-combos-panel,
+  body[data-page="detail"][data-mobile-detail-tab="links"] .personal-links-panel {
+    display: block !important;
+  }
+
+  body[data-page="detail"][data-mobile-detail-tab="combos"] .detail-character-column .detail-roster-card,
+  body[data-page="detail"][data-mobile-detail-tab="combos"] .detail-character-column .personal-notes-panel,
+  body[data-page="detail"][data-mobile-detail-tab="links"] .detail-character-column .detail-roster-card,
+  body[data-page="detail"][data-mobile-detail-tab="links"] .detail-character-column .personal-notes-panel {
+    display: none !important;
+  }
+
+  body[data-page="detail"] .detail-character-column .detail-roster-card {
+    width: min(92vw, 360px) !important;
+    max-width: min(92vw, 360px) !important;
+    margin: 0 auto 12px !important;
+  }
+
+  body[data-page="detail"] .detail-character-column .personal-notes-panel {
+    width: min(92vw, 520px) !important;
+    max-width: min(92vw, 520px) !important;
+    margin: 0 auto !important;
+  }
+
+  body[data-page="detail"] .personal-combos-panel,
+  body[data-page="detail"] .personal-links-panel {
+    background: transparent !important;
+  }
+
+  body[data-page="detail"] .mobile-detail-tabs {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+    z-index: 4055;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    height: 52px;
+    padding: 7px 10px;
+    background: rgba(0, 12, 17, .90);
+    border-top: 1px solid rgba(255,255,255,.09);
+    backdrop-filter: blur(14px) saturate(1.12);
+    -webkit-backdrop-filter: blur(14px) saturate(1.12);
+  }
+
+  body[data-page="detail"] .mobile-detail-tab {
+    display: grid;
+    place-items: center;
+    border: 1px solid color-mix(in srgb, var(--tl-2xko-real-green, var(--game-primary, #cdf564)) 24%, rgba(255,255,255,.14));
+    border-radius: 12px;
+    background: rgba(255,255,255,.055);
+    color: rgba(255,255,255,.78);
+    font-weight: 1000;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  body[data-page="detail"] .mobile-detail-tab.is-active {
+    background: var(--tl-2xko-real-green, var(--game-primary, #cdf564));
+    border-color: var(--tl-2xko-real-green, var(--game-primary, #cdf564));
+    color: #061013;
+  }
+}
+
+/* TechLab v1.0.73 — mobile responsive correction pass.
+   La version mobile utilise une couche dédiée opaque et masque totalement le layout desktop. */
+@media (max-width: 760px) {
+  html,
+  body,
+  .shell,
+  #app,
+  body[data-page="game"] .app,
+  body[data-page="detail"] .app {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
+  }
+
+  body[data-page="game"] .app > .game-workspace,
+  body[data-page="game"] .app .game-workspace,
+  body[data-page="game"] .game-page-layout,
+  body[data-page="game"] .game-workspace-stage-picker,
+  body[data-page="game"] .game-workspace-2xko-test,
+  body[data-page="game"] .game-page-cast,
+  body[data-page="game"] .character-rail,
+  body[data-page="game"] .info-column,
+  body[data-page="game"] .x2ko-stage,
+  body[data-page="game"] .selection-builder,
+  body[data-page="game"] .resource-panel {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    position: absolute !important;
+    inset: auto !important;
+    width: 0 !important;
+    height: 0 !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    max-width: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  body[data-page="game"] .mobile-game-layer {
+    --mobile-dock-h: 64px;
+    --mobile-roster-h: 96px;
+    --mobile-twitter-h: 86px;
+    --mobile-links-button-h: 44px;
+    isolation: isolate;
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 4000 !important;
+    display: block !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    overflow: hidden !important;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.34)),
+      radial-gradient(circle at 50% 20%, color-mix(in srgb, var(--game-primary, #cdf564) 12%, transparent), transparent 42%),
+      var(--mobile-page-bg, var(--game-mobile-bg, none)) center / cover no-repeat,
+      #061014 !important;
+  }
+
+  body[data-page="game"] .mobile-game-main {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: calc(var(--mobile-dock-h) + var(--mobile-roster-h) + var(--mobile-twitter-h) + env(safe-area-inset-bottom, 0px)) !important;
+    padding: 10px 10px 8px !important;
+    overflow: hidden !important;
+  }
+
+  body[data-page="game"] .mobile-game-hero,
+  body[data-page="game"] .mobile-game-hero-empty,
+  body[data-page="game"] .mobile-game-hero-link {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+  }
+
+  body[data-page="game"] .mobile-game-hero-empty,
+  body[data-page="game"] .mobile-game-hero-link {
+    border-radius: 18px !important;
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--game-primary, #cdf564) 12%, transparent), rgba(0,0,0,.40)),
+      rgba(0, 13, 17, .72) !important;
+    backdrop-filter: blur(10px) saturate(1.1) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(1.1) !important;
+  }
+
+  body[data-page="game"] .mobile-game-hero-hud {
+    min-height: 50px !important;
+  }
+
+  body[data-page="game"] .mobile-game-hero-art-wrap {
+    min-height: 0 !important;
+    padding: 6px 8px !important;
+  }
+
+  body[data-page="game"] .mobile-game-hero-art {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: none !important;
+    object-fit: contain !important;
+    object-position: center bottom !important;
+  }
+
+  body[data-page="game"] .mobile-game-hero-tag {
+    margin: 0 12px 10px !important;
+  }
+
+  body[data-page="game"] .mobile-twitter-strip {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: calc(var(--mobile-dock-h) + var(--mobile-roster-h) + env(safe-area-inset-bottom, 0px)) !important;
+    z-index: 4042 !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    height: var(--mobile-twitter-h) !important;
+    padding: 8px 10px !important;
+    background: linear-gradient(180deg, rgba(0,0,0,.04), rgba(0,0,0,.70)) !important;
+    backdrop-filter: blur(12px) saturate(1.08) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(1.08) !important;
+  }
+
+  body[data-page="game"] .mobile-twitter-card {
+    min-width: 0 !important;
+    min-height: 0 !important;
+    height: 70px !important;
+  }
+
+  body[data-page="game"] .mobile-twitter-card code {
+    height: 30px !important;
+    min-width: 0 !important;
+  }
+
+  body[data-page="game"] .mobile-links-drawer {
+    position: fixed !important;
+    right: 10px !important;
+    bottom: calc(var(--mobile-dock-h) + var(--mobile-roster-h) + var(--mobile-twitter-h) + env(safe-area-inset-bottom, 0px) + 8px) !important;
+    z-index: 4060 !important;
+    width: min(260px, calc(100vw - 20px)) !important;
+  }
+
+  body[data-page="game"] .mobile-links-drawer-panel {
+    max-height: 42dvh !important;
+  }
+
+  body[data-page="game"] .mobile-character-strip {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: calc(var(--mobile-dock-h) + env(safe-area-inset-bottom, 0px)) !important;
+    z-index: 4044 !important;
+    display: flex !important;
+    height: var(--mobile-roster-h) !important;
+    padding: 8px 10px !important;
+    gap: 8px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    background: linear-gradient(180deg, rgba(0,0,0,.06), rgba(0,0,0,.80)) !important;
+  }
+
+  body[data-page="game"] .mobile-character-strip-item {
+    flex: 0 0 72px !important;
+    width: 72px !important;
+    height: 80px !important;
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+  }
+
+  body[data-page="game"] .mobile-character-strip-art {
+    pointer-events: none !important;
+  }
+
+  body[data-page="game"][data-game="marvel-tokon"] .mobile-character-strip-item,
+  body[data-page="game"][data-game="avatar-legends"] .mobile-character-strip-item,
+  body[data-page="game"][data-game="vf-crossroads"] .mobile-character-strip-item {
+    flex-basis: 78px !important;
+    width: 78px !important;
+  }
+
+  body[data-page="game"] .mobile-bottom-dock {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: env(safe-area-inset-bottom, 0px) !important;
+    top: auto !important;
+    z-index: 4070 !important;
+    display: grid !important;
+  }
+
+  body[data-page="detail"] .detail-page,
+  body[data-page="detail"] .detail-page-reworked,
+  body[data-page="detail"] .detail-page-personal,
+  body[data-page="detail"] .detail-lab-grid {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    max-height: 100dvh !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  html body[data-page="detail"] .detail-page .detail-character-column,
+  html body[data-page="detail"] .detail-page-reworked .detail-character-column,
+  html body[data-page="detail"][data-game] .detail-character-column,
+  html body[data-page="detail"] .personal-combos-panel,
+  html body[data-page="detail"] .personal-links-panel {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: calc(116px + env(safe-area-inset-bottom, 0px)) !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    padding: 10px !important;
+    overflow: auto !important;
+    transform: none !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  html body[data-page="detail"] .detail-game-header,
+  html body[data-page="detail"][data-game] .detail-game-header {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: env(safe-area-inset-bottom, 0px) !important;
+    top: auto !important;
+    z-index: 4070 !important;
+    display: grid !important;
+    grid-template-columns: 58px minmax(0, 1fr) 74px !important;
+    gap: 8px !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 64px !important;
+    min-height: 64px !important;
+    max-height: 64px !important;
+    padding: 7px 10px !important;
+    margin: 0 !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    border-radius: 0 !important;
+    background: rgba(0, 12, 17, .92) !important;
+    border-top: 1px solid color-mix(in srgb, var(--game-primary, #cdf564) 32%, rgba(255,255,255,.16)) !important;
+    backdrop-filter: blur(16px) saturate(1.15) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(1.15) !important;
+  }
+
+  html body[data-page="detail"] .mobile-detail-tabs {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+    z-index: 4075 !important;
+    display: grid !important;
+  }
+
+  body[data-page="detail"] .detail-character-column .detail-roster-card {
+    width: min(92vw, 360px) !important;
+    max-width: min(92vw, 360px) !important;
+    margin: 0 auto 12px !important;
+  }
+
+  body[data-page="detail"] .detail-character-column .personal-notes-panel {
+    width: min(92vw, 520px) !important;
+    max-width: min(92vw, 520px) !important;
+    margin: 0 auto !important;
+  }
+}
+
+/* TechLab v1.0.74 — correction responsive mobile après vidéo.
+   Objectif : vraie séparation mobile desktop, dock bas présent aussi sur les fiches,
+   onglets de fiche qui occupent correctement tout l'écran sans garder les colonnes desktop. */
+.mobile-detail-dock {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  body[data-page="detail"] .detail-character-column > .detail-game-header:not(.mobile-detail-dock) {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    position: absolute !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  body[data-page="detail"] .mobile-detail-dock {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: env(safe-area-inset-bottom, 0px) !important;
+    top: auto !important;
+    z-index: 4090 !important;
+    display: grid !important;
+    grid-template-columns: 58px minmax(0, 1fr) 74px !important;
+    gap: 8px !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 64px !important;
+    min-height: 64px !important;
+    max-height: 64px !important;
+    padding: 7px 10px !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    background: rgba(0, 12, 17, .94) !important;
+    border-top: 1px solid color-mix(in srgb, var(--game-primary, var(--tl-2xko-real-green, #cdf564)) 32%, rgba(255,255,255,.16)) !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-bottom: 0 !important;
+    box-shadow: 0 -14px 30px rgba(0,0,0,.38) !important;
+    backdrop-filter: blur(16px) saturate(1.15) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(1.15) !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  body[data-page="detail"] .mobile-detail-dock .rail-techlab-logo,
+  body[data-page="detail"] .mobile-detail-dock .rail-game-switcher summary,
+  body[data-page="detail"] .mobile-detail-dock .rail-login-button,
+  body[data-page="detail"] .mobile-detail-dock .auth-button {
+    width: 100% !important;
+    height: 50px !important;
+    min-height: 50px !important;
+    max-height: 50px !important;
+    margin: 0 !important;
+    border-radius: 10px !important;
+  }
+
+  body[data-page="detail"] .mobile-detail-dock .rail-game-menu {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: calc(100% + 8px) !important;
+    top: auto !important;
+    z-index: 4100 !important;
+  }
+
+  body[data-page="detail"] .mobile-detail-tabs {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+    z-index: 4085 !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+    height: 52px !important;
+    padding: 7px 10px !important;
+    background: rgba(0, 12, 17, .92) !important;
+    border-top: 1px solid rgba(255,255,255,.09) !important;
+    backdrop-filter: blur(14px) saturate(1.12) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(1.12) !important;
+  }
+
+  body[data-page="detail"] .detail-lab-grid,
+  body[data-page="detail"] .detail-page,
+  body[data-page="detail"] .detail-page-reworked,
+  body[data-page="detail"] .detail-page-personal {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    min-height: 100dvh !important;
+    display: block !important;
+    overflow: hidden !important;
+  }
+
+  body[data-page="detail"] .detail-character-column,
+  body[data-page="detail"] .personal-combos-panel,
+  body[data-page="detail"] .personal-links-panel {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: calc(116px + env(safe-area-inset-bottom, 0px)) !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 10px !important;
+    transform: none !important;
+    translate: none !important;
+    grid-area: auto !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  body[data-page="detail"] .detail-character-column,
+  body[data-page="detail"] .personal-combos-panel,
+  body[data-page="detail"] .personal-links-panel {
+    display: none !important;
+  }
+
+  body[data-page="detail"][data-mobile-detail-tab="notes"] .detail-character-column {
+    display: block !important;
+  }
+
+  body[data-page="detail"][data-mobile-detail-tab="combos"] .personal-combos-panel {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  body[data-page="detail"][data-mobile-detail-tab="links"] .personal-links-panel {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  body[data-page="detail"] .personal-combos-panel,
+  body[data-page="detail"] .personal-links-panel {
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  body[data-page="detail"] .personal-combos-panel .personal-panel-header,
+  body[data-page="detail"] .personal-links-panel .personal-panel-header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 4 !important;
+    margin: 0 0 8px !important;
+  }
+
+  body[data-page="detail"] .detail-character-column .detail-roster-card {
+    width: min(92vw, 360px) !important;
+    max-width: min(92vw, 360px) !important;
+    margin: 0 auto 12px !important;
+  }
+
+  body[data-page="detail"] .detail-character-column .personal-notes-panel {
+    width: min(92vw, 520px) !important;
+    max-width: min(92vw, 520px) !important;
+    margin: 0 auto !important;
+  }
+
+  body[data-page="game"] .mobile-game-layer {
+    --mobile-dock-h: 66px;
+    --mobile-roster-h: 102px;
+    --mobile-twitter-h: 82px;
+  }
+
+  body[data-page="game"] .mobile-bottom-dock {
+    height: var(--mobile-dock-h) !important;
+    min-height: var(--mobile-dock-h) !important;
+    max-height: var(--mobile-dock-h) !important;
+    padding: 7px 10px !important;
+  }
+
+  body[data-page="game"] .mobile-character-strip {
+    height: var(--mobile-roster-h) !important;
+    bottom: calc(var(--mobile-dock-h) + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  body[data-page="game"] .mobile-twitter-strip {
+    height: var(--mobile-twitter-h) !important;
+    bottom: calc(var(--mobile-dock-h) + var(--mobile-roster-h) + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  body[data-page="game"] .mobile-game-main {
+    bottom: calc(var(--mobile-dock-h) + var(--mobile-roster-h) + var(--mobile-twitter-h) + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  body[data-page="game"] .mobile-links-drawer {
+    bottom: calc(var(--mobile-dock-h) + var(--mobile-roster-h) + var(--mobile-twitter-h) + env(safe-area-inset-bottom, 0px) + 8px) !important;
+  }
+}
+
+/* TechLab v1.0.75 — mobile responsive correction réelle après vidéo.
+   Cette couche finale reprend la main sur les anciennes règles mobiles pour éviter les
+   panneaux hors écran, les docks absents et les superpositions Liens/Twitter/personnages. */
+@media (max-width: 760px) {
+  html,
+  body {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100dvh !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    overscroll-behavior: none !important;
+    background: #050b0f !important;
+  }
+
+  body[data-page="game"] .app,
+  body[data-page="detail"] .app {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    max-height: 100dvh !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* PAGE JEU MOBILE ------------------------------------------------------ */
+  body[data-page="game"] .game-workspace,
+  body[data-page="game"] .game-workspace-stage-picker,
+  body[data-page="game"] .game-workspace-2xko-test,
+  body[data-page="game"] .game-page-layout,
+  body[data-page="game"] .game-header,
+  body[data-page="game"] .stage-character-rail,
+  body[data-page="game"] .game-info-panel,
+  body[data-page="game"] .cast-panel {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  body[data-page="game"] .mobile-game-layer {
+    --mobile-dock-h: 64px;
+    --mobile-roster-h: 92px;
+    --mobile-twitter-h: 76px;
+    --mobile-links-h: 42px;
+    --mobile-gap: 6px;
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 5000 !important;
+    display: block !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    overflow: hidden !important;
+    color: #fff !important;
+    isolation: isolate !important;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.16), rgba(0,0,0,.42)),
+      radial-gradient(circle at 50% 16%, color-mix(in srgb, var(--game-primary, #cdf564) 14%, transparent), transparent 42%),
+      var(--mobile-page-bg, var(--game-mobile-bg, none)) center / cover no-repeat,
+      #050c10 !important;
+  }
+
+  body[data-page="game"] .mobile-game-main {
+    position: absolute !important;
+    inset: 0 0 calc(var(--mobile-dock-h) + var(--mobile-roster-h) + var(--mobile-twitter-h) + var(--mobile-links-h) + env(safe-area-inset-bottom, 0px)) 0 !important;
+    padding: 10px !important;
+    overflow: hidden !important;
+  }
+
+  body[data-page="game"] .mobile-game-hero,
+  body[data-page="game"] .mobile-game-hero-empty,
+  body[data-page="game"] .mobile-game-hero-link {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+  }
+
+  body[data-page="game"] .mobile-game-hero-empty,
+  body[data-page="game"] .mobile-game-hero-link {
+    display: grid !important;
+    grid-template-rows: auto minmax(0, 1fr) !important;
+    border-radius: 18px !important;
+    border: 1px solid color-mix(in srgb, var(--game-primary, #cdf564) 38%, rgba(255,255,255,.13)) !important;
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--game-primary, #cdf564) 11%, transparent), rgba(0,0,0,.42)),
+      rgba(0, 12, 16, .74) !important;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.04), 0 16px 34px rgba(0,0,0,.38) !important;
+    overflow: hidden !important;
+    text-decoration: none !important;
+  }
+
+  body[data-page="game"] .mobile-game-hero-empty {
+    grid-template-rows: 1fr !important;
+    place-items: center !important;
+    padding: 22px !important;
+    text-align: center !important;
+  }
+
+  body[data-page="game"] .mobile-game-hero-hud {
+    min-height: 46px !important;
+    padding: 8px 12px !important;
+  }
+
+  body[data-page="game"] .mobile-game-hero-hud strong {
+    font-size: clamp(22px, 7vw, 34px) !important;
+    line-height: .95 !important;
+  }
+
+  body[data-page="game"] .mobile-game-hero-art-wrap {
+    min-height: 0 !important;
+    padding: 10px 8px 8px !important;
+    overflow: hidden !important;
+  }
+
+  body[data-page="game"] .mobile-game-hero-art {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: none !important;
+    object-fit: contain !important;
+    object-position: center bottom !important;
+    pointer-events: none !important;
+  }
+
+  body[data-page="game"] .mobile-game-hero-tag {
+    display: none !important;
+  }
+
+  body[data-page="game"] .mobile-links-drawer {
+    position: fixed !important;
+    left: 10px !important;
+    right: 10px !important;
+    bottom: calc(var(--mobile-dock-h) + var(--mobile-roster-h) + var(--mobile-twitter-h) + env(safe-area-inset-bottom, 0px) + 4px) !important;
+    z-index: 5060 !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+
+  body[data-page="game"] .mobile-links-drawer summary {
+    height: 34px !important;
+    min-height: 34px !important;
+    border-radius: 12px !important;
+    background: rgba(0, 12, 16, .90) !important;
+  }
+
+  body[data-page="game"] .mobile-links-drawer[open] summary {
+    border-bottom-left-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+  }
+
+  body[data-page="game"] .mobile-links-drawer-panel {
+    max-height: 34dvh !important;
+    margin-top: 6px !important;
+    background: rgba(0, 12, 18, .96) !important;
+  }
+
+  body[data-page="game"] .mobile-twitter-strip {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: calc(var(--mobile-dock-h) + var(--mobile-roster-h) + env(safe-area-inset-bottom, 0px)) !important;
+    z-index: 5040 !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 7px !important;
+    height: var(--mobile-twitter-h) !important;
+    padding: 7px 10px !important;
+    background: linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,.82)) !important;
+    backdrop-filter: blur(10px) saturate(1.08) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(1.08) !important;
+  }
+
+  body[data-page="game"] .mobile-twitter-card {
+    grid-template-columns: minmax(0, 1fr) 28px 28px !important;
+    grid-template-rows: 15px 28px !important;
+    gap: 4px !important;
+    height: 62px !important;
+    min-height: 0 !important;
+    padding: 6px !important;
+    border-radius: 12px !important;
+  }
+
+  body[data-page="game"] .mobile-twitter-card > span {
+    font-size: 9px !important;
+    line-height: 13px !important;
+  }
+
+  body[data-page="game"] .mobile-twitter-card code {
+    height: 28px !important;
+    padding: 6px 7px !important;
+    font-size: 10px !important;
+    line-height: 16px !important;
+  }
+
+  body[data-page="game"] .mobile-twitter-card a,
+  body[data-page="game"] .mobile-twitter-card button {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+  }
+
+  body[data-page="game"] .mobile-character-strip {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: calc(var(--mobile-dock-h) + env(safe-area-inset-bottom, 0px)) !important;
+    z-index: 5044 !important;
+    display: flex !important;
+    gap: 8px !important;
+    height: var(--mobile-roster-h) !important;
+    padding: 7px 10px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scrollbar-width: none !important;
+    background: linear-gradient(180deg, rgba(0,0,0,.06), rgba(0,0,0,.86)) !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  body[data-page="game"] .mobile-character-strip::-webkit-scrollbar { display: none !important; }
+
+  body[data-page="game"] .mobile-character-strip-item {
+    flex: 0 0 70px !important;
+    width: 70px !important;
+    height: 78px !important;
+    min-width: 70px !important;
+    min-height: 78px !important;
+    padding: 4px !important;
+    border-radius: 12px !important;
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+  }
+
+  body[data-page="game"] .mobile-character-strip-art {
+    pointer-events: none !important;
+  }
+
+  body[data-page="game"] .mobile-bottom-dock {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: env(safe-area-inset-bottom, 0px) !important;
+    top: auto !important;
+    z-index: 5070 !important;
+    display: grid !important;
+    grid-template-columns: 58px minmax(0, 1fr) 74px !important;
+    gap: 8px !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: var(--mobile-dock-h) !important;
+    min-height: var(--mobile-dock-h) !important;
+    max-height: var(--mobile-dock-h) !important;
+    padding: 7px 10px !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    border: 0 !important;
+    border-top: 1px solid color-mix(in srgb, var(--game-primary, #cdf564) 32%, rgba(255,255,255,.16)) !important;
+    background: rgba(0, 12, 17, .94) !important;
+    box-shadow: 0 -14px 30px rgba(0,0,0,.38) !important;
+    backdrop-filter: blur(16px) saturate(1.15) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(1.15) !important;
+  }
+
+  body[data-page="game"] .mobile-bottom-dock .rail-techlab-logo,
+  body[data-page="game"] .mobile-bottom-dock .rail-game-switcher summary,
+  body[data-page="game"] .mobile-bottom-dock .rail-login-button,
+  body[data-page="game"] .mobile-bottom-dock .auth-button {
+    width: 100% !important;
+    height: 50px !important;
+    min-height: 50px !important;
+    max-height: 50px !important;
+    margin: 0 !important;
+    border-radius: 10px !important;
+  }
+
+  body[data-page="game"] .mobile-bottom-dock .rail-game-menu {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: calc(100% + 8px) !important;
+    top: auto !important;
+    z-index: 5080 !important;
+  }
+
+  /* FICHE PERSONNAGE MOBILE ---------------------------------------------- */
+  body[data-page="detail"] .detail-page,
+  body[data-page="detail"] .detail-page-reworked,
+  body[data-page="detail"] .detail-page-personal,
+  body[data-page="detail"] .detail-lab-grid {
+    position: fixed !important;
+    inset: 0 !important;
+    display: block !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    min-height: 100dvh !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+  }
+
+  body[data-page="detail"] .detail-character-column > .detail-game-header:not(.mobile-detail-dock) {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  html body[data-page="detail"] .mobile-bottom-dock.mobile-detail-dock,
+  html body[data-page="detail"] .detail-page .mobile-bottom-dock.mobile-detail-dock,
+  html body[data-page="detail"] .detail-page-reworked .mobile-bottom-dock.mobile-detail-dock {
+    --mobile-dock-h: 64px;
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: env(safe-area-inset-bottom, 0px) !important;
+    top: auto !important;
+    z-index: 6070 !important;
+    display: grid !important;
+    grid-template-columns: 58px minmax(0, 1fr) 74px !important;
+    gap: 8px !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: var(--mobile-dock-h) !important;
+    min-height: var(--mobile-dock-h) !important;
+    max-height: var(--mobile-dock-h) !important;
+    padding: 7px 10px !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    border-top: 1px solid color-mix(in srgb, var(--game-primary, #cdf564) 32%, rgba(255,255,255,.16)) !important;
+    background: rgba(0, 12, 17, .94) !important;
+    box-shadow: 0 -14px 30px rgba(0,0,0,.38) !important;
+    backdrop-filter: blur(16px) saturate(1.15) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(1.15) !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  html body[data-page="detail"] .mobile-detail-dock .rail-techlab-logo,
+  html body[data-page="detail"] .mobile-detail-dock .rail-game-switcher summary,
+  html body[data-page="detail"] .mobile-detail-dock .rail-login-button,
+  html body[data-page="detail"] .mobile-detail-dock .auth-button {
+    width: 100% !important;
+    height: 50px !important;
+    min-height: 50px !important;
+    max-height: 50px !important;
+    margin: 0 !important;
+    border-radius: 10px !important;
+  }
+
+  html body[data-page="detail"] .mobile-detail-dock .rail-game-menu {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: calc(100% + 8px) !important;
+    top: auto !important;
+    z-index: 6080 !important;
+  }
+
+  html body[data-page="detail"] .mobile-detail-tabs,
+  html body[data-page="detail"] .detail-page > .mobile-detail-tabs,
+  html body[data-page="detail"] .detail-page-reworked > .mobile-detail-tabs {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+    z-index: 6060 !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    width: 100vw !important;
+    height: 52px !important;
+    min-height: 52px !important;
+    max-height: 52px !important;
+    padding: 7px 10px !important;
+    margin: 0 !important;
+    background: rgba(0, 12, 17, .92) !important;
+    border-top: 1px solid rgba(255,255,255,.09) !important;
+    backdrop-filter: blur(14px) saturate(1.12) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(1.12) !important;
+  }
+
+  html body[data-page="detail"] .mobile-detail-tab {
+    height: 38px !important;
+    min-height: 38px !important;
+    border-radius: 10px !important;
+  }
+
+  html body[data-page="detail"] .detail-page .detail-lab-grid > .detail-character-column,
+  html body[data-page="detail"] .detail-page .detail-lab-grid > .personal-combos-panel,
+  html body[data-page="detail"] .detail-page .detail-lab-grid > .personal-links-panel,
+  html body[data-page="detail"] .detail-page-reworked .detail-lab-grid > .detail-character-column,
+  html body[data-page="detail"] .detail-page-reworked .detail-lab-grid > .personal-combos-panel,
+  html body[data-page="detail"] .detail-page-reworked .detail-lab-grid > .personal-links-panel {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: auto !important;
+    bottom: calc(116px + env(safe-area-inset-bottom, 0px)) !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 10px !important;
+    translate: none !important;
+    transform: none !important;
+    grid-area: auto !important;
+    grid-column: auto !important;
+    grid-row: auto !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  html body[data-page="detail"] .detail-page .detail-lab-grid > .detail-character-column,
+  html body[data-page="detail"] .detail-page .detail-lab-grid > .personal-combos-panel,
+  html body[data-page="detail"] .detail-page .detail-lab-grid > .personal-links-panel,
+  html body[data-page="detail"] .detail-page-reworked .detail-lab-grid > .detail-character-column,
+  html body[data-page="detail"] .detail-page-reworked .detail-lab-grid > .personal-combos-panel,
+  html body[data-page="detail"] .detail-page-reworked .detail-lab-grid > .personal-links-panel {
+    display: none !important;
+  }
+
+  html body[data-page="detail"][data-mobile-detail-tab="notes"] .detail-page .detail-lab-grid > .detail-character-column,
+  html body[data-page="detail"][data-mobile-detail-tab="notes"] .detail-page-reworked .detail-lab-grid > .detail-character-column {
+    display: block !important;
+  }
+
+  html body[data-page="detail"][data-mobile-detail-tab="combos"] .detail-page .detail-lab-grid > .personal-combos-panel,
+  html body[data-page="detail"][data-mobile-detail-tab="combos"] .detail-page-reworked .detail-lab-grid > .personal-combos-panel {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    background: rgba(0, 12, 16, .42) !important;
+  }
+
+  html body[data-page="detail"][data-mobile-detail-tab="links"] .detail-page .detail-lab-grid > .personal-links-panel,
+  html body[data-page="detail"][data-mobile-detail-tab="links"] .detail-page-reworked .detail-lab-grid > .personal-links-panel {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    background: rgba(0, 12, 16, .42) !important;
+  }
+
+  html body[data-page="detail"] .personal-combos-panel::before,
+  html body[data-page="detail"] .personal-combos-panel::after,
+  html body[data-page="detail"] .personal-links-panel::before,
+  html body[data-page="detail"] .personal-links-panel::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  html body[data-page="detail"] .personal-combos-panel > .personal-panel-header,
+  html body[data-page="detail"] .personal-links-panel > .personal-panel-header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 10 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 0 8px !important;
+    transform: none !important;
+  }
+
+  html body[data-page="detail"] .personal-combos-panel .combo-filter-bar,
+  html body[data-page="detail"] .personal-combos-panel .combo-builder-shell,
+  html body[data-page="detail"] .personal-combos-panel .saved-combos-list,
+  html body[data-page="detail"] .personal-links-panel .personal-link-form,
+  html body[data-page="detail"] .personal-links-panel .personal-links-list {
+    width: 100% !important;
+    max-width: 100% !important;
+    transform: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  html body[data-page="detail"] .detail-character-column .detail-roster-card {
+    width: min(92vw, 360px) !important;
+    max-width: min(92vw, 360px) !important;
+    margin: 0 auto 12px !important;
+    transform: none !important;
+  }
+
+  html body[data-page="detail"] .detail-character-column .personal-notes-panel {
+    width: min(92vw, 520px) !important;
+    max-width: min(92vw, 520px) !important;
+    margin: 0 auto !important;
+    transform: none !important;
+  }
+}
+
+/* TechLab v1.0.76 — responsive mobile pass après vidéo.
+   Objectif : rendre les onglets de fiche vraiment visibles et stabiliser la pile mobile
+   sans toucher au rendu desktop. */
+.mobile-detail-bottom-stack {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  body[data-page="detail"] .mobile-detail-bottom-stack {
+    --mobile-detail-tabs-h: 52px;
+    --mobile-detail-dock-h: 64px;
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: env(safe-area-inset-bottom, 0px) !important;
+    z-index: 7000 !important;
+    display: grid !important;
+    grid-template-rows: var(--mobile-detail-tabs-h) var(--mobile-detail-dock-h) !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: calc(var(--mobile-detail-tabs-h) + var(--mobile-detail-dock-h)) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    pointer-events: auto !important;
+    transform: none !important;
+    isolation: isolate !important;
+  }
+
+  body[data-page="detail"] .mobile-detail-bottom-stack .mobile-detail-tabs {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    z-index: 2 !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: var(--mobile-detail-tabs-h) !important;
+    min-height: var(--mobile-detail-tabs-h) !important;
+    max-height: var(--mobile-detail-tabs-h) !important;
+    padding: 7px 10px !important;
+    margin: 0 !important;
+    background: rgba(0, 12, 17, .93) !important;
+    border-top: 1px solid rgba(255, 255, 255, .10) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, .38) !important;
+    backdrop-filter: blur(14px) saturate(1.12) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(1.12) !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  body[data-page="detail"] .mobile-detail-bottom-stack .mobile-detail-tab {
+    display: grid !important;
+    place-items: center !important;
+    width: 100% !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    padding: 0 8px !important;
+    border-radius: 10px !important;
+    border: 1px solid color-mix(in srgb, var(--game-primary, #cdf564) 28%, rgba(255,255,255,.14)) !important;
+    background: rgba(255,255,255,.055) !important;
+    color: rgba(255,255,255,.82) !important;
+    font-size: 12px !important;
+    font-weight: 1000 !important;
+    line-height: 1 !important;
+    text-transform: uppercase !important;
+    letter-spacing: .02em !important;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.035) !important;
+  }
+
+  body[data-page="detail"] .mobile-detail-bottom-stack .mobile-detail-tab.is-active {
+    background: var(--game-primary, #cdf564) !important;
+    border-color: var(--game-primary, #cdf564) !important;
+    color: #061013 !important;
+    box-shadow: 0 0 18px color-mix(in srgb, var(--game-primary, #cdf564) 24%, transparent) !important;
+  }
+
+  body[data-page="detail"] .mobile-detail-bottom-stack .mobile-bottom-dock.mobile-detail-dock {
+    --mobile-dock-h: var(--mobile-detail-dock-h);
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    z-index: 1 !important;
+    display: grid !important;
+    grid-template-columns: 58px minmax(0, 1fr) 74px !important;
+    gap: 8px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: var(--mobile-detail-dock-h) !important;
+    min-height: var(--mobile-detail-dock-h) !important;
+    max-height: var(--mobile-detail-dock-h) !important;
+    padding: 7px 10px !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    border-top: 1px solid color-mix(in srgb, var(--game-primary, #cdf564) 32%, rgba(255,255,255,.16)) !important;
+    background: rgba(0, 12, 17, .96) !important;
+    box-shadow: 0 -14px 30px rgba(0,0,0,.38) !important;
+    backdrop-filter: blur(16px) saturate(1.15) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(1.15) !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  body[data-page="detail"] .mobile-detail-bottom-stack .mobile-detail-dock .rail-techlab-logo,
+  body[data-page="detail"] .mobile-detail-bottom-stack .mobile-detail-dock .rail-game-switcher summary,
+  body[data-page="detail"] .mobile-detail-bottom-stack .mobile-detail-dock .rail-login-button,
+  body[data-page="detail"] .mobile-detail-bottom-stack .mobile-detail-dock .auth-button {
+    width: 100% !important;
+    height: 50px !important;
+    min-height: 50px !important;
+    max-height: 50px !important;
+    margin: 0 !important;
+    border-radius: 10px !important;
+  }
+
+  body[data-page="detail"] .mobile-detail-bottom-stack .mobile-detail-dock .rail-game-menu {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: calc(100% + 8px) !important;
+    top: auto !important;
+    z-index: 7010 !important;
+  }
+
+  body[data-page="detail"] .detail-page .detail-lab-grid > .detail-character-column,
+  body[data-page="detail"] .detail-page .detail-lab-grid > .personal-combos-panel,
+  body[data-page="detail"] .detail-page .detail-lab-grid > .personal-links-panel,
+  body[data-page="detail"] .detail-page-reworked .detail-lab-grid > .detail-character-column,
+  body[data-page="detail"] .detail-page-reworked .detail-lab-grid > .personal-combos-panel,
+  body[data-page="detail"] .detail-page-reworked .detail-lab-grid > .personal-links-panel {
+    bottom: calc(116px + env(safe-area-inset-bottom, 0px)) !important;
+    padding: 10px !important;
+  }
+
+  body[data-page="detail"] .detail-character-column .detail-roster-card {
+    margin-bottom: 10px !important;
+  }
+
+  body[data-page="detail"] .personal-combos-panel > .personal-panel-header,
+  body[data-page="detail"] .personal-links-panel > .personal-panel-header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 5 !important;
+  }
+
+  /* Page jeu : la grande zone perso doit rester entièrement au-dessus de la pile Liens/Twitter/Cast/Dock. */
+  body[data-page="game"] .mobile-game-layer {
+    --mobile-dock-h: 64px;
+    --mobile-roster-h: 92px;
+    --mobile-twitter-h: 76px;
+    --mobile-links-h: 42px;
+  }
+
+  body[data-page="game"] .mobile-game-main {
+    inset: 0 0 calc(var(--mobile-dock-h) + var(--mobile-roster-h) + var(--mobile-twitter-h) + var(--mobile-links-h) + env(safe-area-inset-bottom, 0px)) 0 !important;
+  }
+
+  body[data-page="game"] .mobile-links-drawer {
+    bottom: calc(var(--mobile-dock-h) + var(--mobile-roster-h) + var(--mobile-twitter-h) + env(safe-area-inset-bottom, 0px) + 4px) !important;
+  }
+
+  body[data-page="game"] .mobile-twitter-strip {
+    bottom: calc(var(--mobile-dock-h) + var(--mobile-roster-h) + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  body[data-page="game"] .mobile-character-strip {
+    bottom: calc(var(--mobile-dock-h) + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  body[data-page="game"] .mobile-bottom-dock:not(.mobile-detail-dock) {
+    bottom: env(safe-area-inset-bottom, 0px) !important;
+  }
+}

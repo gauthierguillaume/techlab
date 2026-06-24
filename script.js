@@ -28,6 +28,16 @@ const X2KO_FANTASY_ART_BASE = './assets/2xko/key-art/fantasy-art';
 const X2KO_KEY_VISUAL_SLUGS = new Set(['blitzcrank', 'braum', 'darius', 'ekko', 'illaoi', 'jinx', 'teemo', 'vi', 'warwick', 'yasuo']);
 const X2KO_FANTASY_ART_SLUGS = new Set(['ahri', 'akali', 'blitzcrank', 'braum', 'caitlyn', 'darius', 'ekko', 'illaoi', 'jinx', 'senna', 'teemo', 'thresh', 'vi', 'warwick', 'yasuo']);
 
+
+function getGamePageBackgroundUrl(game) {
+  if (!game) return '';
+  if (game.id === '2xko') return './assets/2xko/key-art/backgrounds/2xko-key-art.webp';
+  if (game.id === 'marvel-tokon') return MARVEL_TOKON_BACKGROUND_URL;
+  if (game.id === 'avatar-legends') return './assets/avatar-legends/backgrounds/avatar-legends-key-art.webp';
+  if (game.id === 'vf-crossroads') return './assets/vf-crossroads/backgrounds/vf-crossroads-key-art.webp';
+  return '';
+}
+
 function get2XkoChampionSelectUrl(slug) {
   return `${X2KO_CHAMPION_SELECT_BASE}/${slug}.webp`;
 }
@@ -187,7 +197,7 @@ function playLabQuoteAudio() {
 }
 
 
-const TECHLAB_VERSION = 'v1.0.59';
+const TECHLAB_VERSION = 'v1.0.85';
 const SUPABASE_PROJECT_URL = 'https://ebqwfijathcyfudkmvdq.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_kwGiDUzAu4thk7340RDFOg_kRoXSUAt';
 const SUPABASE_PERSONAL_TABLE = 'personal_records';
@@ -849,6 +859,9 @@ const games = [
 ];
 
 const app = document.querySelector('#app');
+document.documentElement.dataset.techlabVersion = TECHLAB_VERSION;
+document.body.dataset.techlabVersion = TECHLAB_VERSION;
+console.info(`TechLab ${TECHLAB_VERSION}`);
 const gameNav = document.querySelector('#gameNav');
 const gameButtonTemplate = document.querySelector('#gameButtonTemplate');
 const championCardTemplate = document.querySelector('#championCardTemplate');
@@ -1306,6 +1319,7 @@ function updateSelectionUi(game) {
   });
 
   update2XkoTestLayout(game, selectedCharacters);
+  updateMobileGameUi(game, selectedCharacters, simpleQuery, filteredQuery);
 }
 
 function renderLogo(game, compact = false) {
@@ -1808,11 +1822,10 @@ function renderHomeAuthDock() {
 }
 
 function renderRailGameSwitcher(game) {
-  const otherGames = games.map((target) => {
-    const activeClass = target.id === game.id ? ' is-active' : '';
+  const otherGames = games.filter((target) => target.id !== game.id).map((target) => {
     const emptyClass = target.characters.length ? '' : ' is-empty';
     return `
-      <a class="rail-game-option${activeClass}${emptyClass}" data-game-switch-link href="#/${escapeHtml(target.id)}" title="${escapeHtml(target.label || target.logoText || target.name)}" aria-label="${escapeHtml(target.label || target.logoText || target.name)}" style="--button-accent:${target.navAccent || '#eaff2c'};--button-accent-2:${target.navAccent2 || target.navAccent || '#18e6ff'}">
+      <a class="rail-game-option${emptyClass}" data-game-switch-link href="#/${escapeHtml(target.id)}" title="${escapeHtml(target.label || target.logoText || target.name)}" aria-label="${escapeHtml(target.label || target.logoText || target.name)}" style="--button-accent:${target.navAccent || '#eaff2c'};--button-accent-2:${target.navAccent2 || target.navAccent || '#18e6ff'}">
         <span class="rail-game-option-logo">${renderLogo(target, true)}</span>
       </a>
     `;
@@ -2024,6 +2037,240 @@ function renderGamePageRosterArea(game, layout) {
   `;
 }
 
+
+function renderMobileGameDock(game) {
+  const otherGames = games.filter((target) => target.id !== game.id).map((target) => {
+    const emptyClass = target.characters.length ? '' : ' is-empty';
+    return `
+      <a class="rail-game-option${emptyClass}" data-game-switch-link href="#/${escapeHtml(target.id)}" title="${escapeHtml(target.label || target.logoText || target.name)}" aria-label="${escapeHtml(target.label || target.logoText || target.name)}" style="--button-accent:${target.navAccent || '#eaff2c'};--button-accent-2:${target.navAccent2 || target.navAccent || '#18e6ff'}">
+        <span class="rail-game-option-logo">${renderLogo(target, true)}</span>
+      </a>
+    `;
+  }).join('');
+
+  return `
+    <header class="rail-game-header mobile-bottom-dock" aria-label="Navigation mobile ${escapeHtml(game.name)}">
+      <a class="rail-techlab-logo" href="#/home" aria-label="Accueil TechLab" title="Accueil TechLab">
+        <img src="./assets/techlab-logo.png" alt="TechLab" loading="lazy" />
+      </a>
+      <details class="rail-game-switcher mobile-game-switcher">
+        <summary aria-label="Changer de jeu" title="Changer de jeu">
+          <span class="rail-current-game-logo">${renderLogo(game, true)}</span>
+          <span class="rail-current-game-arrow" aria-hidden="true">⌄</span>
+        </summary>
+        <nav class="rail-game-menu" aria-label="Changer de jeu">
+          ${otherGames}
+        </nav>
+      </details>
+      ${renderAuthButtonMarkup()}
+    </header>
+  `;
+}
+
+
+function renderMobileHomeDock() {
+  const gameOptions = games.map((target) => {
+    const emptyClass = target.characters.length ? '' : ' is-empty';
+    return `
+      <a class="rail-game-option${emptyClass}" data-game-switch-link href="#/${escapeHtml(target.id)}" title="${escapeHtml(target.label || target.logoText || target.name)}" aria-label="${escapeHtml(target.label || target.logoText || target.name)}" style="--button-accent:${target.navAccent || '#eaff2c'};--button-accent-2:${target.navAccent2 || target.navAccent || '#18e6ff'}">
+        <span class="rail-game-option-logo">${renderLogo(target, true)}</span>
+      </a>
+    `;
+  }).join('');
+
+  return `
+    <header class="rail-game-header mobile-bottom-dock mobile-home-dock" aria-label="Navigation mobile TechLab">
+      <a class="rail-techlab-logo" href="#/home" aria-label="Accueil TechLab" title="Accueil TechLab">
+        <img src="./assets/techlab-logo.png" alt="TechLab" loading="lazy" />
+      </a>
+      <details class="rail-game-switcher mobile-game-switcher mobile-home-game-switcher">
+        <summary aria-label="Choisir un jeu" title="Choisir un jeu">
+          <span class="rail-current-game-logo mobile-home-switcher-label">Jeux</span>
+          <span class="rail-current-game-arrow" aria-hidden="true">⌄</span>
+        </summary>
+        <nav class="rail-game-menu" aria-label="Choisir un jeu">
+          ${gameOptions}
+        </nav>
+      </details>
+      ${renderAuthButtonMarkup()}
+    </header>
+  `;
+}
+
+function renderMobileCharacterButton(game, character) {
+  const disabledAttr = character.isPlaceholder ? ' disabled aria-disabled="true"' : '';
+  const placeholderClass = character.isPlaceholder ? ' is-placeholder' : '';
+  const railArtUrl = getCharacterRailArtUrl(game, character);
+  const art = railArtUrl
+    ? `<img class="mobile-character-strip-art" src="${escapeHtml(railArtUrl)}" alt="" loading="lazy" />`
+    : `<span class="mobile-character-strip-fallback" aria-hidden="true">${escapeHtml(character.name.slice(0, 2).toUpperCase())}</span>`;
+  return `
+    <button class="mobile-character-strip-item${placeholderClass}" type="button" data-character-slug="${escapeHtml(character.slug)}" aria-pressed="false" title="${escapeHtml(character.name)}"${disabledAttr}>
+      ${art}
+      <span>${getCharacterRailNameMarkup(game, character)}</span>
+    </button>
+  `;
+}
+
+function renderMobileGameLayer(game) {
+  if (!game.characters.length) return '';
+  const characters = game.id === '2xko' ? get2XkoCharactersSorted(game) : game.characters;
+  return `
+    <section class="mobile-game-layer" aria-label="Interface mobile ${escapeHtml(game.name)}" style="--mobile-page-bg: url('${escapeHtml(getGamePageBackgroundUrl(game))}')">
+      <div class="mobile-game-main" id="mobileGameMain">
+        <div class="mobile-game-hero" id="mobileGameHero" aria-live="polite"></div>
+      </div>
+
+      <div class="mobile-twitter-strip" aria-label="Requêtes X mobiles">
+        <div class="mobile-twitter-card mobile-twitter-card-simple">
+          <span>Simple</span>
+          <code id="mobileSimpleQuery"></code>
+          <a id="mobileSimpleLink" href="#" target="_blank" rel="noreferrer noopener" aria-label="Ouvrir la recherche simple sur X">${X_ICON}</a>
+          <button id="mobileCopySimple" type="button" aria-label="Copier la recherche simple">${COPY_ICON}</button>
+        </div>
+        <div class="mobile-twitter-card mobile-twitter-card-filtered">
+          <span>Filtrée</span>
+          <code id="mobileFilteredQuery"></code>
+          <a id="mobileFilteredLink" href="#" target="_blank" rel="noreferrer noopener" aria-label="Ouvrir la recherche filtrée sur X">${X_ICON}</a>
+          <button id="mobileCopyFiltered" type="button" aria-label="Copier la recherche filtrée">${COPY_ICON}</button>
+        </div>
+      </div>
+
+      <details class="mobile-links-drawer">
+        <summary>Liens</summary>
+        <div class="mobile-links-drawer-panel">
+          ${renderQuickLinks(game)}
+        </div>
+      </details>
+
+      <nav class="mobile-character-strip" id="mobileCharacterStrip" aria-label="Personnages ${escapeHtml(game.name)}">
+        ${characters.map((character) => renderMobileCharacterButton(game, character)).join('')}
+      </nav>
+
+      ${renderMobileGameDock(game)}
+    </section>
+  `;
+}
+
+function renderMobileGameHero(game, selectedCharacters) {
+  if (!selectedCharacters.length) {
+    return `
+      <div class="mobile-game-hero-empty">
+        <strong>${escapeHtml(game.name)}</strong>
+        <span>Sélectionne un personnage dans la barre du bas.</span>
+      </div>
+    `;
+  }
+
+  const character = selectedCharacters[selectedCharacters.length - 1];
+  const health = character.health ? `<span class="mobile-game-hero-health">${escapeHtml(String(character.health))}</span>` : '';
+  const team = game.id === 'marvel-tokon' && character.team ? `<span class="mobile-game-hero-team">${escapeHtml(character.team)}</span>` : '';
+  const artUrl = get2XkoSelectedStageArtUrl(game, character) || getCharacterRailArtUrl(game, character) || character.imageUrl || '';
+  const twitterTag = getTwitterTag(game, character);
+  return `
+    <a class="mobile-game-hero-link" href="#/${escapeHtml(game.id)}/${escapeHtml(character.slug)}" aria-label="Ouvrir la fiche de ${escapeHtml(character.name)}">
+      <div class="mobile-game-hero-hud">
+        <strong>${escapeHtml(character.name)}</strong>
+        ${health || team}
+      </div>
+      <div class="mobile-game-hero-art-wrap">
+        ${artUrl ? `<img class="mobile-game-hero-art" src="${escapeHtml(artUrl)}" alt="${escapeHtml(character.name)}" loading="lazy" />` : ''}
+      </div>
+    </a>
+  `;
+}
+
+function updateMobileGameUi(game, selectedCharacters, simpleQuery, filteredQuery) {
+  const hero = app.querySelector('#mobileGameHero');
+  if (hero) hero.innerHTML = renderMobileGameHero(game, selectedCharacters);
+
+  app.querySelectorAll('.mobile-character-strip-item').forEach((button) => {
+    const isSelected = selectedCharacters.some((character) => character.slug === button.dataset.characterSlug);
+    button.classList.toggle('is-selected', isSelected);
+    button.setAttribute('aria-pressed', String(isSelected));
+  });
+
+  const mobileSimpleQuery = app.querySelector('#mobileSimpleQuery');
+  const mobileFilteredQuery = app.querySelector('#mobileFilteredQuery');
+  const mobileSimpleLink = app.querySelector('#mobileSimpleLink');
+  const mobileFilteredLink = app.querySelector('#mobileFilteredLink');
+  const mobileCopySimple = app.querySelector('#mobileCopySimple');
+  const mobileCopyFiltered = app.querySelector('#mobileCopyFiltered');
+
+  if (mobileSimpleQuery) mobileSimpleQuery.textContent = simpleQuery || '';
+  if (mobileFilteredQuery) mobileFilteredQuery.textContent = filteredQuery || '';
+  if (mobileSimpleLink) {
+    mobileSimpleLink.href = simpleQuery ? getTwitterSearchUrl(simpleQuery) : '#';
+    mobileSimpleLink.classList.toggle('is-disabled', !simpleQuery);
+  }
+  if (mobileFilteredLink) {
+    mobileFilteredLink.href = filteredQuery ? getTwitterSearchUrl(filteredQuery) : '#';
+    mobileFilteredLink.classList.toggle('is-disabled', !filteredQuery);
+  }
+  if (mobileCopySimple) mobileCopySimple.disabled = !simpleQuery;
+  if (mobileCopyFiltered) mobileCopyFiltered.disabled = !filteredQuery;
+}
+
+function bindMobileGameInteractions(game) {
+  const mobileStrip = app.querySelector('#mobileCharacterStrip');
+  if (mobileStrip) {
+    mobileStrip.addEventListener('click', (event) => {
+      const button = event.target.closest('.mobile-character-strip-item');
+      if (!button || !mobileStrip.contains(button) || button.disabled) return;
+      event.preventDefault();
+      event.stopPropagation();
+      const character = getCharacter(game, button.dataset.characterSlug);
+      if (character) toggleCharacterSelection(game, character);
+    });
+  }
+
+  [[app.querySelector('#mobileCopySimple'), 'simple'], [app.querySelector('#mobileCopyFiltered'), 'filtered']].forEach(([button, mode]) => {
+    if (!button) return;
+    button.addEventListener('click', async () => {
+      const query = getTwitterQueryForSelection(game, mode);
+      if (!query) return;
+      await navigator.clipboard.writeText(query);
+      button.classList.add('is-copied');
+      window.setTimeout(() => button.classList.remove('is-copied'), 900);
+    });
+  });
+}
+
+
+function renderMobileDetailDock(game) {
+  return renderMobileGameDock(game).replace('mobile-bottom-dock', 'mobile-bottom-dock mobile-detail-dock');
+}
+
+function renderMobileDetailTabs() {
+  return `
+    <nav class="mobile-detail-tabs" aria-label="Sections fiche personnage">
+      <button type="button" class="mobile-detail-tab is-active" data-mobile-detail-tab="notes">Notes</button>
+      <button type="button" class="mobile-detail-tab" data-mobile-detail-tab="combos">Combos</button>
+      <button type="button" class="mobile-detail-tab" data-mobile-detail-tab="links">Liens</button>
+    </nav>
+  `;
+}
+
+function bindMobileDetailTabs() {
+  const tabs = app.querySelectorAll('.mobile-detail-tab');
+  if (!tabs.length) return;
+  const setTab = (tab) => {
+    const nextTab = ['notes', 'combos', 'links'].includes(tab) ? tab : 'notes';
+    if (nextTab !== 'combos') {
+      const openBuilder = app.querySelector('#comboBuilderShell');
+      if (openBuilder) {
+        openBuilder.classList.remove('is-open');
+        openBuilder.hidden = true;
+      }
+      delete document.body.dataset.comboBuilderOpen;
+    }
+    document.body.dataset.mobileDetailTab = nextTab;
+    tabs.forEach((button) => button.classList.toggle('is-active', button.dataset.mobileDetailTab === nextTab));
+  };
+  tabs.forEach((button) => button.addEventListener('click', () => setTab(button.dataset.mobileDetailTab)));
+  setTab(document.body.dataset.mobileDetailTab || 'notes');
+}
+
 function renderGamePageShell(game) {
   const layout = getGamePageLayout(game);
   return `
@@ -2031,6 +2278,7 @@ function renderGamePageShell(game) {
     <div class="${layout.workspaceClassName}" data-game-page-layout="${layout.mode}" data-game-page-rail="${layout.railVariant}">
       ${renderGamePageRosterArea(game, layout)}
     </div>
+    ${renderMobileGameLayer(game)}
   `;
 }
 
@@ -2112,12 +2360,21 @@ function renderGamePage(game) {
   document.body.dataset.game = game.id;
   document.body.dataset.theme = game.theme || game.id;
   document.body.dataset.page = 'game';
+  delete document.body.dataset.mobileDetailTab;
+  delete document.body.dataset.comboBuilderOpen;
   delete document.body.dataset.character;
   delete document.body.dataset.actualGame;
   document.body.classList.remove('has-x2ko-fantasy-bg', 'has-modern-detail-bg', 'has-marvel-detail-bg');
   document.body.style.removeProperty('--x2ko-detail-bg');
   document.body.style.removeProperty('--modern-detail-bg');
+  document.body.style.removeProperty('--game-mobile-bg');
   applyGamePageTheme(game);
+  const gamePageBackgroundUrl = getGamePageBackgroundUrl(game);
+  if (gamePageBackgroundUrl) {
+    document.body.style.setProperty('--game-mobile-bg', `url('${gamePageBackgroundUrl}')`);
+  } else {
+    document.body.style.removeProperty('--game-mobile-bg');
+  }
 
   const layout = getGamePageLayout(game);
   app.innerHTML = renderGamePageShell(game);
@@ -2125,6 +2382,7 @@ function renderGamePage(game) {
   bindGameSwitcherLinks(game);
   bindGamePageRoster(game, layout);
   bindGamePageQueryActions(game);
+  bindMobileGameInteractions(game);
   updateSelectionUi(game);
 }
 
@@ -3457,15 +3715,26 @@ function bindPersonalLab(game, character) {
       return;
     }
     if (!comboBuilderShell) return;
+    const isMobileDetailLayout = window.matchMedia?.('(max-width: 900px)').matches || window.innerWidth <= 900;
     comboBuilderShell.hidden = false;
     comboBuilderShell.classList.add('is-open');
-    window.requestAnimationFrame(() => comboNameInput?.focus());
+    document.body.dataset.comboBuilderOpen = 'true';
+    window.requestAnimationFrame(() => {
+      comboBuilderShell.scrollTo?.(0, 0);
+      const combosPanel = app.querySelector('.personal-combos-panel');
+      if (isMobileDetailLayout) {
+        combosPanel?.scrollTo?.(0, 0);
+        return;
+      }
+      comboNameInput?.focus();
+    });
   };
 
   const closeComboBuilder = () => {
     if (!comboBuilderShell) return;
     comboBuilderShell.classList.remove('is-open');
     comboBuilderShell.hidden = true;
+    delete document.body.dataset.comboBuilderOpen;
   };
 
   const resetComboBuilder = () => {
@@ -4497,6 +4766,7 @@ function renderCharacterPage(game, character) {
   document.body.dataset.game = getDetailStyleGameId(game);
   document.body.dataset.theme = game.theme || game.id;
   document.body.dataset.page = 'detail';
+  delete document.body.dataset.comboBuilderOpen;
   document.body.dataset.character = character.slug;
 
   const modernDetailBgUrl = game.id === '2xko' && X2KO_FANTASY_ART_SLUGS.has(character.slug)
@@ -4517,6 +4787,7 @@ function renderCharacterPage(game, character) {
   }
 
   const record = getPersonalRecord(game, character);
+  document.body.dataset.mobileDetailTab = 'notes';
   const detailBackground = getModernDetailBackgroundAttributes(game, character);
   app.innerHTML = `
     <article class="detail-page detail-page-personal detail-page-reworked${isModernDetailGame(game) ? ' detail-page-modern-foundation' : ''}${detailBackground.className}"${detailBackground.style}>
@@ -4529,6 +4800,10 @@ function renderCharacterPage(game, character) {
         ${renderPersonalCombosPanel(record, game, character)}
         ${renderPersonalLinksPanel(record)}
       </section>
+      <div class="mobile-detail-bottom-stack" aria-label="Navigation fiche mobile">
+        ${renderMobileDetailTabs()}
+        ${renderMobileDetailDock(game)}
+      </div>
     </article>
   `;
 
@@ -4538,6 +4813,7 @@ function renderCharacterPage(game, character) {
   loadCharacterImage(image, fallback, character);
   if (character.health && detailHealth) loadCharacterHealth(detailHealth, character, game);
   bindPersonalLab(game, character);
+  bindMobileDetailTabs();
   hydratePersonalRecordFromCloud(game, character);
 }
 
@@ -4548,6 +4824,8 @@ function resetSelectionsOnGameSwitch(nextGameId) {
 
 function renderHomePage() {
   document.body.dataset.page = 'home';
+  delete document.body.dataset.mobileDetailTab;
+  delete document.body.dataset.comboBuilderOpen;
   document.body.dataset.theme = 'home';
   delete document.body.dataset.game;
   delete document.body.dataset.character;
@@ -4578,10 +4856,12 @@ function renderHomePage() {
         </a>
 
         <div class="home-intro-panel">
-          <p class="home-intro-title">Trouve les techs, les tags X, les ressources et bientôt tes combos sauvegardés.</p>
-          <p class="home-intro-copy">Un labo propre pour labber vite, jouer sale, et accueillir aussi ceux qui puent sous les bras après trois sets trop sérieux.</p>
+          <p class="home-intro-title">Labbe tes persos, garde tes tags X, notes et combos au même endroit.</p>
+          <p class="home-intro-copy">Le hub FGC pour retrouver tes techs vite, changer de jeu sans te perdre, et sauver ceux qui puent sous les bras après trois sets trop sérieux.</p>
         </div>
       </div>
+
+      ${renderMobileHomeDock()}
     </section>
   `;
 

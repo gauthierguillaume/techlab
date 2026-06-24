@@ -1961,42 +1961,80 @@ function update2XkoTestLayout(game, selectedCharacters) {
   selectedCharacters.forEach((character, index) => grid.appendChild(create2XkoStageCard(game, character, index, selectedCharacters.length)));
 }
 
-function renderGamePage(game) {
-  document.body.dataset.game = game.id;
-  document.body.dataset.theme = game.theme || game.id;
-  document.body.dataset.page = 'game';
-  delete document.body.dataset.character;
-  delete document.body.dataset.actualGame;
-  document.body.classList.remove('has-x2ko-fantasy-bg', 'has-modern-detail-bg', 'has-marvel-detail-bg');
-  document.body.style.removeProperty('--x2ko-detail-bg');
-  document.body.style.removeProperty('--modern-detail-bg');
 
-  const is2Xko = game.id === '2xko';
-  const usesStagePicker = STAGE_PICKER_GAME_IDS.has(game.id);
+function getGamePageThemeTokens(game) {
+  const primary = game.navAccent || '#eaff2c';
+  const secondary = game.navAccent2 || primary;
+  return {
+    primary,
+    secondary,
+    panel: 'rgba(0, 16, 20, 0.72)',
+  };
+}
 
-  app.innerHTML = usesStagePicker ? `
-    ${renderGameHeader(game)}
-    <div class="game-workspace game-workspace-2xko-test game-workspace-stage-picker">
+function applyGamePageTheme(game) {
+  const tokens = getGamePageThemeTokens(game);
+  document.body.style.setProperty('--game-page-primary', tokens.primary);
+  document.body.style.setProperty('--game-page-secondary', tokens.secondary);
+  document.body.style.setProperty('--game-page-panel', tokens.panel);
+}
+
+function resetPageTheme() {
+  document.body.style.removeProperty('--game-page-primary');
+  document.body.style.removeProperty('--game-page-secondary');
+  document.body.style.removeProperty('--game-page-panel');
+}
+
+function getGamePageLayout(game) {
+  const mode = STAGE_PICKER_GAME_IDS.has(game.id) ? 'stage-picker' : 'grid';
+  return {
+    mode,
+    usesStagePicker: mode === 'stage-picker',
+    railVariant: game.id === 'marvel-tokon' ? 'team' : 'default',
+    workspaceClassName: mode === 'stage-picker'
+      ? 'game-workspace game-workspace-2xko-test game-workspace-stage-picker game-page-layout game-page-layout-stage-picker'
+      : 'game-workspace game-page-layout game-page-layout-grid',
+    infoAriaLabel: mode === 'stage-picker' ? `Recherche ${game.name}` : `Infos et liens ${game.name}`,
+  };
+}
+
+function renderGamePageInfoColumn(game, layout) {
+  return `
+    <aside class="info-column game-page-info" aria-label="${escapeHtml(layout.infoAriaLabel)}">
+      ${renderSelectionBuilder(game)}
+      ${renderQuickLinks(game)}
+    </aside>
+  `;
+}
+
+function renderGamePageRosterArea(game, layout) {
+  if (layout.usesStagePicker) {
+    return `
       ${renderStageCharacterRail(game)}
-      <aside class="info-column" aria-label="Recherche ${game.name}">
-        ${renderSelectionBuilder(game)}
-        ${renderQuickLinks(game)}
-      </aside>
+      ${renderGamePageInfoColumn(game, layout)}
       ${render2XkoStageShell(game)}
-    </div>
-  ` : `
+    `;
+  }
+
+  return `
+    ${renderGamePageInfoColumn(game, layout)}
+    <section class="cast-panel game-page-cast" aria-label="Personnages ${escapeHtml(game.name)}">
+      <div class="champion-grid" id="championGrid"></div>
+    </section>
+  `;
+}
+
+function renderGamePageShell(game) {
+  const layout = getGamePageLayout(game);
+  return `
     ${renderGameHeader(game)}
-    <div class="game-workspace">
-      <aside class="info-column" aria-label="Infos et liens ${game.name}">
-        ${renderSelectionBuilder(game)}
-        ${renderQuickLinks(game)}
-      </aside>
-      <section class="cast-panel" aria-label="Personnages ${game.name}">
-        <div class="champion-grid" id="championGrid"></div>
-      </section>
+    <div class="${layout.workspaceClassName}" data-game-page-layout="${layout.mode}" data-game-page-rail="${layout.railVariant}">
+      ${renderGamePageRosterArea(game, layout)}
     </div>
   `;
+}
 
+function bindGameSwitcherLinks(game) {
   app.querySelectorAll('[data-game-switch-link]').forEach((link) => {
     link.addEventListener('click', () => {
       const targetGameId = getGameIdFromHashHref(link.getAttribute('href'));
@@ -2008,32 +2046,40 @@ function renderGamePage(game) {
       }
     });
   });
+}
 
+function renderEmptyGameState(game) {
+  const grid = app.querySelector('#championGrid');
+  if (!grid) return;
+  grid.innerHTML = `
+    <div class="empty-state">
+      <h2>Pas encore rempli.</h2>
+      <p>${game.description || 'On garde la place pour ce jeu, mais on se concentre d’abord sur 2XKO.'}</p>
+    </div>
+  `;
+}
+
+function bindGamePageRoster(game, layout) {
   if (!game.characters.length) {
-    const grid = app.querySelector('#championGrid');
-    if (grid) {
-      grid.innerHTML = `
-        <div class="empty-state">
-          <h2>Pas encore rempli.</h2>
-          <p>${game.description || 'On garde la place pour ce jeu, mais on se concentre d’abord sur 2XKO.'}</p>
-        </div>
-      `;
-    }
+    renderEmptyGameState(game);
     return;
   }
 
-  if (usesStagePicker) {
+  if (layout.usesStagePicker) {
     app.querySelectorAll('.character-rail-item').forEach((button) => {
       button.addEventListener('click', () => {
         const character = getCharacter(game, button.dataset.characterSlug);
         if (character) toggleCharacterSelection(game, character);
       });
     });
-  } else {
-    const grid = app.querySelector('#championGrid');
-    renderCharacterGroups(game, grid);
+    return;
   }
 
+  const grid = app.querySelector('#championGrid');
+  renderCharacterGroups(game, grid);
+}
+
+function bindGamePageQueryActions(game) {
   [[app.querySelector('#copySimple'), 'simple'], [app.querySelector('#copyFiltered'), 'filtered']].forEach(([button, mode]) => {
     if (!button) return;
     button.addEventListener('click', async () => {
@@ -2060,9 +2106,28 @@ function renderGamePage(game) {
   if (supportSelect) {
     supportSelect.addEventListener('change', () => setSelectedSupport(game, supportSelect.value));
   }
+}
 
+function renderGamePage(game) {
+  document.body.dataset.game = game.id;
+  document.body.dataset.theme = game.theme || game.id;
+  document.body.dataset.page = 'game';
+  delete document.body.dataset.character;
+  delete document.body.dataset.actualGame;
+  document.body.classList.remove('has-x2ko-fantasy-bg', 'has-modern-detail-bg', 'has-marvel-detail-bg');
+  document.body.style.removeProperty('--x2ko-detail-bg');
+  document.body.style.removeProperty('--modern-detail-bg');
+  applyGamePageTheme(game);
+
+  const layout = getGamePageLayout(game);
+  app.innerHTML = renderGamePageShell(game);
+
+  bindGameSwitcherLinks(game);
+  bindGamePageRoster(game, layout);
+  bindGamePageQueryActions(game);
   updateSelectionUi(game);
 }
+
 
 
 const PERSONAL_DATA_KEY = 'techlab-personal-lab-v1';
@@ -4490,6 +4555,7 @@ function renderHomePage() {
   document.body.classList.remove('has-x2ko-fantasy-bg', 'has-modern-detail-bg', 'has-marvel-detail-bg');
   document.body.style.removeProperty('--x2ko-detail-bg');
   document.body.style.removeProperty('--modern-detail-bg');
+  resetPageTheme();
   currentGameId = 'home';
   renderGameNav('');
 

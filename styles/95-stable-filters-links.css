@@ -874,3 +874,18 @@ html body[data-page="detail"][data-actual-game="marvel-tokon"] #personalSaveStat
     0 0 0 1px color-mix(in srgb, var(--tl-2xko-real-green) 22%, transparent),
     0 0 18px color-mix(in srgb, var(--tl-2xko-real-green) 18%, transparent) !important;
 }
+
+/* TechLab v1.0.71 — fondation commune des pages jeu.
+   Ces variables sont posées par renderGamePage() et doivent servir de point d'entrée
+   pour les futurs changements globaux du select screen / filtres / liens / cast. */
+body[data-page="game"] {
+  --game-primary: var(--game-page-primary, var(--accent, #cdf564));
+  --game-secondary: var(--game-page-secondary, var(--accent-2, #00bc9e));
+  --game-panel: var(--game-page-panel, rgba(0, 16, 20, 0.72));
+}
+
+body[data-page="game"] .game-page-layout {
+  --game-layout-primary: var(--game-primary);
+  --game-layout-secondary: var(--game-secondary);
+  --game-layout-panel: var(--game-panel);
+}

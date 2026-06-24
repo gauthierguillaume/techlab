@@ -43,9 +43,34 @@ function get2XkoFantasyArtUrl(slug) {
 function get2XkoDetailBackgroundAttributes(game, character) {
   if (game?.id !== '2xko' || !X2KO_FANTASY_ART_SLUGS.has(character.slug)) return { className: '', style: '' };
   return {
-    className: ' has-x2ko-fantasy-bg',
-    style: ` style="--x2ko-detail-bg: url('${get2XkoFantasyArtUrl(character.slug)}');"`,
+    className: ' has-x2ko-fantasy-bg has-modern-detail-bg',
+    style: ` style="--x2ko-detail-bg: url('${get2XkoFantasyArtUrl(character.slug)}'); --modern-detail-bg: url('${get2XkoFantasyArtUrl(character.slug)}');"`,
   };
+}
+
+const MODERN_DETAIL_GAME_IDS = new Set(['2xko', 'marvel-tokon']);
+
+function isModernDetailGame(game) {
+  return Boolean(game && MODERN_DETAIL_GAME_IDS.has(game.id));
+}
+
+function getDetailStyleGameId(game) {
+  // La fiche moderne utilise la même fondation CSS que 2XKO.
+  // Le jeu réel reste disponible dans data-actual-game et dans l'objet game JS.
+  return isModernDetailGame(game) ? '2xko' : game.id;
+}
+
+function getModernDetailBackgroundAttributes(game, character) {
+  if (game?.id === '2xko') return get2XkoDetailBackgroundAttributes(game, character);
+
+  if (game?.id === 'marvel-tokon') {
+    return {
+      className: ' has-x2ko-fantasy-bg has-modern-detail-bg has-marvel-detail-bg',
+      style: ` style="--x2ko-detail-bg: url('${MARVEL_TOKON_BACKGROUND_URL}'); --modern-detail-bg: url('${MARVEL_TOKON_BACKGROUND_URL}');"`,
+    };
+  }
+
+  return { className: '', style: '' };
 }
 
 function get2XkoStageArtUrls(character) {
@@ -1941,8 +1966,10 @@ function renderGamePage(game) {
   document.body.dataset.theme = game.theme || game.id;
   document.body.dataset.page = 'game';
   delete document.body.dataset.character;
-  document.body.classList.remove('has-x2ko-fantasy-bg');
+  delete document.body.dataset.actualGame;
+  document.body.classList.remove('has-x2ko-fantasy-bg', 'has-modern-detail-bg', 'has-marvel-detail-bg');
   document.body.style.removeProperty('--x2ko-detail-bg');
+  document.body.style.removeProperty('--modern-detail-bg');
 
   const is2Xko = game.id === '2xko';
   const usesStagePicker = STAGE_PICKER_GAME_IDS.has(game.id);
@@ -2893,7 +2920,7 @@ function renderComboMetaChip(value, options = {}) {
 }
 
 function renderComboBuilderForm(game, character) {
-  if (game?.id !== '2xko') return '';
+  if (!isModernDetailGame(game)) return '';
   return `
     <section class="combo-builder-shell" id="comboBuilderShell" hidden>
       <div class="combo-builder-topline">
@@ -3172,13 +3199,14 @@ function renderComboFilterBar(combos = []) {
 
 function renderPersonalCombosPanel(record, game, character) {
   const locked = !canUseCloudPersonalData();
+  const hasComboBuilder = isModernDetailGame(game);
   return `
     <section class="personal-panel personal-combos-panel${locked ? ' is-locked' : ''}">
       <div class="personal-panel-header combo-list-header">
         <span>Combos</span>
-        ${game?.id === '2xko' ? `<button class="combo-open-builder" type="button" id="comboOpenBuilder"${locked ? ' disabled aria-disabled="true" title="Connecte-toi pour ajouter un combo"' : ''}>Ajouter un combo</button>` : ''}
+        ${hasComboBuilder ? `<button class="combo-open-builder" type="button" id="comboOpenBuilder"${locked ? ' disabled aria-disabled="true" title="Connecte-toi pour ajouter un combo"' : ''}>Ajouter un combo</button>` : ''}
       </div>
-      ${game?.id === '2xko' ? renderComboFilterBar(record.combos || []) : ''}
+      ${hasComboBuilder ? renderComboFilterBar(record.combos || []) : ''}
       ${renderComboBuilderForm(game, character)}
       <div class="saved-combos-list" id="savedCombosList">
         ${renderSavedCombosList(record.combos || [])}
@@ -4347,14 +4375,14 @@ function getCharacterArtStyle(character) {
 }
 
 function renderDetailRosterCard(game, character) {
-  if (game.id === '2xko') {
+  if (isModernDetailGame(game)) {
     const healthMarkup = character.health
       ? `<span class="x2ko-stage-health x2ko-detail-health" id="detailHealth" aria-label="${escapeHtml(character.name)} : ${escapeHtml(String(character.health))} PV">${escapeHtml(String(character.health))}</span>`
       : '';
     return `
-      <article class="detail-roster-card x2ko-detail-roster-card x2ko-stage-card is-left is-solo" data-game="${escapeHtml(game.id)}" data-character-slug="${escapeHtml(character.slug)}" data-size="${escapeHtml(character.size || 'medium')}" style="${getCharacterArtStyle(character)}">
+      <article class="detail-roster-card detail-roster-card-modern x2ko-detail-roster-card x2ko-stage-card is-left is-solo" data-game="${escapeHtml(game.id)}" data-character-slug="${escapeHtml(character.slug)}" data-size="${escapeHtml(character.size || 'medium')}" style="${getCharacterArtStyle(character)}">
         <div class="x2ko-stage-actions x2ko-detail-actions" aria-label="Liens ${escapeHtml(character.name)}">
-          <a class="x2ko-stage-action x2ko-stage-official-link" href="${getOfficialChampionUrl(game, character)}" target="_blank" rel="noreferrer noopener"><span class="x2ko-action-label">Officiel</span></a>
+          ${game.showOfficialLinks === false || character.officialUrl === null ? '' : `<a class="x2ko-stage-action x2ko-stage-official-link" href="${getOfficialChampionUrl(game, character)}" target="_blank" rel="noreferrer noopener"><span class="x2ko-action-label">Officiel</span></a>`}
           <a class="x2ko-stage-action x2ko-stage-wiki-link" href="${getWikiPageUrl(game, character)}" target="_blank" rel="noreferrer noopener"><span class="x2ko-action-label">Wiki</span></a>
         </div>
         <div class="x2ko-stage-main-link x2ko-detail-main-link" aria-label="Fiche ${escapeHtml(character.name)}">
@@ -4399,23 +4427,34 @@ function renderDetailRosterCard(game, character) {
 }
 
 function renderCharacterPage(game, character) {
-  document.body.dataset.game = game.id;
+  const usesModernDetail = isModernDetailGame(game);
+  document.body.dataset.actualGame = game.id;
+  document.body.dataset.game = getDetailStyleGameId(game);
   document.body.dataset.theme = game.theme || game.id;
   document.body.dataset.page = 'detail';
   document.body.dataset.character = character.slug;
 
-  const has2XkoFantasyBackground = game.id === '2xko' && X2KO_FANTASY_ART_SLUGS.has(character.slug);
-  document.body.classList.toggle('has-x2ko-fantasy-bg', has2XkoFantasyBackground);
-  if (has2XkoFantasyBackground) {
-    document.body.style.setProperty('--x2ko-detail-bg', `url('${get2XkoFantasyArtUrl(character.slug)}')`);
+  const modernDetailBgUrl = game.id === '2xko' && X2KO_FANTASY_ART_SLUGS.has(character.slug)
+    ? get2XkoFantasyArtUrl(character.slug)
+    : game.id === 'marvel-tokon'
+      ? MARVEL_TOKON_BACKGROUND_URL
+      : '';
+  const hasModernDetailBackground = usesModernDetail && Boolean(modernDetailBgUrl);
+  document.body.classList.toggle('has-x2ko-fantasy-bg', hasModernDetailBackground);
+  document.body.classList.toggle('has-modern-detail-bg', hasModernDetailBackground);
+  document.body.classList.toggle('has-marvel-detail-bg', game.id === 'marvel-tokon');
+  if (hasModernDetailBackground) {
+    document.body.style.setProperty('--x2ko-detail-bg', `url('${modernDetailBgUrl}')`);
+    document.body.style.setProperty('--modern-detail-bg', `url('${modernDetailBgUrl}')`);
   } else {
     document.body.style.removeProperty('--x2ko-detail-bg');
+    document.body.style.removeProperty('--modern-detail-bg');
   }
 
   const record = getPersonalRecord(game, character);
-  const detailBackground = get2XkoDetailBackgroundAttributes(game, character);
+  const detailBackground = getModernDetailBackgroundAttributes(game, character);
   app.innerHTML = `
-    <article class="detail-page detail-page-personal detail-page-reworked${detailBackground.className}"${detailBackground.style}>
+    <article class="detail-page detail-page-personal detail-page-reworked${isModernDetailGame(game) ? ' detail-page-modern-foundation' : ''}${detailBackground.className}"${detailBackground.style}>
       <section class="detail-lab-grid">
         <aside class="detail-character-column">
           ${renderDetailGameHeader(game)}
@@ -4447,8 +4486,10 @@ function renderHomePage() {
   document.body.dataset.theme = 'home';
   delete document.body.dataset.game;
   delete document.body.dataset.character;
-  document.body.classList.remove('has-x2ko-fantasy-bg');
+  delete document.body.dataset.actualGame;
+  document.body.classList.remove('has-x2ko-fantasy-bg', 'has-modern-detail-bg', 'has-marvel-detail-bg');
   document.body.style.removeProperty('--x2ko-detail-bg');
+  document.body.style.removeProperty('--modern-detail-bg');
   currentGameId = 'home';
   renderGameNav('');
 

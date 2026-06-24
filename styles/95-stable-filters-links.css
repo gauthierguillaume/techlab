@@ -568,3 +568,309 @@ html body[data-page="game"][data-game] .game-workspace .info-column.info-column 
     max-height: 46px !important;
   }
 }
+
+
+/* TechLab v1.0.68-refactor-clean : Marvel utilise réellement la fondation 2XKO.
+   Important : le JS garde le jeu réel dans data-actual-game="marvel-tokon", mais applique
+   data-game="2xko" uniquement sur les fiches modernes pour réutiliser la même base CSS. */
+html body[data-page="detail"][data-actual-game="marvel-tokon"] {
+  --tl-2xko-real-green: #0aaeff !important; /* primaire Marvel = bleu */
+  --tl-2xko-second-green: #ff7a00 !important; /* secondaire Marvel = orange */
+  --tl-2xko-lime: var(--tl-2xko-real-green) !important;
+  --accent: var(--tl-2xko-real-green) !important;
+  --button-accent: var(--tl-2xko-real-green) !important;
+  --button-accent-2: var(--tl-2xko-second-green) !important;
+}
+
+html body[data-page="detail"][data-actual-game="marvel-tokon"].has-x2ko-fantasy-bg,
+html body[data-page="detail"][data-actual-game="marvel-tokon"].has-x2ko-fantasy-bg .shell,
+html body[data-page="detail"][data-actual-game="marvel-tokon"].has-x2ko-fantasy-bg .app,
+html body[data-page="detail"][data-actual-game="marvel-tokon"].has-x2ko-fantasy-bg .detail-page,
+html body[data-page="detail"][data-actual-game="marvel-tokon"].has-x2ko-fantasy-bg .detail-page-reworked,
+html body[data-page="detail"][data-actual-game="marvel-tokon"].has-x2ko-fantasy-bg .detail-lab-grid {
+  background-color: transparent !important;
+}
+
+html body[data-page="detail"][data-actual-game="marvel-tokon"].has-x2ko-fantasy-bg .app {
+  background-image:
+    linear-gradient(90deg, rgba(0, 0, 0, .18) 0%, rgba(0, 0, 0, .06) 44%, rgba(0, 0, 0, .20) 100%),
+    var(--x2ko-detail-bg) !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+}
+
+html body[data-page="detail"][data-actual-game="marvel-tokon"].has-x2ko-fantasy-bg .detail-page-reworked::before {
+  background-image:
+    linear-gradient(90deg, rgba(0, 0, 0, .10) 0%, rgba(0, 0, 0, .02) 48%, rgba(0, 0, 0, .16) 100%),
+    var(--x2ko-detail-bg) !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  opacity: 1 !important;
+  filter: saturate(1.04) contrast(1.02) brightness(.98) !important;
+}
+
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .x2ko-detail-caption {
+  background: linear-gradient(180deg, #ff9828 0%, #ff7a00 56%, #d95100 100%) !important;
+}
+
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .x2ko-detail-actions .x2ko-stage-action,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .x2ko-detail-actions .x2ko-stage-wiki-link,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .x2ko-detail-actions .x2ko-stage-official-link {
+  border-color: var(--tl-2xko-real-green) !important;
+}
+
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .x2ko-detail-actions .x2ko-stage-wiki-link:hover::after,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .x2ko-detail-actions .x2ko-stage-wiki-link:focus-visible::after,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .x2ko-detail-actions .x2ko-stage-action:hover::after,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .x2ko-detail-actions .x2ko-stage-action:focus-visible::after {
+  color: var(--tl-2xko-real-green) !important;
+}
+
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-panel-header > span,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-combos-panel > .personal-panel-header.combo-list-header > span,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-links-panel > .personal-panel > .personal-panel-header > span,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-notes-panel > .personal-panel-header > span,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-notes-panel .personal-panel-header span {
+  color: var(--tl-2xko-real-green) !important;
+  -webkit-text-fill-color: var(--tl-2xko-real-green) !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,.92), 0 0 10px color-mix(in srgb, var(--tl-2xko-real-green) 34%, transparent) !important;
+}
+
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .combo-open-builder {
+  color: #130800 !important;
+  background: linear-gradient(135deg, #ffb04a 0%, var(--tl-2xko-second-green) 100%) !important;
+  border-color: #ffb04a !important;
+}
+
+html body[data-page="detail"][data-actual-game="marvel-tokon"] #personalSubmitLink,
+html body[data-page="detail"][data-actual-game="marvel-tokon"].has-x2ko-fantasy-bg #personalSubmitLink {
+  color: #03121a !important;
+  background: var(--tl-2xko-real-green) !important;
+  border-color: var(--tl-2xko-real-green) !important;
+}
+
+html body[data-page="detail"][data-actual-game="marvel-tokon"] #personalSubmitLink::before,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] #personalSubmitLink::after {
+  content: none !important;
+  display: none !important;
+}
+
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .combo-filter-bar > span,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .combo-filter-label {
+  color: var(--tl-2xko-second-green) !important;
+}
+
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .combo-filter-chip,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .combo-token-button:hover,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .combo-token-button:focus-visible {
+  border-color: var(--tl-2xko-second-green) !important;
+}
+
+/* TechLab v1.0.69-refactor-clean : correction Marvel fond + thème primaire/secondaire.
+   Base conservée : Marvel garde la fondation 2XKO, seules les variables/couleurs changent. */
+html body[data-page="detail"][data-actual-game="marvel-tokon"] {
+  --tl-2xko-real-green: #0aaeff !important; /* primaire Marvel = bleu */
+  --tl-2xko-second-green: #ff7a00 !important; /* secondaire Marvel = orange */
+  --tl-2xko-lime: var(--tl-2xko-real-green) !important;
+  --accent: var(--tl-2xko-real-green) !important;
+  --accent-2: var(--tl-2xko-second-green) !important;
+  --button-accent: var(--tl-2xko-real-green) !important;
+  --button-accent-2: var(--tl-2xko-second-green) !important;
+  --x2ko-detail-bg: url("../assets/marvel-tokon/backgrounds/marvel-tokon-key-art.webp") !important;
+  --modern-detail-bg: url("../assets/marvel-tokon/backgrounds/marvel-tokon-key-art.webp") !important;
+}
+
+/* Force le fond Marvel via le même support que 2XKO, sans dépendre du style inline JS. */
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .app,
+html body[data-page="detail"][data-actual-game="marvel-tokon"].has-x2ko-fantasy-bg .app,
+html body[data-page="detail"][data-actual-game="marvel-tokon"].has-modern-detail-bg .app {
+  background-color: #000 !important;
+  background-image: var(--x2ko-detail-bg) !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+}
+
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .detail-page,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .detail-page-reworked,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .detail-lab-grid,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .detail-character-column,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-combos-panel,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-links-panel,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-panel-body,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .combo-list,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .saved-combos-list,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-links-list {
+  background: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .detail-page::before,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .detail-page::after,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .detail-page-reworked::before,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .detail-page-reworked::after,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .detail-lab-grid::before,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .detail-lab-grid::after,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-combos-panel::before,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-combos-panel::after,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-links-panel::before,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-links-panel::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Les surfaces visibles restent celles de 2XKO : headers/cartes/champs, pas le wrapper. */
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-combos-panel > .personal-panel-header,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-links-panel > .personal-panel-header,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .combo-list-header,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .saved-combo-card,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .saved-combo-card.has-media,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .combo-builder-shell,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-link-item,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-empty-state,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-link-form,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-link-form input {
+  background: rgba(0, 8, 10, 0.58) !important;
+  background-image: none !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.24) !important;
+  backdrop-filter: blur(1px) saturate(1.05) !important;
+  -webkit-backdrop-filter: blur(1px) saturate(1.05) !important;
+}
+
+/* Thème Marvel : primaire bleu partout où 2XKO utilise son vert principal. */
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-panel-header > span,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .combo-list-header > span,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-links-panel > .personal-panel > .personal-panel-header > span,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-notes-panel .personal-panel-header span,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .personal-notes-panel > .personal-panel-header > span {
+  color: var(--tl-2xko-real-green) !important;
+  -webkit-text-fill-color: var(--tl-2xko-real-green) !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,.92), 0 0 10px color-mix(in srgb, var(--tl-2xko-real-green) 34%, transparent) !important;
+}
+
+/* Barre nom/PV Marvel : secondaire orange. */
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .x2ko-detail-caption {
+  background: linear-gradient(180deg, #ffb04a 0%, var(--tl-2xko-second-green) 58%, #d94e00 100%) !important;
+}
+
+/* Wiki / liens d'action : primaire bleu. */
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .x2ko-detail-actions .x2ko-stage-action,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .x2ko-detail-actions .x2ko-stage-wiki-link,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .x2ko-detail-actions .x2ko-stage-official-link {
+  border-color: var(--tl-2xko-real-green) !important;
+}
+
+/* Bouton Ajouter un combo : primaire bleu, comme le vert 2XKO. */
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .combo-open-builder {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #03121a !important;
+  background: var(--tl-2xko-real-green) !important;
+  border-color: var(--tl-2xko-real-green) !important;
+  text-align: center !important;
+}
+
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .combo-open-builder:hover,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .combo-open-builder:focus-visible {
+  background: color-mix(in srgb, var(--tl-2xko-real-green) 82%, #fff 18%) !important;
+  border-color: color-mix(in srgb, var(--tl-2xko-real-green) 82%, #fff 18%) !important;
+}
+
+/* Bouton + des liens : primaire bleu, + unique et centré. */
+html body[data-page="detail"][data-actual-game="marvel-tokon"] #personalSubmitLink,
+html body[data-page="detail"][data-actual-game="marvel-tokon"].has-x2ko-fantasy-bg #personalSubmitLink {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #03121a !important;
+  background: var(--tl-2xko-real-green) !important;
+  border-color: var(--tl-2xko-real-green) !important;
+  font-size: 26px !important;
+  line-height: 1 !important;
+  font-weight: 950 !important;
+  text-align: center !important;
+  text-indent: 0 !important;
+  letter-spacing: 0 !important;
+}
+
+html body[data-page="detail"][data-actual-game="marvel-tokon"] #personalSubmitLink::before,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] #personalSubmitLink::after {
+  content: none !important;
+  display: none !important;
+}
+
+html body[data-page="detail"][data-actual-game="marvel-tokon"] #personalSubmitLink:hover,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] #personalSubmitLink:focus-visible {
+  background: color-mix(in srgb, var(--tl-2xko-real-green) 82%, #fff 18%) !important;
+  border-color: color-mix(in srgb, var(--tl-2xko-real-green) 82%, #fff 18%) !important;
+}
+
+/* Filtres / éléments secondaires : orange. */
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .combo-filter-bar > span,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .combo-filter-label {
+  color: var(--tl-2xko-second-green) !important;
+}
+
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .combo-filter-chip,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .combo-token-button:hover,
+html body[data-page="detail"][data-actual-game="marvel-tokon"] .combo-token-button:focus-visible {
+  border-color: var(--tl-2xko-second-green) !important;
+}
+
+/* TechLab v1.0.70-refactor-clean : micro-correction thème Marvel.
+   Ne touche pas à la structure commune : uniquement le + des liens et le toast de sauvegarde. */
+html body[data-page="detail"][data-actual-game="marvel-tokon"] #personalSubmitLink,
+html body[data-page="detail"][data-actual-game="marvel-tokon"].has-x2ko-fantasy-bg #personalSubmitLink {
+  display: inline-grid !important;
+  place-items: center !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  font-size: 0 !important;
+  line-height: 1 !important;
+  text-indent: 0 !important;
+  letter-spacing: 0 !important;
+  overflow: hidden !important;
+}
+
+html body[data-page="detail"][data-actual-game="marvel-tokon"] #personalSubmitLink::before,
+html body[data-page="detail"][data-actual-game="marvel-tokon"].has-x2ko-fantasy-bg #personalSubmitLink::before {
+  content: "+" !important;
+  display: grid !important;
+  place-items: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  color: #03121a !important;
+  -webkit-text-fill-color: #03121a !important;
+  font-size: 26px !important;
+  font-weight: 1000 !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  transform: none !important;
+}
+
+html body[data-page="detail"][data-actual-game="marvel-tokon"] #personalSubmitLink::after,
+html body[data-page="detail"][data-actual-game="marvel-tokon"].has-x2ko-fantasy-bg #personalSubmitLink::after {
+  content: none !important;
+  display: none !important;
+}
+
+html body[data-page="detail"][data-actual-game="marvel-tokon"] #personalSaveStatus:not([hidden]) {
+  border-color: color-mix(in srgb, var(--tl-2xko-real-green) 62%, rgba(255,255,255,.18)) !important;
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.42),
+    0 0 0 1px color-mix(in srgb, var(--tl-2xko-real-green) 22%, transparent),
+    0 0 18px color-mix(in srgb, var(--tl-2xko-real-green) 18%, transparent) !important;
+}

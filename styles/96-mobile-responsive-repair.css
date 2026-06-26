@@ -7266,3 +7266,987 @@ html body[data-page="detail"] .combo-builder-shell .combo-assist-option .combo-a
     max-width: 100% !important;
   }
 }
+
+/* --- TechLab v1.0.142: combo builder section-aware responsive rows --- */
+@media (min-width: 901px) {
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-tools,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-tools {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: 14px clamp(18px, 2vw, 32px) !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-assist-picker,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-assist-picker {
+    order: 1 !important;
+    flex: 1 1 250px !important;
+    width: auto !important;
+    min-width: 220px !important;
+    max-width: none !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-assist-picker .combo-assist-options,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-assist-picker .combo-assist-options {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    flex-wrap: wrap !important;
+    align-content: flex-start !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-fuse-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-fuse-option-group {
+    order: 2 !important;
+    flex: 0 1 314px !important;
+    width: auto !important;
+    min-width: 300px !important;
+    max-width: 314px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-fuse-option-group .combo-choice-options,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-fuse-option-group .combo-choice-options {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 7px 12px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    justify-items: start !important;
+    overflow: visible !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-fuse-visual-option,
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-fuse-svg,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-fuse-visual-option,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-fuse-svg {
+    width: 142px !important;
+    min-width: 142px !important;
+    max-width: 142px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-fuse-visual-option[data-combo-fuse="DOUBLE DOWN"],
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-fuse-visual-option[data-combo-fuse="JUGGERNAUT"],
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-fuse-visual-option[data-combo-fuse="DOUBLE DOWN"] .combo-fuse-svg,
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-fuse-visual-option[data-combo-fuse="JUGGERNAUT"] .combo-fuse-svg,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-fuse-visual-option[data-combo-fuse="DOUBLE DOWN"],
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-fuse-visual-option[data-combo-fuse="JUGGERNAUT"],
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-fuse-visual-option[data-combo-fuse="DOUBLE DOWN"] .combo-fuse-svg,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-fuse-visual-option[data-combo-fuse="JUGGERNAUT"] .combo-fuse-svg {
+    width: 148px !important;
+    min-width: 148px !important;
+    max-width: 148px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group {
+    order: 3 !important;
+    flex: 0 1 218px !important;
+    width: auto !important;
+    min-width: 150px !important;
+    max-width: 218px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-meter-option-group .combo-choice-options,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-meter-option-group .combo-choice-options {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 8px 9px !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-details,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-details {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: 14px clamp(22px, 2.2vw, 34px) !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-details > .combo-position-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-details > .combo-position-option-group {
+    order: 1 !important;
+    flex: 1 1 260px !important;
+    width: auto !important;
+    min-width: 210px !important;
+    max-width: 344px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-position-option-group .combo-choice-options,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-position-option-group .combo-choice-options {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-details > .combo-damage-group-inline,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-details > .combo-damage-group-inline {
+    order: 2 !important;
+    flex: 0 0 178px !important;
+    width: 178px !important;
+    min-width: 178px !important;
+    max-width: 178px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-details > .combo-tags-field-inline,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-details > .combo-tags-field-inline {
+    order: 3 !important;
+    flex: 1 1 300px !important;
+    width: auto !important;
+    min-width: 220px !important;
+    max-width: none !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-tags-field-inline .combo-tag-options,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-tags-field-inline .combo-tag-options {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1250px) {
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-assist-picker,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-assist-picker {
+    flex-basis: 220px !important;
+    min-width: 190px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-fuse-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-fuse-option-group {
+    flex-basis: 300px !important;
+    min-width: 300px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group {
+    flex-basis: 168px !important;
+    min-width: 138px !important;
+  }
+}
+
+/* --- TechLab v1.0.143: combo builder rows stay coherent before wrapping --- */
+@media (min-width: 901px) {
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-tools,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-tools {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: 14px 22px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-assist-picker,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-assist-picker {
+    order: 1 !important;
+    flex: 0 1 430px !important;
+    width: auto !important;
+    min-width: 230px !important;
+    max-width: 520px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-assist-picker .combo-assist-options,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-assist-picker .combo-assist-options {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    align-content: flex-start !important;
+    gap: 5px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-fuse-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-fuse-option-group {
+    order: 2 !important;
+    flex: 0 0 308px !important;
+    width: 308px !important;
+    min-width: 308px !important;
+    max-width: 308px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-fuse-option-group .combo-choice-options,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-fuse-option-group .combo-choice-options {
+    display: grid !important;
+    grid-template-columns: repeat(2, max-content) !important;
+    gap: 7px 10px !important;
+    width: max-content !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    justify-content: start !important;
+    justify-items: start !important;
+    overflow: visible !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group {
+    order: 3 !important;
+    flex: 0 1 210px !important;
+    width: auto !important;
+    min-width: 150px !important;
+    max-width: 210px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-meter-option-group .combo-choice-options,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-meter-option-group .combo-choice-options {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    align-content: flex-start !important;
+    gap: 8px 9px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-details,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-details {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: 14px 26px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-details > .combo-position-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-details > .combo-position-option-group {
+    order: 1 !important;
+    flex: 0 1 344px !important;
+    width: auto !important;
+    min-width: 235px !important;
+    max-width: 344px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-position-option-group .combo-choice-options,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-position-option-group .combo-choice-options {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    align-content: flex-start !important;
+    gap: 8px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-details > .combo-damage-group-inline,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-details > .combo-damage-group-inline {
+    order: 2 !important;
+    flex: 0 0 178px !important;
+    width: 178px !important;
+    min-width: 178px !important;
+    max-width: 178px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-details > .combo-tags-field-inline,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-details > .combo-tags-field-inline {
+    order: 3 !important;
+    flex: 0 1 370px !important;
+    width: auto !important;
+    min-width: 235px !important;
+    max-width: 410px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-tags-field-inline .combo-tag-options,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-tags-field-inline .combo-tag-options {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    align-content: flex-start !important;
+    gap: 8px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1250px) {
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-tools,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-tools {
+    gap: 14px 18px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-assist-picker,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-assist-picker {
+    flex-basis: 300px !important;
+    min-width: 210px !important;
+    max-width: 380px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group {
+    flex-basis: 168px !important;
+    min-width: 138px !important;
+    max-width: 190px !important;
+  }
+}
+
+/* --- TechLab v1.0.144: combo builder intrinsic row spacing polish ---
+   Objectif : garder les sections sur leur ligne quand la place existe,
+   sans grands trous entre Assist/Fuse/Ressources ni entre Position/Dégâts/Tags. */
+@media (min-width: 901px) {
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-tools,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-tools,
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-details,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-details {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: 14px 22px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Ligne 2 : Assist peut se réduire avant de pousser Ressources dessous. */
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-assist-picker,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-assist-picker {
+    order: 1 !important;
+    flex: 0 1 clamp(220px, calc(100% - 570px), 560px) !important;
+    width: auto !important;
+    min-width: 220px !important;
+    max-width: max-content !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-assist-picker .combo-assist-options,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-assist-picker .combo-assist-options {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    align-content: flex-start !important;
+    gap: 5px !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-fuse-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-fuse-option-group {
+    order: 2 !important;
+    flex: 0 0 308px !important;
+    width: 308px !important;
+    min-width: 308px !important;
+    max-width: 308px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group {
+    order: 3 !important;
+    flex: 0 1 max-content !important;
+    width: max-content !important;
+    min-width: 0 !important;
+    max-width: min(100%, 230px) !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-meter-option-group .combo-choice-options,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-meter-option-group .combo-choice-options {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 8px 9px !important;
+    width: max-content !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+
+  /* Ligne 3 : largeurs au contenu pour supprimer les grands vides artificiels. */
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-details > .combo-position-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-details > .combo-position-option-group {
+    order: 1 !important;
+    flex: 0 1 max-content !important;
+    width: max-content !important;
+    min-width: 0 !important;
+    max-width: min(100%, 390px) !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-position-option-group .combo-choice-options,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-position-option-group .combo-choice-options {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    width: max-content !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-details > .combo-damage-group-inline,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-details > .combo-damage-group-inline {
+    order: 2 !important;
+    flex: 0 0 max-content !important;
+    width: max-content !important;
+    min-width: 0 !important;
+    max-width: min(100%, 178px) !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-details > .combo-tags-field-inline,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-details > .combo-tags-field-inline {
+    order: 3 !important;
+    flex: 0 1 max-content !important;
+    width: max-content !important;
+    min-width: 0 !important;
+    max-width: min(100%, 420px) !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-tags-field-inline .combo-tag-options,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-tags-field-inline .combo-tag-options {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    width: max-content !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1180px) {
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-tools,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-tools,
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-details,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-details {
+    gap: 14px 18px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-meter-option-group .combo-choice-options,
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-position-option-group .combo-choice-options,
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-tags-field-inline .combo-tag-options,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-meter-option-group .combo-choice-options,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-position-option-group .combo-choice-options,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-tags-field-inline .combo-tag-options {
+    flex-wrap: wrap !important;
+    width: auto !important;
+  }
+}
+
+/* --- TechLab v1.0.145: bouton Ajouter un combo = toggle du combo builder --- */
+body[data-page="detail"] .combo-open-builder.is-builder-open {
+  background: rgba(255, 255, 255, 0.10) !important;
+  border-color: rgba(255, 255, 255, 0.28) !important;
+  color: var(--text) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(0,0,0,.26),
+    0 7px 15px rgba(0,0,0,.22) !important;
+}
+
+body[data-page="detail"] .combo-open-builder.is-builder-open:hover,
+body[data-page="detail"] .combo-open-builder.is-builder-open:focus-visible {
+  background: rgba(255, 255, 255, 0.16) !important;
+  border-color: rgba(255, 255, 255, 0.38) !important;
+  color: var(--text) !important;
+}
+
+/* --- TechLab v1.0.146: ressources uniques 2XKO dans le combo builder --- */
+html body[data-page="detail"] .combo-unique-resource-choice {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  min-height: 34px !important;
+  max-width: 34px !important;
+  max-height: 34px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .combo-unique-resource-icon {
+  display: block !important;
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  min-height: 34px !important;
+  max-width: 34px !important;
+  max-height: 34px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,.55)) !important;
+  transform: none !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-unique-resource-option,
+html body[data-page="detail"] .combo-filter-bar .combo-filter-chip-unique-resource {
+  flex: 0 0 42px !important;
+  width: 42px !important;
+  min-width: 42px !important;
+  max-width: 42px !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+  padding: 4px !important;
+  border-radius: 999px !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-unique-resource-option .combo-choice-visual,
+html body[data-page="detail"] .combo-filter-chip-unique-resource .combo-choice-visual,
+html body[data-page="detail"] .saved-combo-meta .combo-meta-unique-resource-logo .combo-meta-chip-visual {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  min-height: 34px !important;
+  max-width: 34px !important;
+  max-height: 34px !important;
+}
+
+html body[data-page="detail"] .saved-combo-meta .combo-meta-unique-resource-logo {
+  width: 38px !important;
+  min-width: 38px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  padding: 2px !important;
+  border-radius: 999px !important;
+}
+
+html body[data-page="detail"] .saved-combo-meta .combo-meta-unique-resource-logo .combo-unique-resource-choice,
+html body[data-page="detail"] .saved-combo-meta .combo-meta-unique-resource-logo .combo-unique-resource-icon {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
+}
+
+@media (min-width: 901px) {
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-assist-picker,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-assist-picker {
+    flex: 0 1 clamp(230px, calc(100% - 900px), 430px) !important;
+    width: auto !important;
+    min-width: 230px !important;
+    max-width: 430px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group {
+    flex: 0 0 max-content !important;
+    width: max-content !important;
+    min-width: 0 !important;
+    max-width: 230px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-unique-resource-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-unique-resource-option-group {
+    order: 4 !important;
+    flex: 0 1 336px !important;
+    width: auto !important;
+    min-width: 190px !important;
+    max-width: 336px !important;
+    margin: 0 !important;
+    overflow: visible !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-unique-resource-option-group > span:first-child,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-unique-resource-option-group > span:first-child {
+    white-space: nowrap !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-unique-resource-options,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-unique-resource-options {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    align-content: flex-start !important;
+    gap: 6px !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1180px) {
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-unique-resource-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-unique-resource-option-group {
+    flex-basis: 232px !important;
+    min-width: 142px !important;
+    max-width: 292px !important;
+  }
+}
+
+/* --- TechLab v1.0.147: ressources uniques intégrées à Ressources + Bloodlust progress --- */
+html body[data-page="detail"] .combo-builder-shell .combo-meter-option-group .combo-meter-options-primary,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-meter-option-group .combo-meter-options-primary {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-meter-option-group .combo-unique-resource-subrow,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-meter-option-group .combo-unique-resource-subrow {
+  display: flex !important;
+  flex-direction: column !important;
+  flex-wrap: nowrap !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  gap: 3px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  margin: 1px 0 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-meter-option-group .combo-unique-resource-subtitle,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-meter-option-group .combo-unique-resource-subtitle {
+  display: block !important;
+  width: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: var(--accent) !important;
+  font-size: .68rem !important;
+  line-height: 1 !important;
+  font-weight: 950 !important;
+  letter-spacing: .075em !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  text-shadow: 0 2px 3px rgba(0,0,0,.65) !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-meter-option-group .combo-unique-resource-options,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-meter-option-group .combo-unique-resource-options {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  align-content: flex-start !important;
+  gap: 5px !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .combo-unique-resource-choice-bloodlust {
+  position: relative !important;
+  isolation: isolate !important;
+}
+
+html body[data-page="detail"] .combo-unique-resource-choice-bloodlust.has-bloodlust-value {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  min-height: 34px !important;
+  max-width: 34px !important;
+  max-height: 34px !important;
+  padding: 3px !important;
+  background: conic-gradient(#ff263f var(--bloodlust-progress-percent, 0%), rgba(8, 10, 14, .96) 0) !important;
+  box-shadow:
+    0 0 0 2px rgba(0,0,0,.75),
+    0 0 0 3px rgba(255,255,255,.13),
+    0 2px 5px rgba(0,0,0,.62) !important;
+}
+
+html body[data-page="detail"] .combo-unique-resource-choice-bloodlust.has-bloodlust-value::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 4px !important;
+  z-index: 0 !important;
+  border-radius: 999px !important;
+  background: rgba(4, 13, 13, .98) !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08) !important;
+}
+
+html body[data-page="detail"] .combo-unique-resource-choice-bloodlust.has-bloodlust-value .combo-unique-resource-icon {
+  position: relative !important;
+  z-index: 1 !important;
+  width: 26px !important;
+  height: 26px !important;
+  min-width: 26px !important;
+  min-height: 26px !important;
+  max-width: 26px !important;
+  max-height: 26px !important;
+  border-radius: 999px !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,.65)) !important;
+}
+
+@media (min-width: 901px) {
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group {
+    flex: 0 1 420px !important;
+    width: auto !important;
+    min-width: 260px !important;
+    max-width: 420px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: 4px !important;
+    overflow: visible !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-assist-picker,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-assist-picker {
+    flex: 1 1 320px !important;
+    min-width: 230px !important;
+    max-width: 460px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-fuse-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-fuse-option-group {
+    flex: 0 0 260px !important;
+    min-width: 250px !important;
+    max-width: 270px !important;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1180px) {
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group {
+    flex-basis: 300px !important;
+    min-width: 230px !important;
+    max-width: 100% !important;
+  }
+}
+
+/* --- TechLab v1.0.148: aération Ressources / Ressources uniques ---
+   Objectif : éviter que Ressources colle Fuse, et laisser respirer les titres
+   quand les boutons sélectionnés prennent plus de place. */
+@media (min-width: 901px) {
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-tools,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-tools {
+    column-gap: 34px !important;
+    row-gap: 18px !important;
+    align-items: flex-start !important;
+    overflow: visible !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-assist-picker,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-assist-picker {
+    flex: 1 1 300px !important;
+    min-width: 230px !important;
+    max-width: 460px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-fuse-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-fuse-option-group {
+    flex: 0 0 260px !important;
+    min-width: 250px !important;
+    max-width: 270px !important;
+    margin-right: 6px !important;
+    overflow: visible !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group {
+    flex: 0 1 392px !important;
+    width: auto !important;
+    min-width: 306px !important;
+    max-width: 410px !important;
+    margin-left: 8px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    overflow: visible !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-details,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-details {
+    column-gap: 30px !important;
+    row-gap: 18px !important;
+    align-items: flex-start !important;
+    overflow: visible !important;
+  }
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-builder-form-row-tools > .combo-choice-group > span:first-child,
+html body[data-page="detail"] .combo-builder-shell .combo-builder-form-row-details > .combo-choice-group > span:first-child,
+html body[data-page="detail"] .combo-builder-shell .combo-builder-form-row-details > .combo-tags-field-inline > span:first-child,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-builder-form-row-tools > .combo-choice-group > span:first-child,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-builder-form-row-details > .combo-choice-group > span:first-child,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-builder-form-row-details > .combo-tags-field-inline > span:first-child {
+  display: block !important;
+  margin: 0 0 5px !important;
+  line-height: 1.15 !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-meter-option-group .combo-meter-options-primary,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-meter-option-group .combo-meter-options-primary {
+  gap: 9px 11px !important;
+  padding-top: 1px !important;
+  margin: 0 0 2px !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-meter-option-group .combo-unique-resource-subrow,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-meter-option-group .combo-unique-resource-subrow {
+  gap: 7px !important;
+  margin: 5px 0 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-meter-option-group .combo-unique-resource-subtitle,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-meter-option-group .combo-unique-resource-subtitle {
+  margin: 0 0 2px !important;
+  line-height: 1.15 !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-meter-option-group .combo-unique-resource-options,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-meter-option-group .combo-unique-resource-options {
+  gap: 8px 9px !important;
+  padding-top: 1px !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-damage-group-inline .combo-damage-options,
+html body[data-page="detail"] .combo-builder-shell .combo-tags-field-inline .combo-tag-options,
+html body[data-page="detail"] .combo-builder-shell .combo-position-option-group .combo-choice-options,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-damage-group-inline .combo-damage-options,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-tags-field-inline .combo-tag-options,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-position-option-group .combo-choice-options {
+  padding-top: 1px !important;
+  overflow: visible !important;
+}
+
+@media (min-width: 901px) and (max-width: 1180px) {
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-tools,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-tools {
+    column-gap: 24px !important;
+    row-gap: 16px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group {
+    flex-basis: 332px !important;
+    min-width: 260px !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+  }
+}
+
+/* --- TechLab v1.0.149: espace Fuse/Ressources + ressources uniques en méta primaire ---
+   Objectif : donner à Fuse sa vraie largeur visuelle, pour que Ressources démarre avec le même air que les autres sections. */
+@media (min-width: 901px) {
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-tools,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-tools {
+    column-gap: 34px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-fuse-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-fuse-option-group {
+    flex: 0 0 314px !important;
+    width: 314px !important;
+    min-width: 314px !important;
+    max-width: 314px !important;
+    margin-right: 0 !important;
+    overflow: visible !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group {
+    flex: 0 1 392px !important;
+    width: auto !important;
+    min-width: 306px !important;
+    max-width: 410px !important;
+    margin-left: 0 !important;
+    overflow: visible !important;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1180px) {
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-fuse-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-fuse-option-group {
+    flex-basis: 314px !important;
+    min-width: 300px !important;
+    max-width: 314px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group {
+    flex-basis: 332px !important;
+    min-width: 260px !important;
+    max-width: 100% !important;
+  }
+}
+
+html body[data-page="detail"] .saved-combo-meta-primary .combo-meta-unique-resource-inline,
+html body[data-page="detail"] .saved-combo-meta .combo-meta-unique-resource-inline {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 38px !important;
+  min-width: 38px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  padding: 2px !important;
+  border-radius: 999px !important;
+  overflow: visible !important;
+}

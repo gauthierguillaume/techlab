@@ -2430,6 +2430,8 @@ function normalizePersonalCombos(value) {
       assistSlug: combo.assistSlug || '',
       damage: combo.damage || '',
       ultimateDamage: combo.ultimateDamage || combo.ultDamage || combo.superDamage || '',
+      bloodlustValue: getComboBloodlustValue(combo),
+      uniqueResourceValues: getComboBloodlustValue(combo) !== '' ? { BLOODLUST: getComboBloodlustValue(combo) } : {},
       media: combo.media || null,
       createdAt: combo.createdAt || new Date().toISOString(),
       updatedAt: combo.updatedAt || combo.createdAt || new Date().toISOString(),
@@ -3197,11 +3199,62 @@ function getComboUltimateDamageSvg(value) {
   });
 }
 
+const COMBO_UNIQUE_RESOURCE_OPTIONS = [
+  { value: 'STEAM', label: 'Steam', character: 'Blitzcrank', icon: 'assets/2xko/unique-resources/blitzcrank-steam.png' },
+  { value: 'UNBREAKABLE', label: 'Unbreakable', character: 'Braum', icon: 'assets/2xko/unique-resources/braum-unbreakable.webp' },
+  { value: 'WOUND', label: 'Wound', character: 'Darius', icon: 'assets/2xko/unique-resources/darius-wound.webp' },
+  { value: 'ZAPPER', label: 'Zapper', character: 'Jinx', icon: 'assets/2xko/unique-resources/jinx-zapper.webp' },
+  { value: 'DART BADGE', label: 'Dart Badge', character: 'Teemo', icon: 'assets/2xko/unique-resources/teemo-dart-badge.webp' },
+  { value: 'MUSHROOM BADGE', label: 'Mushroom Badge', character: 'Teemo', icon: 'assets/2xko/unique-resources/teemo-mushroom-badge.webp' },
+  { value: 'SLINGSHOT BADGE', label: 'Slingshot Badge', character: 'Teemo', icon: 'assets/2xko/unique-resources/teemo-slingshot-badge.webp' },
+  { value: 'BLOODLUST', label: 'Bloodlust', character: 'Warwick', icon: 'assets/2xko/unique-resources/warwick-bloodlust.png' },
+];
+const COMBO_UNIQUE_RESOURCE_TAGS = COMBO_UNIQUE_RESOURCE_OPTIONS.map((entry) => entry.value);
+
+function getComboUniqueResourceEntry(value) {
+  const safeValue = String(value || '').toUpperCase();
+  return COMBO_UNIQUE_RESOURCE_OPTIONS.find((entry) => entry.value === safeValue) || null;
+}
+
+function normalizeComboBloodlustValue(value) {
+  const raw = String(value ?? '').trim();
+  if (!raw) return '';
+  const parsed = Number(raw.replace(',', '.'));
+  if (!Number.isFinite(parsed)) return '';
+  return String(Math.max(0, Math.min(100, Math.round(parsed))));
+}
+
+function getComboBloodlustValue(combo = {}) {
+  const rawMap = combo?.uniqueResourceValues && typeof combo.uniqueResourceValues === 'object' ? combo.uniqueResourceValues : {};
+  return normalizeComboBloodlustValue(rawMap.BLOODLUST ?? combo?.bloodlustValue ?? combo?.bloodlust ?? '');
+}
+
+function getComboUniqueResourceVisual(entry, options = {}) {
+  if (!entry?.icon) return '';
+  const bloodlustValue = entry.value === 'BLOODLUST' ? normalizeComboBloodlustValue(options.bloodlustValue ?? options.value ?? '') : '';
+  const bloodlustLabel = bloodlustValue !== '' ? ` — ${bloodlustValue}%` : '';
+  const title = `${entry.character} — ${entry.label}${bloodlustLabel}`;
+  const bloodlustClass = entry.value === 'BLOODLUST' ? ` combo-unique-resource-choice-bloodlust${bloodlustValue !== '' ? ' has-bloodlust-value' : ''}` : '';
+  const bloodlustStyle = bloodlustValue !== '' ? ` style="--bloodlust-progress:${escapeHtml(bloodlustValue)}; --bloodlust-progress-percent:${escapeHtml(bloodlustValue)}%;" data-bloodlust-value="${escapeHtml(bloodlustValue)}"` : '';
+  return `<span class="combo-unique-resource-choice${bloodlustClass}" role="img" aria-label="${escapeHtml(title)}"${bloodlustStyle}><img class="combo-unique-resource-icon" src="${escapeHtml(entry.icon)}" alt="" loading="lazy" decoding="async" fetchpriority="low" /></span>`;
+}
+
+function getComboUniqueResourceTagVisual(tag, combo = {}) {
+  const entry = getComboUniqueResourceEntry(tag);
+  if (!entry) return '';
+  return getComboUniqueResourceVisual(entry, entry.value === 'BLOODLUST' ? { bloodlustValue: getComboBloodlustValue(combo) } : {});
+}
+
+const COMBO_UNIQUE_RESOURCE_VISUALS = Object.fromEntries(
+  COMBO_UNIQUE_RESOURCE_OPTIONS.map((entry) => [entry.value, getComboUniqueResourceVisual(entry)])
+);
+
 const COMBO_TAG_VISUALS = {
   'FURY': getComboFurySvg(),
   'BLOCKSTRING': getComboBlockstringSvg(),
   'SIDE SWITCH': getComboSideSwitchSvg(),
   'LIMIT STRIKE': getComboLimitStrikeSvg(),
+  ...COMBO_UNIQUE_RESOURCE_VISUALS,
 };
 
 function renderComboMetaOptionButtons(values, className, dataName, options = {}) {
@@ -3225,6 +3278,28 @@ function renderComboChoiceGroup(title, id, values, className, dataName, options 
       <span>${escapeHtml(title)}</span>
       <div class="combo-choice-options">
         ${renderComboMetaOptionButtons(values, `${className} combo-choice-option`, dataName, options)}
+      </div>
+    </div>
+  `;
+}
+
+function renderComboResourceGroup() {
+  return `
+    <div class="combo-choice-group combo-meter-option-group" id="comboMeterOptions">
+      <span>Ressources</span>
+      <div class="combo-choice-options combo-meter-options-primary">
+        ${renderComboMetaOptionButtons(COMBO_METER_OPTIONS, 'combo-meter-option combo-choice-option', 'combo-meter', { htmlMap: COMBO_METER_VISUALS, hideLabel: true, visualClass: 'combo-meter-visual-option' })}
+      </div>
+      <div class="combo-unique-resource-subrow" id="comboUniqueResourceOptions" aria-label="Ressources uniques">
+        <span class="combo-unique-resource-subtitle">Ressource unique</span>
+        <div class="combo-choice-options combo-unique-resource-options">
+          ${COMBO_UNIQUE_RESOURCE_OPTIONS.map((entry) => `
+            <button class="combo-unique-resource-option combo-tag-option combo-choice-option combo-unique-resource-visual-option" type="button" data-combo-tag="${escapeHtml(entry.value)}" data-combo-unique-resource="${escapeHtml(entry.value)}" aria-pressed="false" aria-label="${escapeHtml(`${entry.character} — ${entry.label}`)}" title="${escapeHtml(`${entry.character} — ${entry.label}`)}">
+              <span class="combo-choice-visual" aria-hidden="true">${COMBO_UNIQUE_RESOURCE_VISUALS[entry.value]}</span>
+              <span class="sr-only-token">${escapeHtml(entry.value)}</span>
+            </button>
+          `).join('')}
+        </div>
       </div>
     </div>
   `;
@@ -3344,7 +3419,6 @@ function renderComboBuilderForm(game, character) {
     <section class="combo-builder-shell" id="comboBuilderShell" hidden>
       <div class="combo-builder-topline">
         <strong>Combo builder</strong>
-        <button class="combo-builder-close" type="button" id="comboCloseBuilder">Fermer</button>
       </div>
       <div class="combo-builder-layout">
         <div class="combo-builder-pad-area">
@@ -3366,7 +3440,7 @@ function renderComboBuilderForm(game, character) {
             <div class="combo-builder-form-row combo-builder-form-row-tools">
               ${renderComboAssistPicker(game, character)}
               ${renderComboChoiceGroup('Fuse', 'comboFuseOptions', COMBO_FUSE_OPTIONS, 'combo-fuse-option', 'combo-fuse', { htmlMap: COMBO_FUSE_VISUALS, hideLabel: true, visualClass: 'combo-fuse-visual-option' })}
-              ${renderComboChoiceGroup('Ressources', 'comboMeterOptions', COMBO_METER_OPTIONS, 'combo-meter-option', 'combo-meter', { htmlMap: COMBO_METER_VISUALS, hideLabel: true, visualClass: 'combo-meter-visual-option' })}
+              ${renderComboResourceGroup()}
             </div>
             <div class="combo-builder-form-row combo-builder-form-row-details">
               ${renderComboChoiceGroup('Position', 'comboPositionOptions', COMBO_POSITION_OPTIONS, 'combo-position-option', 'combo-position', { htmlMap: COMBO_POSITION_VISUALS, hideLabel: true, visualClass: 'combo-position-visual-option' })}
@@ -3489,6 +3563,16 @@ function renderComboMetaChips(combo) {
     }
   });
 
+  tags
+    .filter((tag) => COMBO_UNIQUE_RESOURCE_VISUALS[tag])
+    .forEach((tag) => {
+      const entry = getComboUniqueResourceEntry(tag);
+      if (!entry) return;
+      const bloodlustValue = tag === 'BLOODLUST' ? getComboBloodlustValue(combo) : '';
+      const valueSuffix = bloodlustValue !== '' ? ` (${bloodlustValue}%)` : '';
+      primaryChips.push(`<span class="combo-meta-plain combo-meta-unique-resource-inline combo-meta-unique-resource-logo" title="${escapeHtml(`${entry.character} — ${entry.label}${valueSuffix}`)}" aria-label="${escapeHtml(`${entry.character} — ${entry.label}${valueSuffix}`)}">${getComboUniqueResourceVisual(entry, tag === 'BLOODLUST' ? { bloodlustValue } : {})}</span>`);
+    });
+
   if (combo.position) {
     const normalizedPosition = normalizeComboPosition(combo.position);
     secondaryChips.push(renderComboMetaChip(normalizedPosition, COMBO_POSITION_VISUALS[normalizedPosition] ? { html: COMBO_POSITION_VISUALS[normalizedPosition], className: 'combo-meta-position-logo' } : {}));
@@ -3515,11 +3599,17 @@ function renderComboMetaChips(combo) {
   }
 
   tags
+    .filter((tag) => !COMBO_UNIQUE_RESOURCE_VISUALS[tag])
     .filter((tag) => !['SIDE SWITCH', 'BLOCKSTRING', 'LIMIT STRIKE'].includes(tag))
     .filter((tag) => !COMBO_POSITION_OPTIONS.includes(normalizeComboPosition(tag)) && !COMBO_POSITION_LEGACY_OPTIONS.includes(String(tag || '').toUpperCase()))
     .forEach((tag) => {
-      if (COMBO_TAG_VISUALS[tag]) secondaryChips.push(renderComboMetaChip(tag, { html: COMBO_TAG_VISUALS[tag], className: 'combo-meta-tag-logo' }));
-      else secondaryChips.push(renderComboMetaChip(tag));
+      if (COMBO_TAG_VISUALS[tag]) {
+        const uniqueResourceVisual = COMBO_UNIQUE_RESOURCE_VISUALS[tag] ? getComboUniqueResourceTagVisual(tag, combo) : '';
+        secondaryChips.push(renderComboMetaChip(tag, {
+          html: uniqueResourceVisual || COMBO_TAG_VISUALS[tag],
+          className: COMBO_UNIQUE_RESOURCE_VISUALS[tag] ? 'combo-meta-unique-resource-logo' : 'combo-meta-tag-logo',
+        }));
+      } else secondaryChips.push(renderComboMetaChip(tag));
     });
 
   if (!primaryChips.length && !secondaryChips.length) return '';
@@ -3589,6 +3679,9 @@ function renderComboFilterChip(tag) {
   } else if (COMBO_FUSE_VISUALS[safeTag]) {
     visual = COMBO_FUSE_VISUALS[safeTag];
     extraClass = ' combo-filter-chip-visual combo-filter-chip-fuse';
+  } else if (COMBO_UNIQUE_RESOURCE_VISUALS[safeTag]) {
+    visual = COMBO_UNIQUE_RESOURCE_VISUALS[safeTag];
+    extraClass = ' combo-filter-chip-visual combo-filter-chip-unique-resource';
   } else if (COMBO_TAG_VISUALS[safeTag]) {
     visual = COMBO_TAG_VISUALS[safeTag];
     extraClass = ' combo-filter-chip-visual combo-filter-chip-tag-logo';
@@ -3622,6 +3715,7 @@ function renderComboFilterBar(combos = []) {
     ...assistPreferred,
     ...COMBO_FUSE_OPTIONS,
     ...COMBO_METER_OPTIONS,
+    ...COMBO_UNIQUE_RESOURCE_TAGS,
     ...COMBO_POSITION_OPTIONS,
     ...COMBO_TAG_OPTIONS,
   ];
@@ -3646,7 +3740,7 @@ function renderPersonalCombosPanel(record, game, character) {
     <section class="personal-panel personal-combos-panel${locked ? ' is-locked' : ''}">
       <div class="personal-panel-header combo-list-header">
         <span>Combos</span>
-        ${hasComboBuilder ? `<button class="combo-open-builder" type="button" id="comboOpenBuilder"${locked ? ' disabled aria-disabled="true" title="Connecte-toi pour ajouter un combo"' : ''}>Ajouter un combo</button>` : ''}
+        ${hasComboBuilder ? `<button class="combo-open-builder" type="button" id="comboOpenBuilder" aria-controls="comboBuilderShell" aria-expanded="false"${locked ? ' disabled aria-disabled="true" title="Connecte-toi pour ajouter un combo"' : ''}>Ajouter un combo</button>` : ''}
       </div>
       ${hasComboBuilder ? renderComboFilterBar(record.combos || []) : ''}
       ${renderComboBuilderForm(game, character)}
@@ -3788,7 +3882,6 @@ function bindPersonalLab(game, character) {
 
   const comboBuilderShell = app.querySelector('#comboBuilderShell');
   const comboOpenBuilder = app.querySelector('#comboOpenBuilder');
-  const comboCloseBuilder = app.querySelector('#comboCloseBuilder');
   const comboOutput = app.querySelector('#comboOutput');
   const comboStarterOutput = app.querySelector('#comboStarterOutput');
   const comboNameInput = app.querySelector('#comboNameInput');
@@ -3849,6 +3942,18 @@ function bindPersonalLab(game, character) {
     return slug ? game.characters.find((entry) => entry.slug === slug) || null : null;
   };
 
+  const syncComboBuilderToggleButton = () => {
+    if (!comboOpenBuilder || !comboBuilderShell) return;
+    const locked = isLocked();
+    const isOpen = !locked && !comboBuilderShell.hidden && comboBuilderShell.classList.contains('is-open');
+    comboOpenBuilder.textContent = isOpen ? 'Fermer' : 'Ajouter un combo';
+    comboOpenBuilder.classList.toggle('is-builder-open', isOpen);
+    comboOpenBuilder.setAttribute('aria-expanded', String(isOpen));
+    comboOpenBuilder.setAttribute('title', locked ? 'Connecte-toi pour ajouter un combo' : (isOpen ? 'Fermer le combo builder' : 'Ouvrir le combo builder'));
+  };
+
+  syncComboBuilderToggleButton();
+
   const openComboBuilder = () => {
     if (isLocked()) {
       requireConnection();
@@ -3858,6 +3963,7 @@ function bindPersonalLab(game, character) {
     const isMobileDetailLayout = window.matchMedia?.('(max-width: 900px)').matches || window.innerWidth <= 900;
     comboBuilderShell.hidden = false;
     comboBuilderShell.classList.add('is-open');
+    syncComboBuilderToggleButton();
     updateComboBuilderResponsiveState();
     document.body.dataset.comboBuilderOpen = 'true';
     window.requestAnimationFrame(() => {
@@ -3876,6 +3982,59 @@ function bindPersonalLab(game, character) {
     comboBuilderShell.classList.remove('is-open');
     comboBuilderShell.hidden = true;
     delete document.body.dataset.comboBuilderOpen;
+    syncComboBuilderToggleButton();
+  };
+
+  const updateComboUniqueResourceButtonVisual = (button, value = '') => {
+    const tag = String(button?.dataset?.comboTag || '').toUpperCase();
+    const entry = getComboUniqueResourceEntry(tag);
+    if (!button || !entry) return;
+    const bloodlustValue = entry.value === 'BLOODLUST' ? normalizeComboBloodlustValue(value) : '';
+    const visual = button.querySelector('.combo-choice-visual');
+    if (visual) {
+      visual.innerHTML = getComboUniqueResourceVisual(entry, entry.value === 'BLOODLUST' ? { bloodlustValue } : {});
+    }
+    if (entry.value === 'BLOODLUST') {
+      if (bloodlustValue !== '') button.dataset.bloodlustValue = bloodlustValue;
+      else delete button.dataset.bloodlustValue;
+    }
+    const suffix = entry.value === 'BLOODLUST' && bloodlustValue !== '' ? ` (${bloodlustValue}%)` : '';
+    const title = `${entry.character} — ${entry.label}${suffix}`;
+    button.setAttribute('aria-label', title);
+    button.setAttribute('title', title);
+  };
+
+  const setComboBloodlustActive = (button, value) => {
+    const bloodlustValue = normalizeComboBloodlustValue(value);
+    const active = bloodlustValue !== '';
+    button.classList.toggle('is-active', active);
+    button.setAttribute('aria-pressed', String(active));
+    updateComboUniqueResourceButtonVisual(button, bloodlustValue);
+  };
+
+  const askComboBloodlustValue = (button) => {
+    const previous = normalizeComboBloodlustValue(button.dataset.bloodlustValue || '') || '25';
+    const raw = window.prompt('Bloodlust Warwick : choisis une valeur entre 0 et 100. Laisse vide pour retirer la ressource.', previous);
+    if (raw === null) return;
+    const trimmed = String(raw).trim();
+    if (!trimmed) {
+      setComboBloodlustActive(button, '');
+      return;
+    }
+    const normalized = normalizeComboBloodlustValue(trimmed);
+    if (normalized === '') {
+      setPersonalStatus('Bloodlust : valeur entre 0 et 100');
+      return;
+    }
+    setComboBloodlustActive(button, normalized);
+  };
+
+  const resetComboUniqueResourceButtons = () => {
+    app.querySelectorAll('.combo-unique-resource-option').forEach((button) => {
+      button.classList.remove('is-active');
+      button.setAttribute('aria-pressed', 'false');
+      updateComboUniqueResourceButtonVisual(button, '');
+    });
   };
 
   const resetComboBuilder = () => {
@@ -3900,6 +4059,7 @@ function bindPersonalLab(game, character) {
       button.classList.remove('is-active');
       button.setAttribute('aria-pressed', 'false');
     });
+    resetComboUniqueResourceButtons();
     updateComboEditorState(comboOutput);
   };
 
@@ -4269,9 +4429,14 @@ function bindPersonalLab(game, character) {
     if (comboUltimateDamageInput) comboUltimateDamageInput.value = combo.ultimateDamage || '';
     if (comboMediaUrl) comboMediaUrl.value = combo.media?.url || '';
     app.querySelectorAll('.combo-tag-option').forEach((button) => {
-      const active = (combo.tags || []).includes(button.dataset.comboTag || '');
+      const tag = button.dataset.comboTag || '';
+      const active = (combo.tags || []).includes(tag);
       button.classList.toggle('is-active', active);
       button.setAttribute('aria-pressed', String(active));
+      if (button.classList.contains('combo-unique-resource-option')) {
+        const bloodlustValue = tag === 'BLOODLUST' && active ? getComboBloodlustValue(combo) : '';
+        updateComboUniqueResourceButtonVisual(button, bloodlustValue);
+      }
     });
     const addButton = app.querySelector('#comboAddNotation');
     if (addButton) addButton.textContent = 'Sauvegarder';
@@ -4426,8 +4591,13 @@ function bindPersonalLab(game, character) {
     }
   });
 
-  comboOpenBuilder?.addEventListener('click', openComboBuilder);
-  comboCloseBuilder?.addEventListener('click', closeComboBuilder);
+  comboOpenBuilder?.addEventListener('click', () => {
+    if (!comboBuilderShell || comboBuilderShell.hidden || !comboBuilderShell.classList.contains('is-open')) {
+      openComboBuilder();
+      return;
+    }
+    closeComboBuilder();
+  });
 
   app.querySelectorAll('[data-combo-token]').forEach((button) => {
     button.addEventListener('click', () => {
@@ -4439,6 +4609,11 @@ function bindPersonalLab(game, character) {
 
   app.querySelectorAll('.combo-tag-option').forEach((button) => {
     button.addEventListener('click', () => {
+      const tag = String(button.dataset.comboTag || '').toUpperCase();
+      if (tag === 'BLOODLUST') {
+        askComboBloodlustValue(button);
+        return;
+      }
       button.classList.toggle('is-active');
       button.setAttribute('aria-pressed', button.classList.contains('is-active') ? 'true' : 'false');
     });
@@ -4496,6 +4671,9 @@ function bindPersonalLab(game, character) {
       const rawDamage = String(comboDamageInput?.value || '').replace(/\D+/g, '').slice(0, 4);
       const rawUltimateDamage = String(comboUltimateDamageInput?.value || '').replace(/\D+/g, '').slice(0, 4);
       const assistCharacter = getComboAssistCharacter();
+      const bloodlustButton = app.querySelector('.combo-unique-resource-option[data-combo-tag="BLOODLUST"]');
+      const bloodlustValue = bloodlustButton?.classList.contains('is-active') ? normalizeComboBloodlustValue(bloodlustButton.dataset.bloodlustValue || '') : '';
+      const uniqueResourceValues = bloodlustValue !== '' ? { BLOODLUST: bloodlustValue } : {};
       const combo = {
         id: editingComboId || `${Date.now()}-${Math.random().toString(16).slice(2)}`,
         name,
@@ -4512,6 +4690,8 @@ function bindPersonalLab(game, character) {
         assistSlug: assistCharacter?.slug || '',
         damage: rawDamage,
         ultimateDamage: rawUltimateDamage,
+        bloodlustValue,
+        uniqueResourceValues,
         media,
         createdAt: editingComboId
           ? (normalizePersonalCombos(record.combos).find((entry) => entry.id === editingComboId)?.createdAt || new Date().toISOString())

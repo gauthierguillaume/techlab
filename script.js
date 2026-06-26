@@ -197,7 +197,7 @@ function playLabQuoteAudio() {
 }
 
 
-const TECHLAB_VERSION = 'v1.0.86';
+const TECHLAB_VERSION = 'v1.0.137';
 const SUPABASE_PROJECT_URL = 'https://ebqwfijathcyfudkmvdq.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_kwGiDUzAu4thk7340RDFOg_kRoXSUAt';
 const SUPABASE_PERSONAL_TABLE = 'personal_records';
@@ -2429,6 +2429,7 @@ function normalizePersonalCombos(value) {
       assist: combo.assist || '',
       assistSlug: combo.assistSlug || '',
       damage: combo.damage || '',
+      ultimateDamage: combo.ultimateDamage || combo.ultDamage || combo.superDamage || '',
       media: combo.media || null,
       createdAt: combo.createdAt || new Date().toISOString(),
       updatedAt: combo.updatedAt || combo.createdAt || new Date().toISOString(),
@@ -2452,6 +2453,7 @@ function normalizePersonalCombos(value) {
       meterCost: '',
       fuse: '',
       assist: '',
+      ultimateDamage: '',
       media: null,
       createdAt: new Date().toISOString(),
     }];
@@ -2562,7 +2564,10 @@ function loadTwitterWidgets() {
 
   const run = () => {
     const load = () => {
-      if (window.twttr?.widgets?.load) window.twttr.widgets.load(app);
+      if (!window.twttr?.widgets?.load) return;
+      const loaded = window.twttr.widgets.load(app);
+      queuePersonalLinkLayoutSync(app);
+      if (loaded?.then) loaded.then(() => queuePersonalLinkLayoutSync(app)).catch(() => queuePersonalLinkLayoutSync(app));
     };
     if (window.twttr?.widgets?.load) {
       load();
@@ -2588,6 +2593,65 @@ function loadTwitterWidgets() {
   }, 180);
 }
 
+
+function getPersonalLinkVisualHeight(item) {
+  if (!item) return 0;
+  const previewWrap = item.querySelector('.personal-link-preview-wrap');
+  const preview = previewWrap?.querySelector('.personal-preview');
+  const twitterRendered = item.querySelector('.twitter-tweet-rendered, iframe[id^="twitter-widget-"], iframe[src*="platform.twitter"], iframe[src*="twitter.com"]');
+  const youtubeFrame = item.querySelector('.personal-youtube-frame');
+  const candidates = [previewWrap, preview, twitterRendered, youtubeFrame].filter(Boolean);
+  let visualHeight = 0;
+  candidates.forEach((node) => {
+    const rect = node.getBoundingClientRect?.();
+    const rectHeight = rect ? Math.ceil(rect.height) : 0;
+    const scrollHeight = Math.ceil(node.scrollHeight || 0);
+    const offsetHeight = Math.ceil(node.offsetHeight || 0);
+    visualHeight = Math.max(visualHeight, rectHeight, scrollHeight, offsetHeight);
+  });
+
+  if (item.classList.contains('personal-link-item-link')) return Math.max(58, visualHeight);
+  if (item.classList.contains('personal-link-item-youtube')) return Math.max(150, visualHeight);
+  if (item.classList.contains('personal-link-item-x')) {
+    // Twitter/X widgets render asynchronously and may not report their height immediately.
+    // Reserve a sane temporary space, then replace it with the measured widget height once available.
+    const measured = Math.max(visualHeight, Math.ceil(twitterRendered?.getBoundingClientRect?.().height || 0));
+    return Math.max(measured || 0, measured > 180 ? measured : 560);
+  }
+  return visualHeight;
+}
+
+function syncPersonalLinkLayoutHeights(root = app) {
+  const scope = root || document;
+  scope.querySelectorAll?.('.personal-link-item').forEach((item) => {
+    const previewWrap = item.querySelector('.personal-link-preview-wrap');
+    const controls = item.querySelector('.techlab-link-controls');
+    const visualHeight = getPersonalLinkVisualHeight(item);
+    const controlsHeight = Math.ceil(controls?.getBoundingClientRect?.().height || controls?.scrollHeight || 0);
+    const reservedHeight = Math.max(visualHeight, controlsHeight, item.classList.contains('personal-link-item-link') ? 58 : 0);
+
+    item.style.removeProperty('height');
+    item.style.removeProperty('min-height');
+    item.style.removeProperty('--techlab-link-preview-height');
+    item.style.removeProperty('--techlab-link-item-min-height');
+
+    if (previewWrap && visualHeight > 0) {
+      previewWrap.style.setProperty('--techlab-link-preview-height', `${visualHeight}px`);
+    }
+    if (reservedHeight > 0) {
+      item.style.setProperty('--techlab-link-item-min-height', `${reservedHeight}px`);
+    }
+  });
+}
+
+function queuePersonalLinkLayoutSync(root = app) {
+  [0, 60, 140, 300, 650, 1100, 1800, 3000, 4600].forEach((delay) => {
+    window.setTimeout(() => {
+      requestAnimationFrame(() => syncPersonalLinkLayoutHeights(root));
+    }, delay);
+  });
+}
+
 function createPersonalLinkPreview(link) {
   const safeUrl = escapeHtml(link.url);
   const safeTitle = escapeHtml(link.title || link.url);
@@ -2596,18 +2660,9 @@ function createPersonalLinkPreview(link) {
   const youtubeId = type === 'youtube' ? getYouTubeId(link.url) : '';
 
   if (youtubeId) {
-    const thumbnail = escapeHtml(link.thumbnailUrl || `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`);
-    const safeAuthor = escapeHtml(link.author || host);
     return `
-      <div class="personal-preview personal-preview-youtube">
-        <button class="personal-youtube-play" type="button" data-youtube-id="${escapeHtml(youtubeId)}" aria-label="Lire la vidéo ${safeTitle}">
-          <img src="${thumbnail}" alt="" loading="lazy" draggable="false" />
-          <span class="personal-youtube-play-icon" aria-hidden="true">▶</span>
-        </button>
-        <div class="personal-preview-meta">
-          <a class="personal-preview-title" href="${safeUrl}" target="_blank" rel="noreferrer noopener">${safeTitle}</a>
-          <small>${safeAuthor}</small>
-        </div>
+      <div class="personal-preview personal-preview-youtube personal-preview-youtube-native">
+        <iframe class="personal-youtube-frame" src="https://www.youtube-nocookie.com/embed/${escapeHtml(youtubeId)}?rel=0" title="${safeTitle}" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
       </div>
     `;
   }
@@ -2649,8 +2704,13 @@ function renderPersonalLinksList(links) {
     const type = link.type || getPersonalLinkType(link.url);
     return `
       <article class="personal-link-item personal-link-item-${escapeHtml(type)}" data-link-id="${escapeHtml(link.id)}" data-link-type="${escapeHtml(type)}" draggable="false">
-        <button class="personal-delete-link" type="button" aria-label="Supprimer ce lien" title="Supprimer">×</button>
-        ${createPersonalLinkPreview(link)}
+        <div class="personal-link-preview-wrap">
+          ${createPersonalLinkPreview(link)}
+        </div>
+        <div class="techlab-link-controls" aria-hidden="false">
+          <button class="techlab-action-button techlab-link-delete" type="button" aria-label="Supprimer ce lien" title="Supprimer" draggable="false">×</button>
+          <button class="techlab-action-button techlab-link-drag-handle" type="button" aria-label="Déplacer ce lien" title="Déplacer" draggable="false">↕</button>
+        </div>
       </article>
     `;
   }).join('');
@@ -3024,7 +3084,7 @@ const COMBO_POSITION_VISUALS = Object.fromEntries(
   COMBO_POSITION_OPTIONS.map((label) => [label, getComboPositionSvg(label)])
 );
 
-const COMBO_TAG_OPTIONS = ['BLOCKSTRING', 'LIMIT STRIKE'];
+const COMBO_TAG_OPTIONS = ['SIDE SWITCH', 'BLOCKSTRING', 'LIMIT STRIKE'];
 const COMBO_REMOVED_TAG_OPTIONS = new Set(['BNB', 'MIXUP', 'OKI', 'PUNISH', 'SOLO', 'THROW', 'TOD']);
 const isRemovedComboTag = (tag) => COMBO_REMOVED_TAG_OPTIONS.has(String(tag || '').toUpperCase());
 const COMBO_METER_OPTIONS = ['1 BAR', '2 BARS', '3 BARS', 'FURY'];
@@ -3091,20 +3151,56 @@ function getComboFurySvg() {
   </svg>`;
 }
 
-function getComboDamageSvg(value) {
+function getComboSideSwitchSvg() {
+  return `<span class="combo-side-switch-simple" role="img" aria-label="SIDE SWITCH">
+    <span class="combo-side-switch-simple-arrow" aria-hidden="true">↩</span>
+    <span class="combo-side-switch-simple-text">SIDE SWITCH</span>
+  </span>`;
+}
+
+
+function getComboBlockstringSvg() {
+  return `<span class="combo-blockstring-simple" role="img" aria-label="BLOCKSTRING">
+    <svg class="combo-blockstring-shield" viewBox="0 0 32 36" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 2.5L27 6.2v9.4c0 8.1-4.6 14.7-11 18c-6.4-3.3-11-9.9-11-18V6.2L16 2.5Z" fill="#18e6ff" stroke="#050505" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M16 7.2l6.4 2.1v6.1c0 4.7-2.5 8.5-6.4 10.9c-3.9-2.4-6.4-6.2-6.4-10.9V9.3L16 7.2Z" fill="#06140f"/>
+      <path d="M16 8.8v15.5" stroke="#18e6ff" stroke-width="2.8" stroke-linecap="round" opacity=".88"/>
+    </svg>
+    <span class="combo-blockstring-simple-text">BLOCKSTRING</span>
+  </span>`;
+}
+
+function getComboDamageSvg(value, options = {}) {
   const raw = String(value || '').replace(/[^0-9]/g, '').slice(0, 4);
   if (!raw) return '';
   const text = escapeHtml(raw);
-  return `<svg class="combo-damage-svg" viewBox="0 0 128 46" role="img" aria-label="${text} dégâts" xmlns="http://www.w3.org/2000/svg">
+  const bodyColor = escapeHtml(options.bodyColor || '#10c9a7');
+  const highlightColor = escapeHtml(options.highlightColor || '#5effe2');
+  const strokeColor = escapeHtml(options.strokeColor || '#07100e');
+  const ariaLabel = escapeHtml(options.ariaLabel || `${raw} dégâts`);
+  return `<svg class="combo-damage-svg${options.variantClass ? ` ${escapeHtml(options.variantClass)}` : ''}" viewBox="0 0 128 46" role="img" aria-label="${ariaLabel}" xmlns="http://www.w3.org/2000/svg">
     <path d="M6 6h105l13 34H18L6 6Z" fill="#020405" stroke="#000" stroke-width="8" />
-    <path d="M6 6h105l13 34H18L6 6Z" fill="#10c9a7" stroke="#07100e" stroke-width="3" />
-    <path d="M16 11h84l4 9H20l-4-9Z" fill="#5effe2" opacity=".36" />
+    <path d="M6 6h105l13 34H18L6 6Z" fill="${bodyColor}" stroke="${strokeColor}" stroke-width="3" />
+    <path d="M16 11h84l4 9H20l-4-9Z" fill="${highlightColor}" opacity=".36" />
     <text x="65" y="24" text-anchor="middle" dominant-baseline="middle" fill="#fff" font-family="Arial Black, Impact, system-ui, sans-serif" font-size="21" font-weight="900" letter-spacing=".25" stroke="#050505" stroke-width="5" paint-order="stroke fill" transform="translate(2 1)">${text}</text>
   </svg>`;
 }
 
+function getComboUltimateDamageSvg(value) {
+  const raw = String(value || '').replace(/[^0-9]/g, '').slice(0, 4);
+  return getComboDamageSvg(raw, {
+    bodyColor: '#f97316',
+    highlightColor: '#ffbd6b',
+    strokeColor: '#160904',
+    variantClass: 'combo-ultimate-damage-svg',
+    ariaLabel: `${raw} dégâts avec ultimate`,
+  });
+}
+
 const COMBO_TAG_VISUALS = {
   'FURY': getComboFurySvg(),
+  'BLOCKSTRING': getComboBlockstringSvg(),
+  'SIDE SWITCH': getComboSideSwitchSvg(),
   'LIMIT STRIKE': getComboLimitStrikeSvg(),
 };
 
@@ -3256,30 +3352,45 @@ function renderComboBuilderForm(game, character) {
         </div>
         <div class="combo-builder-edit-area">
           <div class="combo-output combo-editor" id="comboOutput" contenteditable="true" spellcheck="false" aria-label="Combo en cours" data-empty="true"></div>
-          <label class="combo-name-field">
-            <span>Nom du combo</span>
-            <input id="comboNameInput" type="text" autocomplete="off" placeholder="Ex : Akali corner route…" />
-          </label>
-          <div class="combo-meta-grid combo-meta-grid-visual">
-            ${renderComboAssistPicker(game, character)}
-            ${renderComboChoiceGroup('Fuse', 'comboFuseOptions', COMBO_FUSE_OPTIONS, 'combo-fuse-option', 'combo-fuse', { htmlMap: COMBO_FUSE_VISUALS, hideLabel: true, visualClass: 'combo-fuse-visual-option' })}
-            ${renderComboChoiceGroup('Meter cost', 'comboMeterOptions', COMBO_METER_OPTIONS, 'combo-meter-option', 'combo-meter', { htmlMap: COMBO_METER_VISUALS, hideLabel: true, visualClass: 'combo-meter-visual-option' })}
-            ${renderComboChoiceGroup('Position', 'comboPositionOptions', COMBO_POSITION_OPTIONS, 'combo-position-option', 'combo-position', { htmlMap: COMBO_POSITION_VISUALS, hideLabel: true, visualClass: 'combo-position-visual-option' })}
-            <label class="combo-meta-field combo-damage-field">
-              <span>Dégâts</span>
-              <input id="comboDamageInput" type="number" min="0" max="9999" step="1" inputmode="numeric" placeholder="Ex : 521" />
-            </label>
-            <div class="combo-tags-field combo-tags-field-inline" aria-label="Tags du combo">
-              <span>Tags</span>
-              <div class="combo-tag-options" id="comboTagOptions">
-                ${renderComboMetaOptionButtons(COMBO_TAG_OPTIONS, 'combo-tag-option', 'combo-tag', { htmlMap: COMBO_TAG_VISUALS, hideLabel: true, visualClass: 'combo-tag-visual-option' })}
+          <div class="combo-meta-grid combo-meta-grid-visual combo-builder-form-grid">
+            <div class="combo-builder-form-row combo-builder-form-row-main">
+              <label class="combo-name-field combo-name-field-main">
+                <span>Nom du combo</span>
+                <input id="comboNameInput" type="text" autocomplete="off" placeholder="Ex : Akali corner route…" />
+              </label>
+              <label class="combo-name-field combo-media-field combo-media-field-main">
+                <span>Lien</span>
+                <input id="comboMediaUrl" type="url" autocomplete="off" placeholder="Lien YouTube ou X optionnel…" />
+              </label>
+            </div>
+            <div class="combo-builder-form-row combo-builder-form-row-tools">
+              ${renderComboAssistPicker(game, character)}
+              ${renderComboChoiceGroup('Fuse', 'comboFuseOptions', COMBO_FUSE_OPTIONS, 'combo-fuse-option', 'combo-fuse', { htmlMap: COMBO_FUSE_VISUALS, hideLabel: true, visualClass: 'combo-fuse-visual-option' })}
+              ${renderComboChoiceGroup('Ressources', 'comboMeterOptions', COMBO_METER_OPTIONS, 'combo-meter-option', 'combo-meter', { htmlMap: COMBO_METER_VISUALS, hideLabel: true, visualClass: 'combo-meter-visual-option' })}
+            </div>
+            <div class="combo-builder-form-row combo-builder-form-row-details">
+              ${renderComboChoiceGroup('Position', 'comboPositionOptions', COMBO_POSITION_OPTIONS, 'combo-position-option', 'combo-position', { htmlMap: COMBO_POSITION_VISUALS, hideLabel: true, visualClass: 'combo-position-visual-option' })}
+              <div class="combo-choice-group combo-damage-group-inline" aria-label="Dégâts du combo">
+                <span>Dégâts</span>
+                <div class="combo-damage-options">
+                  <label class="combo-meta-field combo-damage-field combo-normal-damage-field">
+                    <span>Normal</span>
+                    <input id="comboDamageInput" type="number" min="0" max="9999" step="1" inputmode="numeric" placeholder="Ex : 521" />
+                  </label>
+                  <label class="combo-meta-field combo-damage-field combo-ultimate-damage-field">
+                    <span>Ulti</span>
+                    <input id="comboUltimateDamageInput" type="number" min="0" max="9999" step="1" inputmode="numeric" placeholder="Ex : 780" />
+                  </label>
+                </div>
+              </div>
+              <div class="combo-tags-field combo-tags-field-inline" aria-label="Tags du combo">
+                <span>Tags</span>
+                <div class="combo-tag-options" id="comboTagOptions">
+                  ${renderComboMetaOptionButtons(COMBO_TAG_OPTIONS, 'combo-tag-option', 'combo-tag', { htmlMap: COMBO_TAG_VISUALS, hideLabel: true, visualClass: 'combo-tag-visual-option' })}
+                </div>
               </div>
             </div>
           </div>
-          <label class="combo-name-field combo-media-field">
-            <span>Lien vidéo / post X</span>
-            <input id="comboMediaUrl" type="url" autocomplete="off" placeholder="Lien YouTube ou X optionnel…" />
-          </label>
           <div class="combo-save-row combo-builder-actions">
             <button class="combo-builder-add" type="button" id="comboAddNotation">Ajouter le combo</button>
             <button class="combo-builder-clear" type="button" id="comboClearNotation">Reset</button>
@@ -3383,12 +3494,20 @@ function renderComboMetaChips(combo) {
     secondaryChips.push(renderComboMetaChip(normalizedPosition, COMBO_POSITION_VISUALS[normalizedPosition] ? { html: COMBO_POSITION_VISUALS[normalizedPosition], className: 'combo-meta-position-logo' } : {}));
   }
 
+  if (tags.includes('SIDE SWITCH')) {
+    secondaryChips.push(`<span class="combo-meta-side-switch-inline combo-meta-saved-plain-tag" title="SIDE SWITCH" aria-label="SIDE SWITCH"><span class="combo-meta-saved-side-arrow" aria-hidden="true">↩</span><span class="combo-meta-saved-label">SIDE SWITCH</span></span>`);
+  }
+
   if (tags.includes('BLOCKSTRING')) {
-    secondaryChips.push(renderComboMetaChip('BLOCKSTRING'));
+    secondaryChips.push(`<span class="combo-meta-blockstring-inline combo-meta-saved-plain-tag" title="BLOCKSTRING" aria-label="BLOCKSTRING"><svg class="combo-meta-saved-block-shield" viewBox="0 0 32 36" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M16 2.5L27 6.2v9.4c0 8.1-4.6 14.7-11 18c-6.4-3.3-11-9.9-11-18V6.2L16 2.5Z" fill="#18e6ff" stroke="#050505" stroke-width="4" stroke-linejoin="round"/><path d="M16 7.2l6.4 2.1v6.1c0 4.7-2.5 8.5-6.4 10.9c-3.9-2.4-6.4-6.2-6.4-10.9V9.3L16 7.2Z" fill="#06140f"/><path d="M16 8.8v15.5" stroke="#18e6ff" stroke-width="2.8" stroke-linecap="round" opacity=".88"/></svg><span class="combo-meta-saved-label">BLOCKSTRING</span></span>`);
   }
 
   if (combo.damage) {
     secondaryChips.push(renderComboMetaChip(`${combo.damage} DMG`, { kind: 'damage', html: getComboDamageSvg(combo.damage), className: 'combo-meta-damage-visual' }));
+  }
+
+  if (combo.ultimateDamage) {
+    secondaryChips.push(renderComboMetaChip(`${combo.ultimateDamage} ULT DMG`, { kind: 'ultimate-damage', html: getComboUltimateDamageSvg(combo.ultimateDamage), className: 'combo-meta-damage-visual combo-meta-ultimate-damage-visual' }));
   }
 
   if (tags.includes('LIMIT STRIKE')) {
@@ -3396,7 +3515,7 @@ function renderComboMetaChips(combo) {
   }
 
   tags
-    .filter((tag) => !['BLOCKSTRING', 'LIMIT STRIKE'].includes(tag))
+    .filter((tag) => !['SIDE SWITCH', 'BLOCKSTRING', 'LIMIT STRIKE'].includes(tag))
     .filter((tag) => !COMBO_POSITION_OPTIONS.includes(normalizeComboPosition(tag)) && !COMBO_POSITION_LEGACY_OPTIONS.includes(String(tag || '').toUpperCase()))
     .forEach((tag) => {
       if (COMBO_TAG_VISUALS[tag]) secondaryChips.push(renderComboMetaChip(tag, { html: COMBO_TAG_VISUALS[tag], className: 'combo-meta-tag-logo' }));
@@ -3433,8 +3552,8 @@ function renderSavedCombo(combo) {
   const title = name ? `<div class="saved-combo-title">${name}</div>` : '';
   return `
     <article class="saved-combo-card${media ? ' has-media' : ''}" data-combo-id="${escapeHtml(combo.id)}" draggable="true">
-      <button class="saved-combo-delete" type="button" title="Supprimer ce combo" aria-label="Supprimer ${escapeHtml(actionName)}">×</button>
-      <button class="saved-combo-edit" type="button" title="Éditer ce combo" aria-label="Éditer ${escapeHtml(actionName)}">✎</button>
+      <button class="techlab-action-button techlab-combo-delete" type="button" title="Supprimer ce combo" aria-label="Supprimer ${escapeHtml(actionName)}">×</button>
+      <button class="techlab-action-button techlab-combo-edit" type="button" title="Éditer ce combo" aria-label="Éditer ${escapeHtml(actionName)}">✎</button>
       <div class="saved-combo-main">
         <div class="saved-combo-head">
           ${title}
@@ -3514,7 +3633,7 @@ function renderComboFilterBar(combos = []) {
   if (!filters.length) return '<div class="combo-filter-bar" id="comboFilterBar" hidden></div>';
   return `
     <div class="combo-filter-bar" id="comboFilterBar" aria-label="Filtrer les combos">
-      <span>Filtrer</span>
+      <span class="combo-filter-label">Filtrer</span>
       ${filters.map(renderComboFilterChip).join('')}
     </div>
   `;
@@ -3607,6 +3726,7 @@ function bindPersonalLab(game, character) {
   const refreshLinks = () => {
     list.innerHTML = renderPersonalLinksList(record.links || []);
     loadTwitterWidgets();
+    queuePersonalLinkLayoutSync(list);
   };
 
   const clearDropMarkers = () => {
@@ -3678,7 +3798,27 @@ function bindPersonalLab(game, character) {
   const comboAssistPicker = app.querySelector('#comboAssistPicker');
   const comboMediaUrl = app.querySelector('#comboMediaUrl');
   const comboDamageInput = app.querySelector('#comboDamageInput');
+  const comboUltimateDamageInput = app.querySelector('#comboUltimateDamageInput');
   let comboInputTarget = 'combo';
+
+  // TechLab v1.0.136 — combo builder form grid cleanup.
+  // Le breakpoint dépend de la largeur disponible du builder, pas seulement du viewport.
+  const updateComboBuilderResponsiveState = () => {
+    if (!comboBuilderShell) return;
+    const rect = comboBuilderShell.getBoundingClientRect?.();
+    const width = rect?.width || comboBuilderShell.clientWidth || 0;
+    const shouldStack = width > 0 && width < 1560;
+    comboBuilderShell.classList.toggle('techlab-builder-stack', shouldStack);
+  };
+
+  if (comboBuilderShell) {
+    updateComboBuilderResponsiveState();
+    if ('ResizeObserver' in window) {
+      const comboBuilderResizeObserver = new ResizeObserver(() => updateComboBuilderResponsiveState());
+      comboBuilderResizeObserver.observe(comboBuilderShell);
+    }
+    window.addEventListener('resize', updateComboBuilderResponsiveState, { passive: true });
+  }
 
   const setSingleChoice = (selector, dataKey, value = '') => {
     app.querySelectorAll(selector).forEach((button) => {
@@ -3718,6 +3858,7 @@ function bindPersonalLab(game, character) {
     const isMobileDetailLayout = window.matchMedia?.('(max-width: 900px)').matches || window.innerWidth <= 900;
     comboBuilderShell.hidden = false;
     comboBuilderShell.classList.add('is-open');
+    updateComboBuilderResponsiveState();
     document.body.dataset.comboBuilderOpen = 'true';
     window.requestAnimationFrame(() => {
       comboBuilderShell.scrollTo?.(0, 0);
@@ -3748,6 +3889,7 @@ function bindPersonalLab(game, character) {
     setSingleChoice('.combo-assist-option', 'comboAssist', '');
     if (comboMediaUrl) comboMediaUrl.value = '';
     if (comboDamageInput) comboDamageInput.value = '';
+    if (comboUltimateDamageInput) comboUltimateDamageInput.value = '';
     editingComboId = '';
     pendingComboModifiers.clear();
     pendingComboHitCount = '';
@@ -4124,6 +4266,7 @@ function bindPersonalLab(game, character) {
     setSingleChoice('.combo-fuse-option', 'comboFuse', combo.fuse || '');
     setSingleChoice('.combo-assist-option', 'comboAssist', combo.assistSlug || '');
     if (comboDamageInput) comboDamageInput.value = combo.damage || '';
+    if (comboUltimateDamageInput) comboUltimateDamageInput.value = combo.ultimateDamage || '';
     if (comboMediaUrl) comboMediaUrl.value = combo.media?.url || '';
     app.querySelectorAll('.combo-tag-option').forEach((button) => {
       const active = (combo.tags || []).includes(button.dataset.comboTag || '');
@@ -4351,6 +4494,7 @@ function bindPersonalLab(game, character) {
       const mediaUrl = normalizePersonalUrl(comboMediaUrl?.value || '');
       const media = mediaUrl ? await buildPersonalLink(mediaUrl) : null;
       const rawDamage = String(comboDamageInput?.value || '').replace(/\D+/g, '').slice(0, 4);
+      const rawUltimateDamage = String(comboUltimateDamageInput?.value || '').replace(/\D+/g, '').slice(0, 4);
       const assistCharacter = getComboAssistCharacter();
       const combo = {
         id: editingComboId || `${Date.now()}-${Math.random().toString(16).slice(2)}`,
@@ -4367,6 +4511,7 @@ function bindPersonalLab(game, character) {
         assist: assistCharacter?.name || '',
         assistSlug: assistCharacter?.slug || '',
         damage: rawDamage,
+        ultimateDamage: rawUltimateDamage,
         media,
         createdAt: editingComboId
           ? (normalizePersonalCombos(record.combos).find((entry) => entry.id === editingComboId)?.createdAt || new Date().toISOString())
@@ -4394,7 +4539,13 @@ function bindPersonalLab(game, character) {
     comboClear.addEventListener('click', resetComboBuilder);
   }
 
-  app.addEventListener('click', async (event) => {
+  // Un seul handler global de fiche perso à la fois : sinon chaque render() empile un listener
+  // avec un vieux record en closure, ce qui peut écraser combos/liens avec un état périmé.
+  if (app.__techLabPersonalLabClickHandler) {
+    app.removeEventListener('click', app.__techLabPersonalLabClickHandler);
+  }
+
+  const handlePersonalLabClick = async (event) => {
     const comboYoutubePlay = event.target.closest('.saved-combo-media .personal-youtube-play');
     if (comboYoutubePlay) {
       const youtubeId = comboYoutubePlay.dataset.youtubeId;
@@ -4406,21 +4557,47 @@ function bindPersonalLab(game, character) {
       return;
     }
 
-    const deleteComboButton = event.target.closest('.saved-combo-delete');
+    const deleteComboButton = event.target.closest('.techlab-combo-delete, .saved-combo-delete');
     if (deleteComboButton) {
+      event.preventDefault();
+      event.stopPropagation();
       if (isLocked()) {
         requireConnection();
         return;
       }
       const card = deleteComboButton.closest('.saved-combo-card');
-      const id = card?.dataset.comboId;
-      record.combos = normalizePersonalCombos(record.combos).filter((combo) => combo.id !== id);
+      const id = card?.dataset.comboId || '';
+      if (!id || deleteComboButton.dataset.confirming === 'true') return;
+
+      const previous = normalizePersonalRecord(record);
+      const nextCombos = previous.combos.filter((combo) => combo.id !== id);
+
+      // Sécurité anti-régression : une suppression via la croix doit retirer exactement 1 combo, jamais plus.
+      if (nextCombos.length !== previous.combos.length - 1) {
+        setPersonalStatus('Suppression bloquée');
+        console.warn('TechLab combo delete blocked: unsafe combo id/state', { id, previousCount: previous.combos.length, nextCount: nextCombos.length });
+        return;
+      }
+
+      deleteComboButton.dataset.confirming = 'true';
+      const comboName = card?.querySelector('.saved-combo-title')?.textContent?.trim() || 'ce combo';
+      const confirmed = window.confirm(`Supprimer ${comboName} ?`);
+      deleteComboButton.dataset.confirming = '';
+      if (!confirmed) return;
+
+      // On préserve explicitement notes + liens : la suppression d'un combo n'a pas le droit de toucher au reste.
+      record = {
+        ...previous,
+        combos: nextCombos,
+        links: previous.links,
+        notes: previous.notes,
+      };
       refreshCombos();
       persist('Combo supprimé');
       return;
     }
 
-    const editComboButton = event.target.closest('.saved-combo-edit');
+    const editComboButton = event.target.closest('.techlab-combo-edit, .saved-combo-edit');
     if (editComboButton) {
       const card = editComboButton.closest('.saved-combo-card');
       const id = card?.dataset.comboId;
@@ -4441,7 +4618,10 @@ function bindPersonalLab(game, character) {
         window.setTimeout(() => { copyComboButton.textContent = oldText; }, 1000);
       }
     }
-  });
+  };
+
+  app.__techLabPersonalLabClickHandler = handlePersonalLabClick;
+  app.addEventListener('click', handlePersonalLabClick);
 
   const comboListRoot = app.querySelector('#savedCombosList');
   const syncComboOrderFromDom = () => {
@@ -4559,7 +4739,7 @@ function bindPersonalLab(game, character) {
     if (!item) return;
     const id = item.dataset.linkId;
 
-    if (event.target.closest('.personal-delete-link')) {
+    if (event.target.closest('.techlab-link-delete, .personal-delete-link')) {
       if (isLocked()) {
         requireConnection();
         return;
@@ -4632,8 +4812,10 @@ function bindPersonalLab(game, character) {
     if (isLocked()) return;
     if (event.button !== 0) return;
     const item = event.target.closest('.personal-link-item');
-    if (!item || event.target.closest('.personal-delete-link, input, textarea, select')) return;
+    const dragPanel = event.target.closest('.techlab-link-controls, .techlab-link-drag-handle, .personal-link-floating-actions, .personal-link-actions, .personal-link-drag-handle');
+    if (!item || !dragPanel || event.target.closest('.techlab-link-delete, .personal-delete-link, input, textarea, select')) return;
 
+    event.preventDefault();
     if (linkPointerDrag?.timer) window.clearTimeout(linkPointerDrag.timer);
     linkPointerDrag = {
       id: item.dataset.linkId || '',
@@ -4645,10 +4827,8 @@ function bindPersonalLab(game, character) {
       timer: 0,
     };
 
-    // Drag par clic long : un clic court reste un clic normal dans le widget YouTube/X/lien.
-    linkPointerDrag.timer = window.setTimeout(() => {
-      activateLinkPointerDrag();
-    }, LINK_DRAG_HOLD_MS);
+    // Le reorder des liens se fait en attrapant la poignée dans la colonne d'actions à droite.
+    activateLinkPointerDrag();
   });
 
   list.addEventListener('pointermove', (event) => {
@@ -4689,13 +4869,46 @@ function bindPersonalLab(game, character) {
     cleanupLinkPointerDrag(false);
   });
 
-  // On désactive le drag natif du navigateur pour les liens/images : seul le clic long gère le reorder.
   list.addEventListener('dragstart', (event) => {
-    if (event.target.closest('.personal-link-item')) event.preventDefault();
+    const item = event.target.closest('.personal-link-item');
+    if (!item || isLocked() || event.target.closest('button, input, textarea, select, iframe')) {
+      event.preventDefault();
+      return;
+    }
+    draggedLinkId = item.dataset.linkId || '';
+    item.classList.add('is-dragging');
+    event.dataTransfer?.setData('text/plain', draggedLinkId);
+    event.dataTransfer.effectAllowed = 'move';
   });
+
+  list.addEventListener('dragover', (event) => {
+    if (!draggedLinkId) return;
+    event.preventDefault();
+    const dragging = list.querySelector('.personal-link-item.is-dragging');
+    if (!dragging) return;
+    const afterElement = getDragAfterElement(list, event.clientY);
+    if (afterElement && afterElement !== dragging) list.insertBefore(dragging, afterElement);
+    else if (!afterElement) list.appendChild(dragging);
+  });
+
+  const endNativeLinkDrag = () => {
+    if (!draggedLinkId) return;
+    draggedLinkId = '';
+    list.querySelectorAll('.personal-link-item').forEach((node) => node.classList.remove('is-dragging'));
+    if (syncLinkOrderFromDom()) persist('Ordre modifié');
+  };
+
+  list.addEventListener('drop', (event) => {
+    if (!draggedLinkId) return;
+    event.preventDefault();
+    endNativeLinkDrag();
+  });
+
+  list.addEventListener('dragend', endNativeLinkDrag);
 
 
   loadTwitterWidgets();
+  queuePersonalLinkLayoutSync(list);
 }
 
 

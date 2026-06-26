@@ -551,7 +551,7 @@ function isCurrentCharacterRoute(game, character) {
   return route.gameId === game.id && route.characterSlug === character.slug;
 }
 
-function queueCloudPersonalRecordSave(game, character, record) {
+function queueCloudPersonalRecordSave(game, character, record, statusScope = 'notes') {
   if (!supabaseClient || !techLabUser?.id) return;
 
   const key = getCloudHydrationKey(game, character);
@@ -578,14 +578,14 @@ function queueCloudPersonalRecordSave(game, character, record) {
 
     if (error) {
       console.warn('TechLab cloud save failed:', error);
-      setPersonalStatus('Sauvegarde compte impossible');
+      setPersonalStatus('Sauvegarde compte impossible', latest?.statusScope || statusScope);
       return;
     }
 
-    setPersonalStatus('Sauvegardé sur le compte');
+    setPersonalStatus('Sauvegardé sur le compte', latest?.statusScope || statusScope);
   }, 650);
 
-  pendingCloudRecordSaves.set(key, { timer, payload });
+  pendingCloudRecordSaves.set(key, { timer, payload, statusScope });
 }
 
 async function hydratePersonalRecordFromCloud(game, character) {
@@ -605,7 +605,7 @@ async function hydratePersonalRecordFromCloud(game, character) {
 
   if (error) {
     console.warn('TechLab cloud load failed:', error);
-    setPersonalStatus('Chargement compte impossible');
+    setPersonalStatus('Chargement compte impossible', 'notes');
     return;
   }
 
@@ -2469,15 +2469,15 @@ function getPersonalRecord(game, character) {
   return normalizePersonalRecord(getCachedPersonalRecord(game, character) || {});
 }
 
-function savePersonalRecord(game, character, record) {
+function savePersonalRecord(game, character, record, statusScope = 'notes') {
   if (!canUseCloudPersonalData()) {
-    setPersonalStatus('Connecte-toi pour sauvegarder');
+    setPersonalStatus('Connecte-toi pour sauvegarder', statusScope);
     return false;
   }
 
   const normalized = normalizePersonalRecord(record);
   setCachedPersonalRecord(game, character, normalized);
-  queueCloudPersonalRecordSave(game, character, normalized);
+  queueCloudPersonalRecordSave(game, character, normalized, statusScope);
   return true;
 }
 
@@ -2719,12 +2719,22 @@ function renderPersonalLinksList(links) {
   }).join('');
 }
 
-function setPersonalStatus(message) {
-  const status = app.querySelector('#personalSaveStatus');
+function setPersonalStatus(message, scope = 'notes') {
+  const safeScope = String(scope || 'notes').replace(/[^a-z0-9_-]/gi, '') || 'notes';
+  const status = app.querySelector(`[data-personal-status-scope="${safeScope}"]`)
+    || app.querySelector('#personalSaveStatus')
+    || app.querySelector('[data-personal-status-scope]');
   if (!status) return;
   status.textContent = message;
   status.hidden = !message;
-  if (message) window.setTimeout(() => { status.hidden = true; }, 1400);
+  status.classList.toggle('is-visible', Boolean(message));
+  if (status.__techLabStatusTimer) window.clearTimeout(status.__techLabStatusTimer);
+  if (message) {
+    status.__techLabStatusTimer = window.setTimeout(() => {
+      status.hidden = true;
+      status.classList.remove('is-visible');
+    }, 1400);
+  }
 }
 
 function renderPersonalNotesPanel(record) {
@@ -2736,7 +2746,7 @@ function renderPersonalNotesPanel(record) {
     <section class="personal-panel personal-notes-panel${locked ? ' is-locked' : ''}">
       <div class="personal-panel-header">
         <span>Notes</span>
-        <small id="personalSaveStatus" hidden></small>
+        <small id="personalSaveStatus" class="personal-save-status" data-personal-status-scope="notes" hidden></small>
       </div>
       <textarea id="personalNotes" class="personal-textarea" rows="10" placeholder="${escapeHtml(placeholder)}"${lockAttrs}>${notes}</textarea>
     </section>
@@ -3119,39 +3129,39 @@ const COMBO_FUSE_COLORS = {
   'SIDEKICK': '#655dff',
   'TEAMFIGHT': '#40f46b',
 };
+const COMBO_FUSE_IMAGE_PATHS = {
+  '2X ASSIST': 'assets/2xko/combo/fuse-2x-assist.png',
+  'DOUBLE DOWN': 'assets/2xko/combo/fuse-double-down.png',
+  'FREESTYLE': 'assets/2xko/combo/fuse-freestyle.png',
+  'JUGGERNAUT': 'assets/2xko/combo/fuse-juggernaut.png',
+  'SIDEKICK': 'assets/2xko/combo/fuse-sidekick.png',
+  'TEAMFIGHT': 'assets/2xko/combo/fuse-teamfight.png',
+};
 
-function getComboFuseSvg(label, color) {
+function getComboPngTagVisual(label, src, wrapperClass, imgClass) {
   const text = escapeHtml(label);
-  const stroke = escapeHtml(color);
-  return `<svg class="combo-fuse-svg" viewBox="0 0 214 42" role="img" aria-label="${text}" xmlns="http://www.w3.org/2000/svg">
-    <path class="combo-fuse-shadow" d="M5 5h190l14 32H19L5 5Z" fill="#05070a" stroke="#000" stroke-width="8" />
-    <path class="combo-fuse-frame" d="M5 5h190l14 32H19L5 5Z" fill="#05070a" stroke="${stroke}" stroke-width="5" />
-    <path d="M20 10h159l3 6H23l-3-6Z" fill="rgba(255,255,255,.15)" />
-    <text x="107" y="27" text-anchor="middle" dominant-baseline="middle" fill="#f8f8f8" font-family="Arial Black, Impact, system-ui, sans-serif" font-size="19" font-weight="900" letter-spacing=".7" stroke="#000" stroke-width="4" paint-order="stroke fill">${text}</text>
-  </svg>`;
+  const safeSrc = escapeHtml(src);
+  return `<span class="${wrapperClass}" role="img" aria-label="${text}">
+    <img class="${imgClass}" src="${safeSrc}" alt="" draggable="false" loading="lazy" decoding="async">
+  </span>`;
+}
+
+function getComboFuseSvg(label) {
+  const slug = String(label || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const src = COMBO_FUSE_IMAGE_PATHS[label] || COMBO_FUSE_IMAGE_PATHS['2X ASSIST'];
+  return getComboPngTagVisual(label, src, `combo-fuse-svg combo-fuse-png combo-fuse-png-${slug}`, 'combo-fuse-img');
 }
 
 const COMBO_FUSE_VISUALS = Object.fromEntries(
-  COMBO_FUSE_OPTIONS.map((label) => [label, getComboFuseSvg(label, COMBO_FUSE_COLORS[label] || '#18e6ff')])
+  COMBO_FUSE_OPTIONS.map((label) => [label, getComboFuseSvg(label)])
 );
 
 function getComboLimitStrikeSvg() {
-  return `<svg class="combo-tag-logo-svg combo-tag-logo-limit-strike" viewBox="0 0 236 42" role="img" aria-label="LIMIT STRIKE!" xmlns="http://www.w3.org/2000/svg">
-    <path class="combo-limit-shadow" d="M2 6h181l-9 30H2V6Z" fill="#000" opacity=".92" transform="translate(5 5)" />
-    <path class="combo-limit-body" d="M2 6h181l-9 30H2V6Z" fill="#050506" />
-    <path d="M13 10h150l-2 5H13v-5Z" fill="rgba(255,255,255,.12)" />
-    <path class="combo-limit-cap" d="M183 6h49l-9 30h-49l9-30Z" fill="#ff5c54" />
-    <path class="combo-limit-cap-shadow" d="M183 6h49l-2 7h-49l2-7Z" fill="#ff928d" opacity=".45" />
-    <path class="combo-limit-star" d="M207 11l3.8 7.3l8.1-1.1l-5.9 5.7l3.5 7.4l-7.2-3.8l-6.1 5.6l1.3-8.1l-7.1-4l8-1.2L207 11Z" fill="#050506" />
-    <text x="92" y="24" text-anchor="middle" dominant-baseline="middle" fill="#f6f6f3" font-family="Arial Black, Impact, system-ui, sans-serif" font-size="23" font-weight="1000" letter-spacing=".15" stroke="#020202" stroke-width="4.8" paint-order="stroke fill">LIMIT STRIKE!</text>
-  </svg>`;
+  return getComboPngTagVisual('LIMIT STRIKE!', 'assets/2xko/combo/limit-strike.png', 'combo-tag-logo-svg combo-tag-logo-limit-strike combo-limit-strike-banner', 'combo-limit-strike-banner-img');
 }
 
 function getComboFurySvg() {
-  return `<svg class="combo-tag-logo-svg combo-tag-logo-fury" viewBox="0 0 150 42" role="img" aria-label="FURY!" xmlns="http://www.w3.org/2000/svg">
-    <text x="74" y="27" text-anchor="middle" dominant-baseline="middle" fill="#ffdce3" font-family="Arial Black, Impact, system-ui, sans-serif" font-size="34" font-weight="1000" letter-spacing="-.05em" stroke="#4d232b" stroke-width="9" opacity=".92" paint-order="stroke fill" transform="scale(1.22 .72) translate(-13 11)">FURY!</text>
-    <text x="74" y="27" text-anchor="middle" dominant-baseline="middle" fill="#fff" font-family="Arial Black, Impact, system-ui, sans-serif" font-size="34" font-weight="1000" letter-spacing="-.05em" stroke="#070707" stroke-width="3.4" paint-order="stroke fill" transform="scale(1.22 .72) translate(-13 11)">FURY!</text>
-  </svg>`;
+  return getComboPngTagVisual('FURY!', 'assets/2xko/combo/fury.png', 'combo-tag-logo-svg combo-tag-logo-fury combo-fury-banner', 'combo-fury-banner-img');
 }
 
 function getComboSideSwitchSvg() {
@@ -3209,7 +3219,7 @@ const COMBO_UNIQUE_RESOURCE_OPTIONS = [
   { value: 'DART BADGE', label: 'Dart Badge', character: 'Teemo', icon: 'assets/2xko/unique-resources/teemo-dart-badge.webp' },
   { value: 'MUSHROOM BADGE', label: 'Mushroom Badge', character: 'Teemo', icon: 'assets/2xko/unique-resources/teemo-mushroom-badge.webp' },
   { value: 'SLINGSHOT BADGE', label: 'Slingshot Badge', character: 'Teemo', icon: 'assets/2xko/unique-resources/teemo-slingshot-badge.webp' },
-  { value: 'BLOODLUST', label: 'Bloodlust', character: 'Warwick', icon: 'assets/2xko/unique-resources/warwick-bloodlust.png' },
+  { value: 'BLOODLUST', label: 'Bloodlust', character: 'Warwick', icon: 'assets/2xko/unique-resources/warwick-bloodlust-base.png', fullIcon: 'assets/2xko/unique-resources/warwick-bloodlust-full.png' },
 ];
 const COMBO_UNIQUE_RESOURCE_TAGS = COMBO_UNIQUE_RESOURCE_OPTIONS.map((entry) => entry.value);
 
@@ -3264,7 +3274,7 @@ function getComboWraithMeterSvg(value = '', options = {}) {
   const secondFill = chargeNumber >= 2 ? '#00d97a' : '#053414';
   const firstOpacity = chargeNumber >= 1 ? '1' : '.58';
   const secondOpacity = chargeNumber >= 2 ? '1' : '.58';
-  return `<svg class="combo-wraith-meter-svg${charge ? ' has-wraith-value' : ''}" viewBox="0 0 176 50" role="img" aria-label="${escapeHtml(label)}" xmlns="http://www.w3.org/2000/svg">
+  return `<svg class="combo-wraith-meter-svg${charge ? ' has-wraith-value' : ''}" viewBox="0 0 222 64" role="img" aria-label="${escapeHtml(label)}" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="wraithMeterFill" x1="0" y1="0" x2="1" y2="0">
         <stop offset="0" stop-color="#003f18"/>
@@ -3275,21 +3285,21 @@ function getComboWraithMeterSvg(value = '', options = {}) {
         <feDropShadow dx="0" dy="0" stdDeviation="1.8" flood-color="#00ffc3" flood-opacity=".7"/>
       </filter>
     </defs>
-    <image class="combo-wraith-icon" data-wraith-clear="true" href="${iconHref}" x="-3" y="-1" width="58" height="58" preserveAspectRatio="xMidYMid meet"/>
-    <path d="M45 22H171L166 46H39L45 22Z" fill="#020504" stroke="#000" stroke-width="5" stroke-linejoin="round"/>
+    <image class="combo-wraith-icon" data-wraith-clear="true" href="${iconHref}" x="0" y="0" width="62" height="62" preserveAspectRatio="xMidYMid meet"/>
+    <path d="M61 37H216L211 58H56L61 37Z" fill="#020504" stroke="#000" stroke-width="5" stroke-linejoin="round"/>
     <g class="combo-wraith-segment combo-wraith-segment-one" data-wraith-charge="1" aria-label="Wraith Meter 1">
-      <path d="M50 27H107L103 41H46L50 27Z" fill="${firstFill}" opacity="${firstOpacity}"/>
-      <path d="M50 27H107L103 41H46L50 27Z" fill="url(#wraithMeterFill)" opacity="${chargeNumber >= 1 ? '.9' : '.13'}" filter="url(#wraithMeterGlow)"/>
-      <path d="M51 28H105" stroke="#78ffd1" stroke-width="2" opacity="${chargeNumber >= 1 ? '.58' : '.18'}"/>
-      <text x="77" y="38" text-anchor="middle" fill="#f2ffe1" font-family="Arial Black, Impact, system-ui, sans-serif" font-size="12" font-weight="900" stroke="#000" stroke-width="3" paint-order="stroke fill" opacity="${chargeNumber >= 1 ? '1' : '.22'}">1</text>
+      <path d="M67 42H137L133 54H63L67 42Z" fill="${firstFill}" opacity="${firstOpacity}"/>
+      <path d="M67 42H137L133 54H63L67 42Z" fill="url(#wraithMeterFill)" opacity="${chargeNumber >= 1 ? '.9' : '.13'}" filter="url(#wraithMeterGlow)"/>
+      <path d="M68 43H135" stroke="#78ffd1" stroke-width="2" opacity="${chargeNumber >= 1 ? '.58' : '.18'}"/>
+      <text x="100" y="52" text-anchor="middle" fill="#f2ffe1" font-family="Arial Black, Impact, system-ui, sans-serif" font-size="11" font-weight="900" stroke="#000" stroke-width="3" paint-order="stroke fill" opacity="${chargeNumber >= 1 ? '1' : '.22'}">1</text>
     </g>
     <g class="combo-wraith-segment combo-wraith-segment-two" data-wraith-charge="2" aria-label="Wraith Meter 2">
-      <path d="M110 27H162L158 41H106L110 27Z" fill="${secondFill}" opacity="${secondOpacity}"/>
-      <path d="M110 27H162L158 41H106L110 27Z" fill="url(#wraithMeterFill)" opacity="${chargeNumber >= 2 ? '.9' : '.13'}" filter="url(#wraithMeterGlow)"/>
-      <path d="M111 28H160" stroke="#78ffd1" stroke-width="2" opacity="${chargeNumber >= 2 ? '.58' : '.18'}"/>
-      <text x="134" y="38" text-anchor="middle" fill="#f2ffe1" font-family="Arial Black, Impact, system-ui, sans-serif" font-size="12" font-weight="900" stroke="#000" stroke-width="3" paint-order="stroke fill" opacity="${chargeNumber >= 2 ? '1' : '.22'}">2</text>
+      <path d="M141 42H207L203 54H137L141 42Z" fill="${secondFill}" opacity="${secondOpacity}"/>
+      <path d="M141 42H207L203 54H137L141 42Z" fill="url(#wraithMeterFill)" opacity="${chargeNumber >= 2 ? '.9' : '.13'}" filter="url(#wraithMeterGlow)"/>
+      <path d="M142 43H205" stroke="#78ffd1" stroke-width="2" opacity="${chargeNumber >= 2 ? '.58' : '.18'}"/>
+      <text x="172" y="52" text-anchor="middle" fill="#f2ffe1" font-family="Arial Black, Impact, system-ui, sans-serif" font-size="11" font-weight="900" stroke="#000" stroke-width="3" paint-order="stroke fill" opacity="${chargeNumber >= 2 ? '1' : '.22'}">2</text>
     </g>
-    <path d="M108 24L104 44" stroke="#030303" stroke-width="4" opacity=".86"/>
+    <path d="M138 39L134 57" stroke="#030303" stroke-width="4" opacity=".86"/>
   </svg>`;
 }
 
@@ -3306,9 +3316,10 @@ function getComboUniqueResourceVisual(entry, options = {}) {
   const bloodlustValue = entry.value === 'BLOODLUST' ? normalizeComboBloodlustValue(options.bloodlustValue ?? options.value ?? '') : '';
   const bloodlustLabel = bloodlustValue !== '' ? ` — ${bloodlustValue}%` : '';
   const title = `${entry.character} — ${entry.label}${bloodlustLabel}`;
-  const bloodlustClass = entry.value === 'BLOODLUST' ? ` combo-unique-resource-choice-bloodlust${bloodlustValue !== '' ? ' has-bloodlust-value' : ''}` : '';
+  const bloodlustClass = entry.value === 'BLOODLUST' ? ` combo-unique-resource-choice-bloodlust${bloodlustValue !== '' ? ' has-bloodlust-value' : ''}${bloodlustValue === '100' ? ' is-bloodlust-full' : ''}` : '';
   const bloodlustStyle = bloodlustValue !== '' ? ` style="--bloodlust-progress:${escapeHtml(bloodlustValue)}; --bloodlust-progress-percent:${escapeHtml(bloodlustValue)}%;" data-bloodlust-value="${escapeHtml(bloodlustValue)}"` : '';
-  return `<span class="combo-unique-resource-choice${bloodlustClass}" role="img" aria-label="${escapeHtml(title)}"${bloodlustStyle}><img class="combo-unique-resource-icon" src="${escapeHtml(entry.icon)}" alt="" loading="lazy" decoding="async" fetchpriority="low" /></span>`;
+  const iconSrc = entry.value === 'BLOODLUST' && bloodlustValue === '100' ? (entry.fullIcon || entry.icon) : entry.icon;
+  return `<span class="combo-unique-resource-choice${bloodlustClass}" role="img" aria-label="${escapeHtml(title)}"${bloodlustStyle}><img class="combo-unique-resource-icon" src="${escapeHtml(iconSrc)}" alt="" loading="lazy" decoding="async" fetchpriority="low" /></span>`;
 }
 
 function getComboUniqueResourceTagVisual(tag, combo = {}) {
@@ -3817,6 +3828,7 @@ function renderPersonalCombosPanel(record, game, character) {
     <section class="personal-panel personal-combos-panel${locked ? ' is-locked' : ''}">
       <div class="personal-panel-header combo-list-header">
         <span>Combos</span>
+        <small class="personal-save-status" data-personal-status-scope="combos" hidden></small>
         ${hasComboBuilder ? `<button class="combo-open-builder" type="button" id="comboOpenBuilder" aria-controls="comboBuilderShell" aria-expanded="false"${locked ? ' disabled aria-disabled="true" title="Connecte-toi pour ajouter un combo"' : ''}>Ajouter un combo</button>` : ''}
       </div>
       ${hasComboBuilder ? renderComboFilterBar(record.combos || []) : ''}
@@ -3836,6 +3848,7 @@ function renderPersonalLinksPanel(record) {
       <section class="personal-panel${locked ? ' is-locked' : ''}">
         <div class="personal-panel-header">
           <span>Liens</span>
+          <small class="personal-save-status" data-personal-status-scope="links" hidden></small>
         </div>
         <form class="personal-link-form" id="personalLinkForm">
           <input id="personalLinkUrl" type="url" autocomplete="off" placeholder="${locked ? 'Connecte-toi pour ajouter un lien…' : 'Colle un lien YouTube, X ou autre…'}" required${lockAttrs} />
@@ -3874,24 +3887,24 @@ function bindPersonalLab(game, character) {
   const LINK_DRAG_CANCEL_DISTANCE = 10;
   const isLocked = () => !canUseCloudPersonalData();
 
-  const requireConnection = () => {
-    setPersonalStatus('Connecte-toi pour sauvegarder');
+  const requireConnection = (scope = 'notes') => {
+    setPersonalStatus('Connecte-toi pour sauvegarder', scope);
     openAuthModal();
   };
 
-  const persist = (message = 'Sauvegardé') => {
-    if (!savePersonalRecord(game, character, record)) return;
-    setPersonalStatus(message);
+  const persist = (message = 'Sauvegardé', scope = 'notes') => {
+    if (!savePersonalRecord(game, character, record, scope)) return;
+    setPersonalStatus(message, scope);
   };
 
   const scheduleTextSave = () => {
     if (isLocked()) {
-      requireConnection();
+      requireConnection('notes');
       return;
     }
     record.notes = notes.value;
     window.clearTimeout(saveTimer);
-    saveTimer = window.setTimeout(() => persist('Sauvegardé'), 180);
+    saveTimer = window.setTimeout(() => persist('Sauvegardé', 'notes'), 180);
   };
 
   const refreshLinks = () => {
@@ -4033,7 +4046,7 @@ function bindPersonalLab(game, character) {
 
   const openComboBuilder = () => {
     if (isLocked()) {
-      requireConnection();
+      requireConnection('combos');
       return;
     }
     if (!comboBuilderShell) return;
@@ -4106,7 +4119,7 @@ function bindPersonalLab(game, character) {
     }
     const normalized = normalizeComboBloodlustValue(trimmed);
     if (normalized === '') {
-      setPersonalStatus('Bloodlust : valeur entre 0 et 100');
+      setPersonalStatus('Bloodlust : valeur entre 0 et 100', 'combos');
       return;
     }
     setComboBloodlustActive(button, normalized);
@@ -4770,14 +4783,14 @@ function bindPersonalLab(game, character) {
   if (comboAdd) {
     comboAdd.addEventListener('click', async () => {
       if (isLocked()) {
-        requireConnection();
+        requireConnection('combos');
         return;
       }
       const name = (comboNameInput?.value || '').trim();
       const tokens = getComboEditorTokens(comboOutput);
       const starterTokens = [];
       if (!tokens.length) {
-        setPersonalStatus('Combo vide');
+        setPersonalStatus('Combo vide', 'combos');
         return;
       }
       comboAdd.disabled = true;
@@ -4828,7 +4841,7 @@ function bindPersonalLab(game, character) {
       resetComboBuilder();
       closeComboBuilder();
       refreshCombos();
-      persist(statusMessage);
+      persist(statusMessage, 'combos');
       loadTwitterWidgets();
       comboAdd.disabled = false;
       comboAdd.textContent = 'Ajouter le combo';
@@ -4863,7 +4876,7 @@ function bindPersonalLab(game, character) {
       event.preventDefault();
       event.stopPropagation();
       if (isLocked()) {
-        requireConnection();
+        requireConnection('combos');
         return;
       }
       const card = deleteComboButton.closest('.saved-combo-card');
@@ -4875,7 +4888,7 @@ function bindPersonalLab(game, character) {
 
       // Sécurité anti-régression : une suppression via la croix doit retirer exactement 1 combo, jamais plus.
       if (nextCombos.length !== previous.combos.length - 1) {
-        setPersonalStatus('Suppression bloquée');
+        setPersonalStatus('Suppression bloquée', 'combos');
         console.warn('TechLab combo delete blocked: unsafe combo id/state', { id, previousCount: previous.combos.length, nextCount: nextCombos.length });
         return;
       }
@@ -4894,7 +4907,7 @@ function bindPersonalLab(game, character) {
         notes: previous.notes,
       };
       refreshCombos();
-      persist('Combo supprimé');
+      persist('Combo supprimé', 'combos');
       return;
     }
 
@@ -4989,7 +5002,7 @@ function bindPersonalLab(game, character) {
     draggedComboId = '';
     comboListRoot?.classList.remove('is-reordering');
     comboListRoot?.querySelectorAll('.saved-combo-card').forEach((node) => node.classList.remove('is-dragging'));
-    if (changed) persist('Ordre des combos modifié');
+    if (changed) persist('Ordre des combos modifié', 'combos');
   };
 
   comboListRoot?.addEventListener('drop', (event) => {
@@ -5003,7 +5016,7 @@ function bindPersonalLab(game, character) {
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     if (isLocked()) {
-      requireConnection();
+      requireConnection('links');
       return;
     }
     const url = normalizePersonalUrl(urlInput.value);
@@ -5013,7 +5026,7 @@ function bindPersonalLab(game, character) {
     const nextLink = await buildPersonalLink(url);
 
     record.links = [nextLink, ...(record.links || [])];
-    persist('Lien ajouté');
+    persist('Lien ajouté', 'links');
     refreshLinks();
     resetForm();
   });
@@ -5042,11 +5055,11 @@ function bindPersonalLab(game, character) {
 
     if (event.target.closest('.techlab-link-delete, .personal-delete-link')) {
       if (isLocked()) {
-        requireConnection();
+        requireConnection('links');
         return;
       }
       record.links = (record.links || []).filter((entry) => entry.id !== id);
-      persist('Lien supprimé');
+      persist('Lien supprimé', 'links');
       refreshLinks();
       return;
     }
@@ -5105,7 +5118,7 @@ function bindPersonalLab(game, character) {
     if (wasActive) {
       suppressLinkClick = true;
       window.setTimeout(() => { suppressLinkClick = false; }, 0);
-      if (shouldPersist && syncLinkOrderFromDom()) persist('Ordre modifié');
+      if (shouldPersist && syncLinkOrderFromDom()) persist('Ordre modifié', 'links');
     }
   };
 
@@ -5196,7 +5209,7 @@ function bindPersonalLab(game, character) {
     if (!draggedLinkId) return;
     draggedLinkId = '';
     list.querySelectorAll('.personal-link-item').forEach((node) => node.classList.remove('is-dragging'));
-    if (syncLinkOrderFromDom()) persist('Ordre modifié');
+    if (syncLinkOrderFromDom()) persist('Ordre modifié', 'links');
   };
 
   list.addEventListener('drop', (event) => {

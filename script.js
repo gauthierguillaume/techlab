@@ -2431,7 +2431,8 @@ function normalizePersonalCombos(value) {
       damage: combo.damage || '',
       ultimateDamage: combo.ultimateDamage || combo.ultDamage || combo.superDamage || '',
       bloodlustValue: getComboBloodlustValue(combo),
-      uniqueResourceValues: getComboBloodlustValue(combo) !== '' ? { BLOODLUST: getComboBloodlustValue(combo) } : {},
+      wraithValue: getComboWraithValue(combo),
+      uniqueResourceValues: getComboUniqueResourceValues(combo),
       media: combo.media || null,
       createdAt: combo.createdAt || new Date().toISOString(),
       updatedAt: combo.updatedAt || combo.createdAt || new Date().toISOString(),
@@ -3204,6 +3205,7 @@ const COMBO_UNIQUE_RESOURCE_OPTIONS = [
   { value: 'UNBREAKABLE', label: 'Unbreakable', character: 'Braum', icon: 'assets/2xko/unique-resources/braum-unbreakable.webp' },
   { value: 'WOUND', label: 'Wound', character: 'Darius', icon: 'assets/2xko/unique-resources/darius-wound.webp' },
   { value: 'ZAPPER', label: 'Zapper', character: 'Jinx', icon: 'assets/2xko/unique-resources/jinx-zapper.webp' },
+  { value: 'WRAITH', label: 'Wraith Meter', character: 'Senna', icon: 'assets/2xko/unique-resources/senna-wraith.png' },
   { value: 'DART BADGE', label: 'Dart Badge', character: 'Teemo', icon: 'assets/2xko/unique-resources/teemo-dart-badge.webp' },
   { value: 'MUSHROOM BADGE', label: 'Mushroom Badge', character: 'Teemo', icon: 'assets/2xko/unique-resources/teemo-mushroom-badge.webp' },
   { value: 'SLINGSHOT BADGE', label: 'Slingshot Badge', character: 'Teemo', icon: 'assets/2xko/unique-resources/teemo-slingshot-badge.webp' },
@@ -3224,13 +3226,83 @@ function normalizeComboBloodlustValue(value) {
   return String(Math.max(0, Math.min(100, Math.round(parsed))));
 }
 
+function normalizeComboWraithValue(value) {
+  const raw = String(value ?? '').trim();
+  if (!raw) return '';
+  const parsed = Number(raw.replace(',', '.'));
+  if (!Number.isFinite(parsed)) return '';
+  const rounded = Math.round(parsed);
+  if (rounded <= 0) return '';
+  return String(Math.max(1, Math.min(2, rounded)));
+}
+
 function getComboBloodlustValue(combo = {}) {
   const rawMap = combo?.uniqueResourceValues && typeof combo.uniqueResourceValues === 'object' ? combo.uniqueResourceValues : {};
   return normalizeComboBloodlustValue(rawMap.BLOODLUST ?? combo?.bloodlustValue ?? combo?.bloodlust ?? '');
 }
 
+function getComboWraithValue(combo = {}) {
+  const rawMap = combo?.uniqueResourceValues && typeof combo.uniqueResourceValues === 'object' ? combo.uniqueResourceValues : {};
+  return normalizeComboWraithValue(rawMap.WRAITH ?? combo?.wraithValue ?? combo?.wraith ?? '');
+}
+
+function getComboUniqueResourceValues(combo = {}) {
+  const values = {};
+  const bloodlustValue = getComboBloodlustValue(combo);
+  const wraithValue = getComboWraithValue(combo);
+  if (bloodlustValue !== '') values.BLOODLUST = bloodlustValue;
+  if (wraithValue !== '') values.WRAITH = wraithValue;
+  return values;
+}
+
+function getComboWraithMeterSvg(value = '', options = {}) {
+  const charge = normalizeComboWraithValue(value);
+  const chargeNumber = Number(charge || 0);
+  const label = charge ? `Senna — Wraith Meter x${charge}` : 'Senna — Wraith Meter';
+  const iconHref = escapeHtml(options.icon || 'assets/2xko/unique-resources/senna-wraith.png');
+  const firstFill = chargeNumber >= 1 ? '#00d97a' : '#053414';
+  const secondFill = chargeNumber >= 2 ? '#00d97a' : '#053414';
+  const firstOpacity = chargeNumber >= 1 ? '1' : '.58';
+  const secondOpacity = chargeNumber >= 2 ? '1' : '.58';
+  return `<svg class="combo-wraith-meter-svg${charge ? ' has-wraith-value' : ''}" viewBox="0 0 176 50" role="img" aria-label="${escapeHtml(label)}" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="wraithMeterFill" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#003f18"/>
+        <stop offset=".5" stop-color="#00985b"/>
+        <stop offset="1" stop-color="#18ffad"/>
+      </linearGradient>
+      <filter id="wraithMeterGlow" x="-30%" y="-70%" width="170%" height="240%">
+        <feDropShadow dx="0" dy="0" stdDeviation="1.8" flood-color="#00ffc3" flood-opacity=".7"/>
+      </filter>
+    </defs>
+    <image class="combo-wraith-icon" data-wraith-clear="true" href="${iconHref}" x="-3" y="-1" width="58" height="58" preserveAspectRatio="xMidYMid meet"/>
+    <path d="M45 22H171L166 46H39L45 22Z" fill="#020504" stroke="#000" stroke-width="5" stroke-linejoin="round"/>
+    <g class="combo-wraith-segment combo-wraith-segment-one" data-wraith-charge="1" aria-label="Wraith Meter 1">
+      <path d="M50 27H107L103 41H46L50 27Z" fill="${firstFill}" opacity="${firstOpacity}"/>
+      <path d="M50 27H107L103 41H46L50 27Z" fill="url(#wraithMeterFill)" opacity="${chargeNumber >= 1 ? '.9' : '.13'}" filter="url(#wraithMeterGlow)"/>
+      <path d="M51 28H105" stroke="#78ffd1" stroke-width="2" opacity="${chargeNumber >= 1 ? '.58' : '.18'}"/>
+      <text x="77" y="38" text-anchor="middle" fill="#f2ffe1" font-family="Arial Black, Impact, system-ui, sans-serif" font-size="12" font-weight="900" stroke="#000" stroke-width="3" paint-order="stroke fill" opacity="${chargeNumber >= 1 ? '1' : '.22'}">1</text>
+    </g>
+    <g class="combo-wraith-segment combo-wraith-segment-two" data-wraith-charge="2" aria-label="Wraith Meter 2">
+      <path d="M110 27H162L158 41H106L110 27Z" fill="${secondFill}" opacity="${secondOpacity}"/>
+      <path d="M110 27H162L158 41H106L110 27Z" fill="url(#wraithMeterFill)" opacity="${chargeNumber >= 2 ? '.9' : '.13'}" filter="url(#wraithMeterGlow)"/>
+      <path d="M111 28H160" stroke="#78ffd1" stroke-width="2" opacity="${chargeNumber >= 2 ? '.58' : '.18'}"/>
+      <text x="134" y="38" text-anchor="middle" fill="#f2ffe1" font-family="Arial Black, Impact, system-ui, sans-serif" font-size="12" font-weight="900" stroke="#000" stroke-width="3" paint-order="stroke fill" opacity="${chargeNumber >= 2 ? '1' : '.22'}">2</text>
+    </g>
+    <path d="M108 24L104 44" stroke="#030303" stroke-width="4" opacity=".86"/>
+  </svg>`;
+}
+
 function getComboUniqueResourceVisual(entry, options = {}) {
   if (!entry?.icon) return '';
+  if (entry.value === 'WRAITH') {
+    const wraithValue = normalizeComboWraithValue(options.wraithValue ?? options.value ?? '');
+    const wraithLabel = wraithValue !== '' ? ` — x${wraithValue}` : '';
+    const title = `${entry.character} — ${entry.label}${wraithLabel}`;
+    const wraithClass = ` combo-unique-resource-choice-wraith${wraithValue !== '' ? ' has-wraith-value' : ''}`;
+    const wraithData = wraithValue !== '' ? ` data-wraith-value="${escapeHtml(wraithValue)}"` : '';
+    return `<span class="combo-unique-resource-choice${wraithClass}" role="img" aria-label="${escapeHtml(title)}"${wraithData}>${getComboWraithMeterSvg(wraithValue, { icon: entry.icon })}</span>`;
+  }
   const bloodlustValue = entry.value === 'BLOODLUST' ? normalizeComboBloodlustValue(options.bloodlustValue ?? options.value ?? '') : '';
   const bloodlustLabel = bloodlustValue !== '' ? ` — ${bloodlustValue}%` : '';
   const title = `${entry.character} — ${entry.label}${bloodlustLabel}`;
@@ -3242,7 +3314,9 @@ function getComboUniqueResourceVisual(entry, options = {}) {
 function getComboUniqueResourceTagVisual(tag, combo = {}) {
   const entry = getComboUniqueResourceEntry(tag);
   if (!entry) return '';
-  return getComboUniqueResourceVisual(entry, entry.value === 'BLOODLUST' ? { bloodlustValue: getComboBloodlustValue(combo) } : {});
+  if (entry.value === 'BLOODLUST') return getComboUniqueResourceVisual(entry, { bloodlustValue: getComboBloodlustValue(combo) });
+  if (entry.value === 'WRAITH') return getComboUniqueResourceVisual(entry, { wraithValue: getComboWraithValue(combo) });
+  return getComboUniqueResourceVisual(entry);
 }
 
 const COMBO_UNIQUE_RESOURCE_VISUALS = Object.fromEntries(
@@ -3294,7 +3368,7 @@ function renderComboResourceGroup() {
         <span class="combo-unique-resource-subtitle">Ressource unique</span>
         <div class="combo-choice-options combo-unique-resource-options">
           ${COMBO_UNIQUE_RESOURCE_OPTIONS.map((entry) => `
-            <button class="combo-unique-resource-option combo-tag-option combo-choice-option combo-unique-resource-visual-option" type="button" data-combo-tag="${escapeHtml(entry.value)}" data-combo-unique-resource="${escapeHtml(entry.value)}" aria-pressed="false" aria-label="${escapeHtml(`${entry.character} — ${entry.label}`)}" title="${escapeHtml(`${entry.character} — ${entry.label}`)}">
+            <button class="combo-unique-resource-option combo-tag-option combo-choice-option combo-unique-resource-visual-option${entry.value === 'WRAITH' ? ' combo-unique-resource-option-wraith' : ''}" type="button" data-combo-tag="${escapeHtml(entry.value)}" data-combo-unique-resource="${escapeHtml(entry.value)}" aria-pressed="false" aria-label="${escapeHtml(`${entry.character} — ${entry.label}`)}" title="${escapeHtml(`${entry.character} — ${entry.label}`)}">
               <span class="combo-choice-visual" aria-hidden="true">${COMBO_UNIQUE_RESOURCE_VISUALS[entry.value]}</span>
               <span class="sr-only-token">${escapeHtml(entry.value)}</span>
             </button>
@@ -3569,8 +3643,11 @@ function renderComboMetaChips(combo) {
       const entry = getComboUniqueResourceEntry(tag);
       if (!entry) return;
       const bloodlustValue = tag === 'BLOODLUST' ? getComboBloodlustValue(combo) : '';
-      const valueSuffix = bloodlustValue !== '' ? ` (${bloodlustValue}%)` : '';
-      primaryChips.push(`<span class="combo-meta-plain combo-meta-unique-resource-inline combo-meta-unique-resource-logo" title="${escapeHtml(`${entry.character} — ${entry.label}${valueSuffix}`)}" aria-label="${escapeHtml(`${entry.character} — ${entry.label}${valueSuffix}`)}">${getComboUniqueResourceVisual(entry, tag === 'BLOODLUST' ? { bloodlustValue } : {})}</span>`);
+      const wraithValue = tag === 'WRAITH' ? getComboWraithValue(combo) : '';
+      const valueSuffix = bloodlustValue !== '' ? ` (${bloodlustValue}%)` : (wraithValue !== '' ? ` (x${wraithValue})` : '');
+      const tagClass = `combo-meta-unique-resource-${tag.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+      const visualOptions = tag === 'BLOODLUST' ? { bloodlustValue } : (tag === 'WRAITH' ? { wraithValue } : {});
+      primaryChips.push(`<span class="combo-meta-plain combo-meta-unique-resource-inline combo-meta-unique-resource-logo ${tagClass}" title="${escapeHtml(`${entry.character} — ${entry.label}${valueSuffix}`)}" aria-label="${escapeHtml(`${entry.character} — ${entry.label}${valueSuffix}`)}">${getComboUniqueResourceVisual(entry, visualOptions)}</span>`);
     });
 
   if (combo.position) {
@@ -3990,15 +4067,21 @@ function bindPersonalLab(game, character) {
     const entry = getComboUniqueResourceEntry(tag);
     if (!button || !entry) return;
     const bloodlustValue = entry.value === 'BLOODLUST' ? normalizeComboBloodlustValue(value) : '';
+    const wraithValue = entry.value === 'WRAITH' ? normalizeComboWraithValue(value) : '';
     const visual = button.querySelector('.combo-choice-visual');
     if (visual) {
-      visual.innerHTML = getComboUniqueResourceVisual(entry, entry.value === 'BLOODLUST' ? { bloodlustValue } : {});
+      const visualOptions = entry.value === 'BLOODLUST' ? { bloodlustValue } : (entry.value === 'WRAITH' ? { wraithValue } : {});
+      visual.innerHTML = getComboUniqueResourceVisual(entry, visualOptions);
     }
     if (entry.value === 'BLOODLUST') {
       if (bloodlustValue !== '') button.dataset.bloodlustValue = bloodlustValue;
       else delete button.dataset.bloodlustValue;
     }
-    const suffix = entry.value === 'BLOODLUST' && bloodlustValue !== '' ? ` (${bloodlustValue}%)` : '';
+    if (entry.value === 'WRAITH') {
+      if (wraithValue !== '') button.dataset.wraithValue = wraithValue;
+      else delete button.dataset.wraithValue;
+    }
+    const suffix = entry.value === 'BLOODLUST' && bloodlustValue !== '' ? ` (${bloodlustValue}%)` : (entry.value === 'WRAITH' && wraithValue !== '' ? ` (x${wraithValue})` : '');
     const title = `${entry.character} — ${entry.label}${suffix}`;
     button.setAttribute('aria-label', title);
     button.setAttribute('title', title);
@@ -4027,6 +4110,24 @@ function bindPersonalLab(game, character) {
       return;
     }
     setComboBloodlustActive(button, normalized);
+  };
+
+  const setComboWraithActive = (button, value) => {
+    const wraithValue = normalizeComboWraithValue(value);
+    const active = wraithValue !== '';
+    button.classList.toggle('is-active', active);
+    button.setAttribute('aria-pressed', String(active));
+    updateComboUniqueResourceButtonVisual(button, wraithValue);
+  };
+
+  const toggleComboWraithValue = (button, value) => {
+    const nextValue = normalizeComboWraithValue(value);
+    if (nextValue === '') {
+      setComboWraithActive(button, '');
+      return;
+    }
+    const currentValue = normalizeComboWraithValue(button.dataset.wraithValue || '');
+    setComboWraithActive(button, currentValue === nextValue ? '' : nextValue);
   };
 
   const resetComboUniqueResourceButtons = () => {
@@ -4434,8 +4535,8 @@ function bindPersonalLab(game, character) {
       button.classList.toggle('is-active', active);
       button.setAttribute('aria-pressed', String(active));
       if (button.classList.contains('combo-unique-resource-option')) {
-        const bloodlustValue = tag === 'BLOODLUST' && active ? getComboBloodlustValue(combo) : '';
-        updateComboUniqueResourceButtonVisual(button, bloodlustValue);
+        const uniqueValue = tag === 'BLOODLUST' && active ? getComboBloodlustValue(combo) : (tag === 'WRAITH' && active ? getComboWraithValue(combo) : '');
+        updateComboUniqueResourceButtonVisual(button, uniqueValue);
       }
     });
     const addButton = app.querySelector('#comboAddNotation');
@@ -4608,10 +4709,25 @@ function bindPersonalLab(game, character) {
   });
 
   app.querySelectorAll('.combo-tag-option').forEach((button) => {
-    button.addEventListener('click', () => {
+    button.addEventListener('click', (event) => {
       const tag = String(button.dataset.comboTag || '').toUpperCase();
       if (tag === 'BLOODLUST') {
         askComboBloodlustValue(button);
+        return;
+      }
+      if (tag === 'WRAITH') {
+        const target = event.target;
+        const chargeTarget = target?.closest?.('[data-wraith-charge]');
+        if (chargeTarget) {
+          toggleComboWraithValue(button, chargeTarget.dataset.wraithCharge || '');
+          return;
+        }
+        if (target?.closest?.('[data-wraith-clear]')) {
+          setComboWraithActive(button, '');
+          return;
+        }
+        const currentValue = normalizeComboWraithValue(button.dataset.wraithValue || '');
+        setComboWraithActive(button, currentValue ? '' : '1');
         return;
       }
       button.classList.toggle('is-active');
@@ -4673,7 +4789,11 @@ function bindPersonalLab(game, character) {
       const assistCharacter = getComboAssistCharacter();
       const bloodlustButton = app.querySelector('.combo-unique-resource-option[data-combo-tag="BLOODLUST"]');
       const bloodlustValue = bloodlustButton?.classList.contains('is-active') ? normalizeComboBloodlustValue(bloodlustButton.dataset.bloodlustValue || '') : '';
-      const uniqueResourceValues = bloodlustValue !== '' ? { BLOODLUST: bloodlustValue } : {};
+      const wraithButton = app.querySelector('.combo-unique-resource-option[data-combo-tag="WRAITH"]');
+      const wraithValue = wraithButton?.classList.contains('is-active') ? normalizeComboWraithValue(wraithButton.dataset.wraithValue || '') : '';
+      const uniqueResourceValues = {};
+      if (bloodlustValue !== '') uniqueResourceValues.BLOODLUST = bloodlustValue;
+      if (wraithValue !== '') uniqueResourceValues.WRAITH = wraithValue;
       const combo = {
         id: editingComboId || `${Date.now()}-${Math.random().toString(16).slice(2)}`,
         name,
@@ -4691,6 +4811,7 @@ function bindPersonalLab(game, character) {
         damage: rawDamage,
         ultimateDamage: rawUltimateDamage,
         bloodlustValue,
+        wraithValue,
         uniqueResourceValues,
         media,
         createdAt: editingComboId

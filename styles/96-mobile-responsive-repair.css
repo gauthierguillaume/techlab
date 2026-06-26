@@ -8250,3 +8250,481 @@ html body[data-page="detail"] .saved-combo-meta .combo-meta-unique-resource-inli
   border-radius: 999px !important;
   overflow: visible !important;
 }
+
+
+/* --- TechLab v1.0.150: Senna Wraith Meter unique resource --- */
+html body[data-page="detail"] .combo-unique-resource-choice-wraith {
+  width: 122px !important;
+  min-width: 122px !important;
+  max-width: 122px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  max-height: 38px !important;
+  border-radius: 10px !important;
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .combo-wraith-meter-svg {
+  display: block !important;
+  width: 122px !important;
+  min-width: 122px !important;
+  max-width: 122px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  max-height: 38px !important;
+  overflow: visible !important;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,.6)) !important;
+}
+
+html body[data-page="detail"] .combo-wraith-meter-svg.has-wraith-value {
+  filter:
+    drop-shadow(0 2px 2px rgba(0,0,0,.72))
+    drop-shadow(0 0 4px rgba(0,255,180,.35)) !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-unique-resource-option-wraith,
+html body[data-page="detail"] .combo-filter-bar .combo-filter-chip-unique-resource[data-combo-tag="WRAITH"] {
+  flex: 0 0 132px !important;
+  width: 132px !important;
+  min-width: 132px !important;
+  max-width: 132px !important;
+  height: 46px !important;
+  min-height: 46px !important;
+  max-height: 46px !important;
+  padding: 4px 5px !important;
+  border-radius: 12px !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-unique-resource-option-wraith .combo-choice-visual,
+html body[data-page="detail"] .combo-filter-chip-unique-resource[data-combo-tag="WRAITH"] .combo-choice-visual {
+  width: 122px !important;
+  min-width: 122px !important;
+  max-width: 122px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  max-height: 38px !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-unique-resource-option-wraith.is-active {
+  box-shadow:
+    0 0 0 2px rgba(196,255,82,.95),
+    0 0 0 4px rgba(0,0,0,.72),
+    0 0 12px rgba(0,255,180,.4) !important;
+}
+
+html body[data-page="detail"] .saved-combo-meta-primary .combo-meta-unique-resource-wraith,
+html body[data-page="detail"] .saved-combo-meta .combo-meta-unique-resource-wraith {
+  width: 108px !important;
+  min-width: 108px !important;
+  max-width: 108px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  padding: 0 !important;
+  border-radius: 10px !important;
+}
+
+html body[data-page="detail"] .saved-combo-meta .combo-meta-unique-resource-wraith .combo-unique-resource-choice-wraith,
+html body[data-page="detail"] .saved-combo-meta .combo-meta-unique-resource-wraith .combo-wraith-meter-svg {
+  width: 108px !important;
+  min-width: 108px !important;
+  max-width: 108px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+}
+
+@media (min-width: 901px) {
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-meter-option-group .combo-unique-resource-options,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-meter-option-group .combo-unique-resource-options {
+    gap: 8px 10px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  html body[data-page="detail"] .combo-unique-resource-choice-wraith,
+  html body[data-page="detail"] .combo-wraith-meter-svg {
+    width: 110px !important;
+    min-width: 110px !important;
+    max-width: 110px !important;
+    height: 34px !important;
+    min-height: 34px !important;
+    max-height: 34px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell .combo-unique-resource-option-wraith {
+    flex-basis: 120px !important;
+    width: 120px !important;
+    min-width: 120px !important;
+    max-width: 120px !important;
+    height: 42px !important;
+    min-height: 42px !important;
+    max-height: 42px !important;
+  }
+}
+
+/* --- TechLab v1.0.151: unique resources wrap + selection frame normalization ---
+   Objectif : les ressources uniques restent dans la section Ressources, passent à la ligne
+   à l'intérieur de la sous-ligne si la largeur manque, et les contours actifs gardent le
+   même rendu que les autres boutons du combo builder. */
+html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-meter-option-group,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-meter-option-group {
+  min-width: 0 !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-meter-option-group .combo-unique-resource-subrow,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-meter-option-group .combo-unique-resource-subrow {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-meter-option-group .combo-choice-options.combo-unique-resource-options,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-meter-option-group .combo-choice-options.combo-unique-resource-options {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  align-content: flex-start !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  white-space: normal !important;
+  gap: 8px 9px !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-meter-option-group .combo-choice-options.combo-unique-resource-options > .combo-unique-resource-option,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-meter-option-group .combo-choice-options.combo-unique-resource-options > .combo-unique-resource-option {
+  flex-grow: 0 !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-unique-resource-option-wraith.is-active,
+html body[data-page="detail"] .combo-builder-shell .combo-unique-resource-option-wraith[aria-pressed="true"] {
+  box-shadow: none !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-unique-resource-option-wraith.is-active::after,
+html body[data-page="detail"] .combo-builder-shell .combo-unique-resource-option-wraith[aria-pressed="true"]::after {
+  inset: 1px !important;
+  opacity: 1 !important;
+  border: 2px solid var(--combo-select-frame-hard) !important;
+  border-radius: 12px !important;
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.88),
+    inset 0 0 0 1px rgba(0,0,0,.72),
+    0 0 12px var(--combo-select-frame-soft) !important;
+  background: transparent !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-assist-option,
+html body[data-page="detail"] .combo-builder-shell .combo-assist-option:hover,
+html body[data-page="detail"] .combo-builder-shell .combo-assist-option:focus-visible,
+html body[data-page="detail"] .combo-builder-shell .combo-assist-option.is-active,
+html body[data-page="detail"] .combo-builder-shell .combo-assist-option[aria-pressed="true"] {
+  position: relative !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-assist-option::after {
+  content: "" !important;
+  position: absolute !important;
+  pointer-events: none !important;
+  display: block !important;
+  inset: 1px !important;
+  opacity: 0 !important;
+  border: 2px solid var(--combo-select-frame-hard) !important;
+  border-radius: 10px !important;
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.88),
+    inset 0 0 0 1px rgba(0,0,0,.72),
+    0 0 12px var(--combo-select-frame-soft) !important;
+  background: transparent !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-assist-option.is-active::after,
+html body[data-page="detail"] .combo-builder-shell .combo-assist-option[aria-pressed="true"]::after {
+  opacity: 1 !important;
+}
+
+@media (min-width: 901px) and (max-width: 1180px) {
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group {
+    min-width: 236px !important;
+    max-width: min(100%, 332px) !important;
+  }
+}
+
+/* --- TechLab v1.0.152: ressources uniques wrap réel + Wraith filtre + sélection assists ---
+   Objectif : les ressources uniques restent sur une ligne quand la place existe,
+   ne wrap qu'à l'intérieur de leur sous-ligne quand la largeur manque, et les
+   éléments larges comme Wraith réservent leur vraie place dans le builder et les filtres. */
+@media (min-width: 901px) {
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-tools,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row.combo-builder-form-row-tools {
+    column-gap: 34px !important;
+    row-gap: 18px !important;
+    align-items: flex-start !important;
+    overflow: visible !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-assist-picker,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-assist-picker {
+    flex: 1 1 300px !important;
+    min-width: 230px !important;
+    max-width: 460px !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-fuse-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-fuse-option-group {
+    flex: 0 0 314px !important;
+    width: 314px !important;
+    min-width: 314px !important;
+    max-width: 314px !important;
+    margin-right: 0 !important;
+    overflow: visible !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group {
+    flex: 1 1 560px !important;
+    width: auto !important;
+    min-width: 306px !important;
+    max-width: min(100%, 650px) !important;
+    margin-left: 0 !important;
+    overflow: visible !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-meter-option-group .combo-unique-resource-subrow,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-meter-option-group .combo-unique-resource-subrow {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-meter-option-group .combo-choice-options.combo-unique-resource-options,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-meter-option-group .combo-choice-options.combo-unique-resource-options {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    align-content: flex-start !important;
+    gap: 8px 10px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+    overflow: visible !important;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1180px) {
+  html body[data-page="detail"] .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group,
+  html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell.is-open.combo-builder-shell .combo-builder-form-row-tools > .combo-meter-option-group {
+    flex: 1 1 420px !important;
+    min-width: 260px !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Le filtre utilisait data-filter, pas data-combo-tag : Wraith doit réserver sa vraie largeur. */
+html body[data-page="detail"] .combo-filter-bar .combo-filter-chip-unique-resource[data-filter="WRAITH"],
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-filter-bar .combo-filter-chip-unique-resource[data-filter="WRAITH"] {
+  flex: 0 0 132px !important;
+  width: 132px !important;
+  min-width: 132px !important;
+  max-width: 132px !important;
+  height: 46px !important;
+  min-height: 46px !important;
+  max-height: 46px !important;
+  padding: 4px 5px !important;
+  border-radius: 12px !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .combo-filter-bar .combo-filter-chip-unique-resource[data-filter="WRAITH"] .combo-choice-visual,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-filter-bar .combo-filter-chip-unique-resource[data-filter="WRAITH"] .combo-choice-visual {
+  width: 122px !important;
+  min-width: 122px !important;
+  max-width: 122px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  max-height: 38px !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .combo-filter-bar .combo-filter-chip-unique-resource[data-filter="WRAITH"] .combo-unique-resource-choice-wraith,
+html body[data-page="detail"] .combo-filter-bar .combo-filter-chip-unique-resource[data-filter="WRAITH"] .combo-wraith-meter-svg,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-filter-bar .combo-filter-chip-unique-resource[data-filter="WRAITH"] .combo-unique-resource-choice-wraith,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-filter-bar .combo-filter-chip-unique-resource[data-filter="WRAITH"] .combo-wraith-meter-svg {
+  width: 122px !important;
+  min-width: 122px !important;
+  max-width: 122px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  max-height: 38px !important;
+}
+
+/* Les autres ressources uniques restent compactes dans le filtre. */
+html body[data-page="detail"] .combo-filter-bar .combo-filter-chip-unique-resource:not([data-filter="WRAITH"]),
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-filter-bar .combo-filter-chip-unique-resource:not([data-filter="WRAITH"]) {
+  flex: 0 0 42px !important;
+  width: 42px !important;
+  min-width: 42px !important;
+  max-width: 42px !important;
+  overflow: visible !important;
+}
+
+/* Sélection Assist : même contour visible que les autres, appliqué sur le bouton et le portrait. */
+html body[data-page="detail"] .combo-builder-shell .combo-assist-option,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-assist-option {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: visible !important;
+  border-radius: 10px !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-assist-option::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-assist-option::after {
+  content: "" !important;
+  position: absolute !important;
+  pointer-events: none !important;
+  display: block !important;
+  inset: 0 !important;
+  z-index: 5 !important;
+  opacity: 0 !important;
+  border: 2px solid var(--combo-select-frame-hard) !important;
+  border-radius: 10px !important;
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.88),
+    inset 0 0 0 1px rgba(0,0,0,.72),
+    0 0 12px var(--combo-select-frame-soft) !important;
+  background: transparent !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-assist-option.is-active,
+html body[data-page="detail"] .combo-builder-shell .combo-assist-option[aria-pressed="true"],
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-assist-option.is-active,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-assist-option[aria-pressed="true"] {
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-assist-option.is-active::after,
+html body[data-page="detail"] .combo-builder-shell .combo-assist-option[aria-pressed="true"]::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-assist-option.is-active::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-assist-option[aria-pressed="true"]::after {
+  opacity: 1 !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-assist-option.is-active .combo-assist-thumb-frame,
+html body[data-page="detail"] .combo-builder-shell .combo-assist-option[aria-pressed="true"] .combo-assist-thumb-frame,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-assist-option.is-active .combo-assist-thumb-frame,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-assist-option[aria-pressed="true"] .combo-assist-thumb-frame {
+  box-shadow:
+    0 0 0 2px var(--combo-select-frame-hard),
+    0 0 10px var(--combo-select-frame-soft) !important;
+}
+
+/* --- TechLab v1.0.153: Senna Wraith Meter real icon + correct left-to-right meter --- */
+html body[data-page="detail"] .combo-unique-resource-choice-wraith,
+html body[data-page="detail"] .combo-wraith-meter-svg {
+  width: 132px !important;
+  min-width: 132px !important;
+  max-width: 132px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  max-height: 38px !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-unique-resource-option-wraith,
+html body[data-page="detail"] .combo-filter-bar .combo-filter-chip-unique-resource[data-combo-tag="WRAITH"],
+html body[data-page="detail"] .combo-filter-bar .combo-filter-chip-unique-resource[data-filter="WRAITH"],
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-unique-resource-option-wraith,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-filter-bar .combo-filter-chip-unique-resource[data-combo-tag="WRAITH"],
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-filter-bar .combo-filter-chip-unique-resource[data-filter="WRAITH"] {
+  flex: 0 0 142px !important;
+  width: 142px !important;
+  min-width: 142px !important;
+  max-width: 142px !important;
+  height: 46px !important;
+  min-height: 46px !important;
+  max-height: 46px !important;
+  padding: 4px 5px !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-unique-resource-option-wraith .combo-choice-visual,
+html body[data-page="detail"] .combo-filter-bar .combo-filter-chip-unique-resource[data-combo-tag="WRAITH"] .combo-choice-visual,
+html body[data-page="detail"] .combo-filter-bar .combo-filter-chip-unique-resource[data-filter="WRAITH"] .combo-choice-visual,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-shell .combo-unique-resource-option-wraith .combo-choice-visual,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-filter-bar .combo-filter-chip-unique-resource[data-combo-tag="WRAITH"] .combo-choice-visual,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-filter-bar .combo-filter-chip-unique-resource[data-filter="WRAITH"] .combo-choice-visual {
+  width: 132px !important;
+  min-width: 132px !important;
+  max-width: 132px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  max-height: 38px !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .saved-combo-meta-primary .combo-meta-unique-resource-wraith,
+html body[data-page="detail"] .saved-combo-meta .combo-meta-unique-resource-wraith,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .saved-combo-meta-primary .combo-meta-unique-resource-wraith,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .saved-combo-meta .combo-meta-unique-resource-wraith {
+  width: 116px !important;
+  min-width: 116px !important;
+  max-width: 116px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .saved-combo-meta .combo-meta-unique-resource-wraith .combo-unique-resource-choice-wraith,
+html body[data-page="detail"] .saved-combo-meta .combo-meta-unique-resource-wraith .combo-wraith-meter-svg,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .saved-combo-meta .combo-meta-unique-resource-wraith .combo-unique-resource-choice-wraith,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .saved-combo-meta .combo-meta-unique-resource-wraith .combo-wraith-meter-svg {
+  width: 116px !important;
+  min-width: 116px !important;
+  max-width: 116px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+}
+
+/* --- TechLab v1.0.154: Wraith Meter bottom alignment + direct 1/2 clicks --- */
+html body[data-page="detail"] .combo-wraith-meter-svg {
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .combo-wraith-meter-svg .combo-wraith-segment,
+html body[data-page="detail"] .combo-wraith-meter-svg .combo-wraith-icon {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-unique-resource-option-wraith {
+  cursor: default !important;
+}
+
+html body[data-page="detail"] .combo-builder-shell .combo-unique-resource-option-wraith .combo-wraith-meter-svg .combo-wraith-segment,
+html body[data-page="detail"] .combo-builder-shell .combo-unique-resource-option-wraith .combo-wraith-meter-svg .combo-wraith-icon {
+  cursor: pointer !important;
+}

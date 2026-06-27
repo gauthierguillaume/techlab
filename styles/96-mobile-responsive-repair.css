@@ -9251,3 +9251,1921 @@ html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-uniqu
   background: rgba(3, 5, 8, .98) !important;
   box-shadow: none !important;
 }
+
+/* TechLab v1.0.164 — polish liens drag handle + detail header/buttons */
+html body[data-page="detail"] button.techlab-link-drag-handle,
+html body[data-page="detail"] button.techlab-link-drag-handle:is(:hover, :focus-visible, :active) {
+  position: relative !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  font-size: 0 !important;
+  line-height: 1 !important;
+  overflow: hidden !important;
+}
+
+html body[data-page="detail"] button.techlab-link-drag-handle::before,
+html body[data-page="detail"] button.techlab-link-drag-handle:is(:hover, :focus-visible, :active)::before {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  width: 15px !important;
+  height: 17px !important;
+  background: currentColor !important;
+  transform: translate(-50%, -50%) !important;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3v18M7 8l5-5 5 5M7 16l5 5 5-5' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat !important;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3v18M7 8l5-5 5 5M7 16l5 5 5-5' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat !important;
+}
+
+html body[data-page="detail"] button.techlab-link-drag-handle::after,
+html body[data-page="detail"] button.techlab-link-drag-handle:is(:hover, :focus-visible, :active)::after {
+  content: none !important;
+  display: none !important;
+}
+
+html body[data-page="detail"] .detail-game-header .rail-techlab-logo,
+html body[data-page="detail"] .detail-game-header .rail-techlab-logo:hover,
+html body[data-page="detail"] .detail-game-header .rail-techlab-logo:focus-visible {
+  background: var(--techlab-nav-chip-bg) !important;
+  filter: none !important;
+  transform: none !important;
+  transition: border-color .12s ease, box-shadow .12s ease !important;
+}
+
+html body[data-page="detail"] .detail-game-header .rail-techlab-logo:hover,
+html body[data-page="detail"] .detail-game-header .rail-techlab-logo:focus-visible {
+  border-color: color-mix(in srgb, var(--game-primary, var(--accent, #cdf564)) 68%, rgba(255,255,255,.18)) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.07),
+    0 8px 18px rgba(0,0,0,.44),
+    0 0 14px color-mix(in srgb, var(--game-primary, var(--accent, #cdf564)) 20%, transparent) !important;
+}
+
+html body[data-page="detail"][data-game="2xko"] .x2ko-detail-actions .x2ko-stage-action,
+html body[data-page="detail"][data-game="2xko"] .x2ko-detail-actions .x2ko-stage-official-link,
+html body[data-page="detail"][data-game="2xko"] .x2ko-detail-actions .x2ko-stage-wiki-link {
+  transform: skewX(8deg) !important;
+}
+
+html body[data-page="detail"][data-game="2xko"] .x2ko-detail-actions .x2ko-stage-action > .x2ko-action-label,
+html body[data-page="detail"][data-game="2xko"] .x2ko-detail-actions .x2ko-action-label {
+  transform: skewX(-8deg) !important;
+}
+
+/* TechLab v1.0.165 — hover logo propre + boutons action 2XKO polis */
+html body[data-page="detail"] .detail-game-header .rail-techlab-logo,
+html body[data-page="detail"] .detail-game-header .rail-techlab-logo:hover,
+html body[data-page="detail"] .detail-game-header .rail-techlab-logo:focus-visible {
+  background:
+    linear-gradient(135deg, rgba(7, 17, 22, .98), rgba(0, 0, 0, .86)) !important;
+  border-color: var(--techlab-nav-chip-border) !important;
+  filter: none !important;
+  transform: translateY(0) scale(1) !important;
+  transition:
+    transform .14s ease,
+    border-color .14s ease,
+    box-shadow .14s ease,
+    background .14s ease !important;
+}
+
+html body[data-page="detail"] .detail-game-header .rail-techlab-logo:hover,
+html body[data-page="detail"] .detail-game-header .rail-techlab-logo:focus-visible {
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--game-primary, var(--accent, #cdf564)) 10%, rgba(7, 17, 22, .98)),
+      rgba(0, 0, 0, .86)) !important;
+  border-color: color-mix(in srgb, var(--game-primary, var(--accent, #cdf564)) 74%, rgba(255,255,255,.18)) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.08),
+    0 9px 18px rgba(0,0,0,.44),
+    0 0 12px color-mix(in srgb, var(--game-primary, var(--accent, #cdf564)) 22%, transparent) !important;
+  transform: translateY(-1px) scale(1.015) !important;
+}
+
+html body[data-page="detail"] .detail-game-header .rail-techlab-logo img {
+  transition: transform .14s ease, filter .14s ease !important;
+}
+
+html body[data-page="detail"] .detail-game-header .rail-techlab-logo:hover img,
+html body[data-page="detail"] .detail-game-header .rail-techlab-logo:focus-visible img {
+  transform: scale(1.025) !important;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,.72)) saturate(1.12) contrast(1.05) !important;
+}
+
+html body[data-page="detail"] .combo-open-builder,
+html body[data-page="detail"] .combo-builder-add,
+html body[data-page="detail"] .personal-link-form #personalSubmitLink {
+  --techlab-action-main: var(--game-primary, var(--accent, #cdf564));
+  --techlab-action-edge: #16f4ff;
+  --techlab-action-bg: rgba(5, 13, 12, .95);
+  position: relative !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  border: 1px solid color-mix(in srgb, var(--techlab-action-main) 76%, rgba(255,255,255,.14)) !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--techlab-action-main) 18%, rgba(2, 8, 8, .98)) 0%,
+      rgba(2, 8, 9, .96) 58%,
+      color-mix(in srgb, var(--techlab-action-edge) 10%, rgba(0,0,0,.96)) 100%) !important;
+  color: var(--techlab-action-main) !important;
+  text-shadow: 0 1px 0 rgba(0,0,0,.95), 0 0 8px color-mix(in srgb, var(--techlab-action-main) 45%, transparent) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.06),
+    inset 0 -8px 15px rgba(0,0,0,.28),
+    0 7px 14px rgba(0,0,0,.30),
+    0 0 10px color-mix(in srgb, var(--techlab-action-main) 18%, transparent) !important;
+  overflow: hidden !important;
+  transition:
+    transform .13s ease,
+    border-color .13s ease,
+    background .13s ease,
+    box-shadow .13s ease,
+    color .13s ease !important;
+}
+
+html body[data-page="detail"] .combo-open-builder,
+html body[data-page="detail"] .combo-builder-add {
+  min-height: 34px !important;
+  height: 34px !important;
+  padding: 0 18px !important;
+  border-radius: 11px !important;
+  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%) !important;
+  font-weight: 950 !important;
+  letter-spacing: .02em !important;
+}
+
+html body[data-page="detail"] .personal-link-form #personalSubmitLink {
+  width: 42px !important;
+  min-width: 42px !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  padding: 0 !important;
+  border-width: 2px !important;
+  border-radius: 14px !important;
+  font-size: 28px !important;
+  line-height: 1 !important;
+  font-weight: 950 !important;
+}
+
+html body[data-page="detail"] .combo-open-builder::before,
+html body[data-page="detail"] .combo-builder-add::before,
+html body[data-page="detail"] .personal-link-form #personalSubmitLink::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 2px !important;
+  pointer-events: none !important;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(255,255,255,.16) 42%, transparent 64%),
+    linear-gradient(180deg, rgba(255,255,255,.09), transparent 56%) !important;
+  opacity: .42 !important;
+  transform: translateX(-120%) skewX(-18deg) !important;
+  transition: transform .28s ease, opacity .13s ease !important;
+}
+
+html body[data-page="detail"] .combo-open-builder:hover,
+html body[data-page="detail"] .combo-open-builder:focus-visible,
+html body[data-page="detail"] .combo-builder-add:hover,
+html body[data-page="detail"] .combo-builder-add:focus-visible,
+html body[data-page="detail"] .personal-link-form #personalSubmitLink:hover,
+html body[data-page="detail"] .personal-link-form #personalSubmitLink:focus-visible {
+  border-color: color-mix(in srgb, var(--techlab-action-main) 88%, white) !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--techlab-action-main) 28%, rgba(2, 8, 8, .98)) 0%,
+      rgba(2, 9, 10, .97) 54%,
+      color-mix(in srgb, var(--techlab-action-edge) 18%, rgba(0,0,0,.95)) 100%) !important;
+  color: color-mix(in srgb, var(--techlab-action-main) 88%, white) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.10),
+    inset 0 -8px 15px rgba(0,0,0,.24),
+    0 8px 16px rgba(0,0,0,.34),
+    0 0 14px color-mix(in srgb, var(--techlab-action-main) 30%, transparent) !important;
+  transform: translateY(-1px) !important;
+}
+
+html body[data-page="detail"] .combo-open-builder:hover::before,
+html body[data-page="detail"] .combo-open-builder:focus-visible::before,
+html body[data-page="detail"] .combo-builder-add:hover::before,
+html body[data-page="detail"] .combo-builder-add:focus-visible::before,
+html body[data-page="detail"] .personal-link-form #personalSubmitLink:hover::before,
+html body[data-page="detail"] .personal-link-form #personalSubmitLink:focus-visible::before {
+  opacity: .62 !important;
+  transform: translateX(120%) skewX(-18deg) !important;
+}
+
+html body[data-page="detail"] .combo-open-builder:active,
+html body[data-page="detail"] .combo-builder-add:active,
+html body[data-page="detail"] .personal-link-form #personalSubmitLink:active {
+  transform: translateY(1px) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.08),
+    inset 0 5px 12px rgba(0,0,0,.36),
+    0 3px 8px rgba(0,0,0,.30) !important;
+}
+
+html body[data-page="detail"] .combo-open-builder.is-builder-open {
+  --techlab-action-main: #16f4ff;
+  --techlab-action-edge: var(--game-primary, var(--accent, #cdf564));
+  color: #dffcff !important;
+}
+
+html body[data-page="detail"] .combo-open-builder:disabled,
+html body[data-page="detail"] .combo-builder-add:disabled,
+html body[data-page="detail"] .personal-link-form #personalSubmitLink:disabled {
+  opacity: .48 !important;
+  filter: grayscale(.25) !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+
+/* TechLab v1.0.166 — action buttons full edges + link plus restyle */
+html body[data-page="detail"] .combo-open-builder,
+html body[data-page="detail"] .combo-builder-add,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-add,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-open-builder,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-add {
+  clip-path: none !important;
+  border-radius: 12px !important;
+  padding-inline: 22px !important;
+  margin-inline: 4px !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+html body[data-page="detail"] .combo-open-builder::after,
+html body[data-page="detail"] .combo-builder-add::after,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder::after,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-add::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-open-builder::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-add::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 4px 6px !important;
+  pointer-events: none !important;
+  border-radius: 9px !important;
+  border-left: 2px solid color-mix(in srgb, var(--techlab-action-edge, #16f4ff) 70%, transparent) !important;
+  border-right: 2px solid color-mix(in srgb, var(--techlab-action-main, #cdf564) 70%, transparent) !important;
+  opacity: .74 !important;
+}
+
+html body[data-page="detail"] .personal-link-form,
+html body[data-page="detail"][data-game="2xko"] .personal-link-form,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .personal-link-form {
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink,
+html body[data-page="detail"] #personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"] .personal-link-form > #personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .personal-link-form > #personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink {
+  --techlab-action-main: var(--game-primary, var(--accent, #cdf564));
+  --techlab-action-edge: #16f4ff;
+  position: relative !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  width: 46px !important;
+  min-width: 46px !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  padding: 0 !important;
+  margin-left: 8px !important;
+  border: 1px solid color-mix(in srgb, var(--techlab-action-main) 76%, rgba(255,255,255,.14)) !important;
+  border-radius: 12px !important;
+  clip-path: none !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--techlab-action-main) 18%, rgba(2, 8, 8, .98)) 0%,
+      rgba(2, 8, 9, .96) 58%,
+      color-mix(in srgb, var(--techlab-action-edge) 11%, rgba(0,0,0,.96)) 100%) !important;
+  color: transparent !important;
+  text-shadow: none !important;
+  font-size: 0 !important;
+  line-height: 1 !important;
+  font-weight: 950 !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.06),
+    inset 0 -8px 15px rgba(0,0,0,.28),
+    0 7px 14px rgba(0,0,0,.30),
+    0 0 10px color-mix(in srgb, var(--techlab-action-main) 18%, transparent) !important;
+  overflow: hidden !important;
+  transform: none !important;
+  transition:
+    transform .13s ease,
+    border-color .13s ease,
+    background .13s ease,
+    box-shadow .13s ease !important;
+}
+
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink::before,
+html body[data-page="detail"] #personalSubmitLink::before,
+html body[data-page="detail"][data-game="2xko"] .personal-link-form > #personalSubmitLink::before,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .personal-link-form > #personalSubmitLink::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 2px !important;
+  width: auto !important;
+  height: auto !important;
+  border-radius: 9px !important;
+  pointer-events: none !important;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(255,255,255,.16) 42%, transparent 64%),
+    linear-gradient(180deg, rgba(255,255,255,.09), transparent 56%) !important;
+  opacity: .42 !important;
+  box-shadow: none !important;
+  transform: translateX(-120%) skewX(-18deg) !important;
+  transition: transform .28s ease, opacity .13s ease !important;
+}
+
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink::after,
+html body[data-page="detail"] #personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"] .personal-link-form > #personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .personal-link-form > #personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink::after {
+  content: "+" !important;
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  display: grid !important;
+  place-items: center !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--techlab-action-main) !important;
+  font-size: 29px !important;
+  line-height: .82 !important;
+  font-weight: 950 !important;
+  font-family: inherit !important;
+  text-shadow:
+    0 1px 0 rgba(0,0,0,.96),
+    0 0 8px color-mix(in srgb, var(--techlab-action-main) 45%, transparent) !important;
+  box-shadow: none !important;
+  transform: translate(-50%, -52%) !important;
+  pointer-events: none !important;
+}
+
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink:hover,
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink:focus-visible,
+html body[data-page="detail"] #personalSubmitLink:hover,
+html body[data-page="detail"] #personalSubmitLink:focus-visible,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink:hover,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink:focus-visible,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink:hover,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink:focus-visible {
+  border-color: color-mix(in srgb, var(--techlab-action-main) 88%, white) !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--techlab-action-main) 28%, rgba(2, 8, 8, .98)) 0%,
+      rgba(2, 9, 10, .97) 54%,
+      color-mix(in srgb, var(--techlab-action-edge) 18%, rgba(0,0,0,.95)) 100%) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.10),
+    inset 0 -8px 15px rgba(0,0,0,.24),
+    0 8px 16px rgba(0,0,0,.34),
+    0 0 14px color-mix(in srgb, var(--techlab-action-main) 30%, transparent) !important;
+  transform: translateY(-1px) !important;
+}
+
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink:hover::before,
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink:focus-visible::before,
+html body[data-page="detail"] #personalSubmitLink:hover::before,
+html body[data-page="detail"] #personalSubmitLink:focus-visible::before,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink:hover::before,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink:focus-visible::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink:hover::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink:focus-visible::before {
+  opacity: .62 !important;
+  transform: translateX(120%) skewX(-18deg) !important;
+}
+
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink:hover::after,
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink:focus-visible::after,
+html body[data-page="detail"] #personalSubmitLink:hover::after,
+html body[data-page="detail"] #personalSubmitLink:focus-visible::after,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink:hover::after,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink:focus-visible::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink:hover::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink:focus-visible::after {
+  color: color-mix(in srgb, var(--techlab-action-main) 88%, white) !important;
+  transform: translate(-50%, -54%) scale(1.08) !important;
+}
+
+/* TechLab v1.0.167 — reset button + link plus final polish */
+html body[data-page="detail"] .combo-builder-clear,
+html body[data-page="detail"] #comboClearNotation,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-clear,
+html body[data-page="detail"][data-game="2xko"] #comboClearNotation,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-clear,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #comboClearNotation {
+  --techlab-action-main: #16f4ff;
+  --techlab-action-edge: var(--game-primary, var(--accent, #cdf564));
+  position: relative !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  min-height: 34px !important;
+  height: 34px !important;
+  padding: 0 18px !important;
+  margin-inline: 4px !important;
+  border: 1px solid color-mix(in srgb, var(--techlab-action-main) 76%, rgba(255,255,255,.14)) !important;
+  border-radius: 12px !important;
+  clip-path: none !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--techlab-action-main) 18%, rgba(2, 8, 8, .98)) 0%,
+      rgba(2, 8, 9, .96) 58%,
+      color-mix(in srgb, var(--techlab-action-edge) 11%, rgba(0,0,0,.96)) 100%) !important;
+  color: #dffcff !important;
+  font-weight: 950 !important;
+  letter-spacing: .02em !important;
+  line-height: 1 !important;
+  text-shadow:
+    0 1px 0 rgba(0,0,0,.96),
+    0 0 8px color-mix(in srgb, var(--techlab-action-main) 45%, transparent) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.06),
+    inset 0 -8px 15px rgba(0,0,0,.28),
+    0 7px 14px rgba(0,0,0,.30),
+    0 0 10px color-mix(in srgb, var(--techlab-action-main) 18%, transparent) !important;
+  overflow: hidden !important;
+  cursor: pointer !important;
+  transform: none !important;
+  transition:
+    transform .13s ease,
+    border-color .13s ease,
+    background .13s ease,
+    box-shadow .13s ease,
+    color .13s ease !important;
+}
+
+html body[data-page="detail"] .combo-builder-clear::before,
+html body[data-page="detail"] #comboClearNotation::before,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-clear::before,
+html body[data-page="detail"][data-game="2xko"] #comboClearNotation::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-clear::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #comboClearNotation::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 2px !important;
+  pointer-events: none !important;
+  border-radius: 9px !important;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(255,255,255,.16) 42%, transparent 64%),
+    linear-gradient(180deg, rgba(255,255,255,.09), transparent 56%) !important;
+  opacity: .42 !important;
+  transform: translateX(-120%) skewX(-18deg) !important;
+  transition: transform .28s ease, opacity .13s ease !important;
+}
+
+html body[data-page="detail"] .combo-builder-clear::after,
+html body[data-page="detail"] #comboClearNotation::after,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-clear::after,
+html body[data-page="detail"][data-game="2xko"] #comboClearNotation::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-clear::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #comboClearNotation::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 4px 6px !important;
+  pointer-events: none !important;
+  border-radius: 9px !important;
+  border-left: 2px solid color-mix(in srgb, var(--techlab-action-edge) 70%, transparent) !important;
+  border-right: 2px solid color-mix(in srgb, var(--techlab-action-main) 70%, transparent) !important;
+  opacity: .74 !important;
+}
+
+html body[data-page="detail"] .combo-builder-clear:hover,
+html body[data-page="detail"] .combo-builder-clear:focus-visible,
+html body[data-page="detail"] #comboClearNotation:hover,
+html body[data-page="detail"] #comboClearNotation:focus-visible,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-clear:hover,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-clear:focus-visible,
+html body[data-page="detail"][data-game="2xko"] #comboClearNotation:hover,
+html body[data-page="detail"][data-game="2xko"] #comboClearNotation:focus-visible,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-clear:hover,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-clear:focus-visible,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #comboClearNotation:hover,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #comboClearNotation:focus-visible {
+  border-color: color-mix(in srgb, var(--techlab-action-main) 88%, white) !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--techlab-action-main) 28%, rgba(2, 8, 8, .98)) 0%,
+      rgba(2, 9, 10, .97) 54%,
+      color-mix(in srgb, var(--techlab-action-edge) 18%, rgba(0,0,0,.95)) 100%) !important;
+  color: color-mix(in srgb, var(--techlab-action-main) 88%, white) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.10),
+    inset 0 -8px 15px rgba(0,0,0,.24),
+    0 8px 16px rgba(0,0,0,.34),
+    0 0 14px color-mix(in srgb, var(--techlab-action-main) 30%, transparent) !important;
+  transform: translateY(-1px) !important;
+}
+
+html body[data-page="detail"] .combo-builder-clear:hover::before,
+html body[data-page="detail"] .combo-builder-clear:focus-visible::before,
+html body[data-page="detail"] #comboClearNotation:hover::before,
+html body[data-page="detail"] #comboClearNotation:focus-visible::before,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-clear:hover::before,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-clear:focus-visible::before,
+html body[data-page="detail"][data-game="2xko"] #comboClearNotation:hover::before,
+html body[data-page="detail"][data-game="2xko"] #comboClearNotation:focus-visible::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-clear:hover::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-clear:focus-visible::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #comboClearNotation:hover::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #comboClearNotation:focus-visible::before {
+  opacity: .62 !important;
+  transform: translateX(120%) skewX(-18deg) !important;
+}
+
+html body[data-page="detail"] .personal-link-form,
+html body[data-page="detail"][data-game="2xko"] .personal-link-form,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .personal-link-form {
+  display: flex !important;
+  align-items: stretch !important;
+  gap: 8px !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .personal-link-form > input,
+html body[data-page="detail"] .personal-link-form > .personal-link-input,
+html body[data-page="detail"] .personal-link-form > #personalLinkInput,
+html body[data-page="detail"][data-game="2xko"] .personal-link-form > input,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .personal-link-form > input {
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+}
+
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink,
+html body[data-page="detail"] #personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"] .personal-link-form > #personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .personal-link-form > #personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink {
+  --techlab-action-main: var(--game-primary, var(--accent, #cdf564));
+  --techlab-action-edge: #16f4ff;
+  flex: 0 0 46px !important;
+  width: 46px !important;
+  min-width: 46px !important;
+  max-width: 46px !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  align-self: stretch !important;
+  position: relative !important;
+  right: auto !important;
+  left: auto !important;
+  top: auto !important;
+  translate: none !important;
+  transform: none !important;
+  border: 1px solid color-mix(in srgb, var(--techlab-action-main) 76%, rgba(255,255,255,.14)) !important;
+  border-radius: 12px !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--techlab-action-main) 18%, rgba(2, 8, 8, .98)) 0%,
+      rgba(2, 8, 9, .96) 58%,
+      color-mix(in srgb, var(--techlab-action-edge) 11%, rgba(0,0,0,.96)) 100%) !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  text-shadow: none !important;
+  overflow: hidden !important;
+}
+
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink::before,
+html body[data-page="detail"] #personalSubmitLink::before,
+html body[data-page="detail"][data-game="2xko"] .personal-link-form > #personalSubmitLink::before,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .personal-link-form > #personalSubmitLink::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink::before {
+  inset: 2px !important;
+  border-radius: 9px !important;
+}
+
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink::after,
+html body[data-page="detail"] #personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"] .personal-link-form > #personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .personal-link-form > #personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink::after {
+  content: "+" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  color: var(--techlab-action-main) !important;
+  font-size: 30px !important;
+  line-height: 1 !important;
+  font-weight: 950 !important;
+  font-family: inherit !important;
+  text-shadow:
+    0 1px 0 rgba(0,0,0,.96),
+    0 0 8px color-mix(in srgb, var(--techlab-action-main) 45%, transparent) !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+  pointer-events: none !important;
+}
+
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink:hover,
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink:focus-visible,
+html body[data-page="detail"] #personalSubmitLink:hover,
+html body[data-page="detail"] #personalSubmitLink:focus-visible,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink:hover,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink:focus-visible,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink:hover,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink:focus-visible {
+  transform: translateY(-1px) !important;
+}
+
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink:hover::after,
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink:focus-visible::after,
+html body[data-page="detail"] #personalSubmitLink:hover::after,
+html body[data-page="detail"] #personalSubmitLink:focus-visible::after,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink:hover::after,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink:focus-visible::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink:hover::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink:focus-visible::after {
+  color: color-mix(in srgb, var(--techlab-action-main) 88%, white) !important;
+  transform: scale(1.08) !important;
+}
+
+/* TechLab v1.0.168 — reset aligned with close + rebuilt link plus button */
+html body[data-page="detail"] .combo-builder-clear,
+html body[data-page="detail"] #comboClearNotation,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-clear,
+html body[data-page="detail"][data-game="2xko"] #comboClearNotation,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-clear,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #comboClearNotation {
+  --techlab-action-main: #16f4ff !important;
+  --techlab-action-edge: var(--game-primary, var(--accent, #cdf564)) !important;
+  width: auto !important;
+  min-width: 82px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  padding: 0 22px !important;
+  margin: 0 4px !important;
+  border-radius: 12px !important;
+  border: 1px solid color-mix(in srgb, var(--techlab-action-main) 76%, rgba(255,255,255,.14)) !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--techlab-action-main) 18%, rgba(2, 8, 8, .98)) 0%,
+      rgba(2, 8, 9, .96) 58%,
+      color-mix(in srgb, var(--techlab-action-edge) 11%, rgba(0,0,0,.96)) 100%) !important;
+  color: #dffcff !important;
+  font-size: inherit !important;
+  font-weight: 950 !important;
+  letter-spacing: .02em !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  text-shadow:
+    0 1px 0 rgba(0,0,0,.96),
+    0 0 8px color-mix(in srgb, var(--techlab-action-main) 45%, transparent) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.06),
+    inset 0 -8px 15px rgba(0,0,0,.28),
+    0 7px 14px rgba(0,0,0,.30),
+    0 0 10px color-mix(in srgb, var(--techlab-action-main) 18%, transparent) !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  position: relative !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  clip-path: none !important;
+  transform: none !important;
+}
+
+html body[data-page="detail"] .combo-builder-clear::before,
+html body[data-page="detail"] #comboClearNotation::before,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-clear::before,
+html body[data-page="detail"][data-game="2xko"] #comboClearNotation::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-clear::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #comboClearNotation::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 2px !important;
+  border-radius: 9px !important;
+  pointer-events: none !important;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(255,255,255,.16) 42%, transparent 64%),
+    linear-gradient(180deg, rgba(255,255,255,.09), transparent 56%) !important;
+  opacity: .42 !important;
+  transform: translateX(-120%) skewX(-18deg) !important;
+  transition: transform .28s ease, opacity .13s ease !important;
+}
+
+html body[data-page="detail"] .combo-builder-clear::after,
+html body[data-page="detail"] #comboClearNotation::after,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-clear::after,
+html body[data-page="detail"][data-game="2xko"] #comboClearNotation::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-clear::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #comboClearNotation::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 4px 6px !important;
+  border-radius: 9px !important;
+  border-left: 2px solid color-mix(in srgb, var(--techlab-action-edge) 70%, transparent) !important;
+  border-right: 2px solid color-mix(in srgb, var(--techlab-action-main) 70%, transparent) !important;
+  pointer-events: none !important;
+  opacity: .74 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+html body[data-page="detail"] .combo-builder-clear:hover,
+html body[data-page="detail"] .combo-builder-clear:focus-visible,
+html body[data-page="detail"] #comboClearNotation:hover,
+html body[data-page="detail"] #comboClearNotation:focus-visible,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-clear:hover,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-clear:focus-visible,
+html body[data-page="detail"][data-game="2xko"] #comboClearNotation:hover,
+html body[data-page="detail"][data-game="2xko"] #comboClearNotation:focus-visible,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-clear:hover,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-clear:focus-visible,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #comboClearNotation:hover,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #comboClearNotation:focus-visible {
+  border-color: color-mix(in srgb, var(--techlab-action-main) 88%, white) !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--techlab-action-main) 28%, rgba(2, 8, 8, .98)) 0%,
+      rgba(2, 9, 10, .97) 54%,
+      color-mix(in srgb, var(--techlab-action-edge) 18%, rgba(0,0,0,.95)) 100%) !important;
+  color: color-mix(in srgb, var(--techlab-action-main) 88%, white) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.10),
+    inset 0 -8px 15px rgba(0,0,0,.24),
+    0 8px 16px rgba(0,0,0,.34),
+    0 0 14px color-mix(in srgb, var(--techlab-action-main) 30%, transparent) !important;
+  transform: translateY(-1px) !important;
+}
+
+html body[data-page="detail"] .combo-builder-clear:hover::before,
+html body[data-page="detail"] .combo-builder-clear:focus-visible::before,
+html body[data-page="detail"] #comboClearNotation:hover::before,
+html body[data-page="detail"] #comboClearNotation:focus-visible::before,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-clear:hover::before,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-clear:focus-visible::before,
+html body[data-page="detail"][data-game="2xko"] #comboClearNotation:hover::before,
+html body[data-page="detail"][data-game="2xko"] #comboClearNotation:focus-visible::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-clear:hover::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-clear:focus-visible::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #comboClearNotation:hover::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #comboClearNotation:focus-visible::before {
+  opacity: .62 !important;
+  transform: translateX(120%) skewX(-18deg) !important;
+}
+
+html body[data-page="detail"] .personal-link-form,
+html body[data-page="detail"] #personalLinkForm,
+html body[data-page="detail"][data-game="2xko"] .personal-link-form,
+html body[data-page="detail"][data-game="2xko"] #personalLinkForm,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .personal-link-form,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalLinkForm {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 48px !important;
+  align-items: stretch !important;
+  column-gap: 10px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 8px 0 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] .personal-link-form > input,
+html body[data-page="detail"] #personalLinkForm > input,
+html body[data-page="detail"] .personal-link-form > .personal-link-input,
+html body[data-page="detail"] #personalLinkForm > .personal-link-input,
+html body[data-page="detail"] .personal-link-form > #personalLinkInput,
+html body[data-page="detail"] #personalLinkForm > #personalLinkInput,
+html body[data-page="detail"][data-game="2xko"] .personal-link-form > input,
+html body[data-page="detail"][data-game="2xko"] #personalLinkForm > input,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .personal-link-form > input,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalLinkForm > input {
+  grid-column: 1 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  flex: none !important;
+  box-sizing: border-box !important;
+}
+
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink,
+html body[data-page="detail"] #personalLinkForm > #personalSubmitLink,
+html body[data-page="detail"] #personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"] .personal-link-form > #personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"] #personalLinkForm > #personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .personal-link-form > #personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalLinkForm > #personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink {
+  --techlab-action-main: var(--game-primary, var(--accent, #cdf564)) !important;
+  --techlab-action-edge: #16f4ff !important;
+  grid-column: 2 !important;
+  justify-self: stretch !important;
+  align-self: stretch !important;
+  position: relative !important;
+  inset: auto !important;
+  right: auto !important;
+  left: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+  translate: none !important;
+  transform: none !important;
+  flex: none !important;
+  width: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  box-sizing: border-box !important;
+  border: 1px solid color-mix(in srgb, var(--techlab-action-main) 76%, rgba(255,255,255,.14)) !important;
+  border-radius: 12px !important;
+  clip-path: none !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--techlab-action-main) 18%, rgba(2, 8, 8, .98)) 0%,
+      rgba(2, 8, 9, .96) 58%,
+      color-mix(in srgb, var(--techlab-action-edge) 11%, rgba(0,0,0,.96)) 100%) !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  font-weight: 950 !important;
+  text-indent: -9999px !important;
+  text-shadow: none !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.06),
+    inset 0 -8px 15px rgba(0,0,0,.28),
+    0 7px 14px rgba(0,0,0,.30),
+    0 0 10px color-mix(in srgb, var(--techlab-action-main) 18%, transparent) !important;
+  overflow: hidden !important;
+  opacity: 1 !important;
+  filter: none !important;
+  cursor: pointer !important;
+}
+
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink::before,
+html body[data-page="detail"] #personalLinkForm > #personalSubmitLink::before,
+html body[data-page="detail"] #personalSubmitLink::before,
+html body[data-page="detail"][data-game="2xko"] .personal-link-form > #personalSubmitLink::before,
+html body[data-page="detail"][data-game="2xko"] #personalLinkForm > #personalSubmitLink::before,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .personal-link-form > #personalSubmitLink::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalLinkForm > #personalSubmitLink::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 2px !important;
+  width: auto !important;
+  height: auto !important;
+  border-radius: 9px !important;
+  border: 0 !important;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(255,255,255,.16) 42%, transparent 64%),
+    linear-gradient(180deg, rgba(255,255,255,.09), transparent 56%) !important;
+  box-shadow: none !important;
+  opacity: .42 !important;
+  transform: translateX(-120%) skewX(-18deg) !important;
+  pointer-events: none !important;
+}
+
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink::after,
+html body[data-page="detail"] #personalLinkForm > #personalSubmitLink::after,
+html body[data-page="detail"] #personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"] .personal-link-form > #personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"] #personalLinkForm > #personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .personal-link-form > #personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalLinkForm > #personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink::after {
+  content: "+" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: grid !important;
+  place-items: center !important;
+  color: var(--techlab-action-main) !important;
+  font-size: 30px !important;
+  line-height: 1 !important;
+  font-weight: 950 !important;
+  font-family: inherit !important;
+  text-indent: 0 !important;
+  text-shadow:
+    0 1px 0 rgba(0,0,0,.96),
+    0 0 8px color-mix(in srgb, var(--techlab-action-main) 45%, transparent) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: translateY(-1px) !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+}
+
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink:hover,
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink:focus-visible,
+html body[data-page="detail"] #personalLinkForm > #personalSubmitLink:hover,
+html body[data-page="detail"] #personalLinkForm > #personalSubmitLink:focus-visible,
+html body[data-page="detail"] #personalSubmitLink:hover,
+html body[data-page="detail"] #personalSubmitLink:focus-visible,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink:hover,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink:focus-visible,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink:hover,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink:focus-visible {
+  border-color: color-mix(in srgb, var(--techlab-action-main) 88%, white) !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--techlab-action-main) 28%, rgba(2, 8, 8, .98)) 0%,
+      rgba(2, 9, 10, .97) 54%,
+      color-mix(in srgb, var(--techlab-action-edge) 18%, rgba(0,0,0,.95)) 100%) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.10),
+    inset 0 -8px 15px rgba(0,0,0,.24),
+    0 8px 16px rgba(0,0,0,.34),
+    0 0 14px color-mix(in srgb, var(--techlab-action-main) 30%, transparent) !important;
+  transform: translateY(-1px) !important;
+}
+
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink:hover::before,
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink:focus-visible::before,
+html body[data-page="detail"] #personalLinkForm > #personalSubmitLink:hover::before,
+html body[data-page="detail"] #personalLinkForm > #personalSubmitLink:focus-visible::before,
+html body[data-page="detail"] #personalSubmitLink:hover::before,
+html body[data-page="detail"] #personalSubmitLink:focus-visible::before,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink:hover::before,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink:focus-visible::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink:hover::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink:focus-visible::before {
+  opacity: .62 !important;
+  transform: translateX(120%) skewX(-18deg) !important;
+}
+
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink:hover::after,
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink:focus-visible::after,
+html body[data-page="detail"] #personalLinkForm > #personalSubmitLink:hover::after,
+html body[data-page="detail"] #personalLinkForm > #personalSubmitLink:focus-visible::after,
+html body[data-page="detail"] #personalSubmitLink:hover::after,
+html body[data-page="detail"] #personalSubmitLink:focus-visible::after,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink:hover::after,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink:focus-visible::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink:hover::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink:focus-visible::after {
+  color: color-mix(in srgb, var(--techlab-action-main) 88%, white) !important;
+  transform: translateY(-1px) scale(1.08) !important;
+}
+
+/* TechLab v1.0.169 — final reset/plus color alignment */
+html body[data-page="detail"] .combo-builder-actions #comboClearNotation,
+html body[data-page="detail"] .combo-builder-actions .combo-builder-clear,
+html body[data-page="detail"] #comboClearNotation,
+html body[data-page="detail"] .combo-builder-clear,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-actions #comboClearNotation,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-actions .combo-builder-clear,
+html body[data-page="detail"][data-game="2xko"] #comboClearNotation,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-clear,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-actions #comboClearNotation,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-actions .combo-builder-clear,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #comboClearNotation,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-clear {
+  --techlab-action-main: #16f4ff !important;
+  --techlab-action-edge: var(--game-primary, var(--accent, #cdf564)) !important;
+  width: auto !important;
+  min-width: 82px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  padding: 0 22px !important;
+  border-radius: 12px !important;
+  border: 1px solid color-mix(in srgb, var(--techlab-action-main) 76%, rgba(255,255,255,.14)) !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--techlab-action-main) 18%, rgba(2, 8, 8, .98)) 0%,
+      rgba(2, 8, 9, .96) 58%,
+      color-mix(in srgb, var(--techlab-action-edge) 10%, rgba(0,0,0,.96)) 100%) !important;
+  color: #dffcff !important;
+  font-size: inherit !important;
+  font-weight: 950 !important;
+  letter-spacing: .02em !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  text-shadow:
+    0 1px 0 rgba(0,0,0,.95),
+    0 0 8px color-mix(in srgb, var(--techlab-action-main) 45%, transparent) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.06),
+    inset 0 -8px 15px rgba(0,0,0,.28),
+    0 7px 14px rgba(0,0,0,.30),
+    0 0 10px color-mix(in srgb, var(--techlab-action-main) 18%, transparent) !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  position: relative !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  clip-path: none !important;
+  transform: none !important;
+}
+
+html body[data-page="detail"] .combo-builder-actions #comboClearNotation::before,
+html body[data-page="detail"] .combo-builder-actions .combo-builder-clear::before,
+html body[data-page="detail"] #comboClearNotation::before,
+html body[data-page="detail"] .combo-builder-clear::before,
+html body[data-page="detail"][data-game="2xko"] #comboClearNotation::before,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-clear::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #comboClearNotation::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-clear::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 2px !important;
+  z-index: 1 !important;
+  border-radius: 9px !important;
+  pointer-events: none !important;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(255,255,255,.16) 42%, transparent 64%),
+    linear-gradient(180deg, rgba(255,255,255,.09), transparent 56%) !important;
+  opacity: .42 !important;
+  transform: translateX(-120%) skewX(-18deg) !important;
+  transition: transform .28s ease, opacity .13s ease !important;
+}
+
+html body[data-page="detail"] .combo-builder-actions #comboClearNotation::after,
+html body[data-page="detail"] .combo-builder-actions .combo-builder-clear::after,
+html body[data-page="detail"] #comboClearNotation::after,
+html body[data-page="detail"] .combo-builder-clear::after,
+html body[data-page="detail"][data-game="2xko"] #comboClearNotation::after,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-clear::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #comboClearNotation::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-clear::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 4px 6px !important;
+  z-index: 2 !important;
+  border-radius: 9px !important;
+  border-left: 2px solid color-mix(in srgb, var(--techlab-action-edge) 70%, transparent) !important;
+  border-right: 2px solid color-mix(in srgb, var(--techlab-action-main) 70%, transparent) !important;
+  pointer-events: none !important;
+  opacity: .74 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+html body[data-page="detail"] .combo-builder-actions #comboClearNotation:hover,
+html body[data-page="detail"] .combo-builder-actions #comboClearNotation:focus-visible,
+html body[data-page="detail"] .combo-builder-actions .combo-builder-clear:hover,
+html body[data-page="detail"] .combo-builder-actions .combo-builder-clear:focus-visible,
+html body[data-page="detail"] #comboClearNotation:hover,
+html body[data-page="detail"] #comboClearNotation:focus-visible,
+html body[data-page="detail"] .combo-builder-clear:hover,
+html body[data-page="detail"] .combo-builder-clear:focus-visible {
+  border-color: color-mix(in srgb, var(--techlab-action-main) 88%, white) !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--techlab-action-main) 28%, rgba(2, 8, 8, .98)) 0%,
+      rgba(2, 9, 10, .97) 54%,
+      color-mix(in srgb, var(--techlab-action-edge) 18%, rgba(0,0,0,.95)) 100%) !important;
+  color: color-mix(in srgb, var(--techlab-action-main) 88%, white) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.10),
+    inset 0 -8px 15px rgba(0,0,0,.24),
+    0 8px 16px rgba(0,0,0,.34),
+    0 0 14px color-mix(in srgb, var(--techlab-action-main) 30%, transparent) !important;
+  transform: translateY(-1px) !important;
+}
+
+html body[data-page="detail"] .combo-builder-actions #comboClearNotation:hover::before,
+html body[data-page="detail"] .combo-builder-actions #comboClearNotation:focus-visible::before,
+html body[data-page="detail"] .combo-builder-actions .combo-builder-clear:hover::before,
+html body[data-page="detail"] .combo-builder-actions .combo-builder-clear:focus-visible::before,
+html body[data-page="detail"] #comboClearNotation:hover::before,
+html body[data-page="detail"] #comboClearNotation:focus-visible::before,
+html body[data-page="detail"] .combo-builder-clear:hover::before,
+html body[data-page="detail"] .combo-builder-clear:focus-visible::before {
+  opacity: .62 !important;
+  transform: translateX(120%) skewX(-18deg) !important;
+}
+
+html body[data-page="detail"] #personalLinkForm > #personalSubmitLink,
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink,
+html body[data-page="detail"] #personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"] #personalLinkForm > #personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"] .personal-link-form > #personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalLinkForm > #personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .personal-link-form > #personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink {
+  --techlab-action-main: var(--game-primary, var(--accent, #cdf564)) !important;
+  --techlab-action-edge: #16f4ff !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  text-indent: 0 !important;
+  overflow: hidden !important;
+}
+
+html body[data-page="detail"] #personalLinkForm > #personalSubmitLink::before,
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink::before,
+html body[data-page="detail"] #personalSubmitLink::before,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink::before {
+  z-index: 1 !important;
+}
+
+html body[data-page="detail"] #personalLinkForm > #personalSubmitLink::after,
+html body[data-page="detail"] .personal-link-form > #personalSubmitLink::after,
+html body[data-page="detail"] #personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"] #personalLinkForm > #personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"] .personal-link-form > #personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"] #personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalLinkForm > #personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .personal-link-form > #personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #personalSubmitLink::after {
+  content: "+" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 3 !important;
+  display: grid !important;
+  place-items: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  color: var(--techlab-action-main) !important;
+  font-size: 31px !important;
+  line-height: 1 !important;
+  font-weight: 1000 !important;
+  font-family: inherit !important;
+  text-indent: 0 !important;
+  text-shadow:
+    0 1px 0 rgba(0,0,0,.96),
+    0 0 9px color-mix(in srgb, var(--techlab-action-main) 62%, transparent),
+    0 0 14px color-mix(in srgb, var(--techlab-action-edge) 28%, transparent) !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+  transform: translateY(-1px) !important;
+  pointer-events: none !important;
+}
+
+html body[data-page="detail"] #personalSubmitLink:hover::after,
+html body[data-page="detail"] #personalSubmitLink:focus-visible::after {
+  color: color-mix(in srgb, var(--techlab-action-main) 92%, white) !important;
+  transform: translateY(-1px) scale(1.08) !important;
+}
+
+/* TechLab v1.0.170 — reset/close parity + visible link plus hard override */
+html body[data-page="detail"] .combo-open-builder.is-builder-open,
+html body[data-page="detail"] #comboClearNotation.combo-builder-clear,
+html body[data-page="detail"] .combo-builder-actions > #comboClearNotation,
+html body[data-page="detail"] .combo-builder-actions > .combo-builder-clear,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder.is-builder-open,
+html body[data-page="detail"][data-game="2xko"] #comboClearNotation.combo-builder-clear,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-actions > #comboClearNotation,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-actions > .combo-builder-clear,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-open-builder.is-builder-open,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #comboClearNotation.combo-builder-clear,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-actions > #comboClearNotation,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-actions > .combo-builder-clear {
+  --techlab-action-main: #16f4ff !important;
+  --techlab-action-edge: var(--game-primary, var(--accent, #cdf564)) !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  min-width: 82px !important;
+  width: auto !important;
+  padding: 0 22px !important;
+  margin: 0 4px !important;
+  border: 1px solid color-mix(in srgb, var(--techlab-action-main) 76%, rgba(255,255,255,.14)) !important;
+  border-radius: 12px !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--techlab-action-main) 18%, rgba(2, 8, 8, .98)) 0%,
+      rgba(2, 8, 9, .96) 58%,
+      color-mix(in srgb, var(--techlab-action-edge) 10%, rgba(0,0,0,.96)) 100%) !important;
+  color: #dffcff !important;
+  font: inherit !important;
+  font-weight: 950 !important;
+  letter-spacing: .02em !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  text-shadow:
+    0 1px 0 rgba(0,0,0,.95),
+    0 0 8px color-mix(in srgb, var(--techlab-action-main) 45%, transparent) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.06),
+    inset 0 -8px 15px rgba(0,0,0,.28),
+    0 7px 14px rgba(0,0,0,.30),
+    0 0 10px color-mix(in srgb, var(--techlab-action-main) 18%, transparent) !important;
+  clip-path: none !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+html body[data-page="detail"] .combo-open-builder.is-builder-open::before,
+html body[data-page="detail"] #comboClearNotation.combo-builder-clear::before,
+html body[data-page="detail"] .combo-builder-actions > #comboClearNotation::before,
+html body[data-page="detail"] .combo-builder-actions > .combo-builder-clear::before,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder.is-builder-open::before,
+html body[data-page="detail"][data-game="2xko"] #comboClearNotation.combo-builder-clear::before,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-actions > #comboClearNotation::before,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-actions > .combo-builder-clear::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-open-builder.is-builder-open::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #comboClearNotation.combo-builder-clear::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-actions > #comboClearNotation::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-actions > .combo-builder-clear::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 2px !important;
+  z-index: 1 !important;
+  border-radius: 9px !important;
+  pointer-events: none !important;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(255,255,255,.16) 42%, transparent 64%),
+    linear-gradient(180deg, rgba(255,255,255,.09), transparent 56%) !important;
+  opacity: .42 !important;
+  transform: translateX(-120%) skewX(-18deg) !important;
+  transition: transform .28s ease, opacity .13s ease !important;
+}
+
+html body[data-page="detail"] .combo-open-builder.is-builder-open::after,
+html body[data-page="detail"] #comboClearNotation.combo-builder-clear::after,
+html body[data-page="detail"] .combo-builder-actions > #comboClearNotation::after,
+html body[data-page="detail"] .combo-builder-actions > .combo-builder-clear::after,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder.is-builder-open::after,
+html body[data-page="detail"][data-game="2xko"] #comboClearNotation.combo-builder-clear::after,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-actions > #comboClearNotation::after,
+html body[data-page="detail"][data-game="2xko"] .combo-builder-actions > .combo-builder-clear::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-open-builder.is-builder-open::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg #comboClearNotation.combo-builder-clear::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-actions > #comboClearNotation::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-builder-actions > .combo-builder-clear::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 4px 6px !important;
+  z-index: 2 !important;
+  border-radius: 9px !important;
+  border-left: 2px solid color-mix(in srgb, var(--techlab-action-edge) 70%, transparent) !important;
+  border-right: 2px solid color-mix(in srgb, var(--techlab-action-main) 70%, transparent) !important;
+  opacity: .74 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  pointer-events: none !important;
+}
+
+html body[data-page="detail"] .combo-open-builder.is-builder-open:hover,
+html body[data-page="detail"] .combo-open-builder.is-builder-open:focus-visible,
+html body[data-page="detail"] #comboClearNotation.combo-builder-clear:hover,
+html body[data-page="detail"] #comboClearNotation.combo-builder-clear:focus-visible,
+html body[data-page="detail"] .combo-builder-actions > #comboClearNotation:hover,
+html body[data-page="detail"] .combo-builder-actions > #comboClearNotation:focus-visible,
+html body[data-page="detail"] .combo-builder-actions > .combo-builder-clear:hover,
+html body[data-page="detail"] .combo-builder-actions > .combo-builder-clear:focus-visible {
+  border-color: color-mix(in srgb, var(--techlab-action-main) 88%, white) !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--techlab-action-main) 28%, rgba(2, 8, 8, .98)) 0%,
+      rgba(2, 9, 10, .97) 54%,
+      color-mix(in srgb, var(--techlab-action-edge) 18%, rgba(0,0,0,.95)) 100%) !important;
+  color: color-mix(in srgb, var(--techlab-action-main) 88%, white) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.10),
+    inset 0 -8px 15px rgba(0,0,0,.24),
+    0 8px 16px rgba(0,0,0,.34),
+    0 0 14px color-mix(in srgb, var(--techlab-action-main) 30%, transparent) !important;
+  transform: translateY(-1px) !important;
+}
+
+html body[data-page="detail"] .combo-open-builder.is-builder-open:hover::before,
+html body[data-page="detail"] .combo-open-builder.is-builder-open:focus-visible::before,
+html body[data-page="detail"] #comboClearNotation.combo-builder-clear:hover::before,
+html body[data-page="detail"] #comboClearNotation.combo-builder-clear:focus-visible::before,
+html body[data-page="detail"] .combo-builder-actions > #comboClearNotation:hover::before,
+html body[data-page="detail"] .combo-builder-actions > #comboClearNotation:focus-visible::before,
+html body[data-page="detail"] .combo-builder-actions > .combo-builder-clear:hover::before,
+html body[data-page="detail"] .combo-builder-actions > .combo-builder-clear:focus-visible::before {
+  opacity: .62 !important;
+  transform: translateX(120%) skewX(-18deg) !important;
+}
+
+html body[data-page="detail"] .personal-link-form .personal-form-actions,
+html body[data-page="detail"][data-game="2xko"] .personal-link-form .personal-form-actions,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .personal-link-form .personal-form-actions {
+  flex: 0 0 auto !important;
+  display: inline-grid !important;
+  place-items: center !important;
+}
+
+html body[data-page="detail"] form#personalLinkForm.personal-link-form > .personal-form-actions > button#personalSubmitLink,
+html body[data-page="detail"] .personal-link-form .personal-form-actions > #personalSubmitLink,
+html body[data-page="detail"] button#personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"] form#personalLinkForm.personal-link-form > .personal-form-actions > button#personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"] .personal-link-form .personal-form-actions > #personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"] button#personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg form#personalLinkForm.personal-link-form > .personal-form-actions > button#personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .personal-link-form .personal-form-actions > #personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg button#personalSubmitLink {
+  --techlab-action-main: var(--game-primary, var(--accent, #cdf564)) !important;
+  --techlab-action-edge: #16f4ff !important;
+  position: relative !important;
+  isolation: isolate !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  width: 44px !important;
+  min-width: 44px !important;
+  max-width: 44px !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+  padding: 0 !important;
+  margin: 0 0 0 8px !important;
+  border: 1px solid color-mix(in srgb, var(--techlab-action-main) 76%, rgba(255,255,255,.14)) !important;
+  border-radius: 12px !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--techlab-action-main) 18%, rgba(2, 8, 8, .98)) 0%,
+      rgba(2, 8, 9, .96) 58%,
+      color-mix(in srgb, var(--techlab-action-edge) 11%, rgba(0,0,0,.96)) 100%) !important;
+  color: var(--techlab-action-main) !important;
+  font-family: inherit !important;
+  font-size: 0 !important;
+  line-height: 1 !important;
+  font-weight: 1000 !important;
+  text-indent: 0 !important;
+  text-shadow: none !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.06),
+    inset 0 -8px 15px rgba(0,0,0,.28),
+    0 7px 14px rgba(0,0,0,.30),
+    0 0 10px color-mix(in srgb, var(--techlab-action-main) 18%, transparent) !important;
+  overflow: hidden !important;
+  clip-path: none !important;
+  transform: none !important;
+}
+
+html body[data-page="detail"] button#personalSubmitLink::before,
+html body[data-page="detail"][data-game="2xko"] button#personalSubmitLink::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg button#personalSubmitLink::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 2px !important;
+  z-index: 1 !important;
+  border-radius: 9px !important;
+  pointer-events: none !important;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(255,255,255,.13) 42%, transparent 64%),
+    linear-gradient(180deg, rgba(255,255,255,.08), transparent 56%) !important;
+  opacity: .38 !important;
+  transform: none !important;
+  transition: opacity .13s ease !important;
+  mask: none !important;
+  -webkit-mask: none !important;
+}
+
+html body[data-page="detail"] button#personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"] button#personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg button#personalSubmitLink::after {
+  content: "+" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 5 !important;
+  display: grid !important;
+  place-items: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  color: var(--techlab-action-main) !important;
+  font-family: inherit !important;
+  font-size: 32px !important;
+  line-height: 1 !important;
+  font-weight: 1000 !important;
+  text-indent: 0 !important;
+  text-align: center !important;
+  text-shadow:
+    0 1px 0 rgba(0,0,0,.96),
+    0 0 9px color-mix(in srgb, var(--techlab-action-main) 70%, transparent),
+    0 0 14px color-mix(in srgb, var(--techlab-action-edge) 28%, transparent) !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+  transform: translateY(-1px) !important;
+  pointer-events: none !important;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+}
+
+html body[data-page="detail"] button#personalSubmitLink:hover,
+html body[data-page="detail"] button#personalSubmitLink:focus-visible,
+html body[data-page="detail"][data-game="2xko"] button#personalSubmitLink:hover,
+html body[data-page="detail"][data-game="2xko"] button#personalSubmitLink:focus-visible,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg button#personalSubmitLink:hover,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg button#personalSubmitLink:focus-visible {
+  border-color: color-mix(in srgb, var(--techlab-action-main) 88%, white) !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--techlab-action-main) 28%, rgba(2, 8, 8, .98)) 0%,
+      rgba(2, 9, 10, .97) 54%,
+      color-mix(in srgb, var(--techlab-action-edge) 18%, rgba(0,0,0,.95)) 100%) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.10),
+    inset 0 -8px 15px rgba(0,0,0,.24),
+    0 8px 16px rgba(0,0,0,.34),
+    0 0 14px color-mix(in srgb, var(--techlab-action-main) 30%, transparent) !important;
+  transform: translateY(-1px) !important;
+}
+
+html body[data-page="detail"] button#personalSubmitLink:hover::after,
+html body[data-page="detail"] button#personalSubmitLink:focus-visible::after,
+html body[data-page="detail"][data-game="2xko"] button#personalSubmitLink:hover::after,
+html body[data-page="detail"][data-game="2xko"] button#personalSubmitLink:focus-visible::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg button#personalSubmitLink:hover::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg button#personalSubmitLink:focus-visible::after {
+  color: color-mix(in srgb, var(--techlab-action-main) 92%, white) !important;
+  transform: translateY(-1px) scale(1.08) !important;
+}
+
+/* TechLab v1.0.171 — hard polish reset/close hover + link plus visibility/placement
+   Objectif :
+   - Reset et Fermer ont exactement le même style + un hover visible.
+   - Le bouton + reste dans le flux du champ Lien, avec une marge droite respirante.
+   - Le symbole + est forcé en vert 2XKO et centré, sans être écrasé par les anciennes règles. */
+html body[data-page="detail"] form#personalLinkForm.personal-link-form,
+html body[data-page="detail"] .personal-links-panel form#personalLinkForm.personal-link-form,
+html body[data-page="detail"][data-game="2xko"] form#personalLinkForm.personal-link-form,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg form#personalLinkForm.personal-link-form {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 46px !important;
+  align-items: center !important;
+  column-gap: 10px !important;
+  padding-right: 10px !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] form#personalLinkForm.personal-link-form > input,
+html body[data-page="detail"] form#personalLinkForm.personal-link-form > .personal-link-input,
+html body[data-page="detail"] form#personalLinkForm.personal-link-form > #personalLinkInput {
+  min-width: 0 !important;
+  width: 100% !important;
+}
+
+html body[data-page="detail"] form#personalLinkForm.personal-link-form > .personal-form-actions,
+html body[data-page="detail"] .personal-link-form .personal-form-actions,
+html body[data-page="detail"][data-game="2xko"] form#personalLinkForm.personal-link-form > .personal-form-actions,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg form#personalLinkForm.personal-link-form > .personal-form-actions {
+  display: grid !important;
+  place-items: center !important;
+  width: 46px !important;
+  min-width: 46px !important;
+  max-width: 46px !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  justify-self: end !important;
+  align-self: center !important;
+  overflow: visible !important;
+}
+
+html body[data-page="detail"] form#personalLinkForm.personal-link-form > .personal-form-actions > button#personalSubmitLink,
+html body[data-page="detail"] .personal-link-form .personal-form-actions > button#personalSubmitLink,
+html body[data-page="detail"] button#personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"] form#personalLinkForm.personal-link-form > .personal-form-actions > button#personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg form#personalLinkForm.personal-link-form > .personal-form-actions > button#personalSubmitLink {
+  --techlab-plus-main: #cdf564 !important;
+  --techlab-plus-edge: #16f4ff !important;
+  position: relative !important;
+  isolation: isolate !important;
+  display: grid !important;
+  place-items: center !important;
+  width: 46px !important;
+  min-width: 46px !important;
+  max-width: 46px !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 1px solid color-mix(in srgb, var(--techlab-plus-main) 82%, rgba(255,255,255,.12)) !important;
+  border-radius: 12px !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--techlab-plus-main) 20%, rgba(2, 8, 8, .98)) 0%,
+      rgba(2, 8, 9, .98) 56%,
+      color-mix(in srgb, var(--techlab-plus-edge) 16%, rgba(0,0,0,.96)) 100%) !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  font-size: 0 !important;
+  line-height: 1 !important;
+  text-indent: 0 !important;
+  text-shadow: none !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.08),
+    inset 0 -8px 15px rgba(0,0,0,.28),
+    0 7px 14px rgba(0,0,0,.30),
+    0 0 11px color-mix(in srgb, var(--techlab-plus-main) 24%, transparent) !important;
+  clip-path: none !important;
+  overflow: hidden !important;
+  transform: none !important;
+  filter: none !important;
+  cursor: pointer !important;
+  transition: transform .13s ease, border-color .13s ease, background .13s ease, box-shadow .13s ease !important;
+}
+
+html body[data-page="detail"] button#personalSubmitLink::before,
+html body[data-page="detail"][data-game="2xko"] button#personalSubmitLink::before,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg button#personalSubmitLink::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 2px !important;
+  z-index: 1 !important;
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+  border-radius: 9px !important;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(255,255,255,.15) 42%, transparent 64%),
+    linear-gradient(180deg, rgba(255,255,255,.08), transparent 56%) !important;
+  opacity: .42 !important;
+  pointer-events: none !important;
+  box-shadow: none !important;
+  transform: translateX(-118%) skewX(-18deg) !important;
+  transition: transform .28s ease, opacity .13s ease !important;
+}
+
+html body[data-page="detail"] button#personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"] button#personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg button#personalSubmitLink::after {
+  content: "+" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 20 !important;
+  display: grid !important;
+  place-items: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #cdf564 !important;
+  -webkit-text-fill-color: #cdf564 !important;
+  font-family: inherit !important;
+  font-size: 32px !important;
+  font-weight: 1000 !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+  text-align: center !important;
+  text-indent: 0 !important;
+  text-transform: none !important;
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+  text-shadow:
+    0 1px 0 rgba(0,0,0,.98),
+    0 0 8px rgba(205,245,100,.82),
+    0 0 13px rgba(22,244,255,.32) !important;
+  box-shadow: none !important;
+  pointer-events: none !important;
+  transform: translateY(-1px) !important;
+}
+
+html body[data-page="detail"] button#personalSubmitLink:hover,
+html body[data-page="detail"] button#personalSubmitLink:focus-visible,
+html body[data-page="detail"][data-game="2xko"] button#personalSubmitLink:hover,
+html body[data-page="detail"][data-game="2xko"] button#personalSubmitLink:focus-visible,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg button#personalSubmitLink:hover,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg button#personalSubmitLink:focus-visible {
+  border-color: color-mix(in srgb, #cdf564 92%, white) !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, #cdf564 30%, rgba(2, 8, 8, .98)) 0%,
+      rgba(2, 9, 10, .98) 54%,
+      color-mix(in srgb, #16f4ff 24%, rgba(0,0,0,.95)) 100%) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.12),
+    inset 0 -8px 15px rgba(0,0,0,.24),
+    0 8px 16px rgba(0,0,0,.34),
+    0 0 16px rgba(205,245,100,.35) !important;
+  transform: translateY(-1px) !important;
+}
+
+html body[data-page="detail"] button#personalSubmitLink:hover::before,
+html body[data-page="detail"] button#personalSubmitLink:focus-visible::before {
+  opacity: .64 !important;
+  transform: translateX(118%) skewX(-18deg) !important;
+}
+
+html body[data-page="detail"] button#personalSubmitLink:hover::after,
+html body[data-page="detail"] button#personalSubmitLink:focus-visible::after {
+  color: #e9ff9a !important;
+  -webkit-text-fill-color: #e9ff9a !important;
+  transform: translateY(-1px) scale(1.08) !important;
+}
+
+/* Reset/Fermer : base identique + hover perceptible, sans changer le style validé. */
+html body[data-page="detail"] .combo-open-builder.is-builder-open,
+html body[data-page="detail"] .combo-open-builder[aria-expanded="true"],
+html body[data-page="detail"] button#comboClearNotation,
+html body[data-page="detail"] button.combo-builder-clear,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder.is-builder-open,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder[aria-expanded="true"],
+html body[data-page="detail"][data-game="2xko"] button#comboClearNotation,
+html body[data-page="detail"][data-game="2xko"] button.combo-builder-clear,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-open-builder.is-builder-open,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-open-builder[aria-expanded="true"],
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg button#comboClearNotation,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg button.combo-builder-clear {
+  --techlab-close-main: #16f4ff !important;
+  --techlab-close-edge: #cdf564 !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  min-width: 82px !important;
+  width: auto !important;
+  padding: 0 22px !important;
+  margin: 0 4px !important;
+  border: 1px solid color-mix(in srgb, var(--techlab-close-main) 78%, rgba(255,255,255,.14)) !important;
+  border-radius: 12px !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--techlab-close-main) 18%, rgba(2, 8, 8, .98)) 0%,
+      rgba(2, 8, 9, .98) 58%,
+      color-mix(in srgb, var(--techlab-close-edge) 11%, rgba(0,0,0,.96)) 100%) !important;
+  color: #dffcff !important;
+  -webkit-text-fill-color: #dffcff !important;
+  font: inherit !important;
+  font-weight: 950 !important;
+  letter-spacing: .02em !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  text-shadow:
+    0 1px 0 rgba(0,0,0,.95),
+    0 0 8px rgba(22,244,255,.42) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.06),
+    inset 0 -8px 15px rgba(0,0,0,.28),
+    0 7px 14px rgba(0,0,0,.30),
+    0 0 10px rgba(22,244,255,.18) !important;
+  clip-path: none !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  transform: none !important;
+  filter: none !important;
+  cursor: pointer !important;
+  transition: transform .13s ease, border-color .13s ease, background .13s ease, box-shadow .13s ease, color .13s ease !important;
+}
+
+html body[data-page="detail"] .combo-open-builder.is-builder-open:hover,
+html body[data-page="detail"] .combo-open-builder.is-builder-open:focus-visible,
+html body[data-page="detail"] .combo-open-builder[aria-expanded="true"]:hover,
+html body[data-page="detail"] .combo-open-builder[aria-expanded="true"]:focus-visible,
+html body[data-page="detail"] button#comboClearNotation:hover,
+html body[data-page="detail"] button#comboClearNotation:focus-visible,
+html body[data-page="detail"] button.combo-builder-clear:hover,
+html body[data-page="detail"] button.combo-builder-clear:focus-visible,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder.is-builder-open:hover,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder.is-builder-open:focus-visible,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder[aria-expanded="true"]:hover,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder[aria-expanded="true"]:focus-visible,
+html body[data-page="detail"][data-game="2xko"] button#comboClearNotation:hover,
+html body[data-page="detail"][data-game="2xko"] button#comboClearNotation:focus-visible,
+html body[data-page="detail"][data-game="2xko"] button.combo-builder-clear:hover,
+html body[data-page="detail"][data-game="2xko"] button.combo-builder-clear:focus-visible {
+  border-color: color-mix(in srgb, var(--techlab-close-main) 92%, white) !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--techlab-close-main) 30%, rgba(2, 8, 8, .98)) 0%,
+      rgba(2, 9, 10, .98) 54%,
+      color-mix(in srgb, var(--techlab-close-edge) 18%, rgba(0,0,0,.95)) 100%) !important;
+  color: #f2feff !important;
+  -webkit-text-fill-color: #f2feff !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.12),
+    inset 0 -8px 15px rgba(0,0,0,.24),
+    0 8px 16px rgba(0,0,0,.34),
+    0 0 16px rgba(22,244,255,.36) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* TechLab v1.0.172 — plus button breathing room + identical close/reset hover
+   Base: v1.0.171. Scope strict: fiche personnage, boutons du builder et ajout de lien. */
+html body[data-page="detail"] form#personalLinkForm.personal-link-form,
+html body[data-page="detail"] .personal-links-panel form#personalLinkForm.personal-link-form,
+html body[data-page="detail"][data-game="2xko"] form#personalLinkForm.personal-link-form,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg form#personalLinkForm.personal-link-form {
+  grid-template-columns: minmax(0, 1fr) 46px !important;
+  column-gap: 12px !important;
+  padding-right: 26px !important;
+  padding-inline-end: 26px !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+
+html body[data-page="detail"] form#personalLinkForm.personal-link-form > .personal-form-actions,
+html body[data-page="detail"] .personal-link-form .personal-form-actions,
+html body[data-page="detail"][data-game="2xko"] form#personalLinkForm.personal-link-form > .personal-form-actions,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg form#personalLinkForm.personal-link-form > .personal-form-actions {
+  width: 46px !important;
+  min-width: 46px !important;
+  max-width: 46px !important;
+  justify-self: center !important;
+  margin: 0 !important;
+  transform: none !important;
+}
+
+html body[data-page="detail"] form#personalLinkForm.personal-link-form > .personal-form-actions > button#personalSubmitLink,
+html body[data-page="detail"] .personal-link-form .personal-form-actions > button#personalSubmitLink,
+html body[data-page="detail"] button#personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"] form#personalLinkForm.personal-link-form > .personal-form-actions > button#personalSubmitLink,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg form#personalLinkForm.personal-link-form > .personal-form-actions > button#personalSubmitLink {
+  width: 46px !important;
+  height: 42px !important;
+  min-width: 46px !important;
+  min-height: 42px !important;
+  max-width: 46px !important;
+  max-height: 42px !important;
+  margin: 0 !important;
+  justify-self: center !important;
+  align-self: center !important;
+}
+
+html body[data-page="detail"] button#personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"] button#personalSubmitLink::after,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg button#personalSubmitLink::after {
+  color: #cdf564 !important;
+  -webkit-text-fill-color: #cdf564 !important;
+  opacity: 1 !important;
+  text-shadow:
+    0 1px 0 rgba(0,0,0,.98),
+    0 0 9px rgba(205,245,100,.88),
+    0 0 14px rgba(22,244,255,.34) !important;
+}
+
+/* Fermer + Reset : même rendu et même hover, en les sortant des anciennes variantes conflictuelles. */
+html body[data-page="detail"] .combo-open-builder.is-builder-open,
+html body[data-page="detail"] .combo-open-builder[aria-expanded="true"],
+html body[data-page="detail"] button#comboClearNotation,
+html body[data-page="detail"] button.combo-builder-clear,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder.is-builder-open,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder[aria-expanded="true"],
+html body[data-page="detail"][data-game="2xko"] button#comboClearNotation,
+html body[data-page="detail"][data-game="2xko"] button.combo-builder-clear,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-open-builder.is-builder-open,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .combo-open-builder[aria-expanded="true"],
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg button#comboClearNotation,
+html body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg button.combo-builder-clear {
+  --tl-close-main: #16f4ff !important;
+  --tl-close-secondary: #cdf564 !important;
+  position: relative !important;
+  isolation: isolate !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  min-width: 82px !important;
+  width: auto !important;
+  padding: 0 22px !important;
+  margin: 0 4px !important;
+  border: 1px solid color-mix(in srgb, var(--tl-close-main) 78%, rgba(255,255,255,.14)) !important;
+  border-radius: 12px !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--tl-close-main) 18%, rgba(2,8,8,.98)) 0%,
+      rgba(2,8,9,.98) 58%,
+      color-mix(in srgb, var(--tl-close-secondary) 11%, rgba(0,0,0,.96)) 100%) !important;
+  color: #dffcff !important;
+  -webkit-text-fill-color: #dffcff !important;
+  font: inherit !important;
+  font-weight: 950 !important;
+  line-height: 1 !important;
+  letter-spacing: .02em !important;
+  text-align: center !important;
+  text-shadow:
+    0 1px 0 rgba(0,0,0,.95),
+    0 0 8px rgba(22,244,255,.42) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.06),
+    inset 0 -8px 15px rgba(0,0,0,.28),
+    0 7px 14px rgba(0,0,0,.30),
+    0 0 10px rgba(22,244,255,.18) !important;
+  clip-path: none !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  transform: none !important;
+  filter: none !important;
+  cursor: pointer !important;
+  transition: transform .13s ease, border-color .13s ease, background .13s ease, box-shadow .13s ease, color .13s ease !important;
+}
+
+html body[data-page="detail"] .combo-open-builder.is-builder-open::before,
+html body[data-page="detail"] .combo-open-builder[aria-expanded="true"]::before,
+html body[data-page="detail"] button#comboClearNotation::before,
+html body[data-page="detail"] button.combo-builder-clear::before,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder.is-builder-open::before,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder[aria-expanded="true"]::before,
+html body[data-page="detail"][data-game="2xko"] button#comboClearNotation::before,
+html body[data-page="detail"][data-game="2xko"] button.combo-builder-clear::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 2px !important;
+  z-index: 0 !important;
+  border-radius: 9px !important;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(255,255,255,.16) 42%, transparent 64%),
+    linear-gradient(180deg, rgba(255,255,255,.08), transparent 56%) !important;
+  opacity: .42 !important;
+  pointer-events: none !important;
+  transform: translateX(-118%) skewX(-18deg) !important;
+  transition: transform .28s ease, opacity .13s ease !important;
+}
+
+html body[data-page="detail"] .combo-open-builder.is-builder-open::after,
+html body[data-page="detail"] .combo-open-builder[aria-expanded="true"]::after,
+html body[data-page="detail"] button#comboClearNotation::after,
+html body[data-page="detail"] button.combo-builder-clear::after,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder.is-builder-open::after,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder[aria-expanded="true"]::after,
+html body[data-page="detail"][data-game="2xko"] button#comboClearNotation::after,
+html body[data-page="detail"][data-game="2xko"] button.combo-builder-clear::after {
+  content: "" !important;
+  display: none !important;
+}
+
+html body[data-page="detail"] .combo-open-builder.is-builder-open:hover,
+html body[data-page="detail"] .combo-open-builder.is-builder-open:focus-visible,
+html body[data-page="detail"] .combo-open-builder[aria-expanded="true"]:hover,
+html body[data-page="detail"] .combo-open-builder[aria-expanded="true"]:focus-visible,
+html body[data-page="detail"] button#comboClearNotation:hover,
+html body[data-page="detail"] button#comboClearNotation:focus-visible,
+html body[data-page="detail"] button.combo-builder-clear:hover,
+html body[data-page="detail"] button.combo-builder-clear:focus-visible,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder.is-builder-open:hover,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder.is-builder-open:focus-visible,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder[aria-expanded="true"]:hover,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder[aria-expanded="true"]:focus-visible,
+html body[data-page="detail"][data-game="2xko"] button#comboClearNotation:hover,
+html body[data-page="detail"][data-game="2xko"] button#comboClearNotation:focus-visible,
+html body[data-page="detail"][data-game="2xko"] button.combo-builder-clear:hover,
+html body[data-page="detail"][data-game="2xko"] button.combo-builder-clear:focus-visible {
+  border-color: color-mix(in srgb, var(--tl-close-main) 92%, white) !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--tl-close-main) 30%, rgba(2,8,8,.98)) 0%,
+      rgba(2,9,10,.98) 54%,
+      color-mix(in srgb, var(--tl-close-secondary) 18%, rgba(0,0,0,.95)) 100%) !important;
+  color: #f2feff !important;
+  -webkit-text-fill-color: #f2feff !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.12),
+    inset 0 -8px 15px rgba(0,0,0,.24),
+    0 8px 16px rgba(0,0,0,.34),
+    0 0 16px rgba(22,244,255,.36) !important;
+  transform: translateY(-1px) !important;
+}
+
+html body[data-page="detail"] .combo-open-builder.is-builder-open:hover::before,
+html body[data-page="detail"] .combo-open-builder.is-builder-open:focus-visible::before,
+html body[data-page="detail"] .combo-open-builder[aria-expanded="true"]:hover::before,
+html body[data-page="detail"] .combo-open-builder[aria-expanded="true"]:focus-visible::before,
+html body[data-page="detail"] button#comboClearNotation:hover::before,
+html body[data-page="detail"] button#comboClearNotation:focus-visible::before,
+html body[data-page="detail"] button.combo-builder-clear:hover::before,
+html body[data-page="detail"] button.combo-builder-clear:focus-visible::before,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder.is-builder-open:hover::before,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder.is-builder-open:focus-visible::before,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder[aria-expanded="true"]:hover::before,
+html body[data-page="detail"][data-game="2xko"] .combo-open-builder[aria-expanded="true"]:focus-visible::before,
+html body[data-page="detail"][data-game="2xko"] button#comboClearNotation:hover::before,
+html body[data-page="detail"][data-game="2xko"] button#comboClearNotation:focus-visible::before,
+html body[data-page="detail"][data-game="2xko"] button.combo-builder-clear:hover::before,
+html body[data-page="detail"][data-game="2xko"] button.combo-builder-clear:focus-visible::before {
+  opacity: .66 !important;
+  transform: translateX(118%) skewX(-18deg) !important;
+}

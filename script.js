@@ -1920,7 +1920,7 @@ function create2XkoStageCard(game, character, index = 0, total = 1) {
   const caption = document.createElement('div');
   caption.className = isMarvelTokon ? 'x2ko-stage-caption marvel-stage-caption' : 'x2ko-stage-caption';
   const stageMeta = isMarvelTokon
-    ? (character.team ? `<span class="x2ko-stage-health x2ko-stage-team" aria-label="Équipe : ${escapeHtml(character.team)}">${escapeHtml(character.team)}</span>` : '')
+    ? (character.team ? `<span class="x2ko-stage-health x2ko-stage-team marvel-stage-health marvel-stage-team" aria-label="Équipe : ${escapeHtml(character.team)}">${escapeHtml(character.team)}</span>` : '')
     : (character.health ? `<span class="x2ko-stage-health" aria-label="${escapeHtml(character.name)} : ${escapeHtml(String(character.health))} PV">${escapeHtml(String(character.health))}</span>` : '');
   caption.innerHTML = `<strong>${escapeHtml(character.name)}</strong>${stageMeta}`;
   detailLink.append(artWrap, caption);

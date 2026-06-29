@@ -1880,10 +1880,11 @@ function create2XkoStageCard(game, character, index = 0, total = 1) {
   const article = document.createElement('article');
   const sideClass = total === 1 || index < Math.ceil(total / 2) ? 'is-left' : 'is-right';
   const countClass = total === 1 ? 'is-solo' : (total === 2 ? 'is-duo' : 'is-team');
-  const marvelClass = game.id === 'marvel-tokon' ? ' marvel-stage-card' : '';
+  const isMarvelTokon = game.id === 'marvel-tokon';
+  const marvelClass = isMarvelTokon ? ' marvel-stage-card' : '';
   article.className = `x2ko-stage-card${marvelClass} ${sideClass} ${countClass} is-slot-${index + 1} has-count-${total}`;
   article.dataset.game = game.id;
-  if (game.id === 'marvel-tokon') article.dataset.stageGame = 'marvel-tokon';
+  if (isMarvelTokon) article.dataset.stageGame = 'marvel-tokon';
   article.dataset.characterSlug = character.slug;
   if (character.team) article.dataset.team = getTeamSlug(character.team);
   const teamTheme = getTeamTheme(character.team);
@@ -1898,7 +1899,7 @@ function create2XkoStageCard(game, character, index = 0, total = 1) {
   article.style.setProperty('--art-object-position', character.imagePosition || 'center bottom');
 
   const detailLink = document.createElement('a');
-  detailLink.className = 'x2ko-stage-main-link';
+  detailLink.className = isMarvelTokon ? 'x2ko-stage-main-link marvel-stage-main-link' : 'x2ko-stage-main-link';
   detailLink.href = `#/${game.id}/${character.slug}`;
   detailLink.setAttribute('aria-label', `Ouvrir la fiche TechLab de ${character.name}`);
   detailLink.addEventListener('click', (event) => {
@@ -1907,9 +1908,9 @@ function create2XkoStageCard(game, character, index = 0, total = 1) {
   });
 
   const artWrap = document.createElement('div');
-  artWrap.className = 'x2ko-stage-art-wrap champion-art-wrap';
+  artWrap.className = isMarvelTokon ? 'x2ko-stage-art-wrap marvel-stage-art-wrap champion-art-wrap' : 'x2ko-stage-art-wrap champion-art-wrap';
   const img = document.createElement('img');
-  img.className = 'x2ko-stage-art champion-art';
+  img.className = isMarvelTokon ? 'x2ko-stage-art marvel-stage-art champion-art' : 'x2ko-stage-art champion-art';
   img.alt = character.name;
   const fallback = document.createElement('div');
   fallback.className = 'x2ko-stage-fallback champion-fallback';
@@ -1917,15 +1918,15 @@ function create2XkoStageCard(game, character, index = 0, total = 1) {
   artWrap.append(img, fallback);
 
   const caption = document.createElement('div');
-  caption.className = 'x2ko-stage-caption';
-  const stageMeta = game.id === 'marvel-tokon'
+  caption.className = isMarvelTokon ? 'x2ko-stage-caption marvel-stage-caption' : 'x2ko-stage-caption';
+  const stageMeta = isMarvelTokon
     ? (character.team ? `<span class="x2ko-stage-health x2ko-stage-team" aria-label="Équipe : ${escapeHtml(character.team)}">${escapeHtml(character.team)}</span>` : '')
     : (character.health ? `<span class="x2ko-stage-health" aria-label="${escapeHtml(character.name)} : ${escapeHtml(String(character.health))} PV">${escapeHtml(String(character.health))}</span>` : '');
   caption.innerHTML = `<strong>${escapeHtml(character.name)}</strong>${stageMeta}`;
   detailLink.append(artWrap, caption);
 
   const actions = document.createElement('div');
-  actions.className = 'x2ko-stage-actions';
+  actions.className = isMarvelTokon ? 'x2ko-stage-actions marvel-stage-actions' : 'x2ko-stage-actions';
 
   const wikiLink = document.createElement('a');
   wikiLink.className = 'x2ko-stage-action x2ko-stage-wiki-link';

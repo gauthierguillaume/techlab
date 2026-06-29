@@ -768,6 +768,71 @@ body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-action:focus-visibl
   outline: none !important;
 }
 
+html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link,
+html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link:hover,
+html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link:focus-visible,
+html body[data-page="game"][data-game="marvel-tokon"] .marvel-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link,
+html body[data-page="game"][data-game="marvel-tokon"] .marvel-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link:hover,
+html body[data-page="game"][data-game="marvel-tokon"] .marvel-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link:focus-visible {
+  position: static !important;
+  inset: auto !important;
+  margin: 0 !important;
+  min-width: var(--x2ko-hud-action-width) !important;
+  min-height: var(--x2ko-hud-action-height) !important;
+  padding: 0 clamp(9px, .75vw, 13px) !important;
+  font-size: clamp(0.60rem, 0.50vw, 0.74rem) !important;
+  line-height: 1 !important;
+  letter-spacing: .08em !important;
+  transform: skewX(8deg) !important;
+  translate: none !important;
+  scale: none !important;
+  rotate: 0deg !important;
+  transition: color 120ms ease, border-color 120ms ease, -webkit-text-fill-color 120ms ease !important;
+}
+
+html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-card.is-right .x2ko-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link,
+html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-card.is-right .x2ko-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link:hover,
+html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-card.is-right .x2ko-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link:focus-visible,
+html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-card.is-right .marvel-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link,
+html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-card.is-right .marvel-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link:hover,
+html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-card.is-right .marvel-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link:focus-visible {
+  transform: skewX(-8deg) !important;
+}
+
+html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link > .x2ko-action-label,
+html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link:hover > .x2ko-action-label,
+html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link:focus-visible > .x2ko-action-label,
+html body[data-page="game"][data-game="marvel-tokon"] .marvel-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link > .x2ko-action-label,
+html body[data-page="game"][data-game="marvel-tokon"] .marvel-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link:hover > .x2ko-action-label,
+html body[data-page="game"][data-game="marvel-tokon"] .marvel-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link:focus-visible > .x2ko-action-label {
+  transform: skewX(-8deg) !important;
+  translate: none !important;
+  scale: none !important;
+  rotate: 0deg !important;
+  font-size: inherit !important;
+  font-weight: 1000 !important;
+  line-height: 1 !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+}
+
+html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link:hover > .x2ko-action-label,
+html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link:focus-visible > .x2ko-action-label,
+html body[data-page="game"][data-game="marvel-tokon"] .marvel-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link:hover > .x2ko-action-label,
+html body[data-page="game"][data-game="marvel-tokon"] .marvel-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link:focus-visible > .x2ko-action-label {
+  color: var(--marvel-blue) !important;
+  -webkit-text-fill-color: var(--marvel-blue) !important;
+}
+
+html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-card.is-right .x2ko-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link > .x2ko-action-label,
+html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-card.is-right .x2ko-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link:hover > .x2ko-action-label,
+html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-card.is-right .x2ko-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link:focus-visible > .x2ko-action-label,
+html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-card.is-right .marvel-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link > .x2ko-action-label,
+html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-card.is-right .marvel-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link:hover > .x2ko-action-label,
+html body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-card.is-right .marvel-stage-actions .x2ko-stage-action.x2ko-stage-wiki-link:focus-visible > .x2ko-action-label {
+  transform: skewX(8deg) !important;
+}
+
 @media (max-width: 1360px) {
   body[data-page="game"][data-game="marvel-tokon"] .game-workspace-stage-picker,
   body[data-page="game"][data-game="marvel-tokon"] .game-workspace-2xko-test {

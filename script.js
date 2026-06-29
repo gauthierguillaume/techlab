@@ -69,8 +69,11 @@ function isModernDetailGame(game) {
 }
 
 function getDetailStyleGameId(game) {
-  // La fiche moderne utilise la même fondation CSS que 2XKO.
-  // Le jeu réel reste disponible dans data-actual-game et dans l'objet game JS.
+  // Attention : Marvel Tokon reutilise volontairement la fondation CSS des fiches 2XKO.
+  // Sur une fiche Marvel, body[data-game] vaut donc "2xko", tandis que le jeu reel
+  // reste disponible via body[data-actual-game] et l'objet game JS.
+  // Toute regle CSS ciblant body[data-page="detail"][data-game="2xko"] peut donc toucher
+  // a la fois 2XKO et Marvel Tokon.
   return isModernDetailGame(game) ? '2xko' : game.id;
 }
 
@@ -5293,6 +5296,7 @@ function renderDetailRosterCard(game, character) {
 
 function renderCharacterPage(game, character) {
   const usesModernDetail = isModernDetailGame(game);
+  // data-game pilote la couche CSS de rendu ; data-actual-game garde l'identite reelle du jeu.
   document.body.dataset.actualGame = game.id;
   document.body.dataset.game = getDetailStyleGameId(game);
   document.body.dataset.theme = game.theme || game.id;

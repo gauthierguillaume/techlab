@@ -1864,10 +1864,14 @@ function renderStageCharacterRail(game) {
 
 
 function render2XkoStageShell(game) {
+  const isMarvelTokon = game?.id === 'marvel-tokon';
+  const stageClassName = isMarvelTokon ? 'x2ko-stage marvel-stage' : 'x2ko-stage';
+  const stageGridClassName = isMarvelTokon ? 'x2ko-stage-grid marvel-stage-grid' : 'x2ko-stage-grid';
+  const stageGameAttribute = isMarvelTokon ? ' data-stage-game="marvel-tokon"' : '';
   return `
-    <section class="x2ko-stage" id="x2koStage" aria-label="Sélection ${escapeHtml(game.name)}">
+    <section class="${stageClassName}" id="x2koStage" aria-label="Sélection ${escapeHtml(game.name)}"${stageGameAttribute}>
       <div class="x2ko-stage-empty" id="x2koStageEmpty" aria-hidden="true"></div>
-      <div class="x2ko-stage-grid" id="x2koStageGrid"></div>
+      <div class="${stageGridClassName}" id="x2koStageGrid"${stageGameAttribute}></div>
     </section>
   `;
 }
@@ -1876,8 +1880,10 @@ function create2XkoStageCard(game, character, index = 0, total = 1) {
   const article = document.createElement('article');
   const sideClass = total === 1 || index < Math.ceil(total / 2) ? 'is-left' : 'is-right';
   const countClass = total === 1 ? 'is-solo' : (total === 2 ? 'is-duo' : 'is-team');
-  article.className = `x2ko-stage-card ${sideClass} ${countClass} is-slot-${index + 1} has-count-${total}`;
+  const marvelClass = game.id === 'marvel-tokon' ? ' marvel-stage-card' : '';
+  article.className = `x2ko-stage-card${marvelClass} ${sideClass} ${countClass} is-slot-${index + 1} has-count-${total}`;
   article.dataset.game = game.id;
+  if (game.id === 'marvel-tokon') article.dataset.stageGame = 'marvel-tokon';
   article.dataset.characterSlug = character.slug;
   if (character.team) article.dataset.team = getTeamSlug(character.team);
   const teamTheme = getTeamTheme(character.team);

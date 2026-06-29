@@ -61,13 +61,14 @@ body[data-page="game"][data-game="marvel-tokon"] .character-rail {
   max-height: 100dvh !important;
   padding: 4px !important;
   overflow: hidden !important;
-  background:
-    linear-gradient(180deg, rgba(3, 16, 24, 0.86), rgba(0, 8, 14, 0.88)) !important;
-  border: 1px solid rgba(24, 186, 252, 0.26) !important;
+  background: transparent !important;
+  background-image: none !important;
+  border: 1px solid transparent !important;
   border-left: 0 !important;
   border-radius: 0 14px 14px 0 !important;
-  box-shadow: inset 0 0 0 1px rgba(255, 138, 0, 0.06), 0 0 24px rgba(0, 0, 0, 0.18) !important;
-  backdrop-filter: blur(12px) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 body[data-page="game"][data-game="marvel-tokon"] .character-rail-head,

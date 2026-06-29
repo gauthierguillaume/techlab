@@ -12458,8 +12458,11 @@ html body[data-page="game"][data-game="2xko"] .character-rail {
   padding: 2px !important;
   box-sizing: border-box !important;
   background: transparent !important;
+  background-image: none !important;
   border-color: transparent !important;
   box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   overflow: hidden !important;
 }
 

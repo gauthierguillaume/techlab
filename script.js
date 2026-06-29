@@ -165,10 +165,10 @@ const MARVEL_TEAM_THEMES = {
     accent: '#2bb84a',
     accent2: '#b7ff4a',
   },
-  'Midnight Sons': {
-    logo: '',
-    accent: '#ff5a1f',
-    accent2: '#ffd15c',
+  'Samurai Outriders': {
+    logo: './assets/marvel-tokon/logos/samurai-outriders-logo.webp',
+    accent: '#7c9bb8',
+    accent2: '#b7ccdd',
   },
 };
 
@@ -794,10 +794,10 @@ const games = [
       { name: 'Magneto', slug: 'magneto', tagSlug: 'MAGNETO', team: 'Knights of Doom', railImageUrl: getMarvelTokonPortraitUrl('magneto'), size: 'medium', imageUrl: 'https://www.dustloop.com/wiki/images/4/48/MTFS_Magneto_Portrait.png', imageFit: 'contain', imagePosition: 'center bottom', artScale: 1.08, artX: '0px', artY: '0px', wikiUrl: 'https://www.dustloop.com/w/MTFS/Magneto', officialUrl: null },
       { name: 'Green Goblin', slug: 'green-goblin', tagSlug: 'GREENGOBLIN', team: 'Knights of Doom', railImageUrl: getMarvelTokonPortraitUrl('green-goblin'), size: 'medium', imageUrl: 'https://www.dustloop.com/wiki/images/8/8c/MTFS_Green_Goblin_Portrait.png', imageFit: 'contain', imagePosition: 'center bottom', artScale: 1.08, artX: '0px', artY: '0px', wikiUrl: 'https://www.dustloop.com/w/MTFS/Green_Goblin', officialUrl: null },
       { name: 'Carnage', slug: 'carnage', tagSlug: 'CARNAGE', team: 'Knights of Doom', railImageUrl: getMarvelTokonPortraitUrl('carnage'), size: 'medium', imageUrl: 'https://www.dustloop.com/wiki/images/6/68/MTFS_Carnage_Portrait.png', imageFit: 'contain', imagePosition: 'center bottom', artScale: 1.1, artX: '0px', artY: '0px', wikiUrl: 'https://www.dustloop.com/w/MTFS/Carnage', officialUrl: null },
-      { name: 'Ghost Rider', slug: 'ghost-rider', tagSlug: 'GHOSTRIDER', team: 'Midnight Sons', size: 'medium', imageUrl: 'https://www.dustloop.com/wiki/images/6/6d/MTFS_Ghost_Rider_Portrait.png', imageFit: 'contain', imagePosition: 'center bottom', artScale: 1.1, artX: '0px', artY: '0px', wikiUrl: 'https://www.dustloop.com/w/MTFS/Ghost_Rider', officialUrl: null },
-      { name: '?', slug: 'midnight-sons-placeholder-1', tagSlug: '', team: 'Midnight Sons', isPlaceholder: true, size: 'medium' },
-      { name: '?', slug: 'midnight-sons-placeholder-2', tagSlug: '', team: 'Midnight Sons', isPlaceholder: true, size: 'medium' },
-      { name: '?', slug: 'midnight-sons-placeholder-3', tagSlug: '', team: 'Midnight Sons', isPlaceholder: true, size: 'medium' }
+      { name: 'Ghost Rider', slug: 'ghost-rider', tagSlug: 'GHOSTRIDER', team: 'Samurai Outriders', size: 'medium', imageUrl: 'https://www.dustloop.com/wiki/images/6/6d/MTFS_Ghost_Rider_Portrait.png', imageFit: 'contain', imagePosition: 'center bottom', artScale: 1.1, artX: '0px', artY: '0px', wikiUrl: 'https://www.dustloop.com/w/MTFS/Ghost_Rider', officialUrl: null },
+      { name: 'Blade', slug: 'blade', tagSlug: 'BLADE', team: 'Samurai Outriders', railImageUrl: './assets/marvel-tokon/portraits/blade.webp', size: 'medium', imageUrl: './assets/marvel-tokon/portraits/blade.webp', imageFit: 'contain', imagePosition: 'center bottom', artScale: 1.02, artX: '0px', artY: '0px', wikiUrl: 'https://www.dustloop.com/w/MTFS/Blade', officialUrl: null },
+      { name: 'Deadpool', slug: 'deadpool', tagSlug: 'DEADPOOL', team: 'Samurai Outriders', railImageUrl: './assets/marvel-tokon/portraits/deadpool.webp', size: 'medium', imageUrl: './assets/marvel-tokon/portraits/deadpool.webp', imageFit: 'contain', imagePosition: 'center bottom', artScale: 1.02, artX: '0px', artY: '0px', wikiUrl: 'https://www.dustloop.com/w/MTFS/Deadpool', officialUrl: null },
+      { name: 'Loki', slug: 'loki', tagSlug: 'LOKI', team: 'Samurai Outriders', railImageUrl: './assets/marvel-tokon/portraits/loki.webp', size: 'medium', imageUrl: './assets/marvel-tokon/portraits/loki.webp', imageFit: 'contain', imagePosition: 'center bottom', artScale: 1.04, artX: '0px', artY: '0px', wikiUrl: 'https://www.dustloop.com/w/MTFS/Loki', officialUrl: null }
     ],
   },
   {
@@ -1775,7 +1775,7 @@ function renderMarvelTeamHeader(team) {
   const theme = getTeamTheme(team);
   const logo = theme?.logo || '';
   return `
-    <header class="marvel-team-header" style="--team-accent:${theme?.accent || '#ff8a00'};--team-accent-2:${theme?.accent2 || '#18bafc'}">
+    <header class="marvel-team-header" data-team="${escapeHtml(getTeamSlug(team))}" style="--team-accent:${theme?.accent || '#ff8a00'};--team-accent-2:${theme?.accent2 || '#18bafc'}">
       <span class="marvel-team-logo" aria-hidden="true">${logo ? `<img src="${escapeHtml(logo)}" alt="" loading="lazy" />` : escapeHtml(team.split(/\s+/).map((word) => word[0]).join('').slice(0, 2))}</span>
       <span class="marvel-team-name">${escapeHtml(team)}</span>
     </header>

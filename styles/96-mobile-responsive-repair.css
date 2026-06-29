@@ -11863,3 +11863,50 @@ html body[data-page="game"][data-game="marvel-tokon"] .marvel-character-rail .ch
       inset 0 0 20px rgba(var(--tokon-portrait-select-rgb), .44) !important;
   }
 }
+
+
+/* --- TechLab v1.0.150 : Samurai Outriders utilise le header Marvel standard ---
+   Pas de police, taille, hauteur ou spacing spécifique : la team suit les mêmes règles que les autres. */
+html body[data-page="game"][data-game="marvel-tokon"] .marvel-team-header[data-team="samurai-outriders"] {
+  --team-accent: #7c9bb8;
+  --team-accent-2: #b7ccdd;
+}
+
+html body[data-page="game"][data-game="marvel-tokon"] .marvel-character-rail .character-rail-item[data-character-slug="deadpool"] {
+  --tokon-portrait-select: #ff2b2b;
+  --tokon-portrait-select-rgb: 255, 43, 43;
+}
+
+html body[data-page="game"][data-game="marvel-tokon"] .marvel-character-rail .character-rail-item[data-character-slug="loki"] {
+  --tokon-portrait-select: #7c9bb8;
+  --tokon-portrait-select-rgb: 124, 155, 184;
+}
+
+html body[data-page="game"][data-game="marvel-tokon"] .marvel-character-rail .character-rail-item[data-character-slug="blade"] {
+  --tokon-portrait-select: #ff3b32;
+  --tokon-portrait-select-rgb: 255, 59, 50;
+}
+
+/* Les 3 nouveaux utilisent les arts temporaires, donc cadrage simple sans modifier les gaps/hauteurs des autres teams. */
+html body[data-page="game"][data-game="marvel-tokon"] .marvel-character-rail .character-rail-item[data-character-slug="deadpool"] img.character-rail-art,
+html body[data-page="game"][data-game="marvel-tokon"] .marvel-character-rail .character-rail-item[data-character-slug="loki"] img.character-rail-art,
+html body[data-page="game"][data-game="marvel-tokon"] .marvel-character-rail .character-rail-item[data-character-slug="blade"] img.character-rail-art {
+  object-fit: contain !important;
+  object-position: center center !important;
+  background: radial-gradient(circle at 50% 46%, rgba(124, 155, 184, .18), rgba(3, 8, 12, .82) 62%, rgba(0, 0, 0, .92) 100%) !important;
+  transform: translateY(0) scale(.92) !important;
+  transform-origin: center center !important;
+}
+
+
+html body[data-page="game"][data-game="marvel-tokon"] .marvel-character-rail .character-rail-item[data-character-slug="deadpool"] img.character-rail-art {
+  transform: translateY(-4%) scale(1.08) !important;
+}
+
+html body[data-page="game"][data-game="marvel-tokon"] .marvel-character-rail .character-rail-item[data-character-slug="loki"] img.character-rail-art {
+  transform: translateY(-2%) scale(1.03) !important;
+}
+
+html body[data-page="game"][data-game="marvel-tokon"] .marvel-character-rail .character-rail-item[data-character-slug="blade"] img.character-rail-art {
+  transform: translateY(-1%) scale(1.08) !important;
+}

@@ -782,7 +782,8 @@ body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-action:focus-visibl
     height: 35px !important;
   }
 
-  body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-caption strong {
+  body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-caption strong,
+  body[data-page="game"][data-game="marvel-tokon"] .marvel-stage-caption strong {
     font-size: clamp(1.02rem, 2.5vw, 3.05rem) !important;
   }
 }

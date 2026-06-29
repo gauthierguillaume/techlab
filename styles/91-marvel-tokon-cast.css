@@ -483,7 +483,8 @@ body[data-page="game"][data-game="marvel-tokon"] .resource-link strong {
 }
 
 /* Scène sélectionnée : même principe 2XKO, jusqu'à 4 persos. */
-body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage {
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage,
+body[data-page="game"][data-game="marvel-tokon"] .marvel-stage {
   grid-column: 3 !important;
   position: relative !important;
   isolation: isolate !important;
@@ -500,12 +501,14 @@ body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage {
 }
 
 body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage::before,
+body[data-page="game"][data-game="marvel-tokon"] .marvel-stage::before,
 body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-empty {
   display: none !important;
   content: none !important;
 }
 
-body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid {
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid,
+body[data-page="game"][data-game="marvel-tokon"] .marvel-stage-grid {
   position: absolute !important;
   inset: 0 !important;
   z-index: 2 !important;
@@ -519,15 +522,20 @@ body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid {
   overflow: hidden !important;
 }
 
-body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid[hidden] {
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid[hidden],
+body[data-page="game"][data-game="marvel-tokon"] .marvel-stage-grid[hidden] {
   display: none !important;
 }
 
-body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-two { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-three { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
-body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-four { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-two,
+body[data-page="game"][data-game="marvel-tokon"] .marvel-stage-grid.has-two { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-three,
+body[data-page="game"][data-game="marvel-tokon"] .marvel-stage-grid.has-three { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-grid.has-four,
+body[data-page="game"][data-game="marvel-tokon"] .marvel-stage-grid.has-four { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
 
-body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-card {
+body[data-page="game"][data-game="marvel-tokon"] .x2ko-stage-card,
+body[data-page="game"][data-game="marvel-tokon"] .marvel-stage-card {
   --marvel-hud-top: clamp(42px, 4.65dvh, 52px);
   --marvel-art-top-safe: clamp(98px, 10dvh, 112px);
   --marvel-art-bottom-safe: 0px;

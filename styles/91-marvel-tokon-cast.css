@@ -26,7 +26,8 @@ body[data-page="game"][data-game="marvel-tokon"] .app::before {
   pointer-events: none !important;
 }
 
-body[data-page="game"][data-game="marvel-tokon"] .app:has(.x2ko-stage.has-selection)::before {
+body[data-page="game"][data-game="marvel-tokon"] .app:has(.x2ko-stage.has-selection)::before,
+body[data-page="game"][data-game="marvel-tokon"] .app:has(.marvel-stage.has-selection)::before {
   background: rgba(0, 0, 0, 0.50) !important;
 }
 
@@ -1526,7 +1527,8 @@ body[data-page="game"][data-game="marvel-tokon"] .app::before {
   transition: opacity 180ms ease, background 180ms ease !important;
 }
 
-body[data-page="game"][data-game="marvel-tokon"] .app:has(.x2ko-stage.has-selection)::before {
+body[data-page="game"][data-game="marvel-tokon"] .app:has(.x2ko-stage.has-selection)::before,
+body[data-page="game"][data-game="marvel-tokon"] .app:has(.marvel-stage.has-selection)::before {
   background: rgba(0, 0, 0, 0.48) !important;
   opacity: 1 !important;
 }

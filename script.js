@@ -1689,11 +1689,11 @@ function get2XkoCharactersSorted(game) {
 }
 
 function getAssistHeadUrl(character) {
-  return `./assets/2xko/assist-heads/${character.slug}.webp`;
+  return `./assets/2xko/combo-builder/assists/${character.slug}.webp`;
 }
 
 function get2XkoRosterBustUrl(character) {
-  return `./assets/2xko/roster-busts/${character.slug}.webp`;
+  return `./assets/2xko/character-portraits/${character.slug}.webp`;
 }
 
 function getCharacterRailArtUrl(game, character) {
@@ -3144,12 +3144,12 @@ const COMBO_FUSE_COLORS = {
   'TEAMFIGHT': '#40f46b',
 };
 const COMBO_FUSE_IMAGE_PATHS = {
-  '2X ASSIST': 'assets/2xko/combo/fuse-2x-assist.png',
-  'DOUBLE DOWN': 'assets/2xko/combo/fuse-double-down.png',
-  'FREESTYLE': 'assets/2xko/combo/fuse-freestyle.png',
-  'JUGGERNAUT': 'assets/2xko/combo/fuse-juggernaut.png',
-  'SIDEKICK': 'assets/2xko/combo/fuse-sidekick.png',
-  'TEAMFIGHT': 'assets/2xko/combo/fuse-teamfight.png',
+  '2X ASSIST': 'assets/2xko/combo-builder/fuses/fuse-2x-assist.png',
+  'DOUBLE DOWN': 'assets/2xko/combo-builder/fuses/fuse-double-down.png',
+  'FREESTYLE': 'assets/2xko/combo-builder/fuses/fuse-freestyle.png',
+  'JUGGERNAUT': 'assets/2xko/combo-builder/fuses/fuse-juggernaut.png',
+  'SIDEKICK': 'assets/2xko/combo-builder/fuses/fuse-sidekick.png',
+  'TEAMFIGHT': 'assets/2xko/combo-builder/fuses/fuse-teamfight.png',
 };
 
 function getComboPngTagVisual(label, src, wrapperClass, imgClass) {
@@ -3171,11 +3171,11 @@ const COMBO_FUSE_VISUALS = Object.fromEntries(
 );
 
 function getComboLimitStrikeSvg() {
-  return getComboPngTagVisual('LIMIT STRIKE!', 'assets/2xko/combo/limit-strike.png', 'combo-tag-logo-svg combo-tag-logo-limit-strike combo-limit-strike-banner', 'combo-limit-strike-banner-img');
+  return getComboPngTagVisual('LIMIT STRIKE!', 'assets/2xko/combo-builder/tags/limit-strike.png', 'combo-tag-logo-svg combo-tag-logo-limit-strike combo-limit-strike-banner', 'combo-limit-strike-banner-img');
 }
 
 function getComboFurySvg() {
-  return getComboPngTagVisual('FURY!', 'assets/2xko/combo/fury.png', 'combo-tag-logo-svg combo-tag-logo-fury combo-fury-banner', 'combo-fury-banner-img');
+  return getComboPngTagVisual('FURY!', 'assets/2xko/combo-builder/tags/fury.png', 'combo-tag-logo-svg combo-tag-logo-fury combo-fury-banner', 'combo-fury-banner-img');
 }
 
 function getComboSideSwitchSvg() {
@@ -3225,15 +3225,15 @@ function getComboUltimateDamageSvg(value) {
 }
 
 const COMBO_UNIQUE_RESOURCE_OPTIONS = [
-  { value: 'STEAM', label: 'Steam', character: 'Blitzcrank', icon: 'assets/2xko/unique-resources/blitzcrank-steam.png' },
-  { value: 'UNBREAKABLE', label: 'Unbreakable', character: 'Braum', icon: 'assets/2xko/unique-resources/braum-unbreakable.webp' },
-  { value: 'WOUND', label: 'Wound', character: 'Darius', icon: 'assets/2xko/unique-resources/darius-wound.webp' },
-  { value: 'ZAPPER', label: 'Zapper', character: 'Jinx', icon: 'assets/2xko/unique-resources/jinx-zapper.webp' },
-  { value: 'WRAITH', label: 'Wraith Meter', character: 'Senna', icon: 'assets/2xko/unique-resources/senna-wraith.png' },
-  { value: 'DART BADGE', label: 'Dart Badge', character: 'Teemo', icon: 'assets/2xko/unique-resources/teemo-dart-badge.webp' },
-  { value: 'MUSHROOM BADGE', label: 'Mushroom Badge', character: 'Teemo', icon: 'assets/2xko/unique-resources/teemo-mushroom-badge.webp' },
-  { value: 'SLINGSHOT BADGE', label: 'Slingshot Badge', character: 'Teemo', icon: 'assets/2xko/unique-resources/teemo-slingshot-badge.webp' },
-  { value: 'BLOODLUST', label: 'Bloodlust', character: 'Warwick', icon: 'assets/2xko/unique-resources/warwick-bloodlust-base.png', fullIcon: 'assets/2xko/unique-resources/warwick-bloodlust-full.png' },
+  { value: 'STEAM', label: 'Steam', character: 'Blitzcrank', icon: 'assets/2xko/combo-builder/resources/blitzcrank-steam.png' },
+  { value: 'UNBREAKABLE', label: 'Unbreakable', character: 'Braum', icon: 'assets/2xko/combo-builder/resources/braum-unbreakable.webp' },
+  { value: 'WOUND', label: 'Wound', character: 'Darius', icon: 'assets/2xko/combo-builder/resources/darius-wound.webp' },
+  { value: 'ZAPPER', label: 'Zapper', character: 'Jinx', icon: 'assets/2xko/combo-builder/resources/jinx-zapper.webp' },
+  { value: 'WRAITH', label: 'Wraith Meter', character: 'Senna', icon: 'assets/2xko/combo-builder/resources/senna-wraith.png' },
+  { value: 'DART BADGE', label: 'Dart Badge', character: 'Teemo', icon: 'assets/2xko/combo-builder/resources/teemo-dart-badge.webp' },
+  { value: 'MUSHROOM BADGE', label: 'Mushroom Badge', character: 'Teemo', icon: 'assets/2xko/combo-builder/resources/teemo-mushroom-badge.webp' },
+  { value: 'SLINGSHOT BADGE', label: 'Slingshot Badge', character: 'Teemo', icon: 'assets/2xko/combo-builder/resources/teemo-slingshot-badge.webp' },
+  { value: 'BLOODLUST', label: 'Bloodlust', character: 'Warwick', icon: 'assets/2xko/combo-builder/resources/warwick-bloodlust-base.png', fullIcon: 'assets/2xko/combo-builder/resources/warwick-bloodlust-full.png' },
 ];
 const COMBO_UNIQUE_RESOURCE_TAGS = COMBO_UNIQUE_RESOURCE_OPTIONS.map((entry) => entry.value);
 
@@ -3283,7 +3283,7 @@ function getComboWraithMeterSvg(value = '', options = {}) {
   const charge = normalizeComboWraithValue(value);
   const chargeNumber = Number(charge || 0);
   const label = charge ? `Senna — Wraith Meter x${charge}` : 'Senna — Wraith Meter';
-  const iconHref = escapeHtml(options.icon || 'assets/2xko/unique-resources/senna-wraith.png');
+  const iconHref = escapeHtml(options.icon || 'assets/2xko/combo-builder/resources/senna-wraith.png');
   const firstFill = chargeNumber >= 1 ? '#00d97a' : '#053414';
   const secondFill = chargeNumber >= 2 ? '#00d97a' : '#053414';
   const firstOpacity = chargeNumber >= 1 ? '1' : '.58';
@@ -3426,21 +3426,21 @@ function renderComboAssistPicker(game, character) {
 }
 
 const COMBO_ASSIST_HEAD_IMAGES = {
-  akali: 'assets/2xko/assist-heads/akali.webp',
-  ahri: 'assets/2xko/assist-heads/ahri.webp',
-  blitzcrank: 'assets/2xko/assist-heads/blitzcrank.webp',
-  braum: 'assets/2xko/assist-heads/braum.webp',
-  caitlyn: 'assets/2xko/assist-heads/caitlyn.webp',
-  darius: 'assets/2xko/assist-heads/darius.webp',
-  ekko: 'assets/2xko/assist-heads/ekko.webp',
-  illaoi: 'assets/2xko/assist-heads/illaoi.webp',
-  jinx: 'assets/2xko/assist-heads/jinx.webp',
-  senna: 'assets/2xko/assist-heads/senna.webp',
-  teemo: 'assets/2xko/assist-heads/teemo.webp',
-  thresh: 'assets/2xko/assist-heads/thresh.webp',
-  vi: 'assets/2xko/assist-heads/vi.webp',
-  warwick: 'assets/2xko/assist-heads/warwick.webp',
-  yasuo: 'assets/2xko/assist-heads/yasuo.webp',
+  akali: 'assets/2xko/combo-builder/assists/akali.webp',
+  ahri: 'assets/2xko/combo-builder/assists/ahri.webp',
+  blitzcrank: 'assets/2xko/combo-builder/assists/blitzcrank.webp',
+  braum: 'assets/2xko/combo-builder/assists/braum.webp',
+  caitlyn: 'assets/2xko/combo-builder/assists/caitlyn.webp',
+  darius: 'assets/2xko/combo-builder/assists/darius.webp',
+  ekko: 'assets/2xko/combo-builder/assists/ekko.webp',
+  illaoi: 'assets/2xko/combo-builder/assists/illaoi.webp',
+  jinx: 'assets/2xko/combo-builder/assists/jinx.webp',
+  senna: 'assets/2xko/combo-builder/assists/senna.webp',
+  teemo: 'assets/2xko/combo-builder/assists/teemo.webp',
+  thresh: 'assets/2xko/combo-builder/assists/thresh.webp',
+  vi: 'assets/2xko/combo-builder/assists/vi.webp',
+  warwick: 'assets/2xko/combo-builder/assists/warwick.webp',
+  yasuo: 'assets/2xko/combo-builder/assists/yasuo.webp',
 };
 
 function getComboCharacterImageUrl(character) {

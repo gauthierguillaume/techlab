@@ -26,16 +26,16 @@ const AVATAR_WIKI_BASE_URL = 'https://wiki.supercombo.gg/w/Avatar_Legends';
 const AVATAR_FILEPATH_BASE_URL = 'https://wiki.supercombo.gg/w/Special:FilePath';
 const HOME_QUOTE_AUDIO_URL = './assets/common/audio/je-pue-sous-les-bras.wav';
 
-const X2KO_CHAMPION_SELECT_BASE = './assets/2xko/key-art/champion-select';
-const X2KO_KEY_VISUAL_BASE = './assets/2xko/key-art/key-visual';
-const X2KO_FANTASY_ART_BASE = './assets/2xko/key-art/fantasy-art';
+const X2KO_CHAMPION_SELECT_BASE = './assets/2xko/character-key-art/champion-select';
+const X2KO_KEY_VISUAL_BASE = './assets/2xko/character-key-art/key-visual';
+const X2KO_FANTASY_ART_BASE = './assets/2xko/character-backgrounds/fantasy-art';
 const X2KO_KEY_VISUAL_SLUGS = new Set(['blitzcrank', 'braum', 'darius', 'ekko', 'illaoi', 'jinx', 'teemo', 'vi', 'warwick', 'yasuo']);
 const X2KO_FANTASY_ART_SLUGS = new Set(['ahri', 'akali', 'blitzcrank', 'braum', 'caitlyn', 'darius', 'ekko', 'illaoi', 'jinx', 'senna', 'teemo', 'thresh', 'vi', 'warwick', 'yasuo']);
 
 
 function getGamePageBackgroundUrl(game) {
   if (!game) return '';
-  if (game.id === '2xko') return './assets/2xko/key-art/backgrounds/2xko-key-art.webp';
+  if (game.id === '2xko') return './assets/2xko/character-backgrounds/2xko-key-art.webp';
   if (game.id === 'marvel-tokon') return MARVEL_TOKON_BACKGROUND_URL;
   if (game.id === 'avatar-legends') return './assets/avatar-legends/backgrounds/avatar-legends-key-art.webp';
   if (game.id === 'vf-crossroads') return './assets/vf-crossroads/backgrounds/vf-crossroads-key-art.webp';

@@ -822,7 +822,7 @@ body[data-page="game"][data-game="2xko"] .x2ko-stage {
   overflow: hidden !important;
   border-radius: 22px !important;
   border: 1px solid rgba(255,255,255,0.06) !important;
-  background: #020806 url('../assets/2xko/character-backgrounds/2xko-key-art.webp') center center / cover no-repeat !important;
+  background: #020806 url('../assets/2xko/game-backgrounds/2xko-key-art.webp') center center / cover no-repeat !important;
   box-shadow: inset 0 0 90px rgba(0,0,0,0.46), 0 20px 50px rgba(0,0,0,0.28) !important;
 }
 
@@ -1100,7 +1100,7 @@ body[data-page="game"][data-game="2xko"] .app {
   padding: 18px 18px 42px 0 !important;
   background:
     linear-gradient(90deg, rgba(2,6,23,0.10) 0%, rgba(2,6,23,0.34) 32%, rgba(2,6,23,0.28) 100%),
-    url("../assets/2xko/character-backgrounds/2xko-key-art.webp") center center / cover no-repeat !important;
+    url("../assets/2xko/game-backgrounds/2xko-key-art.webp") center center / cover no-repeat !important;
 }
 
 body[data-page="game"][data-game="2xko"] .app::before {
@@ -1501,7 +1501,7 @@ body[data-page="game"][data-game="2xko"] .app {
   padding: 0 18px 0 0 !important;
   background:
     linear-gradient(90deg, rgba(2,6,23,0.06) 0%, rgba(2,6,23,0.28) 34%, rgba(2,6,23,0.22) 100%),
-    url("../assets/2xko/character-backgrounds/2xko-key-art.webp") center center / cover no-repeat !important;
+    url("../assets/2xko/game-backgrounds/2xko-key-art.webp") center center / cover no-repeat !important;
 }
 
 body[data-page="game"][data-game="2xko"] .app::before {
@@ -5320,17 +5320,17 @@ body[data-page="detail"][data-game="2xko"] .detail-lab-grid {
   background-color: #000 !important;
 }
 
-body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="ahri"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/fantasy-art/ahri.webp'); }
-body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="blitzcrank"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/fantasy-art/blitzcrank.webp'); }
-body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="braum"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/fantasy-art/braum.webp'); }
-body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="darius"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/fantasy-art/darius.webp'); }
-body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="ekko"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/fantasy-art/ekko.webp'); }
-body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="illaoi"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/fantasy-art/illaoi.webp'); }
-body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="jinx"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/fantasy-art/jinx.webp'); }
-body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="teemo"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/fantasy-art/teemo.webp'); }
-body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="vi"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/fantasy-art/vi.webp'); }
-body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="warwick"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/fantasy-art/warwick.webp'); }
-body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="yasuo"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/fantasy-art/yasuo.webp'); }
+body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="ahri"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/ahri.webp'); }
+body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="blitzcrank"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/blitzcrank.webp'); }
+body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="braum"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/braum.webp'); }
+body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="darius"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/darius.webp'); }
+body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="ekko"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/ekko.webp'); }
+body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="illaoi"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/illaoi.webp'); }
+body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="jinx"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/jinx.webp'); }
+body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="teemo"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/teemo.webp'); }
+body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="vi"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/vi.webp'); }
+body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="warwick"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/warwick.webp'); }
+body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="yasuo"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/yasuo.webp'); }
 
 body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="ahri"]),
 body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="blitzcrank"]),
@@ -5968,17 +5968,17 @@ body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .personal-link-fo
    Cause fix: the fantasy art was behind opaque page/panel layers. Put it directly on .app
    and make only the detail panels translucent. */
 
-body[data-page="detail"][data-game="2xko"][data-character="ahri"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/fantasy-art/ahri.webp"); }
-body[data-page="detail"][data-game="2xko"][data-character="blitzcrank"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/fantasy-art/blitzcrank.webp"); }
-body[data-page="detail"][data-game="2xko"][data-character="braum"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/fantasy-art/braum.webp"); }
-body[data-page="detail"][data-game="2xko"][data-character="darius"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/fantasy-art/darius.webp"); }
-body[data-page="detail"][data-game="2xko"][data-character="ekko"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/fantasy-art/ekko.webp"); }
-body[data-page="detail"][data-game="2xko"][data-character="illaoi"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/fantasy-art/illaoi.webp"); }
-body[data-page="detail"][data-game="2xko"][data-character="jinx"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/fantasy-art/jinx.webp"); }
-body[data-page="detail"][data-game="2xko"][data-character="teemo"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/fantasy-art/teemo.webp"); }
-body[data-page="detail"][data-game="2xko"][data-character="vi"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/fantasy-art/vi.webp"); }
-body[data-page="detail"][data-game="2xko"][data-character="warwick"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/fantasy-art/warwick.webp"); }
-body[data-page="detail"][data-game="2xko"][data-character="yasuo"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/fantasy-art/yasuo.webp"); }
+body[data-page="detail"][data-game="2xko"][data-character="ahri"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/ahri.webp"); }
+body[data-page="detail"][data-game="2xko"][data-character="blitzcrank"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/blitzcrank.webp"); }
+body[data-page="detail"][data-game="2xko"][data-character="braum"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/braum.webp"); }
+body[data-page="detail"][data-game="2xko"][data-character="darius"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/darius.webp"); }
+body[data-page="detail"][data-game="2xko"][data-character="ekko"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/ekko.webp"); }
+body[data-page="detail"][data-game="2xko"][data-character="illaoi"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/illaoi.webp"); }
+body[data-page="detail"][data-game="2xko"][data-character="jinx"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/jinx.webp"); }
+body[data-page="detail"][data-game="2xko"][data-character="teemo"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/teemo.webp"); }
+body[data-page="detail"][data-game="2xko"][data-character="vi"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/vi.webp"); }
+body[data-page="detail"][data-game="2xko"][data-character="warwick"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/warwick.webp"); }
+body[data-page="detail"][data-game="2xko"][data-character="yasuo"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/yasuo.webp"); }
 
 body[data-page="detail"][data-game="2xko"]::before,
 body[data-page="detail"][data-game="2xko"] .detail-page-reworked::before {
@@ -6677,15 +6677,15 @@ body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .detail-character
    Base: current v1.0.43 CSS. CSS only here. JS only adds new fantasy slugs. */
 
 /* New Fantasy Art backgrounds added in this patch. */
-body[data-page="detail"][data-game="2xko"][data-character="akali"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/fantasy-art/akali.webp"); }
-body[data-page="detail"][data-game="2xko"][data-character="caitlyn"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/fantasy-art/caitlyn.webp"); }
-body[data-page="detail"][data-game="2xko"][data-character="senna"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/fantasy-art/senna.webp"); }
-body[data-page="detail"][data-game="2xko"][data-character="thresh"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/fantasy-art/thresh.webp"); }
+body[data-page="detail"][data-game="2xko"][data-character="akali"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/akali.webp"); }
+body[data-page="detail"][data-game="2xko"][data-character="caitlyn"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/caitlyn.webp"); }
+body[data-page="detail"][data-game="2xko"][data-character="senna"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/senna.webp"); }
+body[data-page="detail"][data-game="2xko"][data-character="thresh"] .app { --x2ko-detail-bg: url("../assets/2xko/character-backgrounds/thresh.webp"); }
 
-body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="akali"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/fantasy-art/akali.webp'); }
-body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="caitlyn"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/fantasy-art/caitlyn.webp'); }
-body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="senna"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/fantasy-art/senna.webp'); }
-body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="thresh"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/fantasy-art/thresh.webp'); }
+body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="akali"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/akali.webp'); }
+body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="caitlyn"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/caitlyn.webp'); }
+body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="senna"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/senna.webp'); }
+body[data-page="detail"][data-game="2xko"] .detail-page-reworked:has(.x2ko-detail-roster-card[data-character-slug="thresh"]) { --x2ko-detail-bg: url('../assets/2xko/character-backgrounds/thresh.webp'); }
 
 /* Keep the detail HUD bar crisp: remove the blurred shadow halo, keep only the hard arcade offset. */
 body[data-page="detail"][data-game="2xko"].has-x2ko-fantasy-bg .detail-character-column .x2ko-detail-caption {
@@ -10867,7 +10867,7 @@ body[data-page="game"][data-game="2xko"] .character-rail-item.is-selected img {
 
 /* --- TechLab v1.0.24 : fonds propres + assombrissement seulement avec sélection + ombre stable selected art --- */
 body[data-page="game"][data-game="2xko"] .app {
-  background: url("../assets/2xko/character-backgrounds/2xko-key-art.webp") center center / cover no-repeat !important;
+  background: url("../assets/2xko/game-backgrounds/2xko-key-art.webp") center center / cover no-repeat !important;
 }
 
 body[data-page="game"][data-game="2xko"] .app::before {

@@ -7,8 +7,8 @@ const OFFICIAL_2XKO_CHAMPIONS_URL = 'https://2xko.riotgames.com/fr-fr/champions/
 const OFFICIAL_2XKO_NEWS_URL = 'https://2xko.riotgames.com/fr-fr/news/';
 const OFFICIAL_2XKO_LOGO_URL = './assets/2xko/game-logos/2xko-logo.svg';
 const MARVEL_TOKON_LOGO_URL = './assets/marvel-tokon/game-logos/marvel-tokon-logo.png';
-const MARVEL_TOKON_BACKGROUND_URL = './assets/marvel-tokon/character-backgrounds/marvel-tokon-key-art.webp';
-const MARVEL_TOKON_DETAIL_BACKGROUND_URL = '../assets/marvel-tokon/character-backgrounds/marvel-tokon-key-art.webp';
+const MARVEL_TOKON_BACKGROUND_URL = './assets/marvel-tokon/game-backgrounds/marvel-tokon-key-art.webp';
+const MARVEL_TOKON_DETAIL_BACKGROUND_URL = '../assets/marvel-tokon/game-backgrounds/marvel-tokon-key-art.webp';
 const MARVEL_TOKON_PORTRAIT_BASE_URL = './assets/marvel-tokon/character-portraits/';
 const MARVEL_TOKON_CHARACTER_BACKGROUND_SLUGS = new Set(['black-panther', 'captain-america', 'carnage', 'danger', 'deadpool', 'doctor-doom', 'ghost-rider', 'green-goblin', 'hulk', 'iron-man', 'magik', 'magneto', 'ms-marvel', 'peni-parker', 'spider-man', 'star-lord', 'storm', 'wolverine']);
 function getMarvelTokonPortraitUrl(slug) {
@@ -38,19 +38,19 @@ const AVATAR_WIKI_BASE_URL = 'https://wiki.supercombo.gg/w/Avatar_Legends';
 const AVATAR_FILEPATH_BASE_URL = 'https://wiki.supercombo.gg/w/Special:FilePath';
 const HOME_QUOTE_AUDIO_URL = './assets/common/audio/je-pue-sous-les-bras.wav';
 
-const X2KO_CHAMPION_SELECT_BASE = './assets/2xko/character-key-art/champion-select';
-const X2KO_KEY_VISUAL_BASE = './assets/2xko/character-key-art/key-visual';
-const X2KO_FANTASY_ART_BASE = './assets/2xko/character-backgrounds/fantasy-art';
+const X2KO_CHAMPION_SELECT_BASE = './assets/2xko/character-key-art/key-visual';
+const X2KO_KEY_VISUAL_BASE = './assets/2xko/character-key-art/secondary-key-visual';
+const X2KO_FANTASY_ART_BASE = './assets/2xko/character-backgrounds';
 const X2KO_KEY_VISUAL_SLUGS = new Set(['blitzcrank', 'braum', 'darius', 'ekko', 'illaoi', 'jinx', 'teemo', 'vi', 'warwick', 'yasuo']);
 const X2KO_FANTASY_ART_SLUGS = new Set(['ahri', 'akali', 'blitzcrank', 'braum', 'caitlyn', 'darius', 'ekko', 'illaoi', 'jinx', 'senna', 'teemo', 'thresh', 'vi', 'warwick', 'yasuo']);
 
 
 function getGamePageBackgroundUrl(game) {
   if (!game) return '';
-  if (game.id === '2xko') return './assets/2xko/character-backgrounds/2xko-key-art.webp';
+  if (game.id === '2xko') return './assets/2xko/game-backgrounds/2xko-key-art.webp';
   if (game.id === 'marvel-tokon') return MARVEL_TOKON_BACKGROUND_URL;
-  if (game.id === 'avatar-legends') return './assets/avatar-legends/character-backgrounds/avatar-legends-key-art.webp';
-  if (game.id === 'vf-crossroads') return './assets/virtua-fighter/character-backgrounds/vf-crossroads-key-art.webp';
+  if (game.id === 'avatar-legends') return './assets/avatar-legends/game-backgrounds/avatar-legends-key-art.webp';
+  if (game.id === 'vf-crossroads') return './assets/virtua-fighter/game-backgrounds/vf-crossroads-key-art.webp';
   return '';
 }
 

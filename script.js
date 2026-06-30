@@ -8,9 +8,21 @@ const OFFICIAL_2XKO_NEWS_URL = 'https://2xko.riotgames.com/fr-fr/news/';
 const OFFICIAL_2XKO_LOGO_URL = './assets/2xko/game-logos/2xko-logo.svg';
 const MARVEL_TOKON_LOGO_URL = './assets/marvel-tokon/game-logos/marvel-tokon-logo.png';
 const MARVEL_TOKON_BACKGROUND_URL = './assets/marvel-tokon/character-backgrounds/marvel-tokon-key-art.webp';
+const MARVEL_TOKON_DETAIL_BACKGROUND_URL = '../assets/marvel-tokon/character-backgrounds/marvel-tokon-key-art.webp';
 const MARVEL_TOKON_PORTRAIT_BASE_URL = './assets/marvel-tokon/character-portraits/';
+const MARVEL_TOKON_CHARACTER_BACKGROUND_SLUGS = new Set(['black-panther', 'captain-america', 'carnage', 'danger', 'deadpool', 'doctor-doom', 'ghost-rider', 'green-goblin', 'hulk', 'iron-man', 'magik', 'magneto', 'ms-marvel', 'peni-parker', 'spider-man', 'star-lord', 'storm', 'wolverine']);
 function getMarvelTokonPortraitUrl(slug) {
   return `${MARVEL_TOKON_PORTRAIT_BASE_URL}${slug}.jpg`;
+}
+function getMarvelTokonCharacterBackgroundUrl(slug) {
+  return MARVEL_TOKON_CHARACTER_BACKGROUND_SLUGS.has(slug)
+    ? `./assets/marvel-tokon/character-backgrounds/${slug}.jpg`
+    : MARVEL_TOKON_BACKGROUND_URL;
+}
+function getMarvelTokonDetailBackgroundUrl(slug) {
+  return MARVEL_TOKON_CHARACTER_BACKGROUND_SLUGS.has(slug)
+    ? `../assets/marvel-tokon/character-backgrounds/${slug}.jpg`
+    : MARVEL_TOKON_DETAIL_BACKGROUND_URL;
 }
 const MARVEL_TOKON_OFFICIAL_URL = ''; // retiré de la page liens rapides
 const MARVEL_TOKON_PLAYSTATION_URL = ''; // retiré de la page liens rapides
@@ -81,9 +93,10 @@ function getModernDetailBackgroundAttributes(game, character) {
   if (game?.id === '2xko') return get2XkoDetailBackgroundAttributes(game, character);
 
   if (game?.id === 'marvel-tokon') {
+    const backgroundUrl = getMarvelTokonDetailBackgroundUrl(character?.slug);
     return {
       className: ' has-x2ko-fantasy-bg has-modern-detail-bg has-marvel-detail-bg',
-      style: ` style="--x2ko-detail-bg: url('${MARVEL_TOKON_BACKGROUND_URL}'); --modern-detail-bg: url('${MARVEL_TOKON_BACKGROUND_URL}');"`,
+      style: ` style="--x2ko-detail-bg: url('${backgroundUrl}'); --modern-detail-bg: url('${backgroundUrl}');"`,
     };
   }
 
@@ -5314,7 +5327,7 @@ function renderCharacterPage(game, character) {
   const modernDetailBgUrl = game.id === '2xko' && X2KO_FANTASY_ART_SLUGS.has(character.slug)
     ? get2XkoFantasyArtUrl(character.slug)
     : game.id === 'marvel-tokon'
-      ? MARVEL_TOKON_BACKGROUND_URL
+      ? getMarvelTokonDetailBackgroundUrl(character.slug)
       : '';
   const hasModernDetailBackground = usesModernDetail && Boolean(modernDetailBgUrl);
   document.body.classList.toggle('has-x2ko-fantasy-bg', hasModernDetailBackground);

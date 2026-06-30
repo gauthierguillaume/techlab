@@ -678,8 +678,8 @@ html body[data-page="detail"][data-actual-game="marvel-tokon"] {
   --accent-2: var(--tl-2xko-second-green) !important;
   --button-accent: var(--tl-2xko-real-green) !important;
   --button-accent-2: var(--tl-2xko-second-green) !important;
-  --x2ko-detail-bg: url("../assets/marvel-tokon/backgrounds/marvel-tokon-key-art.webp") !important;
-  --modern-detail-bg: url("../assets/marvel-tokon/backgrounds/marvel-tokon-key-art.webp") !important;
+  --x2ko-detail-bg: url("../assets/marvel-tokon/character-backgrounds/marvel-tokon-key-art.webp") !important;
+  --modern-detail-bg: url("../assets/marvel-tokon/character-backgrounds/marvel-tokon-key-art.webp") !important;
 }
 
 /* Force le fond Marvel via le même support que 2XKO, sans dépendre du style inline JS. */

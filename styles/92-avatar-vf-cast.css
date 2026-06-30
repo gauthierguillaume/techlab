@@ -685,13 +685,13 @@ body[data-page="game"][data-game="vf-crossroads"] .character-rail-item.is-select
 body[data-page="game"][data-game="avatar-legends"] .app {
   background:
     linear-gradient(90deg, rgba(2, 6, 12, 0.26) 0%, rgba(2, 6, 12, 0.44) 38%, rgba(2, 6, 12, 0.34) 100%),
-    url("../assets/avatar-legends/backgrounds/avatar-legends-key-art.webp") center center / cover no-repeat !important;
+    url("../assets/avatar-legends/character-backgrounds/avatar-legends-key-art.webp") center center / cover no-repeat !important;
 }
 
 body[data-page="game"][data-game="vf-crossroads"] .app {
   background:
     linear-gradient(90deg, rgba(2, 6, 12, 0.24) 0%, rgba(2, 6, 12, 0.42) 38%, rgba(2, 6, 12, 0.32) 100%),
-    url("../assets/vf-crossroads/backgrounds/vf-crossroads-key-art.webp") center center / cover no-repeat !important;
+    url("../assets/virtua-fighter/character-backgrounds/vf-crossroads-key-art.webp") center center / cover no-repeat !important;
 }
 
 body[data-page="game"][data-game="avatar-legends"] .app:has(.x2ko-stage.has-selection)::before,
@@ -767,11 +767,11 @@ body[data-page="game"][data-game="vf-crossroads"] .character-rail-item.is-select
 
 /* --- TechLab v1.0.24 : Avatar/VF fonds propres, sans barres, assombrissement seulement avec sélection --- */
 body[data-page="game"][data-game="avatar-legends"] .app {
-  background: url("../assets/avatar-legends/backgrounds/avatar-legends-key-art.webp") center center / cover no-repeat !important;
+  background: url("../assets/avatar-legends/character-backgrounds/avatar-legends-key-art.webp") center center / cover no-repeat !important;
 }
 
 body[data-page="game"][data-game="vf-crossroads"] .app {
-  background: url("../assets/vf-crossroads/backgrounds/vf-crossroads-key-art.webp") center center / cover no-repeat !important;
+  background: url("../assets/virtua-fighter/character-backgrounds/vf-crossroads-key-art.webp") center center / cover no-repeat !important;
 }
 
 body[data-page="game"][data-game="avatar-legends"] .app::before,

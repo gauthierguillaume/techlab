@@ -7,8 +7,8 @@ const OFFICIAL_2XKO_CHAMPIONS_URL = 'https://2xko.riotgames.com/fr-fr/champions/
 const OFFICIAL_2XKO_NEWS_URL = 'https://2xko.riotgames.com/fr-fr/news/';
 const OFFICIAL_2XKO_LOGO_URL = './assets/2xko/game-logos/2xko-logo.svg';
 const MARVEL_TOKON_LOGO_URL = './assets/marvel-tokon/game-logos/marvel-tokon-logo.png';
-const MARVEL_TOKON_BACKGROUND_URL = './assets/marvel-tokon/backgrounds/marvel-tokon-key-art.webp';
-const MARVEL_TOKON_PORTRAIT_BASE_URL = './assets/marvel-tokon/portraits/';
+const MARVEL_TOKON_BACKGROUND_URL = './assets/marvel-tokon/character-backgrounds/marvel-tokon-key-art.webp';
+const MARVEL_TOKON_PORTRAIT_BASE_URL = './assets/marvel-tokon/character-portraits/';
 function getMarvelTokonPortraitUrl(slug) {
   return `${MARVEL_TOKON_PORTRAIT_BASE_URL}${slug}.jpg`;
 }
@@ -37,8 +37,8 @@ function getGamePageBackgroundUrl(game) {
   if (!game) return '';
   if (game.id === '2xko') return './assets/2xko/character-backgrounds/2xko-key-art.webp';
   if (game.id === 'marvel-tokon') return MARVEL_TOKON_BACKGROUND_URL;
-  if (game.id === 'avatar-legends') return './assets/avatar-legends/backgrounds/avatar-legends-key-art.webp';
-  if (game.id === 'vf-crossroads') return './assets/vf-crossroads/backgrounds/vf-crossroads-key-art.webp';
+  if (game.id === 'avatar-legends') return './assets/avatar-legends/character-backgrounds/avatar-legends-key-art.webp';
+  if (game.id === 'vf-crossroads') return './assets/virtua-fighter/character-backgrounds/vf-crossroads-key-art.webp';
   return '';
 }
 
@@ -798,9 +798,9 @@ const games = [
       { name: 'Green Goblin', slug: 'green-goblin', tagSlug: 'GREENGOBLIN', team: 'Knights of Doom', railImageUrl: getMarvelTokonPortraitUrl('green-goblin'), size: 'medium', imageUrl: 'https://www.dustloop.com/wiki/images/8/8c/MTFS_Green_Goblin_Portrait.png', imageFit: 'contain', imagePosition: 'center bottom', artScale: 1.08, artX: '0px', artY: '0px', wikiUrl: 'https://www.dustloop.com/w/MTFS/Green_Goblin', officialUrl: null },
       { name: 'Carnage', slug: 'carnage', tagSlug: 'CARNAGE', team: 'Knights of Doom', railImageUrl: getMarvelTokonPortraitUrl('carnage'), size: 'medium', imageUrl: 'https://www.dustloop.com/wiki/images/6/68/MTFS_Carnage_Portrait.png', imageFit: 'contain', imagePosition: 'center bottom', artScale: 1.1, artX: '0px', artY: '0px', wikiUrl: 'https://www.dustloop.com/w/MTFS/Carnage', officialUrl: null },
       { name: 'Ghost Rider', slug: 'ghost-rider', tagSlug: 'GHOSTRIDER', team: 'Samurai Outriders', size: 'medium', imageUrl: 'https://www.dustloop.com/wiki/images/6/6d/MTFS_Ghost_Rider_Portrait.png', imageFit: 'contain', imagePosition: 'center bottom', artScale: 1.1, artX: '0px', artY: '0px', wikiUrl: 'https://www.dustloop.com/w/MTFS/Ghost_Rider', officialUrl: null },
-      { name: 'Blade', slug: 'blade', tagSlug: 'BLADE', team: 'Samurai Outriders', railImageUrl: './assets/marvel-tokon/portraits/blade.webp', size: 'medium', imageUrl: './assets/marvel-tokon/portraits/blade.webp', imageFit: 'contain', imagePosition: 'center bottom', artScale: 1.02, artX: '0px', artY: '0px', wikiUrl: 'https://www.dustloop.com/w/MTFS/Blade', officialUrl: null },
-      { name: 'Deadpool', slug: 'deadpool', tagSlug: 'DEADPOOL', team: 'Samurai Outriders', railImageUrl: './assets/marvel-tokon/portraits/deadpool.webp', size: 'medium', imageUrl: './assets/marvel-tokon/portraits/deadpool.webp', imageFit: 'contain', imagePosition: 'center bottom', artScale: 1.02, artX: '0px', artY: '0px', wikiUrl: 'https://www.dustloop.com/w/MTFS/Deadpool', officialUrl: null },
-      { name: 'Loki', slug: 'loki', tagSlug: 'LOKI', team: 'Samurai Outriders', railImageUrl: './assets/marvel-tokon/portraits/loki.webp', size: 'medium', imageUrl: './assets/marvel-tokon/portraits/loki.webp', imageFit: 'contain', imagePosition: 'center bottom', artScale: 1.04, artX: '0px', artY: '0px', wikiUrl: 'https://www.dustloop.com/w/MTFS/Loki', officialUrl: null }
+      { name: 'Blade', slug: 'blade', tagSlug: 'BLADE', team: 'Samurai Outriders', railImageUrl: './assets/marvel-tokon/character-portraits/blade.webp', size: 'medium', imageUrl: './assets/marvel-tokon/character-portraits/blade.webp', imageFit: 'contain', imagePosition: 'center bottom', artScale: 1.02, artX: '0px', artY: '0px', wikiUrl: 'https://www.dustloop.com/w/MTFS/Blade', officialUrl: null },
+      { name: 'Deadpool', slug: 'deadpool', tagSlug: 'DEADPOOL', team: 'Samurai Outriders', railImageUrl: './assets/marvel-tokon/character-portraits/deadpool.webp', size: 'medium', imageUrl: './assets/marvel-tokon/character-portraits/deadpool.webp', imageFit: 'contain', imagePosition: 'center bottom', artScale: 1.02, artX: '0px', artY: '0px', wikiUrl: 'https://www.dustloop.com/w/MTFS/Deadpool', officialUrl: null },
+      { name: 'Loki', slug: 'loki', tagSlug: 'LOKI', team: 'Samurai Outriders', railImageUrl: './assets/marvel-tokon/character-portraits/loki.webp', size: 'medium', imageUrl: './assets/marvel-tokon/character-portraits/loki.webp', imageFit: 'contain', imagePosition: 'center bottom', artScale: 1.04, artX: '0px', artY: '0px', wikiUrl: 'https://www.dustloop.com/w/MTFS/Loki', officialUrl: null }
     ],
   },
   {

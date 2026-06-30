@@ -5,8 +5,8 @@ const HEALTH_CACHE_KEY = 'techlab-2xko-wiki-health-v1';
 const X_SEARCH_BASE_URL = 'https://x.com/search';
 const OFFICIAL_2XKO_CHAMPIONS_URL = 'https://2xko.riotgames.com/fr-fr/champions/';
 const OFFICIAL_2XKO_NEWS_URL = 'https://2xko.riotgames.com/fr-fr/news/';
-const OFFICIAL_2XKO_LOGO_URL = './assets/2xko/logos/2xko-logo.svg';
-const MARVEL_TOKON_LOGO_URL = './assets/marvel-tokon/logos/marvel-tokon-logo.png';
+const OFFICIAL_2XKO_LOGO_URL = './assets/2xko/game-logos/2xko-logo.svg';
+const MARVEL_TOKON_LOGO_URL = './assets/marvel-tokon/game-logos/marvel-tokon-logo.png';
 const MARVEL_TOKON_BACKGROUND_URL = './assets/marvel-tokon/backgrounds/marvel-tokon-key-art.webp';
 const MARVEL_TOKON_PORTRAIT_BASE_URL = './assets/marvel-tokon/portraits/';
 function getMarvelTokonPortraitUrl(slug) {
@@ -169,7 +169,7 @@ const MARVEL_TEAM_THEMES = {
     accent2: '#b7ff4a',
   },
   'Samurai Outriders': {
-    logo: './assets/marvel-tokon/logos/samurai-outriders-logo.webp',
+    logo: './assets/marvel-tokon/team-logos/samurai-outriders-logo.webp',
     accent: '#7c9bb8',
     accent2: '#b7ccdd',
   },

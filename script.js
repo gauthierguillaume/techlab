@@ -24,7 +24,7 @@ const VF_CROSSROADS_LOGO_URL = 'https://upload.wikimedia.org/wikipedia/fr/b/b5/V
 const AVATAR_LEGENDS_LOGO_URL = 'https://images.squarespace-cdn.com/content/v1/68dc1fc6ffae60161335117c/44a003fd-cf4c-467e-b2de-8f9e60e1721e/Untitled+design+%2812%29.png?format=1500w';
 const AVATAR_WIKI_BASE_URL = 'https://wiki.supercombo.gg/w/Avatar_Legends';
 const AVATAR_FILEPATH_BASE_URL = 'https://wiki.supercombo.gg/w/Special:FilePath';
-const HOME_QUOTE_AUDIO_URL = './assets/home/je-pue-sous-les-bras.wav';
+const HOME_QUOTE_AUDIO_URL = './assets/common/audio/je-pue-sous-les-bras.wav';
 
 const X2KO_CHAMPION_SELECT_BASE = './assets/2xko/key-art/champion-select';
 const X2KO_KEY_VISUAL_BASE = './assets/2xko/key-art/key-visual';
@@ -1809,7 +1809,7 @@ function renderDetailGameHeader(game) {
   return `
     <header class="rail-game-header detail-game-header" aria-label="Navigation ${escapeHtml(game.name)}">
       <a class="rail-techlab-logo" href="#/home" aria-label="Accueil TechLab" title="Accueil TechLab">
-        <img src="./assets/techlab-logo.png?v=1.0.86" alt="TechLab" loading="lazy" />
+        <img src="./assets/common/logos/techlab-logo.png?v=1.0.86" alt="TechLab" loading="lazy" />
       </a>
       <a class="detail-game-back" href="#/${escapeHtml(game.id)}" aria-label="Retour au cast ${escapeHtml(game.name)}" title="Retour au cast ${escapeHtml(game.name)}" style="--button-accent:${game.navAccent || '#eaff2c'};--button-accent-2:${game.navAccent2 || game.navAccent || '#18e6ff'}">
         <span class="rail-current-game-logo">${renderLogo(game, true)}</span>
@@ -1841,7 +1841,7 @@ function renderRailGameSwitcher(game) {
   return `
     <header class="rail-game-header" aria-label="Jeu actif">
       <a class="rail-techlab-logo" href="#/home" aria-label="Accueil TechLab" title="Accueil TechLab">
-        <img src="./assets/techlab-logo.png?v=1.0.86" alt="TechLab" loading="lazy" />
+        <img src="./assets/common/logos/techlab-logo.png?v=1.0.86" alt="TechLab" loading="lazy" />
       </a>
       <details class="rail-game-switcher">
         <summary aria-label="Changer de jeu" title="Changer de jeu">
@@ -2065,7 +2065,7 @@ function renderMobileGameDock(game) {
   return `
     <header class="rail-game-header mobile-bottom-dock" aria-label="Navigation mobile ${escapeHtml(game.name)}">
       <a class="rail-techlab-logo" href="#/home" aria-label="Accueil TechLab" title="Accueil TechLab">
-        <img src="./assets/techlab-logo.png?v=1.0.86" alt="TechLab" loading="lazy" />
+        <img src="./assets/common/logos/techlab-logo.png?v=1.0.86" alt="TechLab" loading="lazy" />
       </a>
       <details class="rail-game-switcher mobile-game-switcher">
         <summary aria-label="Changer de jeu" title="Changer de jeu">
@@ -2095,7 +2095,7 @@ function renderMobileHomeDock() {
   return `
     <header class="rail-game-header mobile-bottom-dock mobile-home-dock" aria-label="Navigation mobile TechLab">
       <a class="rail-techlab-logo" href="#/home" aria-label="Accueil TechLab" title="Accueil TechLab">
-        <img src="./assets/techlab-logo.png?v=1.0.86" alt="TechLab" loading="lazy" />
+        <img src="./assets/common/logos/techlab-logo.png?v=1.0.86" alt="TechLab" loading="lazy" />
       </a>
       <details class="rail-game-switcher mobile-game-switcher mobile-home-game-switcher">
         <summary aria-label="Choisir un jeu" title="Choisir un jeu">
@@ -5394,7 +5394,7 @@ function renderHomePage() {
 
       <div class="home-main-zone">
         <a class="home-brand home-brand-xl" href="#/home" aria-label="Accueil TechLab" title="Accueil TechLab">
-          <img src="./assets/techlab-logo.png?v=1.0.86" alt="TechLab" loading="eager" />
+          <img src="./assets/common/logos/techlab-logo.png?v=1.0.86" alt="TechLab" loading="eager" />
         </a>
 
         <div class="home-intro-panel">

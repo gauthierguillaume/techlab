@@ -7,8 +7,8 @@ const OFFICIAL_2XKO_CHAMPIONS_URL = 'https://2xko.riotgames.com/fr-fr/champions/
 const OFFICIAL_2XKO_NEWS_URL = 'https://2xko.riotgames.com/fr-fr/news/';
 const OFFICIAL_2XKO_LOGO_URL = './assets/2xko/game-logos/2xko-logo.svg';
 const MARVEL_TOKON_LOGO_URL = './assets/marvel-tokon/game-logos/marvel-tokon-logo.png';
-const MARVEL_TOKON_BACKGROUND_URL = './assets/marvel-tokon/game-backgrounds/marvel-tokon-key-art.webp';
-const MARVEL_TOKON_DETAIL_BACKGROUND_URL = '../assets/marvel-tokon/game-backgrounds/marvel-tokon-key-art.webp';
+const MARVEL_TOKON_BACKGROUND_URL = './assets/marvel-tokon/game-backgrounds/marvel-tokon-key-art.avif';
+const MARVEL_TOKON_DETAIL_BACKGROUND_URL = '../assets/marvel-tokon/game-backgrounds/marvel-tokon-key-art.avif';
 const MARVEL_TOKON_PORTRAIT_BASE_URL = './assets/marvel-tokon/character-portraits/';
 const MARVEL_TOKON_KEY_ART_BASE_URL = './assets/marvel-tokon/character-key-art/';
 const MARVEL_TOKON_CHARACTER_BACKGROUND_SLUGS = new Set(['black-panther', 'blade', 'captain-america', 'carnage', 'danger', 'deadpool', 'doctor-doom', 'ghost-rider', 'green-goblin', 'hulk', 'iron-man', 'loki', 'magik', 'magneto', 'ms-marvel', 'peni-parker', 'spider-man', 'star-lord', 'storm', 'wolverine']);
@@ -64,7 +64,7 @@ const X2KO_FANTASY_ART_SLUGS = new Set(['ahri', 'akali', 'blitzcrank', 'braum', 
 
 function getGamePageBackgroundUrl(game) {
   if (!game) return '';
-  if (game.id === '2xko') return './assets/2xko/game-backgrounds/2xko-key-art.webp';
+  if (game.id === '2xko') return './assets/2xko/game-backgrounds/2xko-key-art.jpg';
   if (game.id === 'marvel-tokon') return MARVEL_TOKON_BACKGROUND_URL;
   if (game.id === 'avatar-legends') return './assets/avatar-legends/game-backgrounds/avatar-legends-key-art.webp';
   if (game.id === 'vf-crossroads') return './assets/virtua-fighter/game-backgrounds/vf-crossroads-key-art.webp';

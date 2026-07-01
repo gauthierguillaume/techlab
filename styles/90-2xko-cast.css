@@ -822,7 +822,7 @@ body[data-page="game"][data-game="2xko"] .x2ko-stage {
   overflow: hidden !important;
   border-radius: 22px !important;
   border: 1px solid rgba(255,255,255,0.06) !important;
-  background: #020806 url('../assets/2xko/game-backgrounds/2xko-key-art.webp') center center / cover no-repeat !important;
+  background: #020806 url('../assets/2xko/game-backgrounds/2xko-key-art.jpg') center center / cover no-repeat !important;
   box-shadow: inset 0 0 90px rgba(0,0,0,0.46), 0 20px 50px rgba(0,0,0,0.28) !important;
 }
 
@@ -1100,7 +1100,7 @@ body[data-page="game"][data-game="2xko"] .app {
   padding: 18px 18px 42px 0 !important;
   background:
     linear-gradient(90deg, rgba(2,6,23,0.10) 0%, rgba(2,6,23,0.34) 32%, rgba(2,6,23,0.28) 100%),
-    url("../assets/2xko/game-backgrounds/2xko-key-art.webp") center center / cover no-repeat !important;
+    url("../assets/2xko/game-backgrounds/2xko-key-art.jpg") center center / cover no-repeat !important;
 }
 
 body[data-page="game"][data-game="2xko"] .app::before {
@@ -1501,7 +1501,7 @@ body[data-page="game"][data-game="2xko"] .app {
   padding: 0 18px 0 0 !important;
   background:
     linear-gradient(90deg, rgba(2,6,23,0.06) 0%, rgba(2,6,23,0.28) 34%, rgba(2,6,23,0.22) 100%),
-    url("../assets/2xko/game-backgrounds/2xko-key-art.webp") center center / cover no-repeat !important;
+    url("../assets/2xko/game-backgrounds/2xko-key-art.jpg") center center / cover no-repeat !important;
 }
 
 body[data-page="game"][data-game="2xko"] .app::before {
@@ -10867,7 +10867,7 @@ body[data-page="game"][data-game="2xko"] .character-rail-item.is-selected img {
 
 /* --- TechLab v1.0.24 : fonds propres + assombrissement seulement avec sélection + ombre stable selected art --- */
 body[data-page="game"][data-game="2xko"] .app {
-  background: url("../assets/2xko/game-backgrounds/2xko-key-art.webp") center center / cover no-repeat !important;
+  background: url("../assets/2xko/game-backgrounds/2xko-key-art.jpg") center center / cover no-repeat !important;
 }
 
 body[data-page="game"][data-game="2xko"] .app::before {

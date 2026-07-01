@@ -14,7 +14,7 @@ body[data-page="game"][data-game="marvel-tokon"] .app {
   padding: 0 !important;
   background:
     linear-gradient(90deg, rgba(2, 6, 15, 0.15) 0%, rgba(2, 6, 15, 0.40) 38%, rgba(2, 6, 15, 0.32) 100%),
-    url("../assets/marvel-tokon/game-backgrounds/marvel-tokon-key-art.webp") center center / cover no-repeat !important;
+    url("../assets/marvel-tokon/game-backgrounds/marvel-tokon-key-art.avif") center center / cover no-repeat !important;
 }
 
 body[data-page="game"][data-game="marvel-tokon"] .app::before {
@@ -1596,7 +1596,7 @@ body[data-page="game"][data-game="marvel-tokon"] .character-rail-item[data-chara
 
 /* --- TechLab v1.0.24 : Marvel Tōkon fond non assombri hors sélection + ombre stable selected art --- */
 body[data-page="game"][data-game="marvel-tokon"] .app {
-  background: url("../assets/marvel-tokon/game-backgrounds/marvel-tokon-key-art.webp") center center / cover no-repeat !important;
+  background: url("../assets/marvel-tokon/game-backgrounds/marvel-tokon-key-art.avif") center center / cover no-repeat !important;
 }
 
 body[data-page="game"][data-game="marvel-tokon"] .app::before {

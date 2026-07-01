@@ -6,6 +6,7 @@ const X_SEARCH_BASE_URL = 'https://x.com/search';
 const OFFICIAL_2XKO_CHAMPIONS_URL = 'https://2xko.riotgames.com/fr-fr/champions/';
 const OFFICIAL_2XKO_NEWS_URL = 'https://2xko.riotgames.com/fr-fr/news/';
 const OFFICIAL_2XKO_LOGO_URL = './assets/2xko/game-logos/2xko-logo.svg';
+const TECHLAB_ICON_URL = './assets/common/icons/techlab-icon.png';
 const MARVEL_TOKON_LOGO_URL = './assets/marvel-tokon/game-logos/marvel-tokon-logo.png';
 const MARVEL_TOKON_BACKGROUND_URL = './assets/marvel-tokon/game-backgrounds/marvel-tokon-key-art.avif';
 const MARVEL_TOKON_DETAIL_BACKGROUND_URL = '../assets/marvel-tokon/game-backgrounds/marvel-tokon-key-art.avif';
@@ -1863,7 +1864,7 @@ function renderDetailGameHeader(game) {
   return `
     <header class="rail-game-header detail-game-header" aria-label="Navigation ${escapeHtml(game.name)}">
       <a class="rail-techlab-logo" href="#/home" aria-label="Accueil TechLab" title="Accueil TechLab">
-        <img src="./assets/common/logos/techlab-logo.png?v=1.0.86" alt="TechLab" loading="lazy" />
+        <img src="${TECHLAB_ICON_URL}" alt="TechLab" loading="lazy" />
       </a>
       <a class="detail-game-back" href="#/${escapeHtml(game.id)}" aria-label="Retour au cast ${escapeHtml(game.name)}" title="Retour au cast ${escapeHtml(game.name)}" style="--button-accent:${game.navAccent || '#eaff2c'};--button-accent-2:${game.navAccent2 || game.navAccent || '#18e6ff'}">
         <span class="rail-current-game-logo">${renderLogo(game, true)}</span>
@@ -1895,7 +1896,7 @@ function renderRailGameSwitcher(game) {
   return `
     <header class="rail-game-header" aria-label="Jeu actif">
       <a class="rail-techlab-logo" href="#/home" aria-label="Accueil TechLab" title="Accueil TechLab">
-        <img src="./assets/common/logos/techlab-logo.png?v=1.0.86" alt="TechLab" loading="lazy" />
+        <img src="${TECHLAB_ICON_URL}" alt="TechLab" loading="lazy" />
       </a>
       <details class="rail-game-switcher">
         <summary aria-label="Changer de jeu" title="Changer de jeu">
@@ -2121,7 +2122,7 @@ function renderMobileGameDock(game) {
   return `
     <header class="rail-game-header mobile-bottom-dock" aria-label="Navigation mobile ${escapeHtml(game.name)}">
       <a class="rail-techlab-logo" href="#/home" aria-label="Accueil TechLab" title="Accueil TechLab">
-        <img src="./assets/common/logos/techlab-logo.png?v=1.0.86" alt="TechLab" loading="lazy" />
+        <img src="${TECHLAB_ICON_URL}" alt="TechLab" loading="lazy" />
       </a>
       <details class="rail-game-switcher mobile-game-switcher">
         <summary aria-label="Changer de jeu" title="Changer de jeu">
@@ -2151,7 +2152,7 @@ function renderMobileHomeDock() {
   return `
     <header class="rail-game-header mobile-bottom-dock mobile-home-dock" aria-label="Navigation mobile TechLab">
       <a class="rail-techlab-logo" href="#/home" aria-label="Accueil TechLab" title="Accueil TechLab">
-        <img src="./assets/common/logos/techlab-logo.png?v=1.0.86" alt="TechLab" loading="lazy" />
+        <img src="${TECHLAB_ICON_URL}" alt="TechLab" loading="lazy" />
       </a>
       <details class="rail-game-switcher mobile-game-switcher mobile-home-game-switcher">
         <summary aria-label="Choisir un jeu" title="Choisir un jeu">

@@ -10,7 +10,7 @@ const MARVEL_TOKON_LOGO_URL = './assets/marvel-tokon/game-logos/marvel-tokon-log
 const MARVEL_TOKON_BACKGROUND_URL = './assets/marvel-tokon/game-backgrounds/marvel-tokon-key-art.webp';
 const MARVEL_TOKON_DETAIL_BACKGROUND_URL = '../assets/marvel-tokon/game-backgrounds/marvel-tokon-key-art.webp';
 const MARVEL_TOKON_PORTRAIT_BASE_URL = './assets/marvel-tokon/character-portraits/';
-const MARVEL_TOKON_CHARACTER_BACKGROUND_SLUGS = new Set(['black-panther', 'captain-america', 'carnage', 'danger', 'deadpool', 'doctor-doom', 'ghost-rider', 'green-goblin', 'hulk', 'iron-man', 'magik', 'magneto', 'ms-marvel', 'peni-parker', 'spider-man', 'star-lord', 'storm', 'wolverine']);
+const MARVEL_TOKON_CHARACTER_BACKGROUND_SLUGS = new Set(['black-panther', 'blade', 'captain-america', 'carnage', 'danger', 'deadpool', 'doctor-doom', 'ghost-rider', 'green-goblin', 'hulk', 'iron-man', 'loki', 'magik', 'magneto', 'ms-marvel', 'peni-parker', 'spider-man', 'star-lord', 'storm', 'wolverine']);
 function getMarvelTokonPortraitUrl(slug) {
   return `${MARVEL_TOKON_PORTRAIT_BASE_URL}${slug}.jpg`;
 }
@@ -20,9 +20,7 @@ function getMarvelTokonCharacterBackgroundUrl(slug) {
     : MARVEL_TOKON_BACKGROUND_URL;
 }
 function getMarvelTokonDetailBackgroundUrl(slug) {
-  return MARVEL_TOKON_CHARACTER_BACKGROUND_SLUGS.has(slug)
-    ? `../assets/marvel-tokon/character-backgrounds/${slug}.jpg`
-    : MARVEL_TOKON_DETAIL_BACKGROUND_URL;
+  return getMarvelTokonCharacterBackgroundUrl(slug);
 }
 const MARVEL_TOKON_OFFICIAL_URL = ''; // retiré de la page liens rapides
 const MARVEL_TOKON_PLAYSTATION_URL = ''; // retiré de la page liens rapides
@@ -38,10 +36,25 @@ const AVATAR_WIKI_BASE_URL = 'https://wiki.supercombo.gg/w/Avatar_Legends';
 const AVATAR_FILEPATH_BASE_URL = 'https://wiki.supercombo.gg/w/Special:FilePath';
 const HOME_QUOTE_AUDIO_URL = './assets/common/audio/je-pue-sous-les-bras.wav';
 
-const X2KO_CHAMPION_SELECT_BASE = './assets/2xko/character-key-art/key-visual';
-const X2KO_KEY_VISUAL_BASE = './assets/2xko/character-key-art/secondary-key-visual';
+const X2KO_CHARACTER_KEY_ART_BASE = './assets/2xko/character-key-art';
 const X2KO_FANTASY_ART_BASE = './assets/2xko/character-backgrounds';
-const X2KO_KEY_VISUAL_SLUGS = new Set(['blitzcrank', 'braum', 'darius', 'ekko', 'illaoi', 'jinx', 'teemo', 'vi', 'warwick', 'yasuo']);
+const X2KO_CHARACTER_KEY_ART_FILES = {
+  ahri: ['ahri.webp', 'ahri-2.png', 'ahri-3.png'],
+  akali: ['akali.webp'],
+  blitzcrank: ['blitzcrank.webp', 'blitzcrank-2.webp'],
+  braum: ['braum.webp', 'braum-2.webp', 'braum-3.png'],
+  caitlyn: ['caitlyn.webp'],
+  darius: ['darius.webp', 'darius-2.webp', 'darius-3.png'],
+  ekko: ['ekko.webp', 'ekko-2.webp', 'ekko-3.png'],
+  illaoi: ['illaoi.webp', 'illaoi-2.webp', 'illaoi-3.png'],
+  jinx: ['jinx.webp', 'jinx-2.webp', 'jinx-3.png'],
+  senna: ['senna.webp'],
+  teemo: ['teemo.webp', 'teemo-2.webp'],
+  thresh: ['thresh.webp'],
+  vi: ['vi.webp', 'vi-2.webp'],
+  warwick: ['warwick.webp', 'warwick-2.webp', 'warwick-3.png'],
+  yasuo: ['yasuo.webp', 'yasuo-2.webp', 'yasuo-3.png'],
+};
 const X2KO_FANTASY_ART_SLUGS = new Set(['ahri', 'akali', 'blitzcrank', 'braum', 'caitlyn', 'darius', 'ekko', 'illaoi', 'jinx', 'senna', 'teemo', 'thresh', 'vi', 'warwick', 'yasuo']);
 
 
@@ -55,11 +68,12 @@ function getGamePageBackgroundUrl(game) {
 }
 
 function get2XkoChampionSelectUrl(slug) {
-  return `${X2KO_CHAMPION_SELECT_BASE}/${slug}.webp`;
+  return `${X2KO_CHARACTER_KEY_ART_BASE}/${slug}.webp`;
 }
 
-function get2XkoKeyVisualUrl(slug) {
-  return `${X2KO_KEY_VISUAL_BASE}/${slug}.webp`;
+function get2XkoKeyArtUrls(slug) {
+  const files = X2KO_CHARACTER_KEY_ART_FILES[slug] || [`${slug}.webp`];
+  return files.map((file) => `${X2KO_CHARACTER_KEY_ART_BASE}/${file}`);
 }
 
 function get2XkoFantasyArtUrl(slug) {
@@ -105,13 +119,25 @@ function getModernDetailBackgroundAttributes(game, character) {
 
 function get2XkoStageArtUrls(character) {
   if (!character?.slug) return [];
-  const urls = [get2XkoChampionSelectUrl(character.slug)];
-  if (X2KO_KEY_VISUAL_SLUGS.has(character.slug)) urls.push(get2XkoKeyVisualUrl(character.slug));
-  return urls;
+  return get2XkoKeyArtUrls(character.slug);
 }
 
 function getRandomItem(items) {
   return items[Math.floor(Math.random() * items.length)];
+}
+
+function resolve2XkoStageArtUrl(game, character) {
+  if (game.id !== '2xko' || !character?.slug) return character?.imageUrl || '';
+  const urls = get2XkoStageArtUrls(character);
+  const current = selectedStageArtByGame[game.id]?.[character.slug];
+  const selectedUrl = urls.includes(current) ? current : getRandomItem(urls);
+  if (selectedUrl) {
+    selectedStageArtByGame[game.id] = {
+      ...(selectedStageArtByGame[game.id] || {}),
+      [character.slug]: selectedUrl,
+    };
+  }
+  return selectedUrl || get2XkoChampionSelectUrl(character.slug);
 }
 
 const X_ICON = `
@@ -162,22 +188,22 @@ const OFFICIAL_2XKO_ICON_URL = 'https://cmsassets.rgpub.io/sanity/images/dsfx763
 
 const MARVEL_TEAM_THEMES = {
   'Unbreakable X-Men': {
-    logo: 'https://www.dustloop.com/wiki/images/8/8e/MTFS_Team_Unbreakable_X-Men.png',
+    logo: './assets/marvel-tokon/team-logos/unbreakable-x-men.webp',
     accent: '#ff9f1c',
     accent2: '#ffd43b',
   },
   'Amazing Guardians': {
-    logo: 'https://www.dustloop.com/wiki/images/8/86/MTFS_Team_Amazing_Guardians.png',
+    logo: './assets/marvel-tokon/team-logos/amazing-guardians.webp',
     accent: '#ff2147',
     accent2: '#ff7a90',
   },
   'Fighting Avengers': {
-    logo: 'https://www.dustloop.com/wiki/images/1/10/MTFS_Team_Fighting_Avengers.png',
+    logo: './assets/marvel-tokon/team-logos/fighting-avengers.webp',
     accent: '#1b78ff',
     accent2: '#5bdcff',
   },
   'Knights of Doom': {
-    logo: 'https://www.dustloop.com/wiki/images/9/91/MTFS_Team_Knights_of_Doom.png',
+    logo: './assets/marvel-tokon/team-logos/knights-of-doom.webp',
     accent: '#2bb84a',
     accent2: '#b7ff4a',
   },
@@ -191,6 +217,17 @@ const MARVEL_TEAM_THEMES = {
 const MARVEL_TEAM_LOGOS = Object.fromEntries(
   Object.entries(MARVEL_TEAM_THEMES).map(([team, theme]) => [team, theme.logo])
 );
+
+function getMarvelTeamLogoUrl(team) {
+  const localLogos = {
+    'Unbreakable X-Men': './assets/marvel-tokon/team-logos/unbreakable-x-men.webp',
+    'Amazing Guardians': './assets/marvel-tokon/team-logos/amazing-guardians.webp',
+    'Fighting Avengers': './assets/marvel-tokon/team-logos/fighting-avengers.webp',
+    'Knights of Doom': './assets/marvel-tokon/team-logos/knights-of-doom.webp',
+    'Samurai Outriders': './assets/marvel-tokon/team-logos/samurai-outriders-logo.webp',
+  };
+  return localLogos[team] || '';
+}
 
 function getAvatarPortraitUrl(fileName) {
   return `${AVATAR_FILEPATH_BASE_URL}/${encodeURIComponent(fileName)}`;
@@ -1237,7 +1274,7 @@ function sync2XkoSelectedStageArt(game, selectedSlugs) {
   selectedSlugs.forEach((slug) => {
     const character = getCharacter(game, slug);
     const urls = get2XkoStageArtUrls(character);
-    next[slug] = current[slug] || getRandomItem(urls) || character?.imageUrl || '';
+    next[slug] = urls.includes(current[slug]) ? current[slug] : getRandomItem(urls) || character?.imageUrl || '';
   });
 
   selectedStageArtByGame[game.id] = next;
@@ -1246,8 +1283,7 @@ function sync2XkoSelectedStageArt(game, selectedSlugs) {
 function get2XkoSelectedStageArtUrl(game, character) {
   if (game.id === 'marvel-tokon') return character?.stageImageUrl || character?.imageUrl || character?.imageUrls?.[0] || '';
   if (game.id !== '2xko') return character?.imageUrl || '';
-  const selectedArt = selectedStageArtByGame[game.id]?.[character.slug];
-  return selectedArt || get2XkoChampionSelectUrl(character.slug);
+  return resolve2XkoStageArtUrl(game, character);
 }
 
 function setSelectedCharacters(game, selectedSlugs) {
@@ -1280,6 +1316,7 @@ function updateSelectionUi(game) {
   if (!game.tagPrefix || !game.characters.length) return;
 
   const selectedSlugs = getSelectedSlugs(game);
+  sync2XkoSelectedStageArt(game, selectedSlugs);
   const selectedCharacters = selectedSlugs.map((slug) => getCharacter(game, slug)).filter(Boolean);
   const simpleQuery = getTwitterQueryForSelection(game, 'simple');
   const filteredQuery = getTwitterQueryForSelection(game, 'filtered');
@@ -1401,7 +1438,7 @@ function getTeamSlug(team) {
 function renderTeamBadge(character) {
   if (!character.team) return '';
   const theme = getTeamTheme(character.team);
-  const logo = theme?.logo || '';
+  const logo = getMarvelTeamLogoUrl(character.team) || theme?.logo || '';
   return `
     <div class="team-badge" aria-label="Équipe : ${character.team}">
       ${logo ? `<img class="team-badge-logo" src="${logo}" alt="" loading="lazy" />` : ''}
@@ -1789,7 +1826,7 @@ function render2XkoCharacterRail(game) {
 
 function renderMarvelTeamHeader(team) {
   const theme = getTeamTheme(team);
-  const logo = theme?.logo || '';
+  const logo = getMarvelTeamLogoUrl(team) || theme?.logo || '';
   return `
     <header class="marvel-team-header" data-team="${escapeHtml(getTeamSlug(team))}" style="--team-accent:${theme?.accent || '#ff8a00'};--team-accent-2:${theme?.accent2 || '#18bafc'}">
       <span class="marvel-team-logo" aria-hidden="true">${logo ? `<img src="${escapeHtml(logo)}" alt="" loading="lazy" />` : escapeHtml(team.split(/\s+/).map((word) => word[0]).join('').slice(0, 2))}</span>
@@ -1961,7 +1998,9 @@ function create2XkoStageCard(game, character, index = 0, total = 1) {
 
   actions.append(wikiLink);
   article.append(actions, detailLink);
-  const selectedStageArtUrl = get2XkoSelectedStageArtUrl(game, character);
+  const selectedStageArtUrl = game.id === '2xko'
+    ? resolve2XkoStageArtUrl(game, character)
+    : get2XkoSelectedStageArtUrl(game, character);
   const stageCharacter = selectedStageArtUrl
     ? { ...character, imageUrl: selectedStageArtUrl, imageUrls: [selectedStageArtUrl] }
     : character;
@@ -2394,6 +2433,12 @@ function renderGamePage(game) {
   document.body.classList.remove('has-x2ko-fantasy-bg', 'has-modern-detail-bg', 'has-marvel-detail-bg');
   document.body.style.removeProperty('--x2ko-detail-bg');
   document.body.style.removeProperty('--modern-detail-bg');
+  app.style.removeProperty('--x2ko-detail-bg');
+  app.style.removeProperty('--modern-detail-bg');
+  app.style.removeProperty('background-image');
+  app.style.removeProperty('background-size');
+  app.style.removeProperty('background-position');
+  app.style.removeProperty('background-repeat');
   document.body.style.removeProperty('--game-mobile-bg');
   applyGamePageTheme(game);
   const gamePageBackgroundUrl = getGamePageBackgroundUrl(game);
@@ -5336,9 +5381,30 @@ function renderCharacterPage(game, character) {
   if (hasModernDetailBackground) {
     document.body.style.setProperty('--x2ko-detail-bg', `url('${modernDetailBgUrl}')`);
     document.body.style.setProperty('--modern-detail-bg', `url('${modernDetailBgUrl}')`);
+    if (game.id === 'marvel-tokon') {
+      app.style.setProperty('--x2ko-detail-bg', `url('${modernDetailBgUrl}')`, 'important');
+      app.style.setProperty('--modern-detail-bg', `url('${modernDetailBgUrl}')`, 'important');
+      app.style.setProperty('background-image', `url("${modernDetailBgUrl}")`, 'important');
+      app.style.setProperty('background-size', 'cover', 'important');
+      app.style.setProperty('background-position', 'center center', 'important');
+      app.style.setProperty('background-repeat', 'no-repeat', 'important');
+    } else {
+      app.style.removeProperty('--x2ko-detail-bg');
+      app.style.removeProperty('--modern-detail-bg');
+      app.style.removeProperty('background-image');
+      app.style.removeProperty('background-size');
+      app.style.removeProperty('background-position');
+      app.style.removeProperty('background-repeat');
+    }
   } else {
     document.body.style.removeProperty('--x2ko-detail-bg');
     document.body.style.removeProperty('--modern-detail-bg');
+    app.style.removeProperty('--x2ko-detail-bg');
+    app.style.removeProperty('--modern-detail-bg');
+    app.style.removeProperty('background-image');
+    app.style.removeProperty('background-size');
+    app.style.removeProperty('background-position');
+    app.style.removeProperty('background-repeat');
   }
 
   const record = getPersonalRecord(game, character);
@@ -5386,6 +5452,12 @@ function renderHomePage() {
   delete document.body.dataset.character;
   delete document.body.dataset.actualGame;
   document.body.classList.remove('has-x2ko-fantasy-bg', 'has-modern-detail-bg', 'has-marvel-detail-bg');
+  app.style.removeProperty('--x2ko-detail-bg');
+  app.style.removeProperty('--modern-detail-bg');
+  app.style.removeProperty('background-image');
+  app.style.removeProperty('background-size');
+  app.style.removeProperty('background-position');
+  app.style.removeProperty('background-repeat');
   document.body.style.removeProperty('--x2ko-detail-bg');
   document.body.style.removeProperty('--modern-detail-bg');
   resetPageTheme();
